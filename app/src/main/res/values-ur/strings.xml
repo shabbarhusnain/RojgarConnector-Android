@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">روزگار کنیکٹر</string>
+
+    <!-- Login/Register -->
+    <string name="login">لاگ ان</string>
+    <string name="register">رجسٹر</string>
+    <string name="email_cnic">شناختی کارڈ نمبر</string>
+    <string name="password">پاس ورڈ</string>
+    <string name="forgot_password">پاس ورڈ بھول گئے؟</string>
+    <string name="dont_have_account">اکاؤنٹ نہیں ہے؟ ابھی رجسٹر کریں۔</string>
+    <string name="full_name">پورا نام</string>
+    <string name="phone_number">فون نمبر</string>
+    <string name="confirm_password">پاس ورڈ کی تصدیق کریں</string>
+    <string name="already_have_account">پہلے سے اکاؤنٹ ہے؟ لاگ ان کریں۔</string>
+
+    <!-- Role Selection -->
+    <string name="choose_your_role">اپنا کردار منتخب کریں</string>
+    <string name="service_seeker">ملازمت کے متلاشی</string>
+    <string name="service_provider">ملازمت فراہم کرنے والے</string>
+    <string name="educated_worker">تعلیم یافتہ کارکن</string>
+    <string name="un_educated_worker">غیر تعلیم یافتہ کارکن</string>
+    <string name="confirm_and_continue">تصدیق کریں اور آگے بڑھیں</string>
+
+    <!-- Home -->
+    <string name="home">ہوم</string>
+    <string name="notifications">اطلاعات</string>
+    <string name="messages">پیغامات</string>
+    <string name="profile">پروفائل</string>
+
+    <!-- Settings -->
+    <string name="settings">ترتیبات</string>
+    <string name="switch_to_urdu">اردو میں تبدیل کریں</string>
+    <string name="logout">لاگ آؤٹ</string>
+
+</resources>

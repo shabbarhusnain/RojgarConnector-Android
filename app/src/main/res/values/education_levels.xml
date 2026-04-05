@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="education_levels">
+        <item>Metric</item>
+        <item>Intermediate</item>
+        <item>BSc</item>
+        <item>B.A</item>
+        <item>B.com</item>
+        <item>BS</item>
+        <item>MSc</item>
+        <item>MPhil</item>
+        <item>PHD</item>
+    </string-array>
+</resources>

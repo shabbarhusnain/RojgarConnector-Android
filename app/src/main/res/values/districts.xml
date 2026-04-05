@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Professional Categories (Educated) -->
+    <string-array name="educated_categories">
+        <item>Select Professional Category</item>
+        <item>IT &amp; Technical Support</item>
+        <item>Education &amp; Teaching</item>
+        <item>Office &amp; Administration</item>
+        <item>Sales &amp; Marketing</item>
+        <item>Accounts &amp; Finance</item>
+        <item>Healthcare &amp; Nursing</item>
+        <item>Call Center &amp; Support</item>
+        <item>Graphic Designing</item>
+        <item>Management</item>
+        <item>Other Professional</item>
+    </string-array>
+
+    <!-- Skill Categories (Uneducated/Labor) -->
+    <string-array name="skill_categories">
+        <item>Select Work Category</item>
+        <item>Electrician</item>
+        <item>Plumber</item>
+        <item>Mason (Mistri)</item>
+        <item>Laborer (Mazdoor)</item>
+        <item>Painter</item>
+        <item>Driver</item>
+        <item>Carpenter</item>
+        <item>Welder</item>
+        <item>Mechanic</item>
+        <item>Cook/Chef</item>
+        <item>Security Guard</item>
+        <item>Housekeeping/Cleaning</item>
+        <item>Tailor</item>
+        <item>Other Skill</item>
+    </string-array>
+
+    <!-- Workplace Settings -->
+    <string-array name="workplace_types">
+        <item>Select Workplace Type</item>
+        <item>House</item>
+        <item>Shop</item>
+        <item>Office</item>
+        <item>School/College</item>
+        <item>Hospital</item>
+        <item>Company</item>
+        <item>Factory</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="duration_units">
+        <item>Hours</item>
+        <item>Days</item>
+        <item>Months</item>
+    </string-array>
+
+    <string-array name="pay_units">
+        <item>Per Hour</item>
+        <item>Per Day</item>
+        <item>Per Month</item>
+        <item>Fixed Project Base</item>
+    </string-array>
+
+    <!-- All Pakistan Districts -->
+    <string-array name="pakistan_districts">
+        <item>Select District</item>
+        <item>Abbottabad</item>
+        <item>Astore</item>
+        <item>Attock</item>
+        <item>Awaran</item>
+        <item>Badin</item>
+        <item>Bagh</item>
+        <item>Bahawalnagar</item>
+        <item>Bahawalpur</item>
+        <item>Bajaur</item>
+        <item>Bannu</item>
+        <item>Barkhan</item>
+        <item>Batagram</item>
+        <item>Bhakkar</item>
+        <item>Bhimber</item>
+        <item>Buner</item>
+        <item>Chagai</item>
+        <item>Chakwal</item>
+        <item>Charsadda</item>
+        <item>Chiniot</item>
+        <item>Dadu</item>
+        <item>Darel</item>
+        <item>Dera Bugti</item>
+        <item>Dera Ghazi Khan</item>
+        <item>Dera Ismail Khan</item>
+        <item>Diamer</item>
+        <item>Duki</item>
+        <item>Faisalabad</item>
+        <item>Ghizer</item>
+        <item>Ghotki</item>
+        <item>Gilgit</item>
+        <item>Gujranwala</item>
+        <item>Gujrat</item>
+        <item>Gupis-Yasin</item>
+        <item>Gwadar</item>
+        <item>Hafizabad</item>
+        <item>Hangu</item>
+        <item>Haripur</item>
+        <item>Harnai</item>
+        <item>Hattian Bala</item>
+        <item>Haveli</item>
+        <item>Hunza</item>
+        <item>Hyderabad</item>
+        <item>Islamabad</item>
+        <item>Jacobabad</item>
+        <item>Jafarabad</item>
+        <item>Jamshoro</item>
+        <item>Jhal Magsi</item>
+        <item>Jhang</item>
+        <item>Jhelum</item>
+        <item>Kachhi</item>
+        <item>Kalat</item>
+        <item>Kambar Shahdadkot</item>
+        <item>Karachi Central</item>
+        <item>Karachi East</item>
+        <item>Karachi South</item>
+        <item>Karachi West</item>
+        <item>Karak</item>
+        <item>Kashmore</item>
+        <item>Kasur</item>
+        <item>Kech</item>
+        <item>Khairpur</item>
+        <item>Khanewal</item>
+        <item>Kharan</item>
+        <item>Kharmang</item>
+        <item>Khushab</item>
+        <item>Khuzdar</item>
+        <item>Khyber</item>
+        <item>Killa Abdullah</item>
+        <item>Killa Saifullah</item>
+        <item>Kohat</item>
+        <item>Kohistan</item>
+        <item>Kolai-Palas</item>
+        <item>Korangi</item>
+        <item>Kotli</item>
+        <item>Kurram</item>
+        <item>Lahore</item>
+        <item>Lakki Marwat</item>
+        <item>Larkana</item>
+        <item>Lasbela</item>
+        <item>Layyah</item>
+        <item>Lodhran</item>
+        <item>Loralai</item>
+        <item>Lower Chitral</item>
+        <item>Lower Dir</item>
+        <item>Lower Kohistan</item>
+        <item>Malakand</item>
+        <item>Malir</item>
+        <item>Mandi Bahauddin</item>
+        <item>Mansehra</item>
+        <item>Mardan</item>
+        <item>Mastung</item>
+        <item>Matiari</item>
+        <item>Mianwali</item>
+        <item>Mirpur</item>
+        <item>Mirpur Khas</item>
+        <item>Mohmand</item>
+        <item>Multan</item>
+        <item>Musakhel</item>
+        <item>Muzaffarabad</item>
+        <item>Muzaffargarh</item>
+        <item>Nagar</item>
+        <item>Nankana Sahib</item>
+        <item>Narowal</item>
+        <item>Naseerabad</item>
+        <item>Naushahro Feroze</item>
+        <item>Neelum</item>
+        <item>North Waziristan</item>
+        <item>Nowshera</item>
+        <item>Nushki</item>
+        <item>Okara</item>
+        <item>Orakzai</item>
+        <item>Pakpattan</item>
+        <item>Panjgur</item>
+        <item>Peshawar</item>
+        <item>Pishin</item>
+        <item>Poonch</item>
+        <item>Qila Abdullah</item>
+        <item>Qila Saifullah</item>
+        <item>Quetta</item>
+        <item>Rahim Yar Khan</item>
+        <item>Rajanpur</item>
+        <item>Rawalpindi</item>
+        <item>Rondu</item>
+        <item>Sahiwal</item>
+        <item>Sanghar</item>
+        <item>Sargodha</item>
+        <item>Shaheed Benazirabad</item>
+        <item>Shaheed Sikandarabad</item>
+        <item>Shangla</item>
+        <item>Sheikhupura</item>
+        <item>Sherani</item>
+        <item>Shigar</item>
+        <item>Shikarpur</item>
+        <item>Sialkot</item>
+        <item>Sibi</item>
+        <item>Sohbatpur</item>
+        <item>South Waziristan</item>
+        <item>Sudhnoti</item>
+        <item>Sujawal</item>
+        <item>Sukkur</item>
+        <item>Swabi</item>
+        <item>Swat</item>
+        <item>Taftan</item>
+        <item>Tangir</item>
+        <item>Tando Allahyar</item>
+        <item>Tando Muhammad Khan</item>
+        <item>Tank</item>
+        <item>Tharparkar</item>
+        <item>Thatta</item>
+        <item>Toba Tek Singh</item>
+        <item>Torghar</item>
+        <item>Umerkot</item>
+        <item>Upper Chitral</item>
+        <item>Upper Dir</item>
+        <item>Upper Kohistan</item>
+        <item>Vehari</item>
+        <item>Washuk</item>
+        <item>Zhob</item>
+        <item>Ziarat</item>
+    </string-array>
+</resources>

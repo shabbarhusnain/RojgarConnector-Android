@@ -1,0 +1,32 @@
+{
+  "provinces": [
+    {
+      "name": "Punjab",
+      "districts": ["Lahore", "Faisalabad", "Rawalpindi", "Multan", "Gujranwala", "Sialkot", "Bahawalpur", "Sargodha"]
+    },
+    {
+      "name": "Sindh",
+      "districts": ["Karachi", "Hyderabad", "Sukkur", "Larkana", "Mirpur Khas", "Nawabshah"]
+    },
+    {
+      "name": "Khyber Pakhtunkhwa",
+      "districts": ["Peshawar", "Abbottabad", "Mardan", "Swat", "Kohat", "Dera Ismail Khan"]
+    },
+    {
+      "name": "Balochistan",
+      "districts": ["Quetta", "Gwadar", "Khuzdar", "Turbat", "Sibi", "Loralai"]
+    },
+    {
+      "name": "Gilgit-Baltistan",
+      "districts": ["Gilgit", "Skardu", "Diamer", "Ghizer", "Ghanche"]
+    },
+    {
+      "name": "Azad Kashmir",
+      "districts": ["Muzaffarabad", "Mirpur", "Kotli", "Bhimber", "Poonch"]
+    },
+    {
+      "name": "Islamabad Capital Territory",
+      "districts": ["Islamabad"]
+    }
+  ]
+}

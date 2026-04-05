@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- MAIN BRANDING GREEN (Aap ka favorite - Primary) -->
+    <color name="primary_green">#7BCE16</color>
+    
+    <!-- BRANDING YELLOW (Logo Accent - Secondary) -->
+    <color name="brand_yellow">#FFD600</color>
+    <color name="brand_yellow_light">#FFF9C4</color>
+    
+    <!-- Professional Status Colors -->
+    <color name="status_pending">#FFD600</color> <!-- Yellow for Pending/Warning -->
+    <color name="status_accepted">#7BCE16</color> <!-- Green for Success -->
+    <color name="status_rejected">#D32F2F</color> <!-- Red for Error -->
+    <color name="status_completed">#2196F3</color> <!-- Blue for Record/History -->
+    
+    <!-- UI Greys -->
+    <color name="dark_grey">#424242</color>
+    <color name="grey">#808080</color>
+    <color name="light_grey">#F5F5F5</color>
+    
+    <!-- Fixed: Adding back the red resources to fix build errors -->
+    <color name="red">#FF0000</color>
+    <color name="error_red">#D32F2F</color>
+
+    <!-- Theme Fallbacks (Synced to Green/Yellow) -->
+    <color name="purple_200">#A5D6A7</color>
+    <color name="purple_500">#7BCE16</color>
+    <color name="purple_700">#689F38</color>
+    <color name="teal_200">#FFD600</color>
+    <color name="teal_700">#7BCE16</color>
+</resources>

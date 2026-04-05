@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Educated Worker Portfolio"
+            android:textColor="@color/primary_green"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- Academic Details Section -->
+        <TextView
+            android:id="@+id/academicHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Academic Details"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerLastDegree"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/edittext_border"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etDegreeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Degree Title / Major (e.g. Software Engineering)"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etBoardUniversity"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="University / Board"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etPercentage"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Percentage / CGPA"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Professional Skills Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Professional Skills"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerSkillCategory"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/edittext_border"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etCustomSkill"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Type your skill (if not in list)..."
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Experience Section -->
+        <EditText
+            android:id="@+id/etExperienceYears"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Years of Experience (if any)"
+            android:inputType="number"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etLastWorkPlace"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Last place of work (if experienced)"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etProfessionalDescription"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Tell us about yourself / Description"
+            android:gravity="top"
+            android:padding="16dp"
+            android:background="@drawable/edittext_border"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Security & Surety Section -->
+        <CheckBox
+            android:id="@+id/cbSurety"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I hereby declare that all information provided is true and accurate. In case of any misinformation, my account can be deleted."
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note: If you attempt any fraud or break the law, legal action will be taken against you by the police. The app will track your activities for security."
+            android:textColor="@color/red"
+            android:textSize="11sp"
+            android:textStyle="italic"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnUploadLastDegreeImage"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="UPLOAD LAST DEGREE PHOTO"
+            app:strokeColor="@color/primary_green"
+            android:textColor="@color/primary_green"
+            android:layout_marginBottom="12dp" />
+
+        <ImageView
+            android:id="@+id/imgDegreePreview"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:visibility="gone"
+            android:scaleType="centerInside"
+            android:background="#F5F5F5"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnSubmitPortfolio"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="COMPLETE PORTFOLIO"
+            android:textStyle="bold"
+            android:backgroundTint="@color/primary_green"
+            app:cornerRadius="12dp"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

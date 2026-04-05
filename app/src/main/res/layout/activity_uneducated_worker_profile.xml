@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skill Worker Profile"
+            android:textColor="@color/primary_green"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Your Main Skill"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerSkill"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/edittext_border"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etCustomSkill"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Enter your skill name..."
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etExperienceYears"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Experience Years (e.g. 2)"
+            android:inputType="number"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etLastWorkPlace"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Where did you work last?"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etDailyRate"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Expected Daily Wage (Rs.)"
+            android:inputType="number"
+            android:background="@drawable/edittext_border"
+            android:paddingStart="16dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etProfessionalDescription"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Describe your skills and work experience..."
+            android:gravity="top"
+            android:padding="12dp"
+            android:background="@drawable/edittext_border"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note: If you attempt any fraud or break the law, legal action will be taken against you as per the law."
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <CheckBox
+            android:id="@+id/cbTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I guarantee that if the work is unsatisfactory, payment will not be required."
+            android:layout_marginBottom="32dp"
+            android:buttonTint="@color/primary_green"/>
+
+        <Button
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="SAVE PROFILE"
+            android:textStyle="bold"
+            android:backgroundTint="@color/primary_green"
+            app:cornerRadius="12dp"/>
+
+    </LinearLayout>
+</ScrollView>
