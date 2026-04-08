@@ -1,6 +1,6 @@
-#  RojgarConnector - Solving the Job Gap for Workers
+#  RozgarConnector - Solving the Job Gap for Workers
 
-RojgarConnector is a mobile solution built to connect employers directly with both skilled and unskilled workers. The goal of this project was to simplify the hiring process, especially for people who struggle to find daily-wage or technical jobs through traditional platforms.
+RozgarConnector is a mobile solution built to connect employers directly with both educated skilled and un-educated skilled workers. The goal of this project was to simplify the hiring process, especially for people who struggle to find daily-wage or technical jobs through traditional platforms.
 
 ### What makes it different?
 - **For Everyone:** Whether it's an educated professional or a local laborer, everyone gets a dedicated profile.
