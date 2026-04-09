@@ -37,10 +37,10 @@ class ChatAdapter(private val messageList: List<MessageModel>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_SENT) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_sent, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_message_sent, parent, false)
             SentViewHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_received, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_message_received, parent, false)
             ReceivedViewHolder(view)
         }
     }

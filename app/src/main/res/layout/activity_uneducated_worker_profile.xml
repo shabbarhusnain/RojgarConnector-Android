@@ -111,7 +111,7 @@
             android:layout_height="60dp"
             android:text="SAVE PROFILE"
             android:textStyle="bold"
-            android:backgroundTint="@color/primary_green"
+            android:background="@drawable/glass_bg"
             app:cornerRadius="12dp"/>
 
     </LinearLayout>

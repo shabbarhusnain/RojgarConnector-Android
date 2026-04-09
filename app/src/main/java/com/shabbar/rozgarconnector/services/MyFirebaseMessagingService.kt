@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.shabbar.rozgarconnector.R
-import com.shabbar.rozgarconnector.ui.MainActivity
+import com.shabbar.rozgarconnector.ui.auth.SplashActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -32,7 +32,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val intent = Intent(this, MainActivity::class.java)
+        // Changed from MainActivity to SplashActivity
+        val intent = Intent(this, SplashActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 

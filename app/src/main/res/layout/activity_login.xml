@@ -4,13 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#FAFFF3">
+
+    <ImageView
+        android:id="@+id/imgLock"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="88dp"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/btnSettings"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="46dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:padding="8dp"
         android:src="@drawable/ic_settings"
@@ -19,58 +30,62 @@
         app:tint="@color/primary_green" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FAFFF3"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="24dp"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Rozgar Connector"
             android:textColor="@color/primary_green"
             android:textSize="32sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:text="Bridging the gap to local work"
             android:textColor="@color/grey"
-            android:textSize="14sp"
-            android:layout_marginBottom="40dp"/>
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/etLoginCNIC"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_border"
             android:hint="13-Digit CNIC (Without Dashes)"
             android:inputType="number"
             android:maxLength="13"
-            android:background="@drawable/edittext_border"
-            android:paddingStart="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:paddingStart="16dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/primary_green"
             android:layout_marginBottom="8dp"
-            app:hintEnabled="false">
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/primary_green">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLoginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:background="@drawable/edittext_border"
                 android:hint="Enter Password"
                 android:inputType="textPassword"
-                android:background="@drawable/edittext_border"
-                android:paddingStart="16dp"/>
+                android:paddingStart="16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,32 +93,34 @@
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Forgot Password?"
-            android:textColor="@color/primary_green"
-            android:textStyle="bold"
             android:layout_gravity="end"
             android:layout_marginBottom="24dp"
-            android:padding="4dp"/>
+            android:padding="4dp"
+            android:text="Forgot Password?"
+            android:textColor="@color/primary_green"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:background="@drawable/glass_bg"
+            android:elevation="4dp"
             android:text="LOGIN"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:backgroundTint="@color/primary_green"
-            android:elevation="4dp"/>
+            />
 
         <TextView
             android:id="@+id/tvRegisterLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="8dp"
             android:text="Don't have an account? Register Now"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp"
-            android:padding="8dp"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

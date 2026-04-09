@@ -99,10 +99,11 @@
             android:id="@+id/btnUploadDP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Upload Profile Picture"
-            android:backgroundTint="@color/grey"
             android:textColor="@color/white"
-            android:layout_marginBottom="8dp"/>
+            android:background="@drawable/docglass_bg"
+            app:backgroundTint="@null" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,21 +115,23 @@
                 android:id="@+id/btnUploadCnicFront"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
+                android:background="@drawable/docglass_bg"
+                app:backgroundTint="@null"
                 android:text="CNIC Front"
-                android:backgroundTint="@color/grey"
-                android:textColor="@color/white"
-                android:layout_marginEnd="4dp"/>
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnUploadCnicBack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:layout_weight="1"
+                android:background="@drawable/docglass_bg"
+                app:backgroundTint="@null"
                 android:text="CNIC Back"
-                android:backgroundTint="@color/grey"
-                android:textColor="@color/white"
-                android:layout_marginStart="4dp"/>
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <EditText
@@ -168,7 +171,7 @@
             android:text="Register"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:backgroundTint="@color/primary_green"/>
+            android:background="@drawable/glass_bg"/>
 
         <TextView
             android:id="@+id/tvLogin"

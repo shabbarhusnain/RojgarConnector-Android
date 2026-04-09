@@ -57,32 +57,58 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
         db.collection("chats")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshots, e ->
-                if (e != null) return@addSnapshotListener
+                if (e != null || snapshots == null) return@addSnapshotListener
                 
                 val conversationMap = mutableMapOf<String, ChatListModel>()
+                val unreadStatusMap = mutableMapOf<String, Boolean>()
                 
-                snapshots?.forEach { doc ->
+                // First pass: Find latest message and unread status for each conversation
+                snapshots.forEach { doc ->
                     val m = doc.toObject(MessageModel::class.java)
                     val otherUserId = if (m.senderId == currentUid) m.receiverId else m.senderId
                     
-                    // Only process messages involving current user
                     if (m.senderId == currentUid || m.receiverId == currentUid) {
+                        // Check for unread messages sent to ME
+                        if (m.receiverId == currentUid && !m.isRead) {
+                            unreadStatusMap[otherUserId] = true
+                        }
+
                         if (!conversationMap.containsKey(otherUserId)) {
-                            // Fetch User Details for the first message found (most recent)
-                            db.collection("users").document(otherUserId).get().addOnSuccessListener { userDoc ->
-                                val name = userDoc.getString("fullName") ?: "Unknown User"
-                                val dp = userDoc.getString("dpBase64")
-                                
-                                val chatItem = ChatListModel(
-                                    userId = otherUserId,
-                                    userName = name,
-                                    lastMessage = m.message,
-                                    timestamp = m.timestamp,
-                                    profileImage = dp
-                                )
-                                conversationMap[otherUserId] = chatItem
-                                updateUI(conversationMap.values.toList())
-                            }
+                            conversationMap[otherUserId] = ChatListModel(
+                                userId = otherUserId,
+                                lastMessage = m.message,
+                                timestamp = m.timestamp,
+                                hasUnread = false // Temp
+                            )
+                        }
+                    }
+                }
+
+                if (conversationMap.isEmpty()) {
+                    updateUI(emptyList())
+                    return@addSnapshotListener
+                }
+
+                // Second pass: Fetch names and update UI
+                val finalItems = mutableListOf<ChatListModel>()
+                var fetchedCount = 0
+                val totalToFetch = conversationMap.size
+
+                conversationMap.forEach { (otherId, item) ->
+                    db.collection("users").document(otherId).get().addOnSuccessListener { userDoc ->
+                        val name = userDoc.getString("fullName") ?: "Unknown User"
+                        val dp = userDoc.getString("dpBase64")
+                        
+                        val updatedItem = item.copy(
+                            userName = name,
+                            profileImage = dp,
+                            hasUnread = unreadStatusMap[otherId] ?: false
+                        )
+                        finalItems.add(updatedItem)
+                        fetchedCount++
+                        
+                        if (fetchedCount == totalToFetch) {
+                            updateUI(finalItems)
                         }
                     }
                 }

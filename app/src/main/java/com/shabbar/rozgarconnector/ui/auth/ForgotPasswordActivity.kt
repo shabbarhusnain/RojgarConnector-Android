@@ -27,6 +27,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     // Stores the verification ID from the OTP sending process.
     private var verificationId: String? = null
+    private var mCnic: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             if (binding.btnNextAction.text == "FIND ACCOUNT") {
                 // Step 1: Find the user's account using their CNIC.
                 if (input.length == 13) {
+                    mCnic = input
                     verifyCnicAndInitiateOtp(input)
                 } else {
                     binding.etForgotCNIC.error = "CNIC must be 13 digits"
@@ -135,7 +137,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(this, "OTP Verified Successfully!", Toast.LENGTH_SHORT).show()
                 // Navigate to the screen where they can set a new password.
-                val intent = Intent(this, ResetPasswordActivity::class.java)
+                val intent = Intent(this, ResetPasswordActivity::class.java).apply {
+                    putExtra("CNIC", mCnic)
+                }
                 startActivity(intent)
                 finish()
             }

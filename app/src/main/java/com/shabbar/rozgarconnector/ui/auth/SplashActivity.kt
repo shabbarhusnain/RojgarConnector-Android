@@ -22,7 +22,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
         Handler(Looper.getMainLooper()).postDelayed({
             checkUserStatus()
         }, 2000)

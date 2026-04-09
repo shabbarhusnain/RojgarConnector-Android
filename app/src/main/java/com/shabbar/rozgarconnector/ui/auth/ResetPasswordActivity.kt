@@ -7,57 +7,76 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.shabbar.rozgarconnector.databinding.ActivityResetPasswordBinding
 
+/**
+ * Allows the user to set a new password after successful OTP verification.
+ */
 class ResetPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResetPasswordBinding
     private val auth = FirebaseAuth.getInstance()
+    private var mCnic: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResetPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnResetPassword.setOnClickListener {
-            val newPass = binding.etNewPassword.text.toString().trim()
-            val confirmPass = binding.etConfirmNewPassword.text.toString().trim()
+        // Retrieve the CNIC passed from ForgotPasswordActivity
+        mCnic = intent.getStringExtra("CNIC")
 
-            if (newPass.length < 6) {
-                binding.etNewPassword.error = "Minimum 6 characters"
-                return@setOnClickListener
-            }
-            if (newPass != confirmPass) {
-                binding.etConfirmNewPassword.error = "Passwords do not match"
-                return@setOnClickListener
-            }
-
-            updatePassword(newPass)
-        }
-    }
-
-    private fun updatePassword(pass: String) {
-        val user = auth.currentUser
-        if (user == null) {
-            Toast.makeText(this, "Error: User not authenticated. Please try again.", Toast.LENGTH_LONG).show()
-            // Optional: Redirect to login
+        if (mCnic == null) {
+            Toast.makeText(this, "Error: User context lost.", Toast.LENGTH_SHORT).show()
+            finish()
             return
         }
 
-        binding.btnResetPassword.isEnabled = false
-        binding.btnResetPassword.text = "UPDATING..."
+        binding.btnResetPassword.setOnClickListener {
+            val newPass = binding.etNewPassword.text.toString().trim()
+            val confirmPass = binding.etConfirmPassword.text.toString().trim()
 
-        user.updatePassword(pass).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Password updated successfully! Please login with your new password.", Toast.LENGTH_LONG).show()
-                auth.signOut() // Sign out to force re-login
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                finish()
-            } else {
-                binding.btnResetPassword.isEnabled = true
-                binding.btnResetPassword.text = "RESET PASSWORD"
-                Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+            if (newPass.isEmpty() || newPass.length < 6) {
+                binding.etNewPassword.error = "Password must be at least 6 characters"
+                return@setOnClickListener
             }
+
+            if (newPass != confirmPass) {
+                binding.etConfirmPassword.error = "Passwords do not match"
+                return@setOnClickListener
+            }
+
+            updatePasswordInAuth(newPass)
+        }
+    }
+
+    /**
+     * Updates the password for the current authenticated user.
+     * Note: Since the user just signed in with Phone Auth in ForgotPasswordActivity,
+     * they are technically "logged in" now, but we want to update their "Email/Password" account.
+     */
+    private fun updatePasswordInAuth(newPass: String) {
+        val user = auth.currentUser
+        if (user != null) {
+            binding.btnResetPassword.isEnabled = false
+            binding.btnResetPassword.text = "UPDATING..."
+
+            user.updatePassword(newPass)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Password Updated Successfully!", Toast.LENGTH_LONG).show()
+                    // Sign out and redirect to login
+                    auth.signOut()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                }
+                .addOnFailureListener { e ->
+                    binding.btnResetPassword.isEnabled = true
+                    binding.btnResetPassword.text = "UPDATE PASSWORD"
+                    Toast.makeText(this, "Failed to update password: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+        } else {
+            Toast.makeText(this, "Session expired. Please try again.", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }

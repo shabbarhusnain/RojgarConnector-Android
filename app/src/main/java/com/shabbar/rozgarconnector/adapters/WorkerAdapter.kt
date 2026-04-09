@@ -1,11 +1,12 @@
 package com.shabbar.rozgarconnector.adapters
 
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ItemWorkerBinding
 import com.shabbar.rozgarconnector.models.UserModel
@@ -28,9 +29,8 @@ class WorkerAdapter(
         holder.binding.tvName.text = worker.fullName
         holder.binding.tvLocation.text = worker.district ?: "Unknown Location"
 
-        // Display Average Rating from Firestore (No more dummy 4.5)
-        val avgRating = worker.averageRating.toFloat()
-        holder.binding.ratingBar.rating = avgRating
+        // Display Average Rating
+        holder.binding.ratingBar.rating = worker.averageRating
 
         // Smart Skill Display
         val displayInfo = if (worker.workerType == "educated") {
@@ -43,14 +43,20 @@ class WorkerAdapter(
         // Verification Badge
         holder.binding.imgVerified.visibility = if (worker.isVerified) View.VISIBLE else View.GONE
 
-        // Load Profile Image
-        Glide.with(holder.binding.root.context)
-            .load(worker.profileImageUrl)
-            .placeholder(R.drawable.ic_profile)
-            .error(R.drawable.ic_profile)
-            .into(holder.binding.imgProfile)
+        // --- Load Profile Image (Base64 Support) ---
+        if (!worker.dpBase64.isNullOrEmpty()) {
+            try {
+                val decodedString = Base64.decode(worker.dpBase64, Base64.DEFAULT)
+                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                holder.binding.imgProfile.setImageBitmap(decodedByte)
+            } catch (e: Exception) {
+                holder.binding.imgProfile.setImageResource(R.drawable.ic_profile)
+            }
+        } else {
+            holder.binding.imgProfile.setImageResource(R.drawable.ic_profile)
+        }
 
-        // Only View Portfolio Button - Directs to Detail Activity
+        // View Portfolio Button
         holder.binding.btnViewDetails.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, WorkerDetailActivity::class.java).apply {

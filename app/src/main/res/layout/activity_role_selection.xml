@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="24dp">
+    android:src="@drawable/ic_app_logo"
+    android:padding="24dp"
+    >
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -42,8 +45,8 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="#F1F8E9"
-                app:strokeColor="@color/primary_green"
+                app:cardBackgroundColor="@color/primary_green"
+                app:strokeColor="@color/brand_yellow"
                 app:strokeWidth="0dp"
                 android:clickable="true"
                 android:focusable="true">
@@ -52,10 +55,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Service Seeker\n(I want to hire)"
+                    android:text="Service Seeker"
+                    android:background="@color/primary_green"
                     android:textAlignment="center"
-                    android:textColor="#2E7D32"
-                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -66,8 +70,8 @@
                 android:layout_height="100dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="#E3F2FD"
-                app:strokeColor="@color/primary_green"
+
+                app:strokeColor="@color/brand_yellow"
                 app:strokeWidth="0dp"
                 android:clickable="true"
                 android:focusable="true">
@@ -76,10 +80,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Service Provider\n(I want to work)"
+                    android:text="Service Provider"
                     android:textAlignment="center"
-                    android:textColor="#1565C0"
-                    android:textSize="18sp"
+                    android:background="@color/brand_yellow"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -89,17 +94,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:background="@drawable/edittext_border"
                 android:orientation="vertical"
-                android:visibility="gone"
                 android:padding="16dp"
-                android:background="@drawable/edittext_border">
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:text="Select Worker Type:"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp"/>
+                    android:textStyle="bold" />
 
                 <RadioGroup
                     android:id="@+id/radioGroupProviderType"
@@ -110,17 +115,17 @@
                         android:id="@+id/radioEducated"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Educated (Degree/Diploma Holder)"
                         android:buttonTint="@color/primary_green"
-                        android:padding="8dp"/>
+                        android:padding="8dp"
+                        android:text="Educated (Degree/Diploma Holder)" />
 
                     <RadioButton
                         android:id="@+id/radioUneducated"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Uneducated (Skilled Labor/Manual)"
                         android:buttonTint="@color/primary_green"
-                        android:padding="8dp"/>
+                        android:padding="8dp"
+                        android:text="Uneducated (Skilled Labor/Manual)" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -132,11 +137,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/docglass_bg"
         android:text="Confirm and Continue"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:backgroundTint="@color/primary_green"
-        app:cornerRadius="12dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:cornerRadius="12dp" />
 
 </RelativeLayout>

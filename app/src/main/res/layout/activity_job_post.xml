@@ -13,6 +13,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/fullglass_bg"
             app:title="Post a New Job"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -257,12 +258,11 @@
                     <EditText
                         android:id="@+id/etJobDescription"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:hint="Briefly describe the tasks..."
+                        android:layout_height="127dp"
                         android:gravity="top"
-                        android:background="@drawable/edittext_border"
+                        android:hint="Briefly describe the tasks..."
                         android:padding="12dp"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -272,7 +272,7 @@
                 android:layout_height="60dp"
                 android:text="PUBLISH JOB"
                 android:textStyle="bold"
-                android:backgroundTint="@color/primary_green"
+                android:background="@drawable/glass_bg"
                 app:cornerRadius="12dp"
                 android:elevation="4dp"/>
 
