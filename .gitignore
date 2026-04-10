@@ -9,16 +9,24 @@ local.properties
 capture/
 output.json
 
-# Secrets & Keys (MOST IMPORTANT)
+# Firebase / Google Services backup files
+google-services.json.bak
+google-services-*.json
 *.jks
 *.keystore
 google-services.json
 jdbc.properties
 secrets.xml
 
-# System files
-.DS_Store
-Thumbs.db
+# Private keys and certificate folders
+/certs
+/keys
+
+# OS generated files in subfolders
+**/Thumbs.db
+**/.DS_Store
 
 # Log files
 *.log
+# Crashlytics and performance monitoring generated files
+com_google_firebase_crashlytics_*.json
