@@ -4,21 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="@color/white"
+    android:elevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:paddingBottom="32dp">
 
         <View
             android:id="@+id/profileHeader"
             android:layout_width="0dp"
             android:layout_height="160dp"
-            android:background="@color/primary_green"
+            android:background="@drawable/header_gradient_curved"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvappname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Rozgar Connector"
+            android:textAlignment="textStart"
+            android:textColor="#FAF9F9"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="User Profile"
+            android:textAlignment="textStart"
+            android:textColor="#D0F0A8"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvappname" />
 
         <ImageView
             android:id="@+id/btnSettings"
@@ -77,7 +107,9 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="24dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="8dp"
+            app:strokeColor="@color/ic_logo_background"
+            app:strokeWidth="1.5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProfileRole">
@@ -85,16 +117,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#F1FBE3"
+                android:elevation="8dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:text="Basic Information"
-                    android:textStyle="bold"
                     android:textColor="@color/primary_green"
-                    android:layout_marginBottom="12dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -102,19 +136,78 @@
                     android:text="Father Name"
                     android:textColor="@color/grey"
                     android:textSize="12sp" />
-                <TextView android:id="@+id/tvFatherName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="16sp" android:layout_marginBottom="12dp"/>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CNIC Number" android:textColor="@color/grey" android:textSize="12sp" />
-                <TextView android:id="@+id/tvCnic" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="16sp" android:layout_marginBottom="12dp"/>
+                <TextView
+                    android:id="@+id/tvFatherName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Date of Birth" android:textColor="@color/grey" android:textSize="12sp" />
-                <TextView android:id="@+id/tvDob" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="16sp" android:layout_marginBottom="12dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CNIC Number"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Phone Number" android:textColor="@color/grey" android:textSize="12sp" />
-                <TextView android:id="@+id/tvPhone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="16sp" android:layout_marginBottom="12dp"/>
+                <TextView
+                    android:id="@+id/tvCnic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Location" android:textColor="@color/grey" android:textSize="12sp" />
-                <TextView android:id="@+id/tvLocationFull" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date of Birth"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvDob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvLocationFull"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -128,14 +221,18 @@
             android:layout_marginTop="16dp"
             android:visibility="gone"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/infoCard">
+            app:layout_constraintTop_toBottomOf="@id/infoCard"
+            app:strokeColor="@color/ic_logo_background"
+            app:strokeWidth="1.5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:backgroundTint="#F1FBE3"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -143,24 +240,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp">
+
                     <TextView
                         android:id="@+id/tvPortfolioTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Professional Portfolio"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_green"
                         android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"/>
-                    
+                        android:layout_centerVertical="true"
+                        android:text="Professional Portfolio"
+                        android:textColor="@color/primary_green"
+                        android:textStyle="bold" />
+
                     <ImageView
                         android:id="@+id/btnEditPortfolio"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_edit"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        app:tint="@color/primary_green"/>
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/primary_green" />
                 </RelativeLayout>
 
                 <!-- Education Section (Only for Educated) -->
@@ -170,18 +268,71 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="visible">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Education" android:textColor="@color/grey" android:textSize="12sp" />
-                    <TextView android:id="@+id/tvEducation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="16sp" android:layout_marginBottom="12dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Education"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvEducation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="Not Provided"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Skill / Expertise" android:textColor="@color/grey" android:textSize="12sp" />
-                <TextView android:id="@+id/tvExpertise" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="16sp" android:layout_marginBottom="12dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Skill / Expertise"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Experience" android:textColor="@color/grey" android:textSize="12sp" />
-                <TextView android:id="@+id/tvExperienceInfo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="16sp" android:layout_marginBottom="12dp"/>
+                <TextView
+                    android:id="@+id/tvExpertise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Professional Description" android:textColor="@color/grey" android:textSize="12sp" />
-                <TextView android:id="@+id/tvDescription" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Not Provided" android:textColor="@color/black" android:textSize="14sp" android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Experience"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvExperienceInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Professional Description"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="Not Provided"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <!-- Degree Photo Section (Only for Educated) -->
                 <LinearLayout
@@ -190,14 +341,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="visible">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Last Degree Document" android:textColor="@color/grey" android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Degree Document"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp" />
+
                     <ImageView
                         android:id="@+id/imgDegreeDoc"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:layout_marginTop="8dp"
-                        android:scaleType="centerInside"
                         android:background="#F5F5F5"
+                        android:scaleType="centerInside"
                         android:src="@drawable/ic_profile_placeholder" />
                 </LinearLayout>
 
@@ -212,7 +370,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Forgot Password?"
-            android:textColor="@color/primary_green"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/portfolioCard" />
@@ -220,13 +378,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignOut"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
             android:text="SIGN OUT"
-            android:backgroundTint="#FFEBEE"
-            android:textColor="@color/red"
+            android:textColor="#000000"
+            app:backgroundTint="@color/white"
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

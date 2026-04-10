@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:elevation="4dp"
     tools:context=".ui.help.ChatWithAdminActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#5fd016">
+        android:background="@drawable/header_gradient_curved">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -60,8 +62,8 @@
         android:id="@+id/chat_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/app_bar_layout"
-        android:layout_above="@+id/message_input_layout"/>
+        android:layout_above="@+id/message_input_layout"
+        android:layout_below="@+id/app_bar_layout" />
 
     <LinearLayout
         android:id="@+id/message_input_layout"
@@ -76,13 +78,24 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Type a message" />
+            android:backgroundTint="#C9E0B1"
+            android:hint="Type a message..."
+            android:background="@drawable/edittext_border"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/send_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_send"
+            app:tint="@color/primary_green" />
     </LinearLayout>
 
 </RelativeLayout>

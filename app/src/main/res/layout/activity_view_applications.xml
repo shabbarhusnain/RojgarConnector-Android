@@ -15,8 +15,10 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/fullglass_bg"
+            android:layout_height="90dp"
+            android:background="@drawable/header_gradient_curved"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp"
             app:title="My Applications" />
 
         <androidx.recyclerview.widget.RecyclerView

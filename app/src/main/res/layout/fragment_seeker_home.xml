@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="@color/white">
 
     <!-- Green Header Section -->
     <View
         android:id="@+id/headerBg"
         android:layout_width="0dp"
         android:layout_height="220dp"
-        android:background="@color/primary_green"
+        android:background="@drawable/header_gradient_curved"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
         android:text="Service Seeker"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -33,7 +32,6 @@
         android:id="@+id/btnSettings"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:padding="4dp"
         android:src="@drawable/ic_settings"
@@ -71,11 +69,13 @@
             android:layout_height="wrap_content"
             android:text="Educated Worker"
             android:textAllCaps="false"
-            app:backgroundTint="@color/toggle_bg_selector"
             android:textColor="@color/color_toggle_text"
+            app:backgroundTint="@color/toggle_bg_selector"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="4dp"
+            app:cornerRadius="8dp"
             app:strokeColor="@color/toggle_stroke_selector"
-            app:strokeWidth="1dp"
-            app:cornerRadius="8dp" />
+            app:strokeWidth="1dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUneducated"
@@ -84,11 +84,11 @@
             android:layout_height="wrap_content"
             android:text="Uneducated Worker"
             android:textAllCaps="false"
-            app:backgroundTint="@color/toggle_bg_selector"
             android:textColor="@color/color_toggle_text"
+            app:backgroundTint="@color/toggle_bg_selector"
+            app:cornerRadius="8dp"
             app:strokeColor="@color/toggle_stroke_selector"
-            app:strokeWidth="1dp"
-            app:cornerRadius="8dp" />
+            app:strokeWidth="1dp" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <!-- Search Card -->
@@ -98,7 +98,7 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="12dp"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="25dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +116,54 @@
             android:textSize="14sp" />
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardDistrict"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardCategory"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchCard"
+        app:strokeWidth="0dp">
+
+        <Spinner
+            android:id="@+id/spinnerDistrict"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:spinnerMode="dropdown" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCategory"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cardDistrict"
+        app:layout_constraintTop_toBottomOf="@+id/searchCard"
+        app:strokeWidth="0dp">
+
+        <Spinner
+            android:id="@+id/spinnerSkill"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:spinnerMode="dropdown" />
+    </com.google.android.material.card.MaterialCardView>
+
     <!-- Filter Spinners -->
     <LinearLayout
         android:id="@+id/llFilters"
@@ -128,20 +176,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerBg">
 
-        <Spinner
-            android:id="@+id/spinnerDistrict"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_border" />
 
-        <Spinner
-            android:id="@+id/spinnerSkill"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_border" />
     </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -156,6 +191,7 @@
             android:id="@+id/rvWorkers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:clipToPadding="false"
             android:padding="8dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

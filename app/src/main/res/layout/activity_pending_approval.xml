@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:padding="32dp"
     tools:context=".ui.auth.PendingApprovalActivity">
@@ -46,4 +47,16 @@
             android:text="Logout"/>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black"
+        android:layout_width="43dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_settings" />
 </RelativeLayout>

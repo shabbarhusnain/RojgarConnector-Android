@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="#F8F9FA"
+    android:backgroundTint="@color/white">
 
-    <!-- Green Header -->
     <View
         android:id="@+id/headerBg"
         android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:background="@color/primary_green"
+        android:layout_height="200dp"
+        android:background="@drawable/header_gradient_curved"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,17 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <ImageView
+        android:id="@+id/btnSettings"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
@@ -39,32 +49,80 @@
         app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
         app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
 
-    <!-- Search Card (No toggle for provider) -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/searchCard"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        app:strokeWidth="0dp">
 
         <EditText
             android:id="@+id/etSearchJob"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@color/white"
             android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="12dp"
+            android:drawablePadding="10dp"
             android:hint="Search jobs by title or skill..."
             android:paddingStart="16dp"
+            android:textColor="@color/black"
             android:textSize="14sp" />
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Filter Spinners -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardDistrict"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardCategory"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchCard"
+        app:strokeWidth="0dp">
+
+        <Spinner
+            android:id="@+id/spinnerDistrict"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:spinnerMode="dropdown" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCategory"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cardDistrict"
+        app:layout_constraintTop_toBottomOf="@+id/searchCard"
+        app:strokeWidth="0dp">
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:spinnerMode="dropdown" />
+    </com.google.android.material.card.MaterialCardView>
+
     <LinearLayout
         android:id="@+id/llFilters"
         android:layout_width="0dp"
@@ -74,29 +132,14 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerBg">
-
-        <Spinner
-            android:id="@+id/spinnerDistrict"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_border" />
-
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/edittext_border" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/cardDistrict"></LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvJobs"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:background="@color/white"
         android:clipToPadding="false"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

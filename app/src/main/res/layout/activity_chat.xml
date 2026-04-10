@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F2F5">
+    android:background="@color/white">
 
     <!-- Professional Toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/chatToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/fullglass_bg"
-        app:titleTextColor="@color/white"
+        android:background="@drawable/header_gradient_curved"
+        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
         app:navigationIconTint="@color/white"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:titleTextColor="@color/white" />
 
     <!-- Chat Messages List -->
     <androidx.recyclerview.widget.RecyclerView
@@ -45,9 +45,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/edittext_border"
             android:backgroundTint="#C9E0B1"
             android:hint="Type a message..."
-            android:background="@drawable/edittext_border"
             android:inputType="textMultiLine"
             android:maxLines="4"
             android:padding="12dp"

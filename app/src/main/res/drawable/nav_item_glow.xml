@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <!-- Halka Green Glow (Liquid Glass Effect) -->
+            <solid android:color="#207BCE16" />
+        </shape>
+    </item>
+    <item android:drawable="@android:color/transparent" />
+</selector>

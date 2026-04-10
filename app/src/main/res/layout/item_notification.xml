@@ -4,12 +4,13 @@
     android:id="@+id/cardContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
+    android:layout_marginHorizontal="2dp"
     android:layout_marginVertical="6dp"
+    android:backgroundTint="#F1FBE3"
     app:cardCornerRadius="16dp"
-    app:cardElevation="3dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="#F0F0F0">
+    app:cardElevation="8dp"
+    app:strokeColor="#FFFFFF"
+    app:strokeWidth="1.5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,9 +23,9 @@
             android:id="@+id/llActiveInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:visibility="gone">
 
             <TextView
@@ -32,20 +33,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="🛠️ Work in Progress"
+                android:text=" Work in Progress "
                 android:textColor="@color/primary_green"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvDaysLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFF3E0"
+                android:background="#F6EAD8"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
                 android:text="3 Days Left"
-                android:textColor="#E65100"
+                android:textColor="#E60000"
                 android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -60,12 +61,12 @@
                 android:id="@+id/ivNotificationIcon"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:padding="10dp"
+                android:layout_marginEnd="12dp"
                 android:background="@drawable/circle_shape"
-                android:backgroundTint="#F8F9FA"
+                android:backgroundTint="#FAFAFB"
+                android:padding="10dp"
                 android:src="@drawable/ic_notification"
-                app:tint="@color/primary_green"
-                android:layout_marginEnd="12dp"/>
+                app:tint="@color/primary_green" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -95,9 +96,9 @@
                 android:id="@+id/tvStatusLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/docglass_bg"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
-                android:background="@drawable/bg_status_pending"
                 android:text="PENDING"
                 android:textColor="@color/white"
                 android:textSize="10sp"
@@ -128,7 +129,7 @@
                 android:layout_alignParentStart="true"
                 android:text="SOS (15)"
                 android:textColor="@color/red"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:icon="@android:drawable/ic_menu_call"
                 app:iconTint="@color/red" />
 
@@ -157,11 +158,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Finish Job"
-                    android:visibility="gone"
+                    android:background="@drawable/glass_bg"
                     android:backgroundTint="@color/primary_green"
+                    android:text="Finish Job"
                     android:textColor="@color/white"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:cornerRadius="8dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -170,13 +172,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Chat"
+                    android:background="@drawable/glass_bg"
                     android:backgroundTint="@color/primary_green"
+                    android:text="Chat"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     app:cornerRadius="8dp"
                     app:icon="@drawable/ic_messages"
-                    app:iconSize="16dp"
+                    app:iconSize="20dp"
                     app:iconTint="@color/white" />
             </LinearLayout>
         </RelativeLayout>

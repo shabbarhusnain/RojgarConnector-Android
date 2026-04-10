@@ -2,6 +2,8 @@ package com.shabbar.rozgarconnector.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnticipateOvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.badge.BadgeDrawable
@@ -40,6 +42,7 @@ class SeekerHomeActivity : AppCompatActivity() {
         }.commit()
 
         binding.bottomNav.setOnItemSelectedListener {
+            animateBottomNavIcon(it.itemId)
             when (it.itemId) {
                 R.id.nav_home -> showFragment(seekerHomeFragment)
                 R.id.nav_post_job -> {
@@ -58,6 +61,23 @@ class SeekerHomeActivity : AppCompatActivity() {
         }
 
         listenForBadges()
+    }
+
+    private fun animateBottomNavIcon(itemId: Int) {
+        val itemView = binding.bottomNav.findViewById<View>(itemId)
+        itemView?.let {
+            it.animate()
+                .translationY(-15f)
+                .setDuration(200)
+                .setInterpolator(AnticipateOvershootInterpolator())
+                .withEndAction {
+                    it.animate()
+                        .translationY(0f)
+                        .setDuration(200)
+                        .start()
+                }
+                .start()
+        }
     }
 
     private fun listenForBadges() {

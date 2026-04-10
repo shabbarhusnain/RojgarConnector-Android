@@ -20,19 +20,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp">
+
                 <ImageView
                     android:id="@+id/btnBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_back"
                     app:tint="@color/black" />
+
                 <ImageView
                     android:id="@+id/btnReport"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_settings"
-                    app:tint="@color/red" />
+                    app:tint="@color/purple_700" />
             </RelativeLayout>
 
             <!-- Profile Info -->
@@ -42,33 +44,33 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/CircleImage"
-                android:src="@drawable/ic_profile" />
+                android:src="@drawable/ic_profile"
+                app:shapeAppearanceOverlay="@style/CircleImage" />
 
             <TextView
                 android:id="@+id/tvWorkerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Worker Name"
-                android:textSize="22sp"
-                android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/black"/>
+                android:text="Worker Name"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvSkill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Professional Skill"
                 android:layout_gravity="center"
-                android:textColor="@color/primary_green"/>
+                android:text="Professional Skill"
+                android:textColor="@color/primary_green" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#EEEEEE"
-                android:layout_margin="16dp"/>
+                android:layout_margin="16dp"
+                android:background="#EEEEEE" />
 
             <!-- Portfolio Details -->
             <LinearLayout
@@ -164,11 +166,11 @@
         android:id="@+id/bottomActionArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:padding="16dp"
         android:background="@color/white"
-        android:elevation="8dp">
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <!-- Standard Hiring Button (Loop Button) -->
         <Button

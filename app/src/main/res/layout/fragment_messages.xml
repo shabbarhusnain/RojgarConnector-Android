@@ -9,8 +9,8 @@
     <View
         android:id="@+id/headerBg"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="@drawable/fullglass_bg"
+        android:layout_height="90dp"
+        android:background="@drawable/header_gradient_curved"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,20 +32,20 @@
         android:id="@+id/btnSettings"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
         android:padding="4dp"
         android:src="@drawable/ic_settings"
-        app:layout_constraintBottom_toBottomOf="@id/headerBg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/headerBg"
+        app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="8dp"
+        android:background="@color/white"
         android:clipToPadding="false"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerBg" />
 

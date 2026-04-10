@@ -19,6 +19,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
+        app:itemActiveIndicatorStyle="@null"
+        app:itemBackground="@drawable/nav_item_glow"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/seeker_bottom_nav" />
 
 </RelativeLayout>
