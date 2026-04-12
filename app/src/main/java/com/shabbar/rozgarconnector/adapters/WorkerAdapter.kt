@@ -11,6 +11,7 @@ import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ItemWorkerBinding
 import com.shabbar.rozgarconnector.models.UserModel
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class WorkerAdapter(
     private val workerList: List<UserModel>
@@ -25,20 +26,42 @@ class WorkerAdapter(
 
     override fun onBindViewHolder(holder: WorkerViewHolder, position: Int) {
         val worker = workerList[position]
+        val context = holder.itemView.context
 
+        // Name stays in original (usually English/Roman)
         holder.binding.tvName.text = worker.fullName
-        holder.binding.tvLocation.text = worker.district ?: "Unknown Location"
+
+        // Check if Urdu is enabled to translate other fields
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            // Translate Location
+            worker.district?.let { district ->
+                TranslatorUtil.translateText(district) { translated ->
+                    holder.binding.tvLocation.text = translated
+                }
+            }
+
+            // Translate Skill/Degree
+            val skillToTranslate = if (worker.workerType == "educated") {
+                worker.degreeName ?: "Educated Worker"
+            } else {
+                worker.professionalSkill ?: "General Worker"
+            }
+            
+            TranslatorUtil.translateText(skillToTranslate) { translated ->
+                holder.binding.tvSkill.text = translated
+            }
+        } else {
+            // Default English display
+            holder.binding.tvLocation.text = worker.district ?: "Location"
+            holder.binding.tvSkill.text = if (worker.workerType == "educated") {
+                worker.degreeName ?: "Educated Worker"
+            } else {
+                worker.professionalSkill ?: "General Worker"
+            }
+        }
 
         // Display Average Rating
         holder.binding.ratingBar.rating = worker.averageRating
-
-        // Smart Skill Display
-        val displayInfo = if (worker.workerType == "educated") {
-            worker.degreeName ?: "Educated Worker"
-        } else {
-            worker.professionalSkill ?: "General Worker"
-        }
-        holder.binding.tvSkill.text = displayInfo
 
         // Verification Badge
         holder.binding.imgVerified.visibility = if (worker.isVerified) View.VISIBLE else View.GONE
@@ -56,9 +79,8 @@ class WorkerAdapter(
             holder.binding.imgProfile.setImageResource(R.drawable.ic_profile)
         }
 
-        // View Portfolio Button
+        // View Portfolio Button (Hidden but usable for logic)
         holder.binding.btnViewDetails.setOnClickListener {
-            val context = holder.itemView.context
             val intent = Intent(context, WorkerDetailActivity::class.java).apply {
                 putExtra("WORKER_ID", worker.uid)
             }

@@ -14,6 +14,7 @@ import com.shabbar.rozgarconnector.adapters.NotificationAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentNotificationsBinding
 import com.shabbar.rozgarconnector.models.NotificationModel
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 import java.util.*
 
 class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
@@ -38,6 +39,10 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         setupFilters()
         fetchUserRole()
         loadNotifications()
+
+        binding?.btnSettings?.setOnClickListener {
+            startActivity(Intent(requireContext(), MenuActivity::class.java))
+        }
     }
 
     private fun fetchUserRole() {
@@ -53,14 +58,14 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         val role = userRole.lowercase()
         when (role) {
             "seeker" -> {
-                binding?.chipOffers?.text = "Sent Offers"
-                binding?.chipApplications?.text = "Applications Received"
-                binding?.chipActive?.text = "Active Contracts"
+                binding?.chipOffers?.text = getString(R.string.sent_offers)
+                binding?.chipApplications?.text = getString(R.string.apps_received)
+                binding?.chipActive?.text = getString(R.string.active_contracts)
             }
             "provider" -> {
-                binding?.chipOffers?.text = "Job Offers"
-                binding?.chipApplications?.text = "My Applications"
-                binding?.chipActive?.text = "Work In Progress"
+                binding?.chipOffers?.text = getString(R.string.job_offers)
+                binding?.chipApplications?.text = getString(R.string.my_apps)
+                binding?.chipActive?.text = getString(R.string.work_in_progress_chip)
             }
         }
     }
@@ -107,11 +112,11 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         }
 
         when (filterType) {
-            "active" -> displayList.add("Current Active Work 🛠️")
-            "history" -> displayList.add("Job History Record 📜")
-            "hire" -> displayList.add("Hiring Offers 💼")
-            "job" -> displayList.add("Job Applications 📝")
-            else -> displayList.add("Notifications 🔔")
+            "active" -> displayList.add(getString(R.string.active_work_header))
+            "history" -> displayList.add(getString(R.string.job_history_header))
+            "hire" -> displayList.add(getString(R.string.hiring_offers_header))
+            "job" -> displayList.add(getString(R.string.job_apps_header))
+            else -> displayList.add(getString(R.string.notif_header))
         }
         
         displayList.addAll(list.sortedByDescending { it.timestamp })

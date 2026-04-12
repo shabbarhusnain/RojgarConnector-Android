@@ -18,6 +18,8 @@ import com.shabbar.rozgarconnector.adapters.JobAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentProviderHomeBinding
 import com.shabbar.rozgarconnector.models.JobModel
 import com.shabbar.rozgarconnector.ui.job.JobDetailActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class ProviderHomeFragment : Fragment() {
 
@@ -45,6 +47,25 @@ class ProviderHomeFragment : Fragment() {
         setupRecyclerView()
         fetchUserTypeAndLoadJobs()
         setupSearch()
+
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(requireContext(), MenuActivity::class.java))
+        }
+
+        // --- UI TRANSLATION ---
+        if (TranslatorUtil.isUrduEnabled(requireContext())) {
+            TranslatorUtil.initTranslator(
+                onSuccess = { translateUI() },
+                onFailure = { }
+            )
+        }
+    }
+
+    private fun translateUI() {
+        if (!isAdded) return
+        TranslatorUtil.translateText("Available Jobs") { binding.tvHeaderTitle.text = it }
+        TranslatorUtil.translateText("Find work that matches your skills") { binding.tvSubtitle.text = it }
+        TranslatorUtil.translateText("Search jobs by title or skill...") { binding.etSearchJob.hint = it }
     }
 
     private fun setupRecyclerView() {
@@ -69,12 +90,10 @@ class ProviderHomeFragment : Fragment() {
     }
 
     private fun setupFilters(type: String) {
-        // District Filter
         val districts = resources.getStringArray(R.array.pakistan_districts).toMutableList()
         districts.add(0, "All Districts")
         binding.spinnerDistrict.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, districts)
 
-        // Category Filter based on worker type
         val categories = mutableListOf<String>()
         categories.add("All Categories")
         if (type == "educated") {
@@ -105,7 +124,7 @@ class ProviderHomeFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         db.collection("jobs")
             .whereEqualTo("status", "open")
-            .whereEqualTo("workerType", type) // Filter jobs based on worker's type (educated/uneducated)
+            .whereEqualTo("workerType", type)
             .addSnapshotListener { snapshots, e ->
                 if (!isAdded) return@addSnapshotListener
                 binding.progressBar.visibility = View.GONE

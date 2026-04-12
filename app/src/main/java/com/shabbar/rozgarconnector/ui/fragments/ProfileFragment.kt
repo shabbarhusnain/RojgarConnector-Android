@@ -15,6 +15,7 @@ import com.shabbar.rozgarconnector.ui.auth.LoginActivity
 import com.shabbar.rozgarconnector.ui.auth.ForgotPasswordActivity
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -30,6 +31,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         _binding = FragmentProfileBinding.bind(view)
 
         loadUserData()
+
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(requireContext(), MenuActivity::class.java))
+        }
 
         binding.btnSignOut.setOnClickListener {
             signOutUser()

@@ -31,12 +31,20 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    
+    // Updated: Migrated from kotlinOptions to compilerOptions to fix Gradle warning
+    kotlin {
+        jvmToolchain(8)
     }
 
     buildFeatures {
         viewBinding = true
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
@@ -55,6 +63,9 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     implementation("com.google.firebase:firebase-messaging")
+
+    // ML KIT TRANSLATION
+    implementation("com.google.mlkit:translate:17.0.2")
 
     // IMAGE LOADING & UI
     implementation("com.github.bumptech.glide:glide:4.16.0")

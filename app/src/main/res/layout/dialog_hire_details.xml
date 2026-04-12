@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Work Engagement Details"
+            android:text="@string/work_engagement_details"
             android:textColor="@color/primary_green"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -24,7 +24,7 @@
             android:id="@+id/tilJobTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Job Description / Task">
+            android:hint="@string/job_task_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobTask"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Select Engagement Type"
+            android:text="@string/select_engagement_type"
             android:visibility="gone" />
 
         <Spinner
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Working Duration (e.g. 2 Hours, 1 Day)">
+            android:hint="@string/working_duration_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobDuration"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Work Location / Full Address">
+            android:hint="@string/work_location_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobLocation"
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Offered Budget (Rs.)">
+            android:hint="@string/offered_budget_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobBudget"
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Completion Deadline / Time">
+            android:hint="@string/completion_deadline_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobDeadline"
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Your Contact Number">
+            android:hint="@string/contact_number_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobContact"

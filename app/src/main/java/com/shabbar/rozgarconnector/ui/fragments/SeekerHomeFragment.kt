@@ -17,7 +17,8 @@ import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.adapters.WorkerAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentSeekerHomeBinding
 import com.shabbar.rozgarconnector.models.UserModel
-import com.shabbar.rozgarconnector.ui.settings.SettingsActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class SeekerHomeFragment : Fragment() {
 
@@ -61,8 +62,25 @@ class SeekerHomeFragment : Fragment() {
         }
 
         binding.btnSettings.setOnClickListener {
-            startActivity(Intent(requireContext(), SettingsActivity::class.java))
+            startActivity(Intent(requireContext(), MenuActivity::class.java))
         }
+
+        // --- UI TRANSLATION ---
+        if (TranslatorUtil.isUrduEnabled(requireContext())) {
+            TranslatorUtil.initTranslator(
+                onSuccess = { translateUI() },
+                onFailure = { }
+            )
+        }
+    }
+
+    private fun translateUI() {
+        if (!isAdded) return
+        TranslatorUtil.translateText("Service Seeker") { binding.tvHeaderTitle.text = it }
+        TranslatorUtil.translateText("Find top rated workers near you") { binding.tvSubtitle.text = it }
+        TranslatorUtil.translateText("Educated Worker") { binding.btnEducated.text = it }
+        TranslatorUtil.translateText("Uneducated Worker") { binding.btnUneducated.text = it }
+        TranslatorUtil.translateText("Search by name or category...") { binding.etSearchWorker.hint = it }
     }
 
     private fun setupRecyclerView() {

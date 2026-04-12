@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/header_gradient_curved"
-            app:title="Post a New Job"
+            app:title="@string/post_new_job"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,7 +47,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Job Information"
+                        android:text="@string/job_info"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
                         android:layout_marginBottom="12dp"/>
@@ -56,7 +56,7 @@
                         android:id="@+id/etJobTitle"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Job Title (e.g. Electrician)"
+                        android:hint="@string/job_title_hint"
                         android:background="@drawable/edittext_border"
                         android:paddingStart="12dp"
                         android:layout_marginBottom="12dp"
@@ -87,7 +87,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Workplace &amp; Location"
+                        android:text="@string/workplace_location"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
                         android:layout_marginBottom="12dp"/>
@@ -96,7 +96,7 @@
                         android:id="@+id/etWorkplaceName"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Workplace Name"
+                        android:hint="@string/workplace_name_hint"
                         android:background="@drawable/edittext_border"
                         android:paddingStart="12dp"
                         android:layout_marginBottom="12dp"/>
@@ -105,7 +105,7 @@
                         android:id="@+id/etWorkplaceAddress"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Full Address"
+                        android:hint="@string/full_address_hint"
                         android:background="@drawable/edittext_border"
                         android:paddingStart="12dp"
                         android:layout_marginBottom="12dp"/>
@@ -135,7 +135,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Worker Category"
+                        android:text="@string/worker_category_header"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
                         android:layout_marginBottom="8dp"/>
@@ -146,14 +146,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginBottom="12dp">
-                        <RadioButton android:id="@+id/rbEducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Educated" android:checked="true" android:layout_marginEnd="16dp" android:buttonTint="@color/primary_green"/>
-                        <RadioButton android:id="@+id/rbUneducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Uneducated" android:buttonTint="@color/primary_green"/>
+                        <RadioButton android:id="@+id/rbEducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/educated" android:checked="true" android:layout_marginEnd="16dp" android:buttonTint="@color/primary_green"/>
+                        <RadioButton android:id="@+id/rbUneducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/uneducated" android:buttonTint="@color/primary_green"/>
                     </RadioGroup>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Select Skill Category"
+                        android:text="@string/select_skill_category"
                         android:textColor="@color/grey"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
@@ -183,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Budget &amp; Time"
+                        android:text="@string/budget_time"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
                         android:layout_marginBottom="12dp"/>
@@ -199,7 +199,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:hint="Amount (PKR)"
+                            android:hint="@string/amount_pkr_hint"
                             android:inputType="number"
                             android:background="@drawable/edittext_border"
                             android:paddingStart="12dp"
@@ -225,7 +225,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="0.8"
-                            android:hint="Value"
+                            android:hint="@string/value_hint"
                             android:inputType="number"
                             android:background="@drawable/edittext_border"
                             android:paddingStart="12dp"
@@ -260,7 +260,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="127dp"
                         android:gravity="top"
-                        android:hint="Briefly describe the tasks..."
+                        android:hint="@string/job_desc_hint"
                         android:padding="12dp"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -270,7 +270,7 @@
                 android:id="@+id/btnPostJob"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="PUBLISH JOB"
+                android:text="@string/publish_job"
                 android:textStyle="bold"
                 android:background="@drawable/glass_bg"
                 app:cornerRadius="12dp"

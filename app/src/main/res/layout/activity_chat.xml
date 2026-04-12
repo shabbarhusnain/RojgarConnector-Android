@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:background="@drawable/edittext_border"
             android:backgroundTint="#C9E0B1"
-            android:hint="Type a message..."
+            android:hint="@string/type_message_hint"
             android:inputType="textMultiLine"
             android:maxLines="4"
             android:padding="12dp"

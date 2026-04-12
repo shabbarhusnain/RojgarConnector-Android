@@ -3,24 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    android:layout_marginHorizontal="4dp"
-    app:cardCornerRadius="12dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="8dp"
     android:backgroundTint="#F1FBE3"
-    app:cardElevation="8dp"
-    app:strokeWidth="1.5dp"
-    app:strokeColor="#FFFFFF">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:strokeColor="#FFFFFF"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgProfile"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/ic_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,10 +30,14 @@
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Worker Name"
+            android:textAlignment="viewStart"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/tvLocation"
             app:layout_constraintStart_toEndOf="@id/imgProfile"
@@ -39,12 +45,16 @@
 
         <TextView
             android:id="@+id/tvSkill"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Skill / Degree"
+            android:textAlignment="viewStart"
             android:textColor="@color/primary_green"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@id/tvName"
             app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@id/tvName" />
 
@@ -52,23 +62,15 @@
             android:id="@+id/tvLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_location"
+            android:drawablePadding="2dp"
+            android:gravity="center_vertical"
             android:text="Location"
             android:textColor="@color/grey"
-            android:textSize="12sp"
+            android:textSize="10sp"
+            app:drawableTint="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvName" />
-
-        <ImageView
-            android:id="@+id/imgVerified"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="4dp"
-            android:src="@drawable/ic_notification"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/tvName"
-            app:layout_constraintStart_toEndOf="@id/tvName"
-            app:layout_constraintTop_toTopOf="@id/tvName"
-            app:tint="@color/primary_green" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -82,22 +84,26 @@
             app:layout_constraintStart_toStartOf="@id/tvSkill"
             app:layout_constraintTop_toBottomOf="@id/tvSkill" />
 
+        <!-- Hidden button to satisfy code logic without being visible -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnViewDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/fullglass_bg"
-            android:backgroundTint="@color/primary_green"
-            android:text="VIEW PORTFOLIO"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ratingBar" />
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgVerified"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/ic_notification"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tvName"
+            app:layout_constraintStart_toEndOf="@id/tvName"
+            app:layout_constraintTop_toTopOf="@id/tvName"
+            app:tint="@color/primary_green" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -20,7 +20,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:padding="4dp"
-        android:src="@drawable/ic_settings"
+        android:src="@drawable/ic_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
@@ -31,7 +31,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-black"
-        android:text="Activity Hub"
+        android:text="@string/activity_hub"
         android:textColor="@color/white"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:elevation="4dp"
-                android:text="Active Work"
+                android:text="@string/active_work"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
 
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:elevation="4dp"
-                android:text="Offers"
+                android:text="@string/offers"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
 
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:elevation="4dp"
-                android:text="Applications"
+                android:text="@string/applications"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
 
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:elevation="4dp"
-                android:text="History"
+                android:text="@string/history"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
 
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:elevation="5dp"
-                android:text="Notifications"
+                android:text="@string/all_notif"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
 
@@ -121,7 +121,7 @@
         android:layout_marginTop="16dp"
         android:background="@color/white"
         android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterScroll" />
 
@@ -139,7 +139,7 @@
         android:id="@+id/tvNoNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No updates yet"
+        android:text="@string/no_updates"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

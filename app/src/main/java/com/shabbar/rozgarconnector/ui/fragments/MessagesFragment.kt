@@ -14,7 +14,7 @@ import com.shabbar.rozgarconnector.databinding.FragmentMessagesBinding
 import com.shabbar.rozgarconnector.models.ChatListModel
 import com.shabbar.rozgarconnector.models.MessageModel
 import com.shabbar.rozgarconnector.ui.messaging.ChatActivity
-import com.shabbar.rozgarconnector.ui.settings.SettingsActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
 class MessagesFragment : Fragment(R.layout.fragment_messages) {
 
@@ -35,7 +35,7 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
         loadChatList()
 
         binding.btnSettings.setOnClickListener {
-            startActivity(Intent(requireContext(), SettingsActivity::class.java))
+            startActivity(Intent(requireContext(), MenuActivity::class.java))
         }
     }
 

@@ -11,6 +11,7 @@ import com.shabbar.rozgarconnector.ui.home.ProviderHomeActivity
 import com.shabbar.rozgarconnector.ui.role.RoleSelectionActivity
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
 class PendingApprovalActivity : AppCompatActivity() {
 
@@ -24,6 +25,10 @@ class PendingApprovalActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         listenForApproval()
+
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(this, MenuActivity::class.java))
+        }
 
         binding.btnLogout.setOnClickListener {
             auth.signOut()

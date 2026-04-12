@@ -52,7 +52,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_settings"
+                    android:src="@drawable/ic_menu"
                     app:tint="@color/white" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

@@ -19,6 +19,7 @@ import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivityRegisterBinding
 import com.shabbar.rozgarconnector.ui.role.RoleSelectionActivity
 import com.shabbar.rozgarconnector.ui.admin.AdminDashboardActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 import java.io.ByteArrayOutputStream
 import java.util.Calendar
 
@@ -48,6 +49,10 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupDistrictSpinner()
+
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(this, MenuActivity::class.java))
+        }
 
         binding.tvDateOfBirth.setOnClickListener { showDatePicker() }
         binding.btnUploadDP.setOnClickListener { pickDp.launch("image/*") }

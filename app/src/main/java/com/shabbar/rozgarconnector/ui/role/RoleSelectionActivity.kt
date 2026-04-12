@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.databinding.ActivityRoleSelectionBinding
 import com.shabbar.rozgarconnector.ui.auth.PendingApprovalActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
 class RoleSelectionActivity : AppCompatActivity() {
 
@@ -21,6 +22,10 @@ class RoleSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRoleSelectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(this, MenuActivity::class.java))
+        }
 
         // Seeker Card Click
         binding.cardSeeker.setOnClickListener {

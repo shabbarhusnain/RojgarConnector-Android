@@ -22,7 +22,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:padding="8dp"
-        android:src="@drawable/ic_settings"
+        android:src="@drawable/ic_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/primary_green" />
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Rozgar Connector"
+            android:text="@string/app_name"
             android:textColor="@color/primary_green"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
-            android:text="Bridging the gap to local work"
+            android:text="@string/tagline"
             android:textColor="@color/grey"
             android:textSize="14sp" />
 
@@ -64,7 +64,7 @@
             android:layout_height="55dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_border"
-            android:hint="13-Digit CNIC (Without Dashes)"
+            android:hint="@string/cnic_hint"
             android:inputType="number"
             android:maxLength="13"
             android:paddingStart="16dp" />
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@drawable/edittext_border"
-                android:hint="Enter Password"
+                android:hint="@string/password_hint"
                 android:inputType="textPassword"
                 android:paddingStart="16dp" />
 
@@ -95,7 +95,7 @@
             android:layout_gravity="end"
             android:layout_marginBottom="24dp"
             android:padding="4dp"
-            android:text="Forgot Password?"
+            android:text="@string/forgot_password"
             android:textColor="@color/primary_green"
             android:textStyle="bold" />
 
@@ -105,7 +105,7 @@
             android:layout_height="60dp"
             android:background="@drawable/glass_bg"
             android:elevation="4dp"
-            android:text="LOGIN"
+            android:text="@string/login_title"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:padding="8dp"
-            android:text="Don't have an account? Register Now"
+            android:text="@string/dont_have_account"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

@@ -18,15 +18,14 @@
             android:layout_height="44dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
+            android:layout_gravity="end"
             android:padding="4dp"
-            android:src="@drawable/ic_settings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_menu"
             app:tint="@color/black" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:textColor="@color/primary_green"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -36,7 +35,7 @@
             android:id="@+id/etFullName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Name"
+            android:hint="@string/name_hint"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
             android:layout_marginBottom="12dp"/>
@@ -45,7 +44,7 @@
             android:id="@+id/etFatherName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Father Name"
+            android:hint="@string/father_name_hint"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
             android:layout_marginBottom="12dp"/>
@@ -54,7 +53,7 @@
             android:id="@+id/etCNIC"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="CNIC Number"
+            android:hint="@string/cnic_number"
             android:inputType="number"
             android:maxLength="13"
             android:background="@drawable/edittext_border"
@@ -65,7 +64,7 @@
             android:id="@+id/tvDateOfBirth"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Date of Birth"
+            android:hint="@string/dob"
             android:gravity="center_vertical"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
@@ -76,7 +75,7 @@
             android:id="@+id/etPermanentAddress"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Permanent Address"
+            android:hint="@string/perm_address_hint"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
             android:layout_marginBottom="12dp"/>
@@ -85,7 +84,7 @@
             android:id="@+id/etCity"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="City"
+            android:hint="@string/city_hint"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
             android:layout_marginBottom="12dp"/>
@@ -100,7 +99,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Document Uploads (Required for Verification):"
+            android:text="@string/doc_uploads"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginBottom="8dp"/>
@@ -110,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Upload Profile Picture"
+            android:text="@string/upload_dp"
             android:textColor="@color/white"
             android:background="@drawable/docglass_bg"
             app:backgroundTint="@null" />
@@ -129,7 +128,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/docglass_bg"
                 app:backgroundTint="@null"
-                android:text="CNIC Front"
+                android:text="@string/cnic_front"
                 android:textColor="@color/white" />
 
             <Button
@@ -140,7 +139,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/docglass_bg"
                 app:backgroundTint="@null"
-                android:text="CNIC Back"
+                android:text="@string/cnic_back"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -148,7 +147,7 @@
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Phone Number"
+            android:hint="@string/phone_number"
             android:inputType="phone"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
@@ -158,7 +157,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
@@ -168,7 +167,7 @@
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Confirm Password"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
             android:background="@drawable/edittext_border"
             android:paddingStart="12dp"
@@ -178,7 +177,7 @@
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Register"
+            android:text="@string/register"
             android:textSize="18sp"
             android:textStyle="bold"
             android:background="@drawable/glass_bg"/>
@@ -187,7 +186,7 @@
             android:id="@+id/tvLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account? Login"
+            android:text="@string/already_have_account"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_gravity="center"

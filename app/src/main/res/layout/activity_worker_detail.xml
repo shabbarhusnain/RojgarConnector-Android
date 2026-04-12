@@ -33,7 +33,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_settings"
+                    android:src="@drawable/ic_menu"
                     app:tint="@color/purple_700" />
             </RelativeLayout>
 
@@ -75,7 +75,7 @@
             <!-- Portfolio Details -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="279dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -84,14 +84,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:text="Professional Portfolio"
+                    android:text="@string/portfolio"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Experience"
+                    android:text="@string/experience_label"
                     android:textStyle="bold" />
 
                 <TextView
@@ -104,7 +104,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="About Work"
+                    android:text="@string/about_work"
                     android:textStyle="bold" />
 
                 <TextView
@@ -125,7 +125,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Education Details"
+                        android:text="@string/education_details"
                         android:textStyle="bold" />
 
                     <TextView
@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Degree Document"
+                        android:text="@string/degree_doc"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -178,7 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/glass_bg"
-            android:text="HIRE THIS WORKER"
+            android:text="@string/hire_worker"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:visibility="visible" />
@@ -198,7 +198,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/redglass"
-                android:text="DECLINE"
+                android:text="@string/decline"
                 android:textColor="@color/white"
                 app:backgroundTint="@null" />
 
@@ -208,7 +208,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@drawable/glass_bg"
-                android:text="ACCEPT &amp; HIRE"
+                android:text="@string/accept_hire"
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>

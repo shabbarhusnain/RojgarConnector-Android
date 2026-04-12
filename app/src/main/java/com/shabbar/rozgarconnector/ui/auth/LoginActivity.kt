@@ -13,7 +13,7 @@ import com.shabbar.rozgarconnector.ui.home.SeekerHomeActivity
 import com.shabbar.rozgarconnector.ui.role.RoleSelectionActivity
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
-import com.shabbar.rozgarconnector.ui.settings.SettingsActivity
+import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Null check for settings button (Safe implementation)
         binding.btnSettings?.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity(Intent(this, MenuActivity::class.java))
         }
 
         if (auth.currentUser != null) {

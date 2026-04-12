@@ -25,10 +25,152 @@
 
     <!-- Navigation Labels -->
     <string name="home">Home</string>
-    <string name="notifications">Activity Hub</string>
+    <string name="notifications">Activities</string>
     <string name="messages">Messages</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+
+    <!-- Profile Screen -->
+    <string name="user_profile">User Profile</string>
+    <string name="basic_info">Basic Information</string>
+    <string name="father_name">Father Name</string>
+    <string name="cnic_number">CNIC Number</string>
+    <string name="dob">Date of Birth</string>
+    <string name="location">Location</string>
+    <string name="not_provided">Not Provided</string>
+    <string name="portfolio">Professional Portfolio</string>
+    <string name="education">Education</string>
+    <string name="skill_expertise">Skill / Expertise</string>
+    <string name="experience">Experience</string>
+    <string name="prof_desc">Professional Description</string>
+    <string name="degree_doc">Last Degree Document</string>
+    <string name="sign_out">SIGN OUT</string>
+
+    <!-- Seeker Home -->
+    <string name="find_workers">Find top rated workers near you</string>
+    <string name="search_worker_hint">Search by name or category...</string>
+
+    <!-- Provider Home -->
+    <string name="available_jobs">Available Jobs</string>
+    <string name="find_jobs">Find work that matches your skills</string>
+    <string name="search_job_hint">Search jobs by title or skill...</string>
+    <string name="no_jobs_found">No jobs found matching your filters.</string>
+
+    <!-- Activity Hub / Notifications -->
+    <string name="activity_hub">Activity Hub</string>
+    <string name="active_work">Active Work</string>
+    <string name="offers">Offers</string>
+    <string name="applications">Applications</string>
+    <string name="history">History</string>
+    <string name="all_notif">Notifications</string>
+    <string name="no_updates">No updates yet</string>
+    
+    <!-- Chip Labels -->
+    <string name="sent_offers">Sent Offers</string>
+    <string name="apps_received">Applications Received</string>
+    <string name="active_contracts">Active Contracts</string>
+    <string name="job_offers">Job Offers</string>
+    <string name="my_apps">My Applications</string>
+    <string name="work_in_progress_chip">Work In Progress</string>
+
+    <!-- Header Titles -->
+    <string name="active_work_header">Current Active Work 🛠️</string>
+    <string name="job_history_header">Job History Record 📜</string>
+    <string name="hiring_offers_header">Hiring Offers 💼</string>
+    <string name="job_apps_header">Job Applications 📝</string>
+    <string name="notif_header">Notifications 🔔</string>
+    
+    <!-- Notification Items -->
+    <string name="work_in_progress">Work in Progress</string>
+    <string name="days_left">Days Left</string>
+    <string name="sos">SOS (15)</string>
+    <string name="cancel">Cancel</string>
+    <string name="finish_job">Finish Job</string>
+    <string name="chat_btn">Chat</string>
+    <string name="pending">PENDING</string>
+    <string name="just_now">Just Now</string>
+
+    <!-- Chat Screen -->
+    <string name="chats_title">Chats</string>
+    <string name="no_messages">No messages yet.</string>
+    <string name="type_message_hint">Type a message...</string>
+    <string name="provider_educated">Provider (Educated)</string>
+    <string name="provider_uneducated">Provider (Uneducated)</string>
+    <string name="rozgar_user">Rozgar User</string>
+    <string name="job_finished_read_only">Job Finished (Read Only)</string>
+    <string name="chat_locked_no_job">Chat Locked (No Active Job)</string>
+    <string name="user_not_found">Error: User not found</string>
+
+    <!-- Post Job Screen -->
+    <string name="post_new_job">Post a New Job</string>
+    <string name="job_info">Job Information</string>
+    <string name="job_title_hint">Job Title (e.g. Electrician)</string>
+    <string name="workplace_location">Workplace &amp; Location</string>
+    <string name="workplace_name_hint">Workplace Name</string>
+    <string name="full_address_hint">Full Address</string>
+    <string name="worker_category_header">Worker Category</string>
+    <string name="educated">Educated</string>
+    <string name="uneducated">Uneducated</string>
+    <string name="select_skill_category">Select Skill Category</string>
+    <string name="budget_time">Budget &amp; Time</string>
+    <string name="amount_pkr_hint">Amount (PKR)</string>
+    <string name="value_hint">Value</string>
+    <string name="job_desc_hint">Briefly describe the tasks...</string>
+    <string name="publish_job">PUBLISH JOB</string>
+
+    <!-- Worker Detail Screen -->
+    <string name="experience_label">Experience</string>
+    <string name="about_work">About Work</string>
+    <string name="education_details">Education Details</string>
+    <string name="hire_worker">HIRE THIS WORKER</string>
+    <string name="decline">DECLINE</string>
+    <string name="accept_hire">ACCEPT &amp; HIRE</string>
+
+    <!-- Job Detail Screen -->
+    <string name="urgent">URGENT</string>
+    <string name="duration">Duration</string>
+    <string name="job_location">Location</string>
+    <string name="about_job">About the Job</string>
+    <string name="send_application">SEND APPLICATION</string>
+
+    <!-- Hiring Dialog -->
+    <string name="send_hiring_offer">Send Hiring Offer</string>
+    <string name="work_engagement_details">Work Engagement Details</string>
+    <string name="job_task_hint">Job Description / Task</string>
+    <string name="select_engagement_type">Select Engagement Type</string>
+    <string name="working_duration_hint">Working Duration (e.g. 2 Hours, 1 Day)</string>
+    <string name="work_location_hint">Work Location / Full Address</string>
+    <string name="offered_budget_hint">Offered Budget (Rs.)</string>
+    <string name="completion_deadline_hint">Completion Deadline / Time</string>
+    <string name="contact_number_hint">Your Contact Number</string>
+    <string name="send">Send</string>
+
+    <!-- Menu/Settings Screen -->
+    <string name="menu_title">Menu</string>
+    <string name="lang_settings">Language Settings</string>
+    <string name="switch_urdu_label">Translate to Urdu (اردو)</string>
+    <string name="model_download_status">Offline model will be downloaded on first enable.</string>
+
+    <!-- Login Screen Specific -->
+    <string name="login_title">LOGIN</string>
+    <string name="cnic_hint">13-Digit CNIC (Without Dashes)</string>
+    <string name="password_hint">Enter Password</string>
+    <string name="tagline">Bridging the gap to local work</string>
+
+    <!-- Register Screen -->
+    <string name="create_account">Create Account</string>
+    <string name="name_hint">Name</string>
+    <string name="father_name_hint">Father Name</string>
+    <string name="perm_address_hint">Permanent Address</string>
+    <string name="city_hint">City</string>
+    <string name="doc_uploads">Document Uploads (Required for Verification):</string>
+    <string name="upload_dp">Upload Profile Picture</string>
+    <string name="cnic_front">CNIC Front</string>
+    <string name="cnic_back">CNIC Back</string>
+
+    <!-- My Applications Screen -->
+    <string name="my_apps_title">My Applications</string>
+    <string name="no_apps_yet">You haven\'t applied to any jobs yet.</string>
 
     <!-- Hiring Engagement Types -->
     <string-array name="engagement_types">

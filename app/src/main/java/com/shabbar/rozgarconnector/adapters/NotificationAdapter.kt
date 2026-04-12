@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.Typeface
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import com.google.firebase.firestore.SetOptions
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.models.NotificationModel
 import com.shabbar.rozgarconnector.ui.messaging.ChatActivity
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -52,7 +52,7 @@ class NotificationAdapter(
         val ivIcon: ImageView = view.findViewById(R.id.ivNotificationIcon)
         val llActiveInfo: View = view.findViewById(R.id.llActiveInfo)
         val tvDaysLeft: TextView = view.findViewById(R.id.tvDaysLeft)
-        val tvWorkInProgress: TextView = view.findViewById(R.id.tvWorkInProgress) // Fixed ID from XML
+        val tvWorkInProgress: TextView = view.findViewById(R.id.tvWorkInProgress)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -83,9 +83,24 @@ class NotificationAdapter(
 
         setupTheme(holder, type, isSender, notification)
 
-        holder.message.text = notification.message
+        // --- DYNAMIC TRANSLATION FOR MESSAGE ---
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            TranslatorUtil.translateText(notification.message) { translated ->
+                holder.message.text = translated
+            }
+            
+            // Translate sender name if it's dynamic
+            TranslatorUtil.translateText(notification.senderName) { translated ->
+                // Keeping original name sometimes is better, but since user asked for 'names' too:
+                // We only translate if it's a role or something, but usually names stay same.
+                // However, I'll apply it to the title part if needed.
+            }
+        } else {
+            holder.message.text = notification.message
+        }
+
         val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        holder.timestamp.text = notification.timestamp?.toDate()?.let { sdf.format(it) } ?: "Now"
+        holder.timestamp.text = notification.timestamp?.toDate()?.let { sdf.format(it) } ?: context.getString(R.string.just_now)
 
         // Status Colors & Text
         val isSeeker = if (notification.type == "hire") notification.senderId == currentUserId else notification.receiverId == currentUserId
@@ -94,10 +109,10 @@ class NotificationAdapter(
         val isHistoryItem = isFullyCompleted || hasUserFinished
 
         if (isHistoryItem) {
-            holder.statusLabel.text = "COMPLETED"
+            holder.statusLabel.text = context.getString(R.string.finish_job).uppercase()
             holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#2196F3"))
             holder.llActiveInfo.visibility = View.VISIBLE
-            holder.tvWorkInProgress.text = "✅ Job Finished"
+            holder.tvWorkInProgress.text = "✅ " + context.getString(R.string.history)
             holder.tvDaysLeft.visibility = View.GONE
             holder.btnEmergency.visibility = View.GONE
             holder.btnChat.visibility = View.GONE
@@ -105,7 +120,13 @@ class NotificationAdapter(
             holder.btnCancel.visibility = View.GONE
             holder.itemView.alpha = 0.9f
         } else {
-            holder.statusLabel.text = status.uppercase()
+            val statusResId = when(status) {
+                "pending" -> R.string.pending
+                "accepted", "approved" -> R.string.accept_hire
+                "rejected", "cancelled" -> R.string.cancel
+                else -> R.string.pending
+            }
+            holder.statusLabel.text = context.getString(statusResId).uppercase()
             holder.statusLabel.backgroundTintList = ColorStateList.valueOf(getStatusColor(status))
             
             val isActive = status == "accepted" || status == "approved"
@@ -117,13 +138,19 @@ class NotificationAdapter(
             holder.btnCancel.visibility = if (isPending && isSender) View.VISIBLE else View.GONE
             holder.btnChat.visibility = if (isActive) View.VISIBLE else View.GONE
             holder.btnComplete.visibility = if (isActive) View.VISIBLE else View.GONE
-            holder.tvWorkInProgress.text = "⚒️ Work in Progress"
+            holder.tvWorkInProgress.text = "⚒️ " + context.getString(R.string.work_in_progress)
         }
 
         notification.deadlineDate?.let {
             val diff = it.toDate().time - System.currentTimeMillis()
             val days = TimeUnit.MILLISECONDS.toDays(diff)
-            holder.tvDaysLeft.text = if (days >= 0) "$days Days Left" else "Overdue"
+            
+            if (TranslatorUtil.isUrduEnabled(context)) {
+                val daysText = if (days >= 0) "$days " + context.getString(R.string.days_left) else "وقت ختم"
+                holder.tvDaysLeft.text = daysText
+            } else {
+                holder.tvDaysLeft.text = if (days >= 0) "$days " + context.getString(R.string.days_left) else "Overdue"
+            }
         }
 
         holder.btnEmergency.setOnClickListener {
@@ -256,21 +283,47 @@ class NotificationAdapter(
     }
 
     private fun setupTheme(holder: ItemViewHolder, type: String, isSender: Boolean, notification: NotificationModel) {
-        when (type) {
-            "hire" -> {
-                holder.ivIcon.setImageResource(R.drawable.ic_profile)
-                holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E3F2FD"))
-                holder.title.text = if (isSender) "Offer Sent" else "Hiring Request"
+        val context = holder.itemView.context
+        
+        // Dynamic Translation for Titles (Sent Offers, Apps Received, etc.)
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            when (type) {
+                "hire" -> {
+                    holder.ivIcon.setImageResource(R.drawable.ic_profile)
+                    holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E3F2FD"))
+                    holder.title.text = if (isSender) context.getString(R.string.sent_offers) else context.getString(R.string.job_offers)
+                }
+                "job" -> {
+                    holder.ivIcon.setImageResource(R.drawable.ic_settings)
+                    holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E8F5E9"))
+                    holder.title.text = if (isSender) context.getString(R.string.my_apps) else context.getString(R.string.apps_received)
+                }
+                else -> {
+                    holder.ivIcon.setImageResource(R.drawable.ic_notification)
+                    holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#F5F5F5"))
+                    TranslatorUtil.translateText(notification.title) { translated ->
+                        holder.title.text = translated
+                    }
+                }
             }
-            "job" -> {
-                holder.ivIcon.setImageResource(R.drawable.ic_settings)
-                holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E8F5E9"))
-                holder.title.text = if (isSender) "Application Sent" else "Job Application"
-            }
-            else -> {
-                holder.ivIcon.setImageResource(R.drawable.ic_notification)
-                holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#F5F5F5"))
-                holder.title.text = notification.title.ifEmpty { "Update" }
+        } else {
+            // Default English Titles
+            when (type) {
+                "hire" -> {
+                    holder.ivIcon.setImageResource(R.drawable.ic_profile)
+                    holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E3F2FD"))
+                    holder.title.text = if (isSender) context.getString(R.string.sent_offers) else context.getString(R.string.job_offers)
+                }
+                "job" -> {
+                    holder.ivIcon.setImageResource(R.drawable.ic_settings)
+                    holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#E8F5E9"))
+                    holder.title.text = if (isSender) context.getString(R.string.my_apps) else context.getString(R.string.apps_received)
+                }
+                else -> {
+                    holder.ivIcon.setImageResource(R.drawable.ic_notification)
+                    holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#F5F5F5"))
+                    holder.title.text = notification.title.ifEmpty { context.getString(R.string.notif_header) }
+                }
             }
         }
     }

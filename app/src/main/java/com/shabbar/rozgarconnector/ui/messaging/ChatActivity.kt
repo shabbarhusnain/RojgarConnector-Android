@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.adapters.ChatAdapter
 import com.shabbar.rozgarconnector.databinding.ActivityChatBinding
 import com.shabbar.rozgarconnector.models.MessageModel
@@ -31,7 +32,7 @@ class ChatActivity : AppCompatActivity() {
         val receiverName = intent.getStringExtra("RECEIVER_NAME") ?: "User"
 
         if (mReceiverId == null) {
-            Toast.makeText(this, "Error: User not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.user_not_found), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -63,11 +64,11 @@ class ChatActivity : AppCompatActivity() {
                 val category = doc.getString("workerCategory")?.lowercase() ?: ""
                 binding.chatToolbar.title = name
                 val subtitle = when {
-                    role == "seeker" -> "Service Seeker"
-                    role == "provider" && category == "educated" -> "Provider (Educated)"
-                    role == "provider" && category == "uneducated" -> "Provider (Uneducated)"
-                    role == "provider" -> "Service Provider"
-                    else -> "Rozgar User"
+                    role == "seeker" -> getString(R.string.service_seeker)
+                    role == "provider" && category == "educated" -> getString(R.string.provider_educated)
+                    role == "provider" && category == "uneducated" -> getString(R.string.provider_uneducated)
+                    role == "provider" -> getString(R.string.service_provider)
+                    else -> getString(R.string.rozgar_user)
                 }
                 binding.chatToolbar.subtitle = subtitle
             }
@@ -159,7 +160,7 @@ class ChatActivity : AppCompatActivity() {
         binding.etMessage.isEnabled = false
         binding.btnSend.isEnabled = false
         binding.btnSend.alpha = 0.3f
-        binding.etMessage.hint = if (finished) "Job Finished (Read Only)" else "Chat Locked (No Active Job)"
+        binding.etMessage.hint = if (finished) getString(R.string.job_finished_read_only) else getString(R.string.chat_locked_no_job)
     }
 
     private fun unlockChat() {
@@ -167,7 +168,7 @@ class ChatActivity : AppCompatActivity() {
         binding.etMessage.isEnabled = true
         binding.btnSend.isEnabled = true
         binding.btnSend.alpha = 1.0f
-        binding.etMessage.hint = "Type a message..."
+        binding.etMessage.hint = getString(R.string.type_message_hint)
     }
 
     private fun setupRecyclerView() {

@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.databinding.ActivityJobDetailBinding
 import com.shabbar.rozgarconnector.models.JobModel
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class JobDetailActivity : AppCompatActivity() {
 
@@ -43,11 +44,24 @@ class JobDetailActivity : AppCompatActivity() {
                 if (job != null) {
                     seekerId = job.seekerId
                     jobTitle = job.jobTitle
-                    binding.tvDetailTitle.text = job.jobTitle
-                    binding.tvDetailCategory.text = job.category
+                    
+                    if (TranslatorUtil.isUrduEnabled(this)) {
+                        TranslatorUtil.initTranslator(
+                            onSuccess = {
+                                TranslatorUtil.translateText(job.jobTitle) { binding.tvDetailTitle.text = it }
+                                TranslatorUtil.translateText(job.category) { binding.tvDetailCategory.text = it }
+                                TranslatorUtil.translateText(job.jobDescription) { binding.tvDetailDesc.text = it }
+                            },
+                            onFailure = {
+                                displayOriginal(job)
+                            }
+                        )
+                    } else {
+                        displayOriginal(job)
+                    }
+                    
                     binding.tvDetailAddress.text = "${job.district}, ${job.workplaceAddress ?: ""}"
                     binding.tvDetailBudget.text = "Rs. ${job.payAmount} / ${job.payUnit}"
-                    binding.tvDetailDesc.text = job.jobDescription
                     binding.tvDetailDeadline.text = "${job.durationValue} ${job.durationUnit}"
                     
                     if (auth.currentUser?.uid == seekerId) {
@@ -56,6 +70,12 @@ class JobDetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun displayOriginal(job: JobModel) {
+        binding.tvDetailTitle.text = job.jobTitle
+        binding.tvDetailCategory.text = job.category
+        binding.tvDetailDesc.text = job.jobDescription
     }
 
     private fun checkExistingAndActiveJobs() {

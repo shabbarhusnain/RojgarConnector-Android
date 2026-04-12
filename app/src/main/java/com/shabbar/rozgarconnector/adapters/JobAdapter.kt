@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.models.JobModel
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class JobAdapter(
     private var jobList: MutableList<JobModel>,
@@ -14,7 +15,6 @@ class JobAdapter(
 ) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
     class JobViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        // Safe binding using try-catch or null checks
         val title: TextView? = view.findViewById(R.id.tvJobTitle)
         val workplace: TextView? = view.findViewById(R.id.tvWorkplace)
         val salary: TextView? = view.findViewById(R.id.tvSalaryTag)
@@ -29,17 +29,28 @@ class JobAdapter(
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val job = jobList[position]
+        val context = holder.itemView.context
 
-        // Crash Prevention Logic
-        holder.title?.text = job.jobTitle ?: "No Title"
+        // Title Translation
+        val originalTitle = job.jobTitle ?: "No Title"
+        holder.title?.text = originalTitle
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            TranslatorUtil.translateText(originalTitle) { holder.title?.text = it }
+        }
         
         val wpName = job.workplaceName ?: "Company"
         val wpType = job.workplaceType ?: "Remote"
         holder.workplace?.text = "$wpName • $wpType"
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            TranslatorUtil.translateText(wpType) { holder.workplace?.text = "$wpName • $it" }
+        }
         
         val amount = job.payAmount ?: "0"
         val unit = job.payUnit ?: "Job"
         holder.salary?.text = "Rs. $amount / $unit"
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            TranslatorUtil.translateText(unit) { holder.salary?.text = "Rs. $amount / $it" }
+        }
         
         holder.location?.text = job.district ?: "Not Specified"
         holder.time?.text = "Active Now"

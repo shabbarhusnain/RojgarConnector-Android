@@ -10,7 +10,7 @@
     <View
         android:id="@+id/headerBg"
         android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_height="205dp"
         android:background="@drawable/header_gradient_curved"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="Service Seeker"
+        android:layout_marginTop="24dp"
+        android:text="@string/service_seeker"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -33,8 +34,9 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
         android:padding="4dp"
-        android:src="@drawable/ic_settings"
+        android:src="@drawable/ic_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
@@ -43,13 +45,13 @@
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find top rated workers near you"
+        android:text="@string/find_workers"
         android:textColor="#CCFFFFFF"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
         app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
 
-    <!-- Professional Toggle Switch - CRASH FIXED VERSION -->
+    <!-- Professional Toggle Switch -->
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/workerToggleGroup"
         android:layout_width="wrap_content"
@@ -67,12 +69,10 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Educated Worker"
+            android:text="@string/educated_worker"
             android:textAllCaps="false"
             android:textColor="@color/color_toggle_text"
             app:backgroundTint="@color/toggle_bg_selector"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="4dp"
             app:cornerRadius="8dp"
             app:strokeColor="@color/toggle_stroke_selector"
             app:strokeWidth="1dp" />
@@ -82,7 +82,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Uneducated Worker"
+            android:text="@string/un_educated_worker"
             android:textAllCaps="false"
             android:textColor="@color/color_toggle_text"
             app:backgroundTint="@color/toggle_bg_selector"
@@ -95,7 +95,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/searchCard"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="25dp"
@@ -111,7 +111,7 @@
             android:background="@android:color/transparent"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
-            android:hint="Search by name or category..."
+            android:hint="@string/search_worker_hint"
             android:paddingStart="16dp"
             android:textSize="14sp" />
     </com.google.android.material.card.MaterialCardView>
@@ -121,12 +121,13 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="6dp"
         app:layout_constraintEnd_toStartOf="@+id/cardCategory"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchCard"
         app:strokeWidth="0dp">
@@ -145,7 +146,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="25dp"
         app:cardElevation="6dp"
@@ -164,34 +165,18 @@
             android:spinnerMode="dropdown" />
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Filter Spinners -->
-    <LinearLayout
-        android:id="@+id/llFilters"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerBg">
-
-
-    </LinearLayout>
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llFilters">
+        app:layout_constraintTop_toBottomOf="@id/cardDistrict">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvWorkers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:clipToPadding="false"
             android:padding="8dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -204,17 +189,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llFilters" />
+        app:layout_constraintTop_toBottomOf="@id/cardDistrict" />
 
     <TextView
         android:id="@+id/tvNoResults"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No providers found matching your filters."
+        android:text="No providers found."
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llFilters" />
+        app:layout_constraintTop_toBottomOf="@id/cardDistrict" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
