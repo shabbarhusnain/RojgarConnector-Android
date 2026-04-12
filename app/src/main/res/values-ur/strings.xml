@@ -1,77 +1,12 @@
 <resources>
     <string name="app_name">روزگار کنیکٹر</string>
 
-    <!-- Login/Register -->
-    <string name="login">لاگ ان</string>
-    <string name="register">رجسٹر</string>
-    <string name="email_cnic">شناختی کارڈ نمبر</string>
-    <string name="password">پاس ورڈ</string>
-    <string name="forgot_password">پاس ورڈ بھول گئے؟</string>
-    <string name="dont_have_account">اکاؤنٹ نہیں ہے؟ ابھی رجسٹر کریں۔</string>
-    <string name="full_name">پورا نام</string>
-    <string name="phone_number">فون نمبر</string>
-    <string name="confirm_password">پاس ورڈ کی تصدیق کریں</string>
-    <string name="already_have_account">پہلے سے اکاؤنٹ ہے؟ لاگ ان کریں۔</string>
-    <string name="login_title">لاگ ان</string>
-    <string name="cnic_hint">13 ہندسوں کا شناختی کارڈ (بغیر ڈیش)</string>
-    <string name="password_hint">پاس ورڈ درج کریں</string>
-    <string name="tagline">مقامی کام کے لیے فاصلے ختم کرنا</string>
-    <string name="create_account">اکاؤنٹ بنائیں</string>
-    <string name="name_hint">نام</string>
-    <string name="father_name_hint">والد کا نام</string>
-    <string name="perm_address_hint">مستقل پتہ</string>
-    <string name="city_hint">شہر</string>
-    <string name="doc_uploads">دستاویزات اپ لوڈ کریں (تصدیق کے لیے ضروری):</string>
-    <string name="upload_dp">پروفائل تصویر اپ لوڈ کریں</string>
-    <string name="cnic_front">شناختی کارڈ فرنٹ</string>
-    <string name="cnic_back">شناختی کارڈ بیک</string>
-
-    <!-- Role Selection -->
-    <string name="choose_your_role">اپنا کردار منتخب کریں</string>
-    <string name="service_seeker">ملازمت کے متلاشی</string>
-    <string name="service_provider">ملازمت فراہم کرنے والے</string>
-    <string name="educated_worker">تعلیم یافتہ کارکن</string>
-    <string name="un_educated_worker">غیر تعلیم یافتہ کارکن</string>
-    <string name="confirm_and_continue">تصدیق کریں اور آگے بڑھیں</string>
-
     <!-- Home & Navigation -->
     <string name="home">ہوم</string>
     <string name="notifications">سرگرمیاں</string>
     <string name="messages">پیغامات</string>
     <string name="profile">پروفائل</string>
     <string name="logout">لاگ آؤٹ</string>
-
-    <!-- Settings / Menu -->
-    <string name="menu_title">مینو</string>
-    <string name="lang_settings">زبان کی ترتیبات</string>
-    <string name="switch_urdu_label">اردو میں ترجمہ کریں</string>
-    <string name="model_download_status">پہلی بار فعال کرنے پر آف لائن ماڈل ڈاؤن لوڈ کیا جائے گا۔</string>
-
-    <!-- Profile Screen -->
-    <string name="user_profile">صارف کا پروفائل</string>
-    <string name="basic_info">بنیادی معلومات</string>
-    <string name="father_name">والد کا نام</string>
-    <string name="cnic_number">شناختی کارڈ نمبر</string>
-    <string name="dob">تاریخ پیدائش</string>
-    <string name="location">مقام</string>
-    <string name="not_provided">فراہم نہیں کیا گیا</string>
-    <string name="portfolio">پیشہ ورانہ پورٹ فولیو</string>
-    <string name="education">تعلیم</string>
-    <string name="skill_expertise">مہارت / تجربہ</string>
-    <string name="experience">تجربہ</string>
-    <string name="prof_desc">پیشہ ورانہ تفصیل</string>
-    <string name="degree_doc">آخری ڈگری کی دستاویز</string>
-    <string name="sign_out">سائن آؤٹ</string>
-
-    <!-- Seeker Home -->
-    <string name="find_workers">اپنے قریب اعلی درجے کے کارکن تلاش کریں</string>
-    <string name="search_worker_hint">نام یا زمرہ کے لحاظ سے تلاش کریں...</string>
-
-    <!-- Provider Home -->
-    <string name="available_jobs">دستیاب ملازمتیں</string>
-    <string name="find_jobs">اپنی مہارت کے مطابق کام تلاش کریں</string>
-    <string name="search_job_hint">عنوان یا مہارت کے لحاظ سے ملازمتیں تلاش کریں...</string>
-    <string name="no_jobs_found">آپ کے فلٹرز سے مماثل کوئی نوکری نہیں ملی۔</string>
 
     <!-- Activity Hub / Notifications -->
     <string name="activity_hub">سرگرمی حب</string>
@@ -90,12 +25,15 @@
     <string name="my_apps">میری درخواستیں</string>
     <string name="work_in_progress_chip">کام جاری ہے</string>
 
-    <!-- Header Titles -->
-    <string name="active_work_header">موجودہ فعال کام 🛠️</string>
-    <string name="job_history_header">ملازمت کی تاریخ کا ریکارڈ 📜</string>
-    <string name="hiring_offers_header">ہائرنگ آفرز 💼</string>
-    <string name="job_apps_header">ملازمت کی درخواستیں 📝</string>
-    <string name="notif_header">اطلاعات 🔔</string>
+    <!-- Menu / Settings -->
+    <string name="menu_title">مینو</string>
+    <string name="lang_settings">زبان کی ترتیبات</string>
+    <string name="switch_urdu_label">اردو میں ترجمہ کریں</string>
+    <string name="model_download_status">پہلی بار فعال کرنے پر آف لائن ماڈل ڈاؤن لوڈ کیا جائے گا۔</string>
+    <string name="chat_with_admin">ایڈمن سے بات کریں</string>
+    <string name="help_and_support">مدد اور سپورٹ</string>
+    <string name="sos_emergency">ایمرجنسی مدد</string>
+    <string name="call_15_desc">فوری مدد کے لیے 15 پر کال کریں</string>
 
     <!-- Notification Items -->
     <string name="work_in_progress">کام جاری ہے</string>
@@ -106,64 +44,5 @@
     <string name="chat_btn">چیٹ</string>
     <string name="pending">انتظار</string>
     <string name="just_now">ابھی ابھی</string>
-
-    <!-- Chat Screen -->
-    <string name="chats_title">چیٹس</string>
-    <string name="no_messages">ابھی تک کوئی پیغام نہیں ہے</string>
-    <string name="type_message_hint">پیغام ٹائپ کریں...</string>
-    <string name="provider_educated">فراہم کنندہ (تعلیم یافتہ)</string>
-    <string name="provider_uneducated">فراہم کنندہ (غیر تعلیم یافتہ)</string>
-    <string name="rozgar_user">روزگار صارف</string>
-    <string name="job_finished_read_only">کام مکمل (صرف پڑھنے کے لیے)</string>
-    <string name="chat_locked_no_job">چیٹ لاک ہے (کوئی فعال کام نہیں ہے)</string>
-    <string name="user_not_found">خرابی: صارف نہیں ملا</string>
-
-    <!-- Post Job Screen -->
-    <string name="post_new_job">نئی ملازمت پوسٹ کریں</string>
-    <string name="job_info">ملازمت کی معلومات</string>
-    <string name="job_title_hint">ملازمت کا عنوان (مثلاً الیکٹریشن)</string>
-    <string name="workplace_location">کام کی جگہ اور مقام</string>
-    <string name="workplace_name_hint">کام کی جگہ کا نام</string>
-    <string name="full_address_hint">مکمل پتہ</string>
-    <string name="worker_category_header">کارکن کا زمرہ</string>
-    <string name="educated">تعلیم یافتہ</string>
-    <string name="uneducated">غیر تعلیم یافتہ</string>
-    <string name="select_skill_category">مہارت کے زمرے کا انتخاب کریں</string>
-    <string name="budget_time">بجٹ اور وقت</string>
-    <string name="amount_pkr_hint">رقم (روپے)</string>
-    <string name="value_hint">قیمت</string>
-    <string name="job_desc_hint">کاموں کی مختصراً وضاحت کریں...</string>
-    <string name="publish_job">ملازمت شائع کریں</string>
-
-    <!-- Worker Detail Screen -->
-    <string name="experience_label">تجربہ</string>
-    <string name="about_work">کام کے بارے میں</string>
-    <string name="education_details">تعلیم کی تفصیلات</string>
-    <string name="hire_worker">اس کارکن کو ہائر کریں</string>
-    <string name="decline">مسترد کریں</string>
-    <string name="accept_hire">قبول کریں اور ہائر کریں</string>
-
-    <!-- Job Detail Screen -->
-    <string name="urgent">فوری</string>
-    <string name="duration">مدت</string>
-    <string name="job_location">مقام</string>
-    <string name="about_job">ملازمت کے بارے میں</string>
-    <string name="send_application">درخواست بھیجیں</string>
-
-    <!-- Hiring Dialog -->
-    <string name="send_hiring_offer">ہائرنگ آفر بھیجیں</string>
-    <string name="work_engagement_details">کام کی تفصیلات</string>
-    <string name="job_task_hint">کام کی تفصیل / ٹاسک</string>
-    <string name="select_engagement_type">انتخاب کریں</string>
-    <string name="working_duration_hint">دورانیہ (مثلاً 2 گھنٹے، 1 دن)</string>
-    <string name="work_location_hint">کام کا مقام / مکمل پتہ</string>
-    <string name="offered_budget_hint">بجٹ (روپے)</string>
-    <string name="completion_deadline_hint">تکمیل کی آخری تاریخ / وقت</string>
-    <string name="contact_number_hint">آپ کا رابطہ نمبر</string>
-    <string name="send">بھجیں</string>
-
-    <!-- My Applications Screen -->
-    <string name="my_apps_title">میری درخواستیں</string>
-    <string name="no_apps_yet">آپ نے ابھی تک کسی ملازمت کے لیے درخواست نہیں دی ہے۔</string>
 
 </resources>

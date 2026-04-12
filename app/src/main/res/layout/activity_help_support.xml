@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    tools:context=".ui.help.HelpSupportActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_gradient_curved">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Help &amp; Support Center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Guide &amp; FAQs"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Category: Account & Registration -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_account"
+                android:textColor="@color/primary_green"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="12dp"/>
+
+            <include layout="@layout/item_faq" android:id="@+id/faq1" />
+            <include layout="@layout/item_faq" android:id="@+id/faq2" />
+            <include layout="@layout/item_faq" android:id="@+id/faq3" />
+            <include layout="@layout/item_faq" android:id="@+id/faq4" />
+
+            <!-- Category: For Service Seekers -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_seeker"
+                android:textColor="@color/primary_green"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <include layout="@layout/item_faq" android:id="@+id/faq5" />
+            <include layout="@layout/item_faq" android:id="@+id/faq6" />
+            <include layout="@layout/item_faq" android:id="@+id/faq7" />
+            <include layout="@layout/item_faq" android:id="@+id/faq8" />
+
+            <!-- Category: For Workers -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_provider"
+                android:textColor="@color/primary_green"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <include layout="@layout/item_faq" android:id="@+id/faq9" />
+            <include layout="@layout/item_faq" android:id="@+id/faq10" />
+            <include layout="@layout/item_faq" android:id="@+id/faq11" />
+            <include layout="@layout/item_faq" android:id="@+id/faq12" />
+
+            <!-- Category: Safety & Security -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_safety"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <include layout="@layout/item_faq" android:id="@+id/faq13" />
+            <include layout="@layout/item_faq" android:id="@+id/faq14" />
+            <include layout="@layout/item_faq" android:id="@+id/faq15" />
+            <include layout="@layout/item_faq" android:id="@+id/faq16" />
+
+            <!-- Category: Completion & Payment -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_completion"
+                android:textColor="@color/primary_green"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <include layout="@layout/item_faq" android:id="@+id/faq17" />
+            <include layout="@layout/item_faq" android:id="@+id/faq18" />
+            <include layout="@layout/item_faq" android:id="@+id/faq19" />
+            <include layout="@layout/item_faq" android:id="@+id/faq20" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Still have questions?"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContactSupport"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="12dp"
+                android:text="Email Support Agent"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/primary_green"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:text="Rozgar Connector Help v1.0"
+                android:textColor="@color/grey"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

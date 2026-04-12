@@ -2,11 +2,9 @@ package com.shabbar.rozgarconnector.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
@@ -15,7 +13,6 @@ import com.shabbar.rozgarconnector.databinding.FragmentNotificationsBinding
 import com.shabbar.rozgarconnector.models.NotificationModel
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
 import com.shabbar.rozgarconnector.ui.settings.MenuActivity
-import java.util.*
 
 class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
@@ -88,11 +85,18 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         
         val filtered = allNotifications.filter { notif ->
             val isSeeker = if (notif.type == "hire") notif.senderId == currentUid else notif.receiverId == currentUid
+            
+            // Logic Fix: hasUserFinished must be true if current user (Seeker/Worker) has confirmed completion
             val hasUserFinished = if (isSeeker) notif.seekerConfirmed else notif.workerConfirmed
+            val isFullyCompleted = notif.status == "completed"
 
             when (filterType) {
+                // Active Work only shows jobs that are Accepted AND not yet finished by the current user
                 "active" -> (notif.status == "accepted" || notif.status == "approved") && !hasUserFinished
-                "history" -> notif.status == "completed" || hasUserFinished
+                
+                // History shows fully completed jobs OR jobs the user has personally marked as finished
+                "history" -> isFullyCompleted || hasUserFinished
+                
                 "hire" -> notif.type == "hire" && notif.status == "pending"
                 "job" -> notif.type == "job" && notif.status == "pending"
                 "all" -> notif.status == "rejected" || notif.status == "cancelled"

@@ -2,26 +2,38 @@
 <resources>
     <string name="app_name">Rozgar Connector</string>
 
-    <!-- UI Strings -->
+    <!-- Login Screen -->
+    <string name="login_title">LOGIN</string>
+    <string name="tagline">Bridging the gap to local work</string>
+    <string name="cnic_hint">13-Digit CNIC (Without Dashes)</string>
+    <string name="password_hint">Enter Password</string>
+    <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="email_cnic">CNIC Number</string>
-    <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="full_name">Full Name</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="service_seeker">Service Seeker</string>
-    <string name="service_provider">Service Provider</string>
-    
     <string name="dont_have_account">Don\'t have an account? Register now</string>
+
+    <!-- Register Screen -->
+    <string name="create_account">Create Account</string>
+    <string name="name_hint">Name</string>
+    <string name="full_name">Full Name</string>
+    <string name="father_name_hint">Father Name</string>
+    <string name="father_name">Father Name</string>
+    <string name="phone_number">Phone Number</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_account">Already have an account? Login</string>
+    <string name="perm_address_hint">Permanent Address</string>
+    <string name="city_hint">City</string>
+    <string name="doc_uploads">Document Uploads (Required for Verification):</string>
+    <string name="upload_dp">Upload Profile Picture</string>
+    <string name="cnic_front">CNIC Front</string>
+    <string name="cnic_back">CNIC Back</string>
     <string name="choose_your_role">Choose your role</string>
+    <string name="service_seeker">Service Seeker</string>
+    <string name="service_provider">Service Provider</string>
     <string name="educated_worker">Educated Worker</string>
     <string name="un_educated_worker">Uneducated Worker</string>
     <string name="confirm_and_continue">Confirm and Continue</string>
-    <string name="settings">Settings</string>
-    <string name="switch_to_urdu">Switch to Urdu</string>
 
     <!-- Navigation Labels -->
     <string name="home">Home</string>
@@ -29,11 +41,11 @@
     <string name="messages">Messages</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="settings">Settings</string>
 
     <!-- Profile Screen -->
     <string name="user_profile">User Profile</string>
     <string name="basic_info">Basic Information</string>
-    <string name="father_name">Father Name</string>
     <string name="cnic_number">CNIC Number</string>
     <string name="dob">Date of Birth</string>
     <string name="location">Location</string>
@@ -46,17 +58,15 @@
     <string name="degree_doc">Last Degree Document</string>
     <string name="sign_out">SIGN OUT</string>
 
-    <!-- Seeker Home -->
+    <!-- Home Screens -->
     <string name="find_workers">Find top rated workers near you</string>
     <string name="search_worker_hint">Search by name or category...</string>
-
-    <!-- Provider Home -->
     <string name="available_jobs">Available Jobs</string>
     <string name="find_jobs">Find work that matches your skills</string>
     <string name="search_job_hint">Search jobs by title or skill...</string>
     <string name="no_jobs_found">No jobs found matching your filters.</string>
 
-    <!-- Activity Hub / Notifications -->
+    <!-- Activity Hub -->
     <string name="activity_hub">Activity Hub</string>
     <string name="active_work">Active Work</string>
     <string name="offers">Offers</string>
@@ -64,23 +74,17 @@
     <string name="history">History</string>
     <string name="all_notif">Notifications</string>
     <string name="no_updates">No updates yet</string>
-    
-    <!-- Chip Labels -->
     <string name="sent_offers">Sent Offers</string>
     <string name="apps_received">Applications Received</string>
     <string name="active_contracts">Active Contracts</string>
     <string name="job_offers">Job Offers</string>
     <string name="my_apps">My Applications</string>
     <string name="work_in_progress_chip">Work In Progress</string>
-
-    <!-- Header Titles -->
     <string name="active_work_header">Current Active Work 🛠️</string>
     <string name="job_history_header">Job History Record 📜</string>
     <string name="hiring_offers_header">Hiring Offers 💼</string>
     <string name="job_apps_header">Job Applications 📝</string>
     <string name="notif_header">Notifications 🔔</string>
-    
-    <!-- Notification Items -->
     <string name="work_in_progress">Work in Progress</string>
     <string name="days_left">Days Left</string>
     <string name="sos">SOS (15)</string>
@@ -90,16 +94,16 @@
     <string name="pending">PENDING</string>
     <string name="just_now">Just Now</string>
 
-    <!-- Chat Screen -->
-    <string name="chats_title">Chats</string>
-    <string name="no_messages">No messages yet.</string>
-    <string name="type_message_hint">Type a message...</string>
-    <string name="provider_educated">Provider (Educated)</string>
-    <string name="provider_uneducated">Provider (Uneducated)</string>
-    <string name="rozgar_user">Rozgar User</string>
-    <string name="job_finished_read_only">Job Finished (Read Only)</string>
-    <string name="chat_locked_no_job">Chat Locked (No Active Job)</string>
-    <string name="user_not_found">Error: User not found</string>
+    <!-- Menu / Settings -->
+    <string name="menu_title">Menu</string>
+    <string name="lang_settings">Language Settings</string>
+    <string name="switch_urdu_label">Translate to Urdu (اردو)</string>
+    <string name="model_download_status">Offline model will be downloaded on first enable.</string>
+    <string name="chat_with_agent">Chat with Agent</string>
+    <string name="help_and_support">Help &amp; Support</string>
+    <string name="sos_emergency">SOS Emergency</string>
+    <string name="call_15_desc">Call 15 for immediate help</string>
+    <string name="agent_welcome_msg">Hello! Welcome to Rozgar Support. Please describe your issue, and an agent will be with you in a minute.</string>
 
     <!-- Post Job Screen -->
     <string name="post_new_job">Post a New Job</string>
@@ -118,6 +122,13 @@
     <string name="job_desc_hint">Briefly describe the tasks...</string>
     <string name="publish_job">PUBLISH JOB</string>
 
+    <!-- Job Detail Screen -->
+    <string name="urgent">URGENT</string>
+    <string name="duration">Duration</string>
+    <string name="job_location">Location</string>
+    <string name="about_job">About the Job</string>
+    <string name="send_application">SEND APPLICATION</string>
+
     <!-- Worker Detail Screen -->
     <string name="experience_label">Experience</string>
     <string name="about_work">About Work</string>
@@ -126,16 +137,9 @@
     <string name="decline">DECLINE</string>
     <string name="accept_hire">ACCEPT &amp; HIRE</string>
 
-    <!-- Job Detail Screen -->
-    <string name="urgent">URGENT</string>
-    <string name="duration">Duration</string>
-    <string name="job_location">Location</string>
-    <string name="about_job">About the Job</string>
-    <string name="send_application">SEND APPLICATION</string>
-
     <!-- Hiring Dialog -->
-    <string name="send_hiring_offer">Send Hiring Offer</string>
     <string name="work_engagement_details">Work Engagement Details</string>
+    <string name="send_hiring_offer">Send Hiring Offer</string>
     <string name="job_task_hint">Job Description / Task</string>
     <string name="select_engagement_type">Select Engagement Type</string>
     <string name="working_duration_hint">Working Duration (e.g. 2 Hours, 1 Day)</string>
@@ -145,32 +149,16 @@
     <string name="contact_number_hint">Your Contact Number</string>
     <string name="send">Send</string>
 
-    <!-- Menu/Settings Screen -->
-    <string name="menu_title">Menu</string>
-    <string name="lang_settings">Language Settings</string>
-    <string name="switch_urdu_label">Translate to Urdu (اردو)</string>
-    <string name="model_download_status">Offline model will be downloaded on first enable.</string>
-
-    <!-- Login Screen Specific -->
-    <string name="login_title">LOGIN</string>
-    <string name="cnic_hint">13-Digit CNIC (Without Dashes)</string>
-    <string name="password_hint">Enter Password</string>
-    <string name="tagline">Bridging the gap to local work</string>
-
-    <!-- Register Screen -->
-    <string name="create_account">Create Account</string>
-    <string name="name_hint">Name</string>
-    <string name="father_name_hint">Father Name</string>
-    <string name="perm_address_hint">Permanent Address</string>
-    <string name="city_hint">City</string>
-    <string name="doc_uploads">Document Uploads (Required for Verification):</string>
-    <string name="upload_dp">Upload Profile Picture</string>
-    <string name="cnic_front">CNIC Front</string>
-    <string name="cnic_back">CNIC Back</string>
-
-    <!-- My Applications Screen -->
-    <string name="my_apps_title">My Applications</string>
-    <string name="no_apps_yet">You haven\'t applied to any jobs yet.</string>
+    <!-- Chat Screen -->
+    <string name="chats_title">Chats</string>
+    <string name="no_messages">No messages yet.</string>
+    <string name="type_message_hint">Type a message...</string>
+    <string name="provider_educated">Provider (Educated)</string>
+    <string name="provider_uneducated">Provider (Uneducated)</string>
+    <string name="rozgar_user">Rozgar User</string>
+    <string name="job_finished_read_only">Job Finished (Read Only)</string>
+    <string name="chat_locked_no_job">Chat Locked (No Active Job)</string>
+    <string name="user_not_found">Error: User not found</string>
 
     <!-- Hiring Engagement Types -->
     <string-array name="engagement_types">
@@ -178,5 +166,62 @@
         <item>Invite for Interview / Meeting</item>
         <item>Hire for Trial Period</item>
     </string-array>
+
+    <!-- FAQ Categories -->
+    <string name="faq_account">Account &amp; Profile</string>
+    <string name="faq_seeker">For Service Seekers</string>
+    <string name="faq_provider">For Workers / Providers</string>
+    <string name="faq_safety">Safety &amp; Security</string>
+    <string name="faq_completion">Job Completion &amp; Payments</string>
+
+    <!-- FAQ Q&A - Account -->
+    <string name="faq_q1">How to register on Rozgar Connector?</string>
+    <string name="faq_a1">Click \'Register\' on the login screen, enter your name, CNIC, phone number, and choose your role (Seeker or Provider) to create an account.</string>
+    <string name="faq_q2">Can I change my role after registration?</string>
+    <string name="faq_a2">Currently, roles are fixed at registration. If you need to switch, please contact our support agent for assistance.</string>
+    <string name="faq_q3">Is my CNIC data safe?</string>
+    <string name="faq_a3">Yes, your CNIC and personal documents are encrypted and only used for identity verification to ensure a safe community.</string>
+    <string name="faq_q4">How to update my profile details?</string>
+    <string name="faq_a4">Go to the \'Profile\' tab, where you can view and edit your basic info, education, and skills.</string>
+
+    <!-- FAQ Q&A - Seeker -->
+    <string name="faq_q5">How do I post a new job?</string>
+    <string name="faq_a5">As a Seeker, go to Home and click the \'+\' or \'Post Job\' button. Fill in the title, location, budget, and description to publish it.</string>
+    <string name="faq_q6">How can I see who applied for my job?</string>
+    <string name="faq_a6">Go to the \'Activities\' tab and select \'Applications\'. You will see a list of workers who applied for your posted jobs.</string>
+    <string name="faq_q7">How do I hire a specific worker?</string>
+    <string name="faq_a7">Find a worker on the Home screen or in your applications, view their profile, and click \'Hire This Worker\' to send an offer.</string>
+    <string name="faq_q8">Can I cancel a job post?</string>
+    <string name="faq_a8">Yes, you can cancel your job post from the Activities tab if no contract has been started yet.</string>
+
+    <!-- FAQ Q&A - Provider -->
+    <string name="faq_q9">How do I find available jobs?</string>
+    <string name="faq_a9">As a Provider, the Home screen shows all available jobs. You can search by title or filter by your skills.</string>
+    <string name="faq_q10">How many jobs can I apply for?</string>
+    <string name="faq_a10">There is no limit! You can apply for as many jobs as match your expertise to increase your chances of getting hired.</string>
+    <string name="faq_q11">How do I know if I am hired?</string>
+    <string name="faq_a11">You will receive a notification in the \'Activities\' tab under \'Offers\'. You can then \'Accept\' to start the work.</string>
+    <string name="faq_q12">What is an Educated vs Uneducated worker?</string>
+    <string name="faq_a12">Educated workers provide services like teaching or office work. Uneducated workers provide manual skills like plumbing or masonry.</string>
+
+    <!-- FAQ Q&A - Safety -->
+    <string name="faq_q13">What is the SOS button?</string>
+    <string name="faq_a13">The SOS button is an emergency feature. Clicking it will dial 15 immediately if you feel unsafe during a job.</string>
+    <string name="faq_q14">How are workers verified?</string>
+    <string name="faq_a14">Every worker must upload their CNIC and documents. Our team manually verifies these details before approving their profile.</string>
+    <string name="faq_q15">How to report a fake user?</string>
+    <string name="faq_a15">You can report any suspicious activity by clicking \'Chat with Agent\' in the Menu and providing details.</string>
+    <string name="faq_q16">Is my location shared with everyone?</string>
+    <string name="faq_a16">Your general city is visible, but your exact address is only shared with the person you are officially working with.</string>
+
+    <!-- FAQ Q&A - Completion -->
+    <string name="faq_q17">How do I mark a job as finished?</string>
+    <string name="faq_a17">Once work is done, go to the active job in the \'Activities\' tab and click \'Finish Job\'. Both parties must confirm completion.</string>
+    <string name="faq_q18">How do payments work?</string>
+    <string name="faq_a18">Currently, payments are handled directly between the seeker and worker. Please ensure payment is settled before marking \'Finish\'.</string>
+    <string name="faq_q19">Why should I rate the other person?</string>
+    <string name="faq_a19">Ratings help build trust. High-rated workers get more jobs, and good seekers attract better workers.</string>
+    <string name="faq_q20">Where can I see my job history?</string>
+    <string name="faq_a20">All your finished and cancelled jobs are stored in the \'History\' tab within the Activities section.</string>
 
 </resources>
