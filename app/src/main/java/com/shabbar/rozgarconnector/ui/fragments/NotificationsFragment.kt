@@ -17,7 +17,7 @@ import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
     private var _binding: FragmentNotificationsBinding? = null
-    private val binding get() = _binding
+    private val binding get() = _binding!!
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -37,7 +37,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         fetchUserRole()
         loadNotifications()
 
-        binding?.btnSettings?.setOnClickListener {
+        binding.btnSettings.setOnClickListener {
             startActivity(Intent(requireContext(), MenuActivity::class.java))
         }
     }
@@ -45,30 +45,31 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     private fun fetchUserRole() {
         val uid = auth.currentUser?.uid ?: return
         db.collection("users").document(uid).get().addOnSuccessListener { doc ->
-            userRole = doc.getString("role") ?: ""
-            updateChipLabels()
+            if (isAdded && doc.exists()) {
+                userRole = (doc.getString("role") ?: "").lowercase()
+                updateChipLabels()
+            }
         }
     }
 
     private fun updateChipLabels() {
-        if (!isAdded || _binding == null) return
-        val role = userRole.lowercase()
-        when (role) {
+        if (!isAdded) return
+        when (userRole) {
             "seeker" -> {
-                binding?.chipOffers?.text = getString(R.string.sent_offers)
-                binding?.chipApplications?.text = getString(R.string.apps_received)
-                binding?.chipActive?.text = getString(R.string.active_contracts)
+                binding.chipOffers.text = getString(R.string.sent_offers)
+                binding.chipApplications.text = getString(R.string.apps_received)
+                binding.chipActive.text = getString(R.string.active_contracts)
             }
-            "provider" -> {
-                binding?.chipOffers?.text = getString(R.string.job_offers)
-                binding?.chipApplications?.text = getString(R.string.my_apps)
-                binding?.chipActive?.text = getString(R.string.work_in_progress_chip)
+            "provider", "worker" -> {
+                binding.chipOffers.text = getString(R.string.job_offers)
+                binding.chipApplications.text = getString(R.string.my_apps)
+                binding.chipActive.text = getString(R.string.work_in_progress_chip)
             }
         }
     }
 
     private fun setupFilters() {
-        binding?.chipGroupFilters?.setOnCheckedStateChangeListener { _, checkedIds ->
+        binding.chipGroupFilters.setOnCheckedStateChangeListener { _, checkedIds ->
             when (checkedIds.firstOrNull()) {
                 R.id.chipActive -> applyFilter("active")
                 R.id.chipOffers -> applyFilter("hire")
@@ -84,44 +85,41 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         val currentUid = auth.currentUser?.uid ?: return
         
         val filtered = allNotifications.filter { notif ->
-            val isSeeker = if (notif.type == "hire") notif.senderId == currentUid else notif.receiverId == currentUid
+            val status = notif.status.lowercase()
+            val type = notif.type.lowercase()
             
-            // Logic Fix: hasUserFinished must be true if current user (Seeker/Worker) has confirmed completion
-            val hasUserFinished = if (isSeeker) notif.seekerConfirmed else notif.workerConfirmed
-            val isFullyCompleted = notif.status == "completed"
+            val hasUserFinished = if (userRole == "seeker") notif.seekerConfirmed else notif.workerConfirmed
 
             when (filterType) {
-                // Active Work only shows jobs that are Accepted AND not yet finished by the current user
-                "active" -> (notif.status == "accepted" || notif.status == "approved") && !hasUserFinished
-                
-                // History shows fully completed jobs OR jobs the user has personally marked as finished
-                "history" -> isFullyCompleted || hasUserFinished
-                
-                "hire" -> notif.type == "hire" && notif.status == "pending"
-                "job" -> notif.type == "job" && notif.status == "pending"
-                "all" -> notif.status == "rejected" || notif.status == "cancelled"
+                "active" -> (status == "accepted" || status == "approved") && !hasUserFinished
+                "history" -> status == "completed" || status == "disputed" || status == "rejected" || status == "cancelled" || hasUserFinished
+                "hire" -> type == "hire" && status == "pending"
+                "job" -> type == "job" && status == "pending"
                 else -> true
             }
-        }
+        }.distinctBy { it.notificationId }
         
         groupNotificationsByDate(filtered, filterType)
     }
 
     private fun groupNotificationsByDate(list: List<NotificationModel>, filterType: String) {
         displayList.clear()
+        if (!isAdded) return
+        
         if (list.isEmpty()) {
             adapter.updateData(displayList)
             updateEmptyState()
             return
         }
 
-        when (filterType) {
-            "active" -> displayList.add(getString(R.string.active_work_header))
-            "history" -> displayList.add(getString(R.string.job_history_header))
-            "hire" -> displayList.add(getString(R.string.hiring_offers_header))
-            "job" -> displayList.add(getString(R.string.job_apps_header))
-            else -> displayList.add(getString(R.string.notif_header))
+        val header = when (filterType) {
+            "active" -> getString(R.string.active_work_header)
+            "history" -> getString(R.string.job_history_header)
+            "hire" -> getString(R.string.hiring_offers_header)
+            "job" -> getString(R.string.job_apps_header)
+            else -> getString(R.string.notif_header)
         }
+        displayList.add(header)
         
         displayList.addAll(list.sortedByDescending { it.timestamp })
         adapter.updateData(displayList)
@@ -131,26 +129,27 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     private fun setupRecyclerView() {
         adapter = NotificationAdapter(displayList) { notification ->
             db.collection("notifications").document(notification.notificationId).update("isRead", true)
-            if (notification.status != "completed") openWorkerProfile(notification)
+            openWorkerProfile(notification)
         }
-        binding?.rvNotifications?.layoutManager = LinearLayoutManager(requireContext())
-        binding?.rvNotifications?.adapter = adapter
+        binding.rvNotifications.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvNotifications.adapter = adapter
     }
 
     private fun loadNotifications() {
         val uid = auth.currentUser?.uid ?: return
-        binding?.progressBar?.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
+        
         db.collection("notifications").addSnapshotListener { snapshots, e ->
-            if (!isAdded || _binding == null) return@addSnapshotListener
-            binding?.progressBar?.visibility = View.GONE
+            if (!isAdded) return@addSnapshotListener
+            binding.progressBar.visibility = View.GONE
             if (e != null) return@addSnapshotListener
             
             allNotifications.clear()
             snapshots?.forEach { doc ->
                 val rId = doc.getString("receiverId") ?: ""
                 val sId = doc.getString("senderId") ?: ""
-                val type = doc.getString("type") ?: ""
-                if (rId == uid || (sId == uid && (type == "hire" || type == "job"))) {
+                
+                if (rId == uid || sId == uid) {
                     val notif = doc.toObject(NotificationModel::class.java).apply { notificationId = doc.id }
                     allNotifications.add(notif)
                 }
@@ -160,7 +159,14 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     }
 
     private fun updateEmptyState() {
-        binding?.tvNoNotifications?.visibility = if (displayList.isEmpty()) View.VISIBLE else View.GONE
+        if (_binding == null) return
+        if (displayList.isEmpty()) {
+            binding.llEmptyState.visibility = View.VISIBLE
+            binding.rvNotifications.visibility = View.GONE
+        } else {
+            binding.llEmptyState.visibility = View.GONE
+            binding.rvNotifications.visibility = View.VISIBLE
+        }
     }
 
     private fun openWorkerProfile(notification: NotificationModel) {

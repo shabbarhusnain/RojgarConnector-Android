@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.shabbar.rozgarconnector.ui.admin.AdminDashboardActivity
-import com.shabbar.rozgarconnector.ui.home.SeekerHomeActivity
+import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.ui.home.ProviderHomeActivity
+import com.shabbar.rozgarconnector.ui.home.SeekerHomeActivity
 import com.shabbar.rozgarconnector.ui.role.RoleSelectionActivity
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
@@ -22,67 +21,71 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+
         Handler(Looper.getMainLooper()).postDelayed({
-            checkUserStatus()
+            checkAuth()
         }, 2000)
     }
 
-    private fun checkUserStatus() {
-        val currentUser = auth.currentUser
-
-        if (currentUser == null) {
+    private fun checkAuth() {
+        val user = auth.currentUser
+        if (user != null) {
+            fetchUserRole(user.uid)
+        } else {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
-        } else {
-            db.collection("users").document(currentUser.uid).get()
-                .addOnSuccessListener { doc ->
-                    if (doc.exists()) {
-                        val role = (doc.getString("role") ?: "").lowercase()
-                        val isVerified = doc.getBoolean("isVerified") ?: false
-                        val workerType = (doc.getString("workerType") ?: "").lowercase()
-                        val profileCompleted = doc.getBoolean("profileCompleted") ?: false
+        }
+    }
 
-                        // Logical Fix: Admin bypasses verification check
-                        if (role == "admin") {
-                            startActivity(Intent(this, AdminDashboardActivity::class.java))
-                        } else if (!isVerified) {
-                            startActivity(Intent(this, PendingApprovalActivity::class.java))
-                        } else {
-                            // Professional Routing based on Role
-                            when {
-                                role == "seeker" -> {
-                                    startActivity(Intent(this, SeekerHomeActivity::class.java))
-                                }
-                                role == "worker" || workerType == "educated" || workerType == "uneducated" -> {
-                                    if (profileCompleted) {
-                                        startActivity(Intent(this, ProviderHomeActivity::class.java))
-                                    } else {
-                                        // Force Portfolio making
-                                        val intent = if (workerType == "educated") {
-                                            Intent(this, EducatedWorkerProfileActivity::class.java)
-                                        } else {
-                                            Intent(this, UneducatedWorkerProfileActivity::class.java)
-                                        }
-                                        startActivity(intent)
-                                    }
-                                }
-                                else -> {
-                                    // Only new users who haven't picked a role yet
-                                    startActivity(Intent(this, RoleSelectionActivity::class.java))
-                                }
+    private fun fetchUserRole(uid: String) {
+        db.collection("users").document(uid).get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists() && !isFinishing) {
+                    val role = (doc.getString("role") ?: "pending").lowercase()
+                    
+                    // SECURITY: If an Admin tries to stay logged in, force logout them
+                    if (role == "admin") {
+                        auth.signOut()
+                        navigateTo(LoginActivity::class.java)
+                        return@addOnSuccessListener
+                    }
+
+                    val isVerified = doc.getBoolean("isVerified") ?: false
+                    val profileCompleted = doc.getBoolean("profileCompleted") ?: false
+                    val workerType = (doc.getString("workerType") ?: "none").lowercase()
+
+                    when {
+                        role == "seeker" -> {
+                            if (!isVerified) navigateTo(PendingApprovalActivity::class.java)
+                            else navigateTo(SeekerHomeActivity::class.java)
+                        }
+
+                        role == "worker" || role == "provider" -> {
+                            if (!isVerified) {
+                                navigateTo(PendingApprovalActivity::class.java)
+                            } else if (!profileCompleted) {
+                                val target = if (workerType == "educated") EducatedWorkerProfileActivity::class.java
+                                else UneducatedWorkerProfileActivity::class.java
+                                navigateTo(target)
+                            } else {
+                                navigateTo(ProviderHomeActivity::class.java)
                             }
                         }
-                    } else {
-                        auth.signOut()
-                        startActivity(Intent(this, LoginActivity::class.java))
+
+                        else -> navigateTo(RoleSelectionActivity::class.java)
                     }
-                    finish()
+                } else {
+                    navigateTo(LoginActivity::class.java)
                 }
-                .addOnFailureListener {
-                    auth.signOut()
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                }
-        }
+            }
+            .addOnFailureListener {
+                navigateTo(LoginActivity::class.java)
+            }
+    }
+
+    private fun navigateTo(activityClass: Class<*>) {
+        startActivity(Intent(this, activityClass))
+        finish()
     }
 }

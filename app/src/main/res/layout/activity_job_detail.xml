@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#F8F9FA">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,29 +29,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Job Title"
-                    android:textSize="26sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="#212121"/>
-
-                <TextView
-                    android:id="@+id/tvUrgentBadge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/urgent"
-                    android:textColor="#FFFFFF"
-                    android:background="#FF5252"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="8dp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -59,8 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Category"
-                    android:textColor="#1976D2"
-                    android:background="#E3F2FD"
+                    android:textColor="@color/primary_green"
+                    android:background="@drawable/bg_role_badge"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="6dp"
                     android:textSize="13sp"
@@ -81,12 +68,59 @@
                     android:textStyle="bold"/>
             </LinearLayout>
 
-            <View
+            <!-- Ethical Details Card (NEW) -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#F0F0F0"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Work Terms &amp; Logistics"
+                        android:textColor="@color/primary_green"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Tools -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
+                        <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_settings" app:tint="@color/grey"/>
+                        <TextView android:id="@+id/tvDetailTools" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tools: Seeker" android:textSize="14sp" android:layout_marginStart="8dp" android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <!-- Negotiable -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
+                        <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_dot" app:tint="@color/brand_yellow"/>
+                        <TextView android:id="@+id/tvDetailNegotiable" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Negotiable: Yes" android:textSize="14sp" android:layout_marginStart="8dp" android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <!-- Visit Required -->
+                    <LinearLayout android:id="@+id/llVisitRequired" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp" android:visibility="gone">
+                        <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_location" app:tint="@color/primary_green"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pre-work Site Visit Required" android:textSize="14sp" android:layout_marginStart="8dp" android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <!-- Safety Warning -->
+                    <LinearLayout android:id="@+id/llSafetyWarning" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="10dp" android:background="#FFF5F5" android:layout_marginTop="4dp" android:visibility="gone">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_notification" app:tint="#F44336"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SAFETY WARNING" android:textColor="#F44336" android:textStyle="bold" android:textSize="12sp" android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+                        <TextView android:id="@+id/tvHazardsDesc" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Hazard Details" android:textSize="13sp" android:textColor="#D32F2F" android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,7 +129,8 @@
                 android:textColor="#9E9E9E"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textSize="11sp"/>
+                android:textSize="11sp"
+                android:layout_marginTop="24dp"/>
             <TextView
                 android:id="@+id/tvDetailDeadline"
                 android:layout_width="wrap_content"
@@ -121,8 +156,7 @@
                 android:text="Address"
                 android:textColor="#424242"
                 android:layout_marginTop="4dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -143,7 +177,7 @@
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="6dp"/>
 
-            <View android:layout_width="match_parent" android:layout_height="120dp"/>
+            <View android:layout_width="match_parent" android:layout_height="100dp"/>
 
         </LinearLayout>
     </ScrollView>

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.models.ChatListModel
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,16 +34,24 @@ class ChatListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chat = chatList[position]
+        val context = holder.itemView.context
+        
         holder.tvName.text = chat.userName
-        holder.tvLastMsg.text = chat.lastMessage
+        
+        // Logical Translation for Last Message in Inbox
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            TranslatorUtil.translateText(chat.lastMessage) { translated ->
+                holder.tvLastMsg.text = translated
+            }
+        } else {
+            holder.tvLastMsg.text = chat.lastMessage
+        }
         
         val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
         holder.tvTime.text = timeFormat.format(Date(chat.timestamp))
 
-        // RED DOT LOGIC: Show if hasUnread is true
         holder.viewUnreadDot.visibility = if (chat.hasUnread) View.VISIBLE else View.GONE
 
-        // Profile Image Base64 logic
         if (!chat.profileImage.isNullOrEmpty()) {
             try {
                 val decodedString = Base64.decode(chat.profileImage, Base64.DEFAULT)

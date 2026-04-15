@@ -12,6 +12,7 @@ import com.shabbar.rozgarconnector.databinding.ItemWorkerBinding
 import com.shabbar.rozgarconnector.models.UserModel
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
 import com.shabbar.rozgarconnector.utils.TranslatorUtil
+import java.util.Locale
 
 class WorkerAdapter(
     private val workerList: List<UserModel>
@@ -28,19 +29,16 @@ class WorkerAdapter(
         val worker = workerList[position]
         val context = holder.itemView.context
 
-        // Name stays in original (usually English/Roman)
-        holder.binding.tvName.text = worker.fullName
+        // Fix: Use 'fullName' to match the updated UserModel
+        holder.binding.tvName.text = if (worker.fullName.isNotEmpty()) worker.fullName else "No Name"
 
-        // Check if Urdu is enabled to translate other fields
         if (TranslatorUtil.isUrduEnabled(context)) {
-            // Translate Location
             worker.district?.let { district ->
                 TranslatorUtil.translateText(district) { translated ->
                     holder.binding.tvLocation.text = translated
                 }
             }
 
-            // Translate Skill/Degree
             val skillToTranslate = if (worker.workerType == "educated") {
                 worker.degreeName ?: "Educated Worker"
             } else {
@@ -51,7 +49,6 @@ class WorkerAdapter(
                 holder.binding.tvSkill.text = translated
             }
         } else {
-            // Default English display
             holder.binding.tvLocation.text = worker.district ?: "Location"
             holder.binding.tvSkill.text = if (worker.workerType == "educated") {
                 worker.degreeName ?: "Educated Worker"
@@ -60,13 +57,14 @@ class WorkerAdapter(
             }
         }
 
-        // Display Average Rating
+        // Rating logic
         holder.binding.ratingBar.rating = worker.averageRating
+        holder.binding.tvRatingValue.text = String.format(Locale.getDefault(), "%.1f", worker.averageRating)
 
         // Verification Badge
         holder.binding.imgVerified.visibility = if (worker.isVerified) View.VISIBLE else View.GONE
 
-        // --- Load Profile Image (Base64 Support) ---
+        // Load Profile Image
         if (!worker.dpBase64.isNullOrEmpty()) {
             try {
                 val decodedString = Base64.decode(worker.dpBase64, Base64.DEFAULT)
@@ -79,17 +77,11 @@ class WorkerAdapter(
             holder.binding.imgProfile.setImageResource(R.drawable.ic_profile)
         }
 
-        // View Portfolio Button (Hidden but usable for logic)
-        holder.binding.btnViewDetails.setOnClickListener {
+        holder.itemView.setOnClickListener {
             val intent = Intent(context, WorkerDetailActivity::class.java).apply {
                 putExtra("WORKER_ID", worker.uid)
             }
             context.startActivity(intent)
-        }
-
-        // Card Click also opens detail
-        holder.itemView.setOnClickListener {
-            holder.binding.btnViewDetails.performClick()
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
@@ -15,114 +16,105 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@string/work_engagement_details"
+            android:text="Work Agreement &amp; Offer"
             android:textColor="@color/primary_green"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilJobTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/job_task_hint">
-
+            android:hint="Specific Task / Job Description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobTask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_border"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:minLines="2"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Only for Educated Workers -->
-        <TextView
-            android:id="@+id/tvEngagementLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/select_engagement_type"
-            android:visibility="gone" />
-
-        <Spinner
-            android:id="@+id/spinnerEngagement"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="8dp"
-            android:visibility="gone" />
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="12dp">
 
-        <!-- Only for Uneducated/Skill Workers -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilJobDuration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/working_duration_hint">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etJobDuration"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_border"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_weight="1"
+                android:hint="Budget (Rs.)"
+                android:layout_marginEnd="6dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etJobBudget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Deadline / Time"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etJobDeadline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="@string/work_location_hint">
-
+            android:hint="Exact Work Address"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_border"
-                android:inputType="text" />
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <!-- New Logical Options (Step 3) -->
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/offered_budget_hint">
+            android:text="Agreement &amp; Logistics"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/grey"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etJobBudget"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:background="@drawable/edittext_border"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbToolsProvided"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/completion_deadline_hint">
+            android:text="I will provide the necessary tools"
+            android:checked="true"
+            android:buttonTint="@color/primary_green"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etJobDeadline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:background="@drawable/edittext_border"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbSafetyConfirmed"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/contact_number_hint">
+            android:text="I guarantee a safe working environment"
+            android:checked="true"
+            android:buttonTint="@color/primary_green"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etJobContact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:background="@drawable/edittext_border"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        <CheckBox
+            android:id="@+id/cbPaymentPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I will pay immediately after work is done"
+            android:checked="true"
+            android:buttonTint="@color/primary_green"/>
 
     </LinearLayout>
 </ScrollView>

@@ -83,7 +83,6 @@ class NotificationAdapter(
 
         setupTheme(holder, type, isSender, notification)
 
-        // Translation for dynamic message
         if (TranslatorUtil.isUrduEnabled(context)) {
             TranslatorUtil.translateText(notification.message) { translated ->
                 holder.message.text = translated
@@ -95,19 +94,24 @@ class NotificationAdapter(
         val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
         holder.timestamp.text = notification.timestamp?.toDate()?.let { sdf.format(it) } ?: context.getString(R.string.just_now)
 
-        // Status Logic Fix
         val isSeeker = if (notification.type == "hire") notification.senderId == currentUserId else notification.receiverId == currentUserId
         val hasUserFinished = if (isSeeker) notification.seekerConfirmed else notification.workerConfirmed
         val isFullyCompleted = status == "completed"
-        val isHistoryItem = isFullyCompleted || hasUserFinished
+        val isDisputed = status == "disputed"
+        val isHistoryItem = isFullyCompleted || isDisputed || hasUserFinished
 
         if (isHistoryItem) {
-            // Label for finished items
-            holder.statusLabel.text = if (isFullyCompleted) "COMPLETED" else "FINISHED (Waiting)"
-            holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#2196F3"))
+            holder.statusLabel.text = when {
+                isDisputed -> "DISPUTED"
+                isFullyCompleted -> "COMPLETED"
+                else -> "FINISHED (Waiting)"
+            }
+            holder.statusLabel.backgroundTintList = ColorStateList.valueOf(
+                if (isDisputed) Color.parseColor("#F44336") else Color.parseColor("#2196F3")
+            )
             
             holder.llActiveInfo.visibility = View.VISIBLE
-            holder.tvWorkInProgress.text = "✅ " + context.getString(R.string.history)
+            holder.tvWorkInProgress.text = if(isDisputed) "⚠️ ISSUE REPORTED" else "✅ " + context.getString(R.string.history)
             holder.tvDaysLeft.visibility = View.GONE
             holder.btnEmergency.visibility = View.GONE
             holder.btnChat.visibility = View.GONE
@@ -115,7 +119,6 @@ class NotificationAdapter(
             holder.btnCancel.visibility = View.GONE
             holder.itemView.alpha = 0.8f
         } else {
-            // Label for active items (Fixed from ACCEPT & HIRE to ACTIVE)
             val statusText = when(status) {
                 "pending" -> context.getString(R.string.pending)
                 "accepted", "approved" -> "ACTIVE"
@@ -194,38 +197,47 @@ class NotificationAdapter(
 
         btnSubmit.setOnClickListener {
             if (ratingBar.rating == 0f) {
-                Toast.makeText(context, "Please select stars to rate!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please rate and provide feedback!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            var isDisputed = false
+            val updateMap = mutableMapOf<String, Any>()
 
             if (isSeeker) {
                 if (rgTask.checkedRadioButtonId == -1 || rgDamage.checkedRadioButtonId == -1 || rgPaymentSettled.checkedRadioButtonId == -1) {
                     Toast.makeText(context, "Please answer all questions!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
+                val hasDamages = (rgDamage.checkedRadioButtonId == R.id.rbDamageYes)
+                val taskUnfinished = (rgTask.checkedRadioButtonId == R.id.rbTaskNo)
+                
+                if (hasDamages || taskUnfinished) isDisputed = true
+                
+                updateMap["seekerConfirmed"] = true
+                updateMap["hasDamages"] = hasDamages
+                updateMap["taskNotCompleted"] = taskUnfinished
+                updateMap["paymentSettled"] = (rgPaymentSettled.checkedRadioButtonId == R.id.rbPaySettledYes)
+                updateMap["ratingToWorker"] = ratingBar.rating
+                updateMap["reviewToWorker"] = etReview.text.toString()
             } else {
                 if (rgPaymentReceived.checkedRadioButtonId == -1 || rgBehavior.checkedRadioButtonId == -1) {
                     Toast.makeText(context, "Please answer all questions!", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
+                val paymentIssue = (rgPaymentReceived.checkedRadioButtonId == R.id.rbPayRecNo)
+                if (paymentIssue) isDisputed = true
+
+                updateMap["workerConfirmed"] = true
+                updateMap["paymentFullReceived"] = !paymentIssue
+                updateMap["behaviorGood"] = (rgBehavior.checkedRadioButtonId == R.id.rbBehYes)
+                updateMap["ratingToSeeker"] = ratingBar.rating
+                updateMap["reviewToSeeker"] = etReview.text.toString()
             }
 
-            val rating = ratingBar.rating
-            val review = etReview.text.toString()
-            val updateMap = mutableMapOf<String, Any>()
-            if (isSeeker) {
-                updateMap["seekerConfirmed"] = true
-                updateMap["ratingToWorker"] = rating
-                updateMap["reviewToWorker"] = review
-                updateMap["taskSuccess"] = (rgTask.checkedRadioButtonId == R.id.rbTaskYes)
-                updateMap["hasDamages"] = (rgDamage.checkedRadioButtonId == R.id.rbDamageYes)
-                updateMap["paymentSettled"] = (rgPaymentSettled.checkedRadioButtonId == R.id.rbPaySettledYes)
-            } else {
-                updateMap["workerConfirmed"] = true
-                updateMap["ratingToSeeker"] = rating
-                updateMap["reviewToSeeker"] = review
-                updateMap["paymentFullReceived"] = (rgPaymentReceived.checkedRadioButtonId == R.id.rbPayRecYes)
-                updateMap["behaviorGood"] = (rgBehavior.checkedRadioButtonId == R.id.rbBehYes)
+            if (isDisputed) {
+                updateMap["status"] = "disputed"
+                updateMap["disputeReason"] = "Reported during Job Completion: " + etReview.text.toString()
             }
 
             db.collection("notifications").document(notification.notificationId)
@@ -236,10 +248,10 @@ class NotificationAdapter(
                     } else {
                         if (notification.type == "hire") notification.senderId else notification.receiverId
                     }
-                    updateUserRating(targetUserId, rating)
+                    updateUserRating(targetUserId, ratingBar.rating)
                     checkIfBothConfirmed(notification.notificationId)
                     dialog.dismiss()
-                    Toast.makeText(context, "Job Finished! Moved to History.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, if(isDisputed) "Reported! Admin will review." else "Job Finished!", Toast.LENGTH_SHORT).show()
                 }
         }
         dialog.show()
@@ -265,6 +277,9 @@ class NotificationAdapter(
     private fun checkIfBothConfirmed(id: String) {
         db.collection("notifications").document(id).get().addOnSuccessListener { doc ->
             if (doc.exists()) {
+                val status = doc.getString("status") ?: ""
+                if (status == "disputed") return@addOnSuccessListener
+                
                 val sc = doc.getBoolean("seekerConfirmed") ?: false
                 val wc = doc.getBoolean("workerConfirmed") ?: false
                 if (sc && wc) {
@@ -300,6 +315,7 @@ class NotificationAdapter(
             "accepted", "approved" -> Color.parseColor("#4CAF50")
             "rejected", "cancelled" -> Color.parseColor("#F44336")
             "completed" -> Color.parseColor("#2196F3")
+            "disputed" -> Color.parseColor("#F44336")
             else -> Color.parseColor("#FF9800")
         }
     }

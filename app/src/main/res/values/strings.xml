@@ -43,6 +43,19 @@
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
 
+    <!-- Admin Dashboard Labels -->
+    <string name="admin_title">Admin Panel</string>
+    <string name="tab_verifications">Verifications</string>
+    <string name="tab_users">Users</string>
+    <string name="tab_support">Support</string>
+    <string name="search_user_hint">Search by Name or CNIC...</string>
+    <string name="approve">Approve</string>
+    <string name="reject">Reject</string>
+    <string name="block">Block</string>
+    <string name="delete">Delete</string>
+    <string name="user_details">User Verification Details</string>
+    <string name="reject_reason_hint">Reason for rejection (optional)</string>
+
     <!-- Profile Screen -->
     <string name="user_profile">User Profile</string>
     <string name="basic_info">Basic Information</string>
@@ -104,6 +117,7 @@
     <string name="sos_emergency">SOS Emergency</string>
     <string name="call_15_desc">Call 15 for immediate help</string>
     <string name="agent_welcome_msg">Hello! Welcome to Rozgar Support. Please describe your issue, and an agent will be with you in a minute.</string>
+    <string name="chat_with_admin">Chat with Admin</string>
 
     <!-- Post Job Screen -->
     <string name="post_new_job">Post a New Job</string>
@@ -223,5 +237,18 @@
     <string name="faq_a19">Ratings help build trust. High-rated workers get more jobs, and good seekers attract better workers.</string>
     <string name="faq_q20">Where can I see my job history?</string>
     <string name="faq_a20">All your finished and cancelled jobs are stored in the \'History\' tab within the Activities section.</string>
+
+    <!-- Rating & Completion Dialog -->
+    <string name="job_feedback_title">Job Feedback</string>
+    <string name="task_completed_q">Was the task completed as promised?</string>
+    <string name="damage_issue_q">Any damages or issues found?</string>
+    <string name="pay_settled_q">Has the payment been settled?</string>
+    <string name="pay_received_q">Did you receive full payment?</string>
+    <string name="behavior_fair_q">Was the seeker\'s behavior fair?</string>
+    <string name="rate_experience">Rate your overall experience</string>
+    <string name="tell_us_more_hint">Tell us more (Optional)</string>
+    <string name="submit_and_finish">SUBMIT &amp; FINISH</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

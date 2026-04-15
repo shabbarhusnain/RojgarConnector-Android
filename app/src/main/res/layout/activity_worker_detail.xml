@@ -38,14 +38,29 @@
             </RelativeLayout>
 
             <!-- Profile Info -->
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgWorkerProfile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile"
-                app:shapeAppearanceOverlay="@style/CircleImage" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgWorkerProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_profile"
+                    app:shapeAppearanceOverlay="@style/CircleImage" />
+
+                <ImageView
+                    android:id="@+id/imgVerifiedBadge"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignBottom="@id/imgWorkerProfile"
+                    android:layout_alignEnd="@id/imgWorkerProfile"
+                    android:src="@drawable/ic_notification"
+                    android:visibility="gone"
+                    app:tint="@color/primary_green" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvWorkerName"
@@ -58,13 +73,30 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvSkill"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Professional Skill"
-                android:textColor="@color/primary_green" />
+                android:orientation="vertical"
+                android:gravity="center">
+                
+                <TextView
+                    android:id="@+id/tvSkill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Professional Skill"
+                    android:textColor="@color/primary_green" />
+
+                <RatingBar
+                    android:id="@+id/workerRatingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:numStars="5"
+                    android:progressTint="#FFD700"
+                    android:rating="0" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

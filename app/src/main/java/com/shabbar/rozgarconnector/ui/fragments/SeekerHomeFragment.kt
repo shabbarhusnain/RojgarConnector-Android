@@ -44,7 +44,6 @@ class SeekerHomeFragment : Fragment() {
         setupFilters()
         setupSearch()
 
-        // Initial Load (Educated by default or current state)
         val initialEducated = binding.btnEducated.isChecked
         updateCategorySpinner(initialEducated)
         loadWorkers(initialEducated)
@@ -65,22 +64,16 @@ class SeekerHomeFragment : Fragment() {
             startActivity(Intent(requireContext(), MenuActivity::class.java))
         }
 
-        // --- UI TRANSLATION ---
-        if (TranslatorUtil.isUrduEnabled(requireContext())) {
-            TranslatorUtil.initTranslator(
-                onSuccess = { translateUI() },
-                onFailure = { }
-            )
-        }
+        updateLabels()
     }
 
-    private fun translateUI() {
+    private fun updateLabels() {
         if (!isAdded) return
-        TranslatorUtil.translateText("Service Seeker") { binding.tvHeaderTitle.text = it }
-        TranslatorUtil.translateText("Find top rated workers near you") { binding.tvSubtitle.text = it }
-        TranslatorUtil.translateText("Educated Worker") { binding.btnEducated.text = it }
-        TranslatorUtil.translateText("Uneducated Worker") { binding.btnUneducated.text = it }
-        TranslatorUtil.translateText("Search by name or category...") { binding.etSearchWorker.hint = it }
+        binding.tvHeaderTitle.text = getString(R.string.service_seeker)
+        binding.tvSubtitle.text = getString(R.string.find_workers)
+        binding.btnEducated.text = getString(R.string.educated_worker)
+        binding.btnUneducated.text = getString(R.string.un_educated_worker)
+        binding.etSearchWorker.hint = getString(R.string.search_worker_hint)
     }
 
     private fun setupRecyclerView() {
@@ -90,7 +83,6 @@ class SeekerHomeFragment : Fragment() {
     }
 
     private fun setupFilters() {
-        // District Filter
         val districts = resources.getStringArray(R.array.pakistan_districts).toMutableList()
         if (!districts.contains("All Districts")) districts.add(0, "All Districts")
         binding.spinnerDistrict.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, districts)
@@ -125,9 +117,8 @@ class SeekerHomeFragment : Fragment() {
         val typeToFilter = if (isEducated) "educated" else "uneducated"
         binding.swipeRefresh.isRefreshing = true
 
-        // Logical Optimization: Fetch all verified workers of this type, filter locally for speed
         db.collection("users")
-            .whereEqualTo("role", "Worker")
+            .whereIn("role", listOf("Worker", "worker", "provider", "Provider"))
             .whereEqualTo("workerType", typeToFilter)
             .whereEqualTo("isVerified", true)
             .get()
@@ -137,8 +128,7 @@ class SeekerHomeFragment : Fragment() {
 
                 fullWorkerList.clear()
                 snapshots?.forEach { doc ->
-                    val worker = doc.toObject(UserModel::class.java)
-                    worker.uid = doc.id
+                    val worker = doc.toObject(UserModel::class.java).apply { uid = doc.id }
                     fullWorkerList.add(worker)
                 }
                 filterData()
@@ -155,15 +145,11 @@ class SeekerHomeFragment : Fragment() {
 
         filteredList.clear()
         for (worker in fullWorkerList) {
-            // 1. Search Logic (Name)
+            // Fix: Use 'fullName' to match the updated UserModel
             val nameMatch = worker.fullName.lowercase().contains(query)
-            
-            // 2. District Filter
             val districtMatch = district == "All Districts" || worker.district == district
             
-            // 3. Category/Skill Smart Filter
             val skillField = if (worker.workerType == "educated") {
-                // For educated, we check both their skill and degree name for relevance
                 "${worker.professionalSkill} ${worker.degreeName}".lowercase()
             } else {
                 worker.professionalSkill?.lowercase() ?: ""

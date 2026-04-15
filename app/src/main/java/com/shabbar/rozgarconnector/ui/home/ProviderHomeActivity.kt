@@ -59,6 +59,21 @@ class ProviderHomeActivity : AppCompatActivity() {
         listenForBadges()
     }
 
+    override fun onStart() {
+        super.onStart()
+        updateOnlineStatus(true)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        updateOnlineStatus(false)
+    }
+
+    private fun updateOnlineStatus(isOnline: Boolean) {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).update("isOnline", isOnline)
+    }
+
     private fun animateBottomNavIcon(itemId: Int) {
         val itemView = binding.bottomNav.findViewById<View>(itemId)
         itemView?.let {

@@ -3,10 +3,12 @@ package com.shabbar.rozgarconnector.ui.help
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.shabbar.rozgarconnector.adapters.ChatAdapter
 import com.shabbar.rozgarconnector.databinding.ActivityChatWithAdminBinding
 import com.shabbar.rozgarconnector.models.MessageModel
@@ -19,11 +21,30 @@ class ChatWithAdminActivity : AppCompatActivity() {
     
     private val messageList = mutableListOf<MessageModel>()
     private lateinit var adapter: ChatAdapter
+    
+    private var chatWithUserId: String? = null
+    private var isAdminSide: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatWithAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        isAdminSide = intent.getBooleanExtra("IS_ADMIN_SIDE", false)
+        chatWithUserId = intent.getStringExtra("USER_ID") ?: auth.currentUser?.uid
+
+        if (isAdminSide) {
+            binding.tvAgentName.text = "Loading..."
+            chatWithUserId?.let { uid ->
+                db.collection("users").document(uid).get().addOnSuccessListener { 
+                    binding.tvAgentName.text = it.getString("fullName") ?: "User Support"
+                }
+                // Mark as read when admin opens chat
+                db.collection("admin_chats").document(uid).update("isRead", true)
+            }
+        } else {
+            binding.tvAgentName.text = "Rozgar Support"
+        }
 
         setupChat()
         loadMessages()
@@ -40,28 +61,26 @@ class ChatWithAdminActivity : AppCompatActivity() {
     }
 
     private fun setupChat() {
-        // Fixed: ChatAdapter only takes messageList as argument
         adapter = ChatAdapter(messageList)
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.chatRecyclerView.adapter = adapter
     }
 
     private fun loadMessages() {
-        val currentUid = auth.currentUser?.uid ?: return
+        val targetChatId = chatWithUserId ?: return
         
-        db.collection("admin_chats").document(currentUid).collection("messages")
+        db.collection("admin_chats").document(targetChatId).collection("messages")
             .orderBy("timestamp")
             .addSnapshotListener { snapshots, _ ->
                 if (snapshots != null) {
                     messageList.clear()
                     
-                    // 1. Add System Default Welcome Message if chat is empty
-                    if (snapshots.isEmpty) {
+                    if (snapshots.isEmpty && !isAdminSide) {
                         val welcomeMsg = MessageModel(
                             messageId = "system_1",
                             senderId = "agent",
-                            receiverId = currentUid,
-                            message = "Hello! Welcome to Rozgar Support. Please describe your issue, and an agent will be with you in a minute.",
+                            receiverId = targetChatId,
+                            message = "Hello! Welcome to Rozgar Support. How can we help you?",
                             timestamp = System.currentTimeMillis()
                         )
                         messageList.add(welcomeMsg)
@@ -71,33 +90,51 @@ class ChatWithAdminActivity : AppCompatActivity() {
                         messageList.add(doc.toObject(MessageModel::class.java))
                     }
                     adapter.notifyDataSetChanged()
-                    binding.chatRecyclerView.scrollToPosition(messageList.size - 1)
+                    if (messageList.isNotEmpty()) {
+                        binding.chatRecyclerView.scrollToPosition(messageList.size - 1)
+                    }
                 }
             }
     }
 
     private fun sendMessage(text: String) {
+        val targetChatId = chatWithUserId ?: return
         val currentUid = auth.currentUser?.uid ?: return
         val timestamp = System.currentTimeMillis()
         
+        val senderId = currentUid
+        val receiverId = if (isAdminSide) targetChatId else "agent"
+
         val messageObj = MessageModel(
             messageId = "",
-            senderId = currentUid,
-            receiverId = "agent",
+            senderId = senderId,
+            receiverId = receiverId,
             message = text,
             timestamp = timestamp
         )
 
-        db.collection("admin_chats").document(currentUid).collection("messages")
+        db.collection("admin_chats").document(targetChatId).collection("messages")
             .add(messageObj)
             .addOnSuccessListener {
-                // 2. Auto-reply from Agent (Default Logic)
-                // Filter only user messages to check if it's the first real message
-                val userMsgs = messageList.count { it.senderId == currentUid }
-                if (userMsgs <= 1) { 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        sendAgentAutoReply(currentUid)
-                    }, 1500)
+                // IMPORTANT: Update Inbox for Admin
+                val updateMap = hashMapOf(
+                    "lastMessage" to text,
+                    "timestamp" to timestamp,
+                    "userId" to targetChatId,
+                    "isRead" to isAdminSide // If Admin sends, it's read. If User sends, isRead = false.
+                )
+                db.collection("admin_chats").document(targetChatId).set(updateMap, SetOptions.merge())
+
+                if (!isAdminSide) {
+                    // Check if auto-reply needed
+                    db.collection("admin_chats").document(targetChatId).collection("messages")
+                        .whereEqualTo("senderId", currentUid).get().addOnSuccessListener {
+                            if (it.size() <= 1) {
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    sendAgentAutoReply(targetChatId)
+                                }, 1500)
+                            }
+                        }
                 }
             }
     }
@@ -107,10 +144,9 @@ class ChatWithAdminActivity : AppCompatActivity() {
             messageId = "system_reply",
             senderId = "agent",
             receiverId = userId,
-            message = "Thank you for the details. Please wait for a moment, an agent is connecting with you...",
+            message = "Thank you! Please wait, an agent is connecting with you...",
             timestamp = System.currentTimeMillis()
         )
-        
         db.collection("admin_chats").document(userId).collection("messages").add(autoReply)
     }
 }

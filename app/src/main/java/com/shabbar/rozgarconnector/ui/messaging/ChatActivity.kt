@@ -12,6 +12,7 @@ import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.adapters.ChatAdapter
 import com.shabbar.rozgarconnector.databinding.ActivityChatBinding
 import com.shabbar.rozgarconnector.models.MessageModel
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class ChatActivity : AppCompatActivity() {
 
@@ -54,6 +55,11 @@ class ChatActivity : AppCompatActivity() {
                 sendMessage(mReceiverId!!, msg)
             }
         }
+        
+        // Ensure translator is ready if Urdu is enabled
+        if (TranslatorUtil.isUrduEnabled(this)) {
+            TranslatorUtil.initTranslator({}, {})
+        }
     }
 
     private fun fetchReceiverDetails(uid: String) {
@@ -61,12 +67,14 @@ class ChatActivity : AppCompatActivity() {
             if (doc.exists()) {
                 val name = doc.getString("fullName") ?: "User"
                 val role = doc.getString("role")?.lowercase() ?: ""
-                val category = doc.getString("workerCategory")?.lowercase() ?: ""
+                val workerType = doc.getString("workerType")?.lowercase() ?: ""
+                
                 binding.chatToolbar.title = name
+                
                 val subtitle = when {
                     role == "seeker" -> getString(R.string.service_seeker)
-                    role == "provider" && category == "educated" -> getString(R.string.provider_educated)
-                    role == "provider" && category == "uneducated" -> getString(R.string.provider_uneducated)
+                    role == "provider" && workerType == "educated" -> getString(R.string.provider_educated)
+                    role == "provider" && workerType == "uneducated" -> getString(R.string.provider_uneducated)
                     role == "provider" -> getString(R.string.service_provider)
                     else -> getString(R.string.rozgar_user)
                 }
@@ -92,18 +100,7 @@ class ChatActivity : AppCompatActivity() {
         db.collection("chats").document(messageId).set(chatData)
             .addOnSuccessListener {
                 binding.etMessage.text.clear()
-                sendNotificationRequest(receiverId, senderName, msg)
             }
-    }
-
-    private fun sendNotificationRequest(receiverId: String, senderName: String, message: String) {
-        val notificationData = hashMapOf(
-            "receiverId" to receiverId,
-            "title" to "New message from $senderName",
-            "body" to message,
-            "timestamp" to System.currentTimeMillis()
-        )
-        db.collection("push_notifications").add(notificationData)
     }
 
     private fun checkChatSecurity(receiverId: String) {
@@ -191,7 +188,7 @@ class ChatActivity : AppCompatActivity() {
                         messageList.add(m)
                     }
                 }
-                chatAdapter.notifyDataSetChanged()
+                chatAdapter.updateData(messageList)
                 if (messageList.isNotEmpty()) {
                     binding.rvChat.smoothScrollToPosition(messageList.size - 1)
                 }

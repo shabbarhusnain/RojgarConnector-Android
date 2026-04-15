@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    tools:context=".ui.admin.VerificationDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_gradient_curved">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/user_details"
+            app:titleTextColor="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/user_details"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Profile Info Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:padding="2dp"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/CircleImage"
+                        android:src="@drawable/ic_profile"
+                        app:strokeColor="@color/primary_green"
+                        app:strokeWidth="2dp" />
+
+                    <TextView
+                        android:id="@+id/tvFullName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="User Full Name"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvRoleBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_role_badge"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:text="SERVICE PROVIDER"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Personal Details Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Personal Information"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="1dp"
+                app:strokeWidth="0dp">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:stretchColumns="1">
+
+                    <TableRow android:layout_marginBottom="8dp">
+                        <TextView android:text="CNIC:" android:textColor="@color/grey" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tvCnic" android:text="00000-0000000-0" android:textColor="@color/black" android:textSize="15sp" android:textStyle="bold" android:layout_marginStart="12dp"/>
+                    </TableRow>
+
+                    <TableRow android:layout_marginBottom="8dp">
+                        <TextView android:text="Father Name:" android:textColor="@color/grey" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tvFatherName" android:text="Father Name Here" android:textColor="@color/black" android:textSize="15sp" android:layout_marginStart="12dp"/>
+                    </TableRow>
+
+                    <TableRow android:layout_marginBottom="8dp">
+                        <TextView android:text="Phone:" android:textColor="@color/grey" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tvPhone" android:text="+92 300 1234567" android:textColor="@color/black" android:textSize="15sp" android:layout_marginStart="12dp"/>
+                    </TableRow>
+
+                    <TableRow android:layout_marginBottom="8dp">
+                        <TextView android:text="D.O.B:" android:textColor="@color/grey" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tvDob" android:text="01/01/1990" android:textColor="@color/black" android:textSize="15sp" android:layout_marginStart="12dp"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView android:text="Address:" android:textColor="@color/grey" android:textSize="14sp"/>
+                        <TextView android:id="@+id/tvAddress" android:text="Full permanent address goes here..." android:textColor="@color/black" android:textSize="14sp" android:layout_marginStart="12dp"/>
+                    </TableRow>
+                </TableLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Professional Portfolio Section (Visible for Workers) -->
+            <LinearLayout
+                android:id="@+id/layoutProfessionalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Professional Portfolio"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp"
+                    app:strokeWidth="0dp">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:stretchColumns="1">
+
+                        <TableRow android:id="@+id/rowEducation" android:layout_marginBottom="8dp">
+                            <TextView android:text="Education:" android:textColor="@color/grey" android:textSize="14sp"/>
+                            <TextView android:id="@+id/tvEducation" android:text="BS Computer Science" android:textColor="@color/black" android:textSize="15sp" android:layout_marginStart="12dp"/>
+                        </TableRow>
+
+                        <TableRow android:id="@+id/rowSkills" android:layout_marginBottom="8dp">
+                            <TextView android:text="Skills:" android:textColor="@color/grey" android:textSize="14sp"/>
+                            <TextView android:id="@+id/tvSkills" android:text="Android, Firebase" android:textColor="@color/black" android:textSize="15sp" android:layout_marginStart="12dp"/>
+                        </TableRow>
+
+                        <TableRow android:id="@+id/rowExperience" android:layout_marginBottom="8dp">
+                            <TextView android:text="Experience:" android:textColor="@color/grey" android:textSize="14sp"/>
+                            <TextView android:id="@+id/tvExperience" android:text="2 Years" android:textColor="@color/black" android:textSize="15sp" android:layout_marginStart="12dp"/>
+                        </TableRow>
+                        
+                         <TableRow android:id="@+id/rowDailyRate">
+                            <TextView android:text="Daily Rate:" android:textColor="@color/grey" android:textSize="14sp"/>
+                            <TextView android:id="@+id/tvDailyRate" android:text="1500 PKR" android:textColor="@color/black" android:textSize="15sp" android:layout_marginStart="12dp"/>
+                        </TableRow>
+                    </TableLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Document Images Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"
+                android:text="Identity Documents"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CNIC Front" android:textColor="@color/grey" android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="12dp">
+                    <ImageView
+                        android:id="@+id/imgCnicFront"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:background="#EEEEEE"
+                        android:src="@drawable/ic_cnic" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CNIC Back" android:textColor="@color/grey" android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="12dp">
+                    <ImageView
+                        android:id="@+id/imgCnicBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:background="#EEEEEE"
+                        android:src="@drawable/ic_cnic" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Degree Document (Educated Workers Only) -->
+                <LinearLayout
+                    android:id="@+id/layoutDegreeDoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Educational Degree / Certificate" android:textColor="@color/grey" android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginBottom="24dp"
+                        app:cardCornerRadius="12dp">
+                        <ImageView
+                            android:id="@+id/imgDegreeDoc"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitCenter"
+                            android:background="#EEEEEE"
+                            android:src="@drawable/ic_pending" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="40dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReject"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/reject"
+                    android:textColor="@color/red"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/red" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnApprove"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1.5"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/approve"
+                    android:textColor="@color/white"
+                    app:cornerRadius="12dp"
+                    app:backgroundTint="@color/primary_green" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

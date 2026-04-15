@@ -7,6 +7,7 @@
     <string name="messages">پیغامات</string>
     <string name="profile">پروفائل</string>
     <string name="logout">لاگ آؤٹ</string>
+    <string name="settings">ترتیبات</string>
 
     <!-- Activity Hub / Notifications -->
     <string name="activity_hub">سرگرمی حب</string>
@@ -24,6 +25,12 @@
     <string name="job_offers">ملازمت کی آفرز</string>
     <string name="my_apps">میری درخواستیں</string>
     <string name="work_in_progress_chip">کام جاری ہے</string>
+    
+    <string name="active_work_header">موجودہ فعال کام 🛠️</string>
+    <string name="job_history_header">تاریخی ریکارڈ 📜</string>
+    <string name="hiring_offers_header">ملازمت کی پیشکش 💼</string>
+    <string name="job_apps_header">ملازمت کی درخواستیں 📝</string>
+    <string name="notif_header">اطلاعات 🔔</string>
 
     <!-- Menu / Settings -->
     <string name="menu_title">مینو</string>
@@ -44,5 +51,75 @@
     <string name="chat_btn">چیٹ</string>
     <string name="pending">انتظار</string>
     <string name="just_now">ابھی ابھی</string>
+
+    <!-- Post Job Screen -->
+    <string name="post_new_job">نئی نوکری پوسٹ کریں</string>
+    <string name="job_info">نوکری کی معلومات</string>
+    <string name="job_title_hint">نوکری کا عنوان (مثلاً الیکٹریشن)</string>
+    <string name="workplace_location">کام کی جگہ اور مقام</string>
+    <string name="workplace_name_hint">کام کی جگہ کا نام</string>
+    <string name="full_address_hint">مکمل پتہ</string>
+    <string name="worker_category_header">ورکر کی کیٹیگری</string>
+    <string name="educated">پڑھے لکھے</string>
+    <string name="uneducated">ہنر مند</string>
+    <string name="select_skill_category">مہارت کا انتخاب کریں</string>
+    <string name="budget_time">بجٹ اور وقت</string>
+    <string name="amount_pkr_hint">رقم (روپے)</string>
+    <string name="value_hint">وقت کی مقدار</string>
+    <string name="job_desc_hint">کام کی تفصیل بیان کریں...</string>
+    <string name="publish_job">نوکری پوسٹ کریں</string>
+
+    <!-- Home Screens -->
+    <string name="find_workers">آپ کے قریب سب سے اوپر درجہ بندی کارکن تلاش کریں</string>
+    <string name="search_worker_hint">نام یا زمرہ سے تلاش کریں...</string>
+    <string name="available_jobs">دستیاب نوکریاں</string>
+    <string name="find_jobs">اپنی مہارت کے مطابق کام تلاش کریں</string>
+    <string name="search_job_hint">عنوان یا مہارت سے نوکریاں تلاش کریں...</string>
+    <string name="no_jobs_found">آپ کے فلٹرز کے مطابق کوئی نوکری نہیں ملی۔</string>
+    <string name="educated_worker">تعلیم یافتہ کارکن</string>
+    <string name="un_educated_worker">ہنر مند کارکن</string>
+
+    <!-- Job Detail Screen -->
+    <string name="urgent">ضروری</string>
+    <string name="duration">دورانیہ</string>
+    <string name="job_location">مقام</string>
+    <string name="about_job">نوکری کے بارے میں</string>
+    <string name="send_application">درخواست بھیجیں</string>
+
+    <!-- Worker Detail Screen -->
+    <string name="experience_label">تجربہ</string>
+    <string name="about_work">کام کے بارے میں</string>
+    <string name="education_details">تعلیمی تفصیلات</string>
+    <string name="hire_worker">اس ورکر کو ہائر کریں</string>
+    <string name="decline">مسترد کریں</string>
+    <string name="accept_hire">قبول اور ہائر کریں</string>
+
+    <!-- FIXED TITLES FOR SEEKER HOME -->
+    <string name="service_seeker">سروس کی تلاش</string>
+    <string name="service_provider">ہنر مند ورکر</string>
+    <string name="provider_educated">تعلیم یافتہ ورکر</string>
+    <string name="provider_uneducated">ہنر مند ورکر</string>
+    <string name="rozgar_user">روزگار صارف</string>
+    <string name="job_finished_read_only">کام مکمل (صرف پڑھ سکتے ہیں)</string>
+    <string name="chat_locked_no_job">چیٹ لاک ہے (کوئی فعال کام نہیں)</string>
+    <string name="type_message_hint">پیغام لکھیں...</string>
+    <string name="user_not_found">صارف نہیں ملا</string>
+
+    <!-- Chat Inbox -->
+    <string name="chats_title">چیٹس</string>
+    <string name="no_messages">ابھی تک کوئی پیغام نہیں ہے۔</string>
+
+    <!-- Rating & Completion Dialog (Urdu) -->
+    <string name="job_feedback_title">کام کی رائے (فیڈ بیک)</string>
+    <string name="task_completed_q">کیا کام وعدے کے مطابق مکمل ہو گیا؟</string>
+    <string name="damage_issue_q">کیا کوئی نقصان یا مسئلہ پیش آیا؟</string>
+    <string name="pay_settled_q">کیا رقم کا معاملہ طے پا گیا؟</string>
+    <string name="pay_received_q">کیا آپ کو مکمل رقم مل گئی؟</string>
+    <string name="behavior_fair_q">کیا صارف کا رویہ ٹھیک تھا؟</string>
+    <string name="rate_experience">اپنے تجربے کی درجہ بندی کریں</string>
+    <string name="tell_us_more_hint">مزید تفصیل لکھیں (اختیاری)</string>
+    <string name="submit_and_finish">جمع کرائیں اور مکمل کریں</string>
+    <string name="yes">جی ہاں</string>
+    <string name="no">جی نہیں</string>
 
 </resources>

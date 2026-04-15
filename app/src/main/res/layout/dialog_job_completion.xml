@@ -11,7 +11,7 @@
         android:id="@+id/tvDialogTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Job Feedback"
+        android:text="@string/job_feedback_title"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -25,22 +25,22 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Was the task completed as promised?" android:textColor="@color/black" android:layout_marginTop="8dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/task_completed_q" android:textColor="@color/black" android:layout_marginTop="8dp"/>
         <RadioGroup android:id="@+id/rgTask" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-            <RadioButton android:id="@+id/rbTaskYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yes"/>
-            <RadioButton android:id="@+id/rbTaskNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No" android:layout_marginStart="20dp"/>
+            <RadioButton android:id="@+id/rbTaskYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yes"/>
+            <RadioButton android:id="@+id/rbTaskNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no" android:layout_marginStart="20dp"/>
         </RadioGroup>
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Any damages or issues found?" android:textColor="@color/black" android:layout_marginTop="8dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/damage_issue_q" android:textColor="@color/black" android:layout_marginTop="8dp"/>
         <RadioGroup android:id="@+id/rgDamage" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-            <RadioButton android:id="@+id/rbDamageNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No"/>
-            <RadioButton android:id="@+id/rbDamageYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yes" android:layout_marginStart="20dp"/>
+            <RadioButton android:id="@+id/rbDamageNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no"/>
+            <RadioButton android:id="@+id/rbDamageYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yes" android:layout_marginStart="20dp"/>
         </RadioGroup>
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Has the payment been settled?" android:textColor="@color/black" android:layout_marginTop="8dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/pay_settled_q" android:textColor="@color/black" android:layout_marginTop="8dp"/>
         <RadioGroup android:id="@+id/rgPaymentSettled" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-            <RadioButton android:id="@+id/rbPaySettledYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Yes"/>
-            <RadioButton android:id="@+id/rbPaySettledNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No" android:layout_marginStart="20dp"/>
+            <RadioButton android:id="@+id/rbPaySettledYes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yes"/>
+            <RadioButton android:id="@+id/rbPaySettledNo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/no" android:layout_marginStart="20dp"/>
         </RadioGroup>
     </LinearLayout>
 
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Did you receive full payment?"
+            android:text="@string/pay_received_q"
             android:textColor="@color/black" />
 
         <RadioGroup
@@ -69,21 +69,21 @@
                 android:id="@+id/rbPayRecYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yes" />
+                android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/rbPayRecNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="No" />
+                android:text="@string/no" />
         </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Was the seeker's behavior fair?"
+            android:text="@string/behavior_fair_q"
             android:textColor="@color/black" />
 
         <RadioGroup
@@ -96,20 +96,20 @@
                 android:id="@+id/rbBehYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yes" />
+                android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/rbBehNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="No" />
+                android:text="@string/no" />
         </RadioGroup>
     </LinearLayout>
 
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginVertical="16dp"/>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rate your overall experience" android:textColor="@color/black" android:textStyle="bold" android:layout_gravity="center_horizontal" android:layout_marginBottom="8dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/rate_experience" android:textColor="@color/black" android:textStyle="bold" android:layout_gravity="center_horizontal" android:layout_marginBottom="8dp"/>
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -125,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Tell us more (Optional)">
+        android:hint="@string/tell_us_more_hint">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etReview"
             android:layout_width="match_parent"
@@ -135,13 +135,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="end" android:layout_marginTop="20dp">
-        <Button android:id="@+id/btnDismiss" style="@style/Widget.MaterialComponents.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CANCEL"/>
+        <Button android:id="@+id/btnDismiss" style="@style/Widget.MaterialComponents.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cancel"/>
         <Button android:id="@+id/btnSubmitCompletion"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="SUBMIT &amp; FINISH"
+            android:text="@string/submit_and_finish"
+            android:textColor="@color/white"
             android:background="@drawable/glass_bg"/>
     </LinearLayout>
 

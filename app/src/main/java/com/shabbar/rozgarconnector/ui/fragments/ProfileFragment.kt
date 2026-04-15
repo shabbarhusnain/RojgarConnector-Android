@@ -73,6 +73,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 
                 currentWorkerType = (doc.getString("workerType") ?: "").lowercase()
 
+                // Step 5: Trust & Verification Logic
+                val isVerified = doc.getBoolean("isVerified") ?: false
+                val averageRating = (doc.getDouble("averageRating") ?: 0.0).toFloat()
+                
+                binding.imgVerifiedBadge.visibility = if (isVerified) View.VISIBLE else View.GONE
+                binding.profileRatingBar.rating = averageRating
+
                 // 2. Set UI Fields
                 binding.tvProfileName.text = name
                 binding.tvFatherName.text = fatherName
@@ -80,7 +87,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 binding.tvDob.text = dob
                 binding.tvPhone.text = phone
                 binding.tvLocationFull.text = "$address, $city, $district"
-                binding.tvProfileRole.text = if (currentWorkerType.isNotEmpty()) "$currentWorkerType worker".uppercase() else role.uppercase()
+                
+                // Fixed Role Display (using strings for translation)
+                val roleDisplay = when {
+                    currentWorkerType == "educated" -> getString(R.string.provider_educated)
+                    currentWorkerType == "uneducated" -> getString(R.string.provider_uneducated)
+                    role == "seeker" -> getString(R.string.service_seeker)
+                    else -> role.uppercase()
+                }
+                binding.tvProfileRole.text = roleDisplay
 
                 // 3. Profile Image Setup
                 val dpBase64 = doc.getString("dpBase64")
@@ -95,7 +110,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 }
 
                 // 4. Portfolio Visibility Logic (Crucial Fix)
-                if (role == "worker" || currentWorkerType.isNotEmpty()) {
+                if (role == "worker" || role == "provider" || currentWorkerType.isNotEmpty()) {
                     binding.portfolioCard.visibility = View.VISIBLE
                     
                     val skill = doc.getString("professionalSkill") ?: "Not Provided"
@@ -135,7 +150,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         binding.degreePhotoSection.visibility = View.GONE
                     }
                 } else {
-                    // This is a Seeker, hide the portfolio card.
                     binding.portfolioCard.visibility = View.GONE
                 }
             }

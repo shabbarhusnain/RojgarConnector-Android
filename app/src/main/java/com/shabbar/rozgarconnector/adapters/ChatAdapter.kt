@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.models.MessageModel
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatAdapter(private val messageList: List<MessageModel>) :
+class ChatAdapter(private var messageList: List<MessageModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val auth = FirebaseAuth.getInstance()
@@ -47,17 +48,29 @@ class ChatAdapter(private val messageList: List<MessageModel>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = messageList[position]
+        val context = holder.itemView.context
         val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
         val time = timeFormat.format(Date(message.timestamp))
 
-        if (holder is SentViewHolder) {
-            holder.tvMessage.text = message.message
-            holder.tvTime.text = time
-        } else if (holder is ReceivedViewHolder) {
-            holder.tvMessage.text = message.message
-            holder.tvTime.text = time
+        val tvMsg = if (holder is SentViewHolder) holder.tvMessage else (holder as ReceivedViewHolder).tvMessage
+        val tvTime = if (holder is SentViewHolder) holder.tvTime else (holder as ReceivedViewHolder).tvTime
+
+        tvTime.text = time
+
+        // Logical Urdu Translation for Chat
+        if (TranslatorUtil.isUrduEnabled(context)) {
+            TranslatorUtil.translateText(message.message) { translated ->
+                tvMsg.text = translated
+            }
+        } else {
+            tvMsg.text = message.message
         }
     }
 
     override fun getItemCount(): Int = messageList.size
+
+    fun updateData(newList: List<MessageModel>) {
+        this.messageList = newList
+        notifyDataSetChanged()
+    }
 }

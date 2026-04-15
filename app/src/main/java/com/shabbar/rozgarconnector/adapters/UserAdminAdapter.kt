@@ -10,7 +10,7 @@ import com.shabbar.rozgarconnector.models.UserModel
 
 class UserAdminAdapter(
     private val userList: List<UserModel>,
-    private val onApproveClick: (UserModel) -> Unit
+    private val onItemClick: (UserModel) -> Unit
 ) : RecyclerView.Adapter<UserAdminAdapter.AdminViewHolder>() {
 
     class AdminViewHolder(val binding: ItemUserAdminBinding) : RecyclerView.ViewHolder(binding.root)
@@ -23,23 +23,20 @@ class UserAdminAdapter(
     override fun onBindViewHolder(holder: AdminViewHolder, position: Int) {
         val user = userList[position]
 
-        holder.binding.tvUserName.text = user.fullName ?: "No Name"
-        holder.binding.tvUserCnic.text = "CNIC: ${user.cnic ?: "N/A"}"
-        holder.binding.tvUserRole.text = "Role: ${user.role ?: "Worker"}"
+        // Fix: Use 'fullName' instead of 'fullname'
+        holder.binding.tvUserName.text = if (user.fullName.isNotEmpty()) user.fullName else "No Name"
+        holder.binding.tvUserCnic.text = if (user.cnic.isNotEmpty()) user.cnic else "CNIC: N/A"
+        holder.binding.tvUserRole.text = user.role.uppercase()
 
-        // Crash Prevention: Check if image string is valid
-        val base64Img = user.cnicFrontBase64
-        if (!base64Img.isNullOrEmpty() && base64Img.length > 100) {
+        if (!user.dpBase64.isNullOrEmpty()) {
             try {
-                val imageBytes = Base64.decode(base64Img, Base64.DEFAULT)
+                val imageBytes = Base64.decode(user.dpBase64, Base64.DEFAULT)
                 val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                holder.binding.imgUserCnic.setImageBitmap(bitmap)
-            } catch (e: Exception) {
-                // holder.binding.imgUserCnic.setImageResource(R.drawable.ic_error_placeholder)
-            }
+                holder.binding.imgUserThumb.setImageBitmap(bitmap)
+            } catch (e: Exception) {}
         }
 
-        holder.binding.btnApproveUser.setOnClickListener { onApproveClick(user) }
+        holder.itemView.setOnClickListener { onItemClick(user) }
     }
 
     override fun getItemCount() = userList.size

@@ -2,12 +2,13 @@ package com.shabbar.rozgarconnector.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.shabbar.rozgarconnector.databinding.ActivityLoginBinding
-import com.shabbar.rozgarconnector.ui.admin.AdminDashboardActivity
 import com.shabbar.rozgarconnector.ui.home.ProviderHomeActivity
 import com.shabbar.rozgarconnector.ui.home.SeekerHomeActivity
 import com.shabbar.rozgarconnector.ui.role.RoleSelectionActivity
@@ -26,13 +27,12 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Null check for settings button (Safe implementation)
         binding.btnSettings?.setOnClickListener {
             startActivity(Intent(this, MenuActivity::class.java))
         }
 
         if (auth.currentUser != null) {
-            checkUserStatusAndNavigate(auth.currentUser!!.uid)
+            updateFcmTokenAndNavigate(auth.currentUser!!.uid)
         }
 
         binding.btnLogin.setOnClickListener { handleLogin() }
@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(formattedEmail, password)
             .addOnSuccessListener { result ->
-                checkUserStatusAndNavigate(result.user!!.uid)
+                updateFcmTokenAndNavigate(result.user!!.uid)
             }
             .addOnFailureListener { e ->
                 resetButton()
@@ -64,21 +64,34 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+    private fun updateFcmTokenAndNavigate(uid: String) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                db.collection("users").document(uid).update("fcmToken", token)
+                    .addOnSuccessListener { Log.d("FCM", "Token updated: $token") }
+            }
+            checkUserStatusAndNavigate(uid)
+        }
+    }
+
     private fun checkUserStatusAndNavigate(uid: String) {
         db.collection("users").document(uid).get()
             .addOnSuccessListener { doc ->
                 if (doc.exists() && !isFinishing) {
-                    val role = doc.getString("role") ?: "pending"
+                    val role = (doc.getString("role") ?: "pending").lowercase()
                     val isVerified = doc.getBoolean("isVerified") ?: false
                     val profileCompleted = doc.getBoolean("profileCompleted") ?: false
-                    val workerType = doc.getString("workerType") ?: "none"
+                    val workerType = (doc.getString("workerType") ?: "none").lowercase()
 
                     when {
-                        role.equals("Admin", ignoreCase = true) -> {
-                            navigateTo(AdminDashboardActivity::class.java)
+                        // Admin navigation removed permanently
+                        role == "admin" -> {
+                            Toast.makeText(this, "Admin access is disabled", Toast.LENGTH_SHORT).show()
+                            resetButton()
                         }
                         
-                        role.equals("Seeker", ignoreCase = true) -> {
+                        role == "seeker" -> {
                             if (!isVerified) {
                                 navigateTo(PendingApprovalActivity::class.java)
                             } else {
@@ -86,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                             }
                         }
 
-                        role.equals("Worker", ignoreCase = true) -> {
+                        role == "worker" || role == "provider" -> {
                             if (!isVerified) {
                                 navigateTo(PendingApprovalActivity::class.java)
                             } else if (!profileCompleted) {
@@ -103,8 +116,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                         
                         else -> {
-                            Toast.makeText(this, "Unknown Role: $role", Toast.LENGTH_SHORT).show()
-                            resetButton()
+                            navigateTo(RoleSelectionActivity::class.java)
                         }
                     }
                 }

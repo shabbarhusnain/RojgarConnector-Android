@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/header_gradient_curved"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/btnSettings"
         android:layout_width="32dp"
@@ -24,6 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -72,7 +73,6 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:elevation="4dp"
                 android:text="@string/offers"
                 app:chipBackgroundColor="@color/white"
@@ -83,7 +83,6 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:elevation="4dp"
                 android:text="@string/applications"
                 app:chipBackgroundColor="@color/white"
@@ -94,7 +93,6 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:elevation="4dp"
                 android:text="@string/history"
                 app:chipBackgroundColor="@color/white"
@@ -105,7 +103,6 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:elevation="5dp"
                 android:text="@string/all_notif"
                 app:chipBackgroundColor="@color/white"
@@ -135,15 +132,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterScroll" />
 
-    <TextView
-        android:id="@+id/tvNoNotifications"
+    <!-- Empty State Layout -->
+    <LinearLayout
+        android:id="@+id/llEmptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_updates"
+        android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterScroll" />
+        app:layout_constraintTop_toBottomOf="@id/filterScroll"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:alpha="0.3"
+            android:src="@drawable/ic_notification" />
+
+        <TextView
+            android:id="@+id/tvNoNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:alpha="0.5"
+            android:text="@string/no_updates"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

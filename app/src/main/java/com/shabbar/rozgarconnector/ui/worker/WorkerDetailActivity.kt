@@ -5,14 +5,9 @@ import android.os.Bundle
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -70,7 +65,6 @@ class WorkerDetailActivity : AppCompatActivity() {
             binding.llApplicationActions.visibility = View.VISIBLE
 
             if (status == "pending") {
-                // If I received it, show Accept/Decline. If I sent it, show nothing here.
                 if (senderId != currentUserId) {
                     binding.btnAcceptApp.visibility = View.VISIBLE
                     binding.btnDeclineApp.visibility = View.VISIBLE
@@ -80,8 +74,6 @@ class WorkerDetailActivity : AppCompatActivity() {
                     binding.btnDeclineApp.visibility = View.GONE
                 }
             } else if (status == "accepted") {
-                // Only Seeker (sender) can Finish the job in this logic, or both. 
-                // Let's allow the one who opened it to Finish if they want.
                 binding.btnDeclineApp.visibility = View.GONE
                 binding.btnAcceptApp.visibility = View.VISIBLE
                 binding.btnAcceptApp.text = "Finish & Close Job"
@@ -105,12 +97,10 @@ class WorkerDetailActivity : AppCompatActivity() {
         if (notificationId == null) return
         val currentUserId = auth.currentUser?.uid ?: return
 
-        // FIX: Instead of creating a NEW notification, we update the EXISTING one.
-        // This prevents "Doubling" in the list.
         val updates = hashMapOf<String, Any>(
             "status" to status,
             "timestamp" to Timestamp.now(),
-            "isRead" to false, // Set to false so the OTHER person sees it as new
+            "isRead" to false,
             "lastActionBy" to currentUserId
         )
 
@@ -127,6 +117,7 @@ class WorkerDetailActivity : AppCompatActivity() {
             if (doc.exists()) {
                 val worker = doc.toObject(UserModel::class.java)
                 if (worker != null) {
+                    // Fix: Use 'fullName' to match the UserModel
                     workerName = worker.fullName
                     workerType = worker.workerType
                     binding.tvWorkerName.text = worker.fullName
@@ -135,18 +126,14 @@ class WorkerDetailActivity : AppCompatActivity() {
                     binding.tvExp.text = "${worker.experienceYears ?: "0"} Years"
                     binding.tvDesc.text = worker.professionalDescription ?: "No description provided."
 
+                    binding.imgVerifiedBadge.visibility = if (worker.isVerified) View.VISIBLE else View.GONE
+                    binding.workerRatingBar.rating = worker.averageRating
+
                     if (worker.workerType == "educated") {
                         binding.eduSection.visibility = View.VISIBLE
                         binding.tvEdu.text = "${worker.lastDegree} in ${worker.degreeName}"
-                        if (notificationId != null) {
-                            binding.degreeSection.visibility = View.VISIBLE
-                            loadBase64Image(worker.degreePhotoBase64, binding.imgDegree, R.drawable.ic_profile_placeholder)
-                        } else {
-                            binding.degreeSection.visibility = View.GONE
-                        }
                     } else {
                         binding.eduSection.visibility = View.GONE
-                        binding.degreeSection.visibility = View.GONE
                     }
                 }
             }
@@ -170,40 +157,48 @@ class WorkerDetailActivity : AppCompatActivity() {
     private fun showHiringForm() {
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_hire_details, null)
         val etTask = view.findViewById<EditText>(R.id.etJobTask)
-        val etDuration = view.findViewById<EditText>(R.id.etJobDuration)
         val etLocation = view.findViewById<EditText>(R.id.etJobLocation)
         val etBudget = view.findViewById<EditText>(R.id.etJobBudget)
         val etDeadline = view.findViewById<EditText>(R.id.etJobDeadline)
-        val etContact = view.findViewById<EditText>(R.id.etJobContact)
-        val spinnerEngagement = view.findViewById<Spinner>(R.id.spinnerEngagement)
-        val tilDuration = view.findViewById<TextInputLayout>(R.id.tilJobDuration)
-
-        if (workerType == "educated") {
-            tilDuration.visibility = View.GONE
-            val adapter = ArrayAdapter.createFromResource(this, R.array.engagement_types, android.R.layout.simple_spinner_item)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerEngagement.adapter = adapter
-        }
+        
+        val cbTools = view.findViewById<CheckBox>(R.id.cbToolsProvided)
+        val cbSafety = view.findViewById<CheckBox>(R.id.cbSafetyConfirmed)
+        val cbPayment = view.findViewById<CheckBox>(R.id.cbPaymentPrompt)
 
         AlertDialog.Builder(this)
-            .setTitle("Send Hiring Offer")
+            .setTitle("Work Agreement & Offer")
             .setView(view)
-            .setPositiveButton("Send") { _, _ ->
+            .setPositiveButton("Send Official Offer") { _, _ ->
                 val task = etTask.text.toString().trim()
                 val loc = etLocation.text.toString().trim()
                 val budget = etBudget.text.toString().trim()
-                val duration = if (workerType == "educated") spinnerEngagement.selectedItem.toString() else etDuration.text.toString().trim()
-                if (task.isNotEmpty()) sendHireRequest(task, duration, loc, budget, etDeadline.text.toString(), etContact.text.toString())
+                val deadline = etDeadline.text.toString().trim()
+                
+                if (task.isEmpty() || budget.isEmpty() || loc.isEmpty()) {
+                    Toast.makeText(this, "Please fill all required agreement fields.", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                val message = "OFFICIAL WORK OFFER:\n" +
+                        "• Task: $task\n" +
+                        "• Budget: Rs. $budget\n" +
+                        "• Deadline: $deadline\n" +
+                        "• Location: $loc\n" +
+                        "• Tools Provided: ${if(cbTools.isChecked) "Yes (By Seeker)" else "No (By Worker)"}\n" +
+                        "• Safety Guaranteed: ${if(cbSafety.isChecked) "Yes" else "Under Discussion"}\n" +
+                        "• Payment Terms: ${if(cbPayment.isChecked) "Prompt after work" else "Discussed"}"
+
+                sendHireRequest(message)
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
-    private fun sendHireRequest(task: String, duration: String, location: String, budget: String, deadline: String, contact: String) {
+    private fun sendHireRequest(message: String) {
         val currentUserId = auth.currentUser?.uid ?: return
         db.collection("users").document(currentUserId).get().addOnSuccessListener { seekerDoc ->
+            // Use 'fullName' to match Firestore field
             val seekerName = seekerDoc.getString("fullName") ?: "Seeker"
-            val message = "Hiring Offer:\n• Task: $task\n• Budget: Rs. $budget\n• Location: $location\n• Duration: $duration"
             
             val notificationData = hashMapOf(
                 "receiverId" to workerId,
@@ -216,7 +211,10 @@ class WorkerDetailActivity : AppCompatActivity() {
                 "isRead" to false,
                 "lastActionBy" to currentUserId
             )
-            db.collection("notifications").add(notificationData).addOnSuccessListener { finish() }
+            db.collection("notifications").add(notificationData).addOnSuccessListener { 
+                Toast.makeText(this, "Official Offer Sent Successfully!", Toast.LENGTH_SHORT).show()
+                finish() 
+            }
         }
     }
 

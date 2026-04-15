@@ -12,7 +12,7 @@ data class NotificationModel(
     var title: String = "",
     var message: String = "",
     var type: String = "",            // "hire" (Direct), "job" (Application)
-    var status: String = "pending",   // "pending", "accepted", "completed", "cancelled"
+    var status: String = "pending",   // "pending", "accepted", "completed", "cancelled", "disputed"
     var timestamp: Timestamp? = null,
     var isRead: Boolean = false,
 
@@ -26,9 +26,13 @@ data class NotificationModel(
     // Mutual Confirmation Checklist Flags
     var seekerConfirmed: Boolean = false,
     var workerConfirmed: Boolean = false,
-    var hasDamages: Boolean = false,        // If seeker reported damages
-    var paymentFullReceived: Boolean = true, // If worker reported full payment
-    var behaviorGood: Boolean = true,       // If worker reported good behavior
+    
+    // Step 4: Dispute & Damage Logic
+    var hasDamages: Boolean = false,        // Seeker report: Physical damage
+    var taskNotCompleted: Boolean = false,  // Seeker report: Job unfinished
+    var paymentFullReceived: Boolean = true, // Worker report: Payment issue
+    var behaviorGood: Boolean = true,       // Worker report: Conduct issue
+    var disputeReason: String = "",         // Detailed reason if status is "disputed"
     
     // Reviews & Ratings
     var ratingToWorker: Float = 0f,

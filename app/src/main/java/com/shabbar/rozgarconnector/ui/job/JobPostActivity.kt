@@ -1,6 +1,7 @@
 package com.shabbar.rozgarconnector.ui.job
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,11 @@ class JobPostActivity : AppCompatActivity() {
         
         updateCategorySpinner()
 
+        // Step 1: Logic for Safety Hazards visibility
+        binding.cbSafetyHazards.setOnCheckedChangeListener { _, isChecked ->
+            binding.etHazardsDescription.visibility = if (isChecked) View.VISIBLE else View.GONE
+        }
+
         binding.btnPostJob.setOnClickListener { 
             checkSeekerVerificationAndPost()
         }
@@ -39,6 +45,10 @@ class JobPostActivity : AppCompatActivity() {
         binding.spinnerDistrict.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, resources.getStringArray(R.array.pakistan_districts))
         binding.spinnerDurationUnit.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, resources.getStringArray(R.array.duration_units))
         binding.spinnerPayUnit.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, resources.getStringArray(R.array.pay_units))
+        
+        // Step 1: Tools Provider Spinner
+        val toolOptions = arrayOf("Seeker (I will provide)", "Worker (Provider must bring)", "Shared / Discuss in Chat")
+        binding.spinnerToolsProvided.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, toolOptions)
     }
 
     private fun updateCategorySpinner() {
@@ -56,7 +66,6 @@ class JobPostActivity : AppCompatActivity() {
     private fun checkSeekerVerificationAndPost() {
         val uid = auth.currentUser?.uid ?: return
         
-        // Logical Fix: Only verified seekers can post jobs
         db.collection("users").document(uid).get().addOnSuccessListener { doc ->
             val isVerified = doc.getBoolean("isVerified") ?: false
             if (isVerified) {
@@ -75,35 +84,54 @@ class JobPostActivity : AppCompatActivity() {
         val workplaceAddress = binding.etWorkplaceAddress.text.toString().trim()
         val durationValue = binding.etDurationValue.text.toString().trim()
         
-        val category = binding.spinnerJobCategory.selectedItem?.toString() ?: ""
-        val district = binding.spinnerDistrict.selectedItem?.toString() ?: ""
-        val workerType = if (binding.rbEducated.isChecked) "educated" else "uneducated"
+        // Step 1 Logical Validations
+        val isEthicalTermsAccepted = binding.cbEthicalTerms.isChecked
+        val isHazardsChecked = binding.cbSafetyHazards.isChecked
+        val hazardsDesc = binding.etHazardsDescription.text.toString().trim()
 
-        if (title.isEmpty() || category.isEmpty() || payAmount.isEmpty() || workplaceAddress.isEmpty()) {
-            Toast.makeText(this, "Please fill all mandatory fields (Title, Category, Pay, Address)", Toast.LENGTH_SHORT).show()
+        if (title.isEmpty() || payAmount.isEmpty() || workplaceAddress.isEmpty()) {
+            Toast.makeText(this, "Title, Budget, and Address are required.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (isHazardsChecked && hazardsDesc.isEmpty()) {
+            Toast.makeText(this, "Please describe the safety hazards.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (!isEthicalTermsAccepted) {
+            Toast.makeText(this, "You must agree to the Ethical Terms to post.", Toast.LENGTH_SHORT).show()
             return
         }
 
         binding.btnPostJob.isEnabled = false
         binding.btnPostJob.text = "POSTING..."
 
-        val jobData = hashMapOf(
-            "seekerId" to auth.currentUser?.uid,
-            "jobTitle" to title,
-            "category" to category,
-            "workerType" to workerType,
-            "district" to district,
-            "workplaceName" to workplaceName,
-            "workplaceType" to binding.spinnerWorkplaceType.selectedItem.toString(),
-            "workplaceAddress" to workplaceAddress,
-            "payAmount" to payAmount,
-            "payUnit" to binding.spinnerPayUnit.selectedItem.toString(),
-            "durationValue" to durationValue,
-            "durationUnit" to binding.spinnerDurationUnit.selectedItem.toString(),
-            "jobDescription" to desc,
-            "status" to "open",
-            "timestamp" to Timestamp.now()
-        )
+        // Fixed type mismatch by explicitly providing Map entries
+        val jobData = mutableMapOf<String, Any?>()
+        jobData["seekerId"] = auth.currentUser?.uid
+        jobData["jobTitle"] = title
+        jobData["category"] = binding.spinnerJobCategory.selectedItem?.toString() ?: ""
+        jobData["workerType"] = if (binding.rbEducated.isChecked) "educated" else "uneducated"
+        jobData["district"] = binding.spinnerDistrict.selectedItem?.toString() ?: ""
+        jobData["workplaceName"] = workplaceName
+        jobData["workplaceType"] = binding.spinnerWorkplaceType.selectedItem.toString()
+        jobData["workplaceAddress"] = workplaceAddress
+        jobData["payAmount"] = payAmount
+        jobData["payUnit"] = binding.spinnerPayUnit.selectedItem.toString()
+        jobData["durationValue"] = durationValue
+        jobData["durationUnit"] = binding.spinnerDurationUnit.selectedItem.toString()
+        jobData["jobDescription"] = desc
+        jobData["status"] = "open"
+        jobData["timestamp"] = Timestamp.now()
+        
+        // Step 1: New Ethical Fields
+        jobData["isNegotiable"] = binding.cbIsNegotiable.isChecked
+        jobData["isVisitRequired"] = binding.cbVisitRequired.isChecked
+        jobData["toolsProvidedBy"] = binding.spinnerToolsProvided.selectedItem.toString()
+        jobData["hasSafetyHazards"] = isHazardsChecked
+        jobData["hazardsDescription"] = hazardsDesc
+        jobData["ethicalTermsAccepted"] = true
 
         db.collection("jobs").add(jobData)
             .addOnSuccessListener {

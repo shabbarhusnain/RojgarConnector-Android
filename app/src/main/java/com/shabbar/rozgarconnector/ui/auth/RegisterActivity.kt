@@ -18,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivityRegisterBinding
 import com.shabbar.rozgarconnector.ui.role.RoleSelectionActivity
-import com.shabbar.rozgarconnector.ui.admin.AdminDashboardActivity
 import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 import java.io.ByteArrayOutputStream
 import java.util.Calendar
@@ -99,13 +98,13 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnRegister.isEnabled = false
         binding.btnRegister.text = "Verifying..."
 
-        // Checking for duplicates before creating auth account
+        // Checking for duplicates
         val cnicCheck = db.collection("users").whereEqualTo("cnic", cnic).get()
         val phoneCheck = db.collection("users").whereEqualTo("phone", phone).get()
 
         Tasks.whenAllSuccess<com.google.firebase.firestore.QuerySnapshot>(cnicCheck, phoneCheck)
             .addOnSuccessListener { results ->
-                if (!results[0].isEmpty || !results[1].isEmpty) {
+                if (results != null && (!results[0].isEmpty || !results[1].isEmpty)) {
                     Toast.makeText(this, "CNIC ya Phone pehle se registered hai!", Toast.LENGTH_LONG).show()
                     resetBtn()
                 } else {
@@ -114,7 +113,6 @@ class RegisterActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 resetBtn()
-                Log.e("REG_ERROR", "Firestore Error: ${e.message}")
                 Toast.makeText(this, "Error: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
             }
     }
@@ -127,10 +125,7 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(fakeEmail, pass).addOnSuccessListener { res ->
             val uid = res.user?.uid ?: ""
 
-            val isAdmin = (cnic == "0000000000000")
-            val role = if (isAdmin) "admin" else "pending"
-            val verifiedStatus = isAdmin 
-
+            // EVERY NEW USER IS 'PENDING' BY DEFAULT - Admin Logic Removed
             val userData = hashMapOf(
                 "uid" to uid,
                 "fullName" to name,
@@ -144,17 +139,13 @@ class RegisterActivity : AppCompatActivity() {
                 "dpBase64" to uriToBase64(dpUri!!),
                 "cnicFrontBase64" to uriToBase64(cnicFrontUri!!),
                 "cnicBackBase64" to uriToBase64(cnicBackUri!!),
-                "isVerified" to verifiedStatus,
-                "profileCompleted" to isAdmin,
-                "role" to role
+                "isVerified" to false, // All users must be verified by admin (if you had one)
+                "profileCompleted" to false,
+                "role" to "pending"
             )
 
             db.collection("users").document(uid).set(userData).addOnSuccessListener {
-                if (isAdmin) {
-                    startActivity(Intent(this, AdminDashboardActivity::class.java))
-                } else {
-                    startActivity(Intent(this, RoleSelectionActivity::class.java))
-                }
+                startActivity(Intent(this, RoleSelectionActivity::class.java))
                 finish()
             }.addOnFailureListener { e ->
                 resetBtn()
@@ -171,7 +162,7 @@ class RegisterActivity : AppCompatActivity() {
             val inputStream = contentResolver.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             val out = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, out) // Increased quality slightly
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, out)
             return Base64.encodeToString(out.toByteArray(), Base64.DEFAULT)
         } catch (e: Exception) {
             return ""

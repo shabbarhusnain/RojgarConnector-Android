@@ -1,6 +1,7 @@
 package com.shabbar.rozgarconnector.ui.job
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
@@ -64,8 +65,21 @@ class JobDetailActivity : AppCompatActivity() {
                     binding.tvDetailBudget.text = "Rs. ${job.payAmount} / ${job.payUnit}"
                     binding.tvDetailDeadline.text = "${job.durationValue} ${job.durationUnit}"
                     
+                    // Step 2: Show Ethical Details
+                    binding.tvDetailTools.text = "Tools: ${job.toolsProvidedBy}"
+                    binding.tvDetailNegotiable.text = "Negotiable: ${if (job.isNegotiable) "Yes" else "No (Fixed)"}"
+                    
+                    binding.llVisitRequired.visibility = if (job.isVisitRequired) View.VISIBLE else View.GONE
+                    
+                    if (job.hasSafetyHazards) {
+                        binding.llSafetyWarning.visibility = View.VISIBLE
+                        binding.tvHazardsDesc.text = job.hazardsDescription
+                    } else {
+                        binding.llSafetyWarning.visibility = View.GONE
+                    }
+                    
                     if (auth.currentUser?.uid == seekerId) {
-                        binding.btnConfirmApply.visibility = android.view.View.GONE
+                        binding.btnConfirmApply.visibility = View.GONE
                     }
                 }
             }
@@ -119,7 +133,6 @@ class JobDetailActivity : AppCompatActivity() {
             )
 
             db.collection("applications").add(applicationData).addOnSuccessListener {
-                // IMPORTANT: senderId MUST be the providerId (worker) so seeker can view their profile
                 val notifySeeker = hashMapOf(
                     "receiverId" to seekerId,
                     "senderId" to providerId,
@@ -135,7 +148,6 @@ class JobDetailActivity : AppCompatActivity() {
                 )
                 db.collection("notifications").add(notifySeeker)
 
-                // Notify the provider as well
                 val notifyProvider = hashMapOf(
                     "receiverId" to providerId,
                     "senderId" to seekerId,

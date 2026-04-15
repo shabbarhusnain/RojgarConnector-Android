@@ -57,7 +57,8 @@
         <activity android:name=".ui.help.HelpCenterActivity" android:exported="false" />
         <activity android:name=".ui.help.HelpSupportActivity" android:exported="false" />
         <activity android:name=".ui.help.ChatWithAdminActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.admin.AdminDashboardActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.admin.AdminDashboardActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.admin.VerificationDetailActivity" android:exported="false" />
 
         <!-- Service -->
         <service

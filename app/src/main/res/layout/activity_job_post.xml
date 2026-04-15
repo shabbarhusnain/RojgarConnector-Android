@@ -70,6 +70,212 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Worker Selection & Category -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/worker_category_header"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_green"
+                        android:layout_marginBottom="8dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/rgWorkerType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+                        <RadioButton android:id="@+id/rbEducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/educated" android:checked="true" android:layout_marginEnd="16dp" android:buttonTint="@color/primary_green"/>
+                        <RadioButton android:id="@+id/rbUneducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/uneducated" android:buttonTint="@color/primary_green"/>
+                    </RadioGroup>
+
+                    <Spinner
+                        android:id="@+id/spinnerJobCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edittext_border"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Work Terms & Logistics -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Work Terms &amp; Logistics"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_green"
+                        android:layout_marginBottom="12dp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbIsNegotiable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price is Negotiable"
+                        android:buttonTint="@color/primary_green"
+                        android:minHeight="48dp"/>
+
+                    <CheckBox
+                        android:id="@+id/cbVisitRequired"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Site Visit Required for Quote"
+                        android:buttonTint="@color/primary_green"
+                        android:minHeight="48dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Who will provide the tools/equipment?"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="4dp"/>
+                    
+                    <Spinner
+                        android:id="@+id/spinnerToolsProvided"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edittext_border"/>
+
+                    <CheckBox
+                        android:id="@+id/cbSafetyHazards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Potential Safety Hazards"
+                        android:buttonTint="#F44336"
+                        android:minHeight="48dp"/>
+
+                    <EditText
+                        android:id="@+id/etHazardsDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Describe hazards..."
+                        android:visibility="gone"
+                        android:textSize="14sp"
+                        android:background="@drawable/edittext_border"
+                        android:padding="10dp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Budget & Time -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/budget_time"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_green"
+                        android:layout_marginBottom="12dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Amount (PKR)"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:layout_marginBottom="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <EditText
+                            android:id="@+id/etPayAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1.2"
+                            android:hint="e.g. 500"
+                            android:inputType="number"
+                            android:background="@drawable/edittext_border"
+                            android:paddingStart="12dp"
+                            android:layout_marginEnd="6dp"/>
+
+                        <Spinner
+                            android:id="@+id/spinnerPayUnit"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.8"
+                            android:background="@drawable/edittext_border"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Expected Completion Time"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <EditText
+                            android:id="@+id/etDurationValue"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.8"
+                            android:hint="e.g. 2"
+                            android:inputType="number"
+                            android:background="@drawable/edittext_border"
+                            android:paddingStart="12dp"
+                            android:layout_marginEnd="6dp"/>
+
+                        <Spinner
+                            android:id="@+id/spinnerDurationUnit"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1.2"
+                            android:background="@drawable/edittext_border"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Location -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -118,129 +324,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Worker Selection & Category -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/worker_category_header"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_green"
-                        android:layout_marginBottom="8dp"/>
-
-                    <RadioGroup
-                        android:id="@+id/rgWorkerType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-                        <RadioButton android:id="@+id/rbEducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/educated" android:checked="true" android:layout_marginEnd="16dp" android:buttonTint="@color/primary_green"/>
-                        <RadioButton android:id="@+id/rbUneducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/uneducated" android:buttonTint="@color/primary_green"/>
-                    </RadioGroup>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/select_skill_category"
-                        android:textColor="@color/grey"
-                        android:textSize="12sp"
-                        android:layout_marginBottom="4dp"/>
-
-                    <Spinner
-                        android:id="@+id/spinnerJobCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/edittext_border"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Budget -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/budget_time"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_green"
-                        android:layout_marginBottom="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <EditText
-                            android:id="@+id/etPayAmount"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_weight="1"
-                            android:hint="@string/amount_pkr_hint"
-                            android:inputType="number"
-                            android:background="@drawable/edittext_border"
-                            android:paddingStart="12dp"
-                            android:layout_marginEnd="6dp"/>
-
-                        <Spinner
-                            android:id="@+id/spinnerPayUnit"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/edittext_border"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp"
-                        android:weightSum="2">
-
-                        <EditText
-                            android:id="@+id/etDurationValue"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_weight="0.8"
-                            android:hint="@string/value_hint"
-                            android:inputType="number"
-                            android:background="@drawable/edittext_border"
-                            android:paddingStart="12dp"
-                            android:layout_marginEnd="6dp"/>
-
-                        <Spinner
-                            android:id="@+id/spinnerDurationUnit"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_weight="1.2"
-                            android:background="@drawable/edittext_border"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
             <!-- Description -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -258,23 +341,47 @@
                     <EditText
                         android:id="@+id/etJobDescription"
                         android:layout_width="match_parent"
-                        android:layout_height="127dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="100dp"
                         android:gravity="top"
                         android:hint="@string/job_desc_hint"
                         android:padding="12dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:background="@drawable/edittext_border"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- Commitment -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+                <CheckBox
+                    android:id="@+id/cbEthicalTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/primary_green"
+                    android:minHeight="48dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="I commit to safety and timely payment."
+                    android:textSize="12sp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnPostJob"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:text="@string/publish_job"
                 android:textStyle="bold"
                 android:background="@drawable/glass_bg"
-                app:cornerRadius="12dp"
-                android:elevation="4dp"/>
+                android:textColor="@color/white"
+                app:cornerRadius="12dp"/>
 
         </LinearLayout>
     </ScrollView>

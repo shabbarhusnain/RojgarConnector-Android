@@ -19,6 +19,14 @@ data class JobModel(
     var workerType: String = "", 
     var category: String = "",
     var status: String = "open",
-    var timestamp: Timestamp? = null, // Changed from Long to Timestamp?
-    var applicants: List<String> = arrayListOf()
+    var timestamp: Timestamp? = null,
+    var applicants: List<String> = arrayListOf(),
+    
+    // Step 1: Ethical & Professional Enhancements
+    var isNegotiable: Boolean = false,
+    var toolsProvidedBy: String = "Seeker", // "Seeker", "Worker", "Shared"
+    var isVisitRequired: Boolean = false,
+    var hasSafetyHazards: Boolean = false,
+    var hazardsDescription: String = "",
+    var ethicalTermsAccepted: Boolean = true
 )
