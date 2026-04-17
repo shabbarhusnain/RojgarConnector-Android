@@ -3,13 +3,10 @@ package com.shabbar.rozgarconnector.ui.settings
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivityMenuBinding
 import com.shabbar.rozgarconnector.ui.auth.SplashActivity
 import com.shabbar.rozgarconnector.ui.help.ChatWithAdminActivity
@@ -33,6 +30,13 @@ class MenuActivity : AppCompatActivity() {
             finish()
         }
 
+        // --- ACCOUNT SETTINGS (Navigate to New Screen) ---
+        binding.btnAccountSettings.setOnClickListener {
+            // Hum abhi naya Activity banayein ge
+            val intent = Intent(this, AccountSettingsActivity::class.java)
+            startActivity(intent)
+        }
+
         // --- LANGUAGE SWITCH ---
         binding.switchUrdu.setOnCheckedChangeListener { _, isChecked ->
             if (isUpdatingLocale) return@setOnCheckedChangeListener
@@ -50,28 +54,19 @@ class MenuActivity : AppCompatActivity() {
             
             isUpdatingLocale = true
             AppCompatDelegate.setApplicationLocales(localeList)
-            
-            if (isChecked) {
-                binding.tvStatus.visibility = View.VISIBLE
-                binding.tvStatus.text = getString(R.string.pending)
-                TranslatorUtil.initTranslator(
-                    onSuccess = { runOnUiThread { binding.tvStatus.text = getString(R.string.finish_job) } },
-                    onFailure = { runOnUiThread { binding.tvStatus.text = "Error" } }
-                )
-            }
         }
 
-        // --- CUSTOMER SERVICE (Chat with Agent) ---
+        // --- CUSTOMER SERVICE ---
         binding.btnChatAdmin.setOnClickListener {
             startActivity(Intent(this, ChatWithAdminActivity::class.java))
         }
 
-        // --- HELP & SUPPORT (FAQ & Info) ---
+        // --- HELP & SUPPORT ---
         binding.btnHelpSupport.setOnClickListener {
             startActivity(Intent(this, HelpSupportActivity::class.java))
         }
 
-        // --- SOS EMERGENCY (Fast & Secure Dial 15) ---
+        // --- SOS EMERGENCY ---
         binding.btnSOS.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:15")
@@ -93,10 +88,5 @@ class MenuActivity : AppCompatActivity() {
         isUpdatingLocale = true
         binding.switchUrdu.isChecked = isUrdu
         isUpdatingLocale = false
-        
-        if (isUrdu) {
-            binding.tvStatus.visibility = View.VISIBLE
-            binding.tvStatus.text = getString(R.string.finish_job)
-        }
     }
 }

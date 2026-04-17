@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Code"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvOtpDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Enter the 6-digit code we sent to your phone number."
+        android:textColor="#757575"
+        android:textSize="14sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:boxStrokeColor="@color/primary_green"
+        app:hintTextColor="@color/primary_green">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etOtpInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="6-Digit Code"
+            android:inputType="number"
+            android:letterSpacing="0.2"
+            android:maxLength="6"
+            android:textAlignment="center" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVerifyOtp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:text="VERIFY &amp; CONTINUE"
+        android:backgroundTint="@color/primary_green"
+        app:cornerRadius="12dp" />
+
+    <TextView
+        android:id="@+id/btnResendCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Didn't receive code? Resend"
+        android:textColor="@color/primary_green"
+        android:textStyle="bold" />
+
+</LinearLayout>

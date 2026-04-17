@@ -24,6 +24,8 @@ class WorkerDetailActivity : AppCompatActivity() {
     private var workerName: String? = null
     private var workerType: String? = null
     private var notificationId: String? = null
+    private var baseRate: Double = 0.0
+    private var commissionPct: Double = 10.0 // Default
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class WorkerDetailActivity : AppCompatActivity() {
             return
         }
 
+        fetchSystemRates()
         loadWorkerDetails()
         checkNotificationStatus()
 
@@ -47,6 +50,14 @@ class WorkerDetailActivity : AppCompatActivity() {
         
         binding.btnAcceptApp.setOnClickListener { handleDirectDecision("accepted") }
         binding.btnDeclineApp.setOnClickListener { handleDirectDecision("rejected") }
+    }
+
+    private fun fetchSystemRates() {
+        db.collection("settings").document("rates").get().addOnSuccessListener { doc ->
+            if (doc.exists()) {
+                commissionPct = doc.getDouble("commission") ?: 10.0
+            }
+        }
     }
 
     private fun checkNotificationStatus() {
@@ -117,12 +128,17 @@ class WorkerDetailActivity : AppCompatActivity() {
             if (doc.exists()) {
                 val worker = doc.toObject(UserModel::class.java)
                 if (worker != null) {
-                    // Fix: Use 'fullName' to match the UserModel
                     workerName = worker.fullName
                     workerType = worker.workerType
+                    baseRate = (worker.dailyRate ?: "0").toDoubleOrNull() ?: 0.0
+                    
                     binding.tvWorkerName.text = worker.fullName
                     loadBase64Image(worker.dpBase64, binding.imgWorkerProfile, R.drawable.ic_profile)
-                    binding.tvSkill.text = if(worker.workerType == "educated") worker.degreeName else worker.professionalSkill
+                    
+                    // Display Skill + Price (Transparent Pricing)
+                    val totalPrice = baseRate // Rate is already including commission for Seeker view
+                    binding.tvSkill.text = "${if(worker.workerType == "educated") worker.degreeName else worker.professionalSkill} | Rs. $totalPrice"
+                    
                     binding.tvExp.text = "${worker.experienceYears ?: "0"} Years"
                     binding.tvDesc.text = worker.professionalDescription ?: "No description provided."
 
@@ -161,6 +177,9 @@ class WorkerDetailActivity : AppCompatActivity() {
         val etBudget = view.findViewById<EditText>(R.id.etJobBudget)
         val etDeadline = view.findViewById<EditText>(R.id.etJobDeadline)
         
+        // Auto-fill suggested budget
+        etBudget.setText(baseRate.toString())
+
         val cbTools = view.findViewById<CheckBox>(R.id.cbToolsProvided)
         val cbSafety = view.findViewById<CheckBox>(R.id.cbSafetyConfirmed)
         val cbPayment = view.findViewById<CheckBox>(R.id.cbPaymentPrompt)
@@ -197,7 +216,6 @@ class WorkerDetailActivity : AppCompatActivity() {
     private fun sendHireRequest(message: String) {
         val currentUserId = auth.currentUser?.uid ?: return
         db.collection("users").document(currentUserId).get().addOnSuccessListener { seekerDoc ->
-            // Use 'fullName' to match Firestore field
             val seekerName = seekerDoc.getString("fullName") ?: "Seeker"
             
             val notificationData = hashMapOf(
@@ -219,11 +237,49 @@ class WorkerDetailActivity : AppCompatActivity() {
     }
 
     private fun showReportDialog() {
-        val options = arrayOf("Fake Profile", "Harassment", "Other")
-        AlertDialog.Builder(this).setItems(options) { _, which -> submitReport(options[which]) }.show()
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_report_user, null)
+        val etDesc = view.findViewById<EditText>(R.id.etReportDescription)
+        val spReason = view.findViewById<Spinner>(R.id.spReportReason)
+        
+        val reasons = arrayOf("Fraudulent Activity", "Harassment", "Poor Work Quality", "Suspicious Documents", "Other")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, reasons)
+        spReason.adapter = adapter
+
+        AlertDialog.Builder(this)
+            .setTitle("Report Professional")
+            .setView(view)
+            .setPositiveButton("Submit Report") { _, _ ->
+                val reason = spReason.selectedItem.toString()
+                val description = etDesc.text.toString().trim()
+                
+                if (description.isEmpty()) {
+                    Toast.makeText(this, "Please provide some details for the admin.", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                submitReport(reason, description)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
-    private fun submitReport(reason: String) {
-        db.collection("reports").add(hashMapOf("reportedId" to workerId, "reason" to reason, "timestamp" to Timestamp.now()))
+    private fun submitReport(reason: String, description: String) {
+        val currentUserId = auth.currentUser?.uid ?: return
+        
+        val reportData = hashMapOf(
+            "reporterId" to currentUserId,
+            "reportedUserId" to workerId,
+            "title" to reason,
+            "description" to description,
+            "category" to reason.lowercase().replace(" ", "_"),
+            "priority" to if (reason == "Harassment") "high" else "medium",
+            "status" to "pending",
+            "createdAt" to Timestamp.now()
+        )
+
+        db.collection("reports").add(reportData).addOnSuccessListener {
+            Toast.makeText(this, "Report submitted. Admin will review it shortly.", Toast.LENGTH_LONG).show()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to submit report. Please try again.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

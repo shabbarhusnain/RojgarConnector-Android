@@ -12,6 +12,7 @@ object TranslatorUtil {
     private const val KEY_LANG_URDU = "is_urdu_enabled"
     private var translator: Translator? = null
     private var isInitializing = false
+    private val pendingCallbacks = mutableListOf<() -> Unit>()
 
     fun isUrduEnabled(context: Context): Boolean {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -24,14 +25,19 @@ object TranslatorUtil {
     }
 
     fun initTranslator(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        // Prevent multiple simultaneous initializations or redundant clients
         if (translator != null) {
             onSuccess()
             return
         }
-        if (isInitializing) return
+
+        if (isInitializing) {
+            pendingCallbacks.add(onSuccess)
+            return
+        }
         
         isInitializing = true
+        pendingCallbacks.add(onSuccess)
+
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)
             .setTargetLanguage(TranslateLanguage.URDU)
@@ -44,10 +50,13 @@ object TranslatorUtil {
             .addOnSuccessListener {
                 translator = client
                 isInitializing = false
-                onSuccess()
+                // Execute all pending callbacks
+                pendingCallbacks.forEach { it.invoke() }
+                pendingCallbacks.clear()
             }
             .addOnFailureListener { exception ->
                 isInitializing = false
+                pendingCallbacks.clear()
                 onFailure(exception)
             }
     }

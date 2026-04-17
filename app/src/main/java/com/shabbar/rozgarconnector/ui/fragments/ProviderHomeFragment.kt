@@ -18,7 +18,7 @@ import com.shabbar.rozgarconnector.adapters.JobAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentProviderHomeBinding
 import com.shabbar.rozgarconnector.models.JobModel
 import com.shabbar.rozgarconnector.ui.job.JobDetailActivity
-import com.shabbar.rozgarconnector.ui.settings.MenuActivity
+import com.shabbar.rozgarconnector.ui.settings.NotificationsActivity
 import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class ProviderHomeFragment : Fragment() {
@@ -47,9 +47,12 @@ class ProviderHomeFragment : Fragment() {
         setupRecyclerView()
         fetchUserTypeAndLoadJobs()
         setupSearch()
+        listenForAnnouncements()
 
-        binding.btnSettings.setOnClickListener {
-            startActivity(Intent(requireContext(), MenuActivity::class.java))
+        // Settings click listener removed from here
+
+        binding.btnAnnouncements.setOnClickListener {
+            startActivity(Intent(requireContext(), NotificationsActivity::class.java))
         }
 
         // --- UI TRANSLATION ---
@@ -59,6 +62,18 @@ class ProviderHomeFragment : Fragment() {
                 onFailure = { }
             )
         }
+    }
+
+    private fun listenForAnnouncements() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("notifications")
+            .whereEqualTo("type", "broadcast")
+            .whereEqualTo("isRead", false)
+            .addSnapshotListener { snapshots, _ ->
+                if (!isAdded) return@addSnapshotListener
+                val hasUnread = snapshots != null && !snapshots.isEmpty
+                binding.unreadBellDot.visibility = if (hasUnread) View.VISIBLE else View.GONE
+            }
     }
 
     private fun translateUI() {

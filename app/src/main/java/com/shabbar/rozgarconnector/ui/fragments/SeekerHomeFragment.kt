@@ -17,8 +17,7 @@ import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.adapters.WorkerAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentSeekerHomeBinding
 import com.shabbar.rozgarconnector.models.UserModel
-import com.shabbar.rozgarconnector.ui.settings.MenuActivity
-import com.shabbar.rozgarconnector.utils.TranslatorUtil
+import com.shabbar.rozgarconnector.ui.settings.NotificationsActivity
 
 class SeekerHomeFragment : Fragment() {
 
@@ -43,6 +42,7 @@ class SeekerHomeFragment : Fragment() {
         setupRecyclerView()
         setupFilters()
         setupSearch()
+        listenForAnnouncements()
 
         val initialEducated = binding.btnEducated.isChecked
         updateCategorySpinner(initialEducated)
@@ -60,11 +60,25 @@ class SeekerHomeFragment : Fragment() {
             loadWorkers(binding.btnEducated.isChecked)
         }
 
-        binding.btnSettings.setOnClickListener {
-            startActivity(Intent(requireContext(), MenuActivity::class.java))
+        // Settings click listener removed
+
+        binding.btnAnnouncements.setOnClickListener {
+            startActivity(Intent(requireContext(), NotificationsActivity::class.java))
         }
 
         updateLabels()
+    }
+
+    private fun listenForAnnouncements() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("notifications")
+            .whereEqualTo("type", "broadcast")
+            .whereEqualTo("isRead", false)
+            .addSnapshotListener { snapshots, _ ->
+                if (!isAdded) return@addSnapshotListener
+                val hasUnread = snapshots != null && !snapshots.isEmpty
+                binding.unreadBellDot.visibility = if (hasUnread) View.VISIBLE else View.GONE
+            }
     }
 
     private fun updateLabels() {
@@ -145,7 +159,6 @@ class SeekerHomeFragment : Fragment() {
 
         filteredList.clear()
         for (worker in fullWorkerList) {
-            // Fix: Use 'fullName' to match the updated UserModel
             val nameMatch = worker.fullName.lowercase().contains(query)
             val districtMatch = district == "All Districts" || worker.district == district
             

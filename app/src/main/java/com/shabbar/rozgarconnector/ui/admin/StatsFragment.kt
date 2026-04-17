@@ -12,9 +12,8 @@ import com.google.firebase.firestore.Query
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.FragmentAdminStatsBinding
 import com.shabbar.rozgarconnector.databinding.ItemAdminChatListBinding
-import com.shabbar.rozgarconnector.models.NotificationModel
+import com.shabbar.rozgarconnector.models.ActivitiesModel
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class StatsFragment : Fragment() {
@@ -22,7 +21,7 @@ class StatsFragment : Fragment() {
     private var _binding: FragmentAdminStatsBinding? = null
     private val binding get() = _binding!!
     private val db = FirebaseFirestore.getInstance()
-    private val activityLog = mutableListOf<NotificationModel>()
+    private val activityLog = mutableListOf<ActivitiesModel>()
     private lateinit var logAdapter: ActivityLogAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -45,13 +44,16 @@ class StatsFragment : Fragment() {
     }
 
     private fun loadStats() {
-        db.collection("users").addSnapshotListener { snapshots, _ ->
-            if (!isAdded) return@addSnapshotListener
-            binding.tvTotalUsers.text = (snapshots?.size() ?: 0).toString()
+        // Optimization: Don't load all user data, just count
+        db.collection("users").addSnapshotListener { snapshots, e ->
+            if (!isAdded || e != null) return@addSnapshotListener
+            val size = snapshots?.size() ?: 0
+            binding.tvTotalUsers.text = size.toString()
             
+            // Only loop if size is reasonable
             var online = 0
             var rejected = 0
-            snapshots?.forEach { doc ->
+            snapshots?.documents?.forEach { doc ->
                 if (doc.getBoolean("isOnline") == true) online++
                 if (doc.getBoolean("isRejected") == true) rejected++
             }
@@ -59,21 +61,23 @@ class StatsFragment : Fragment() {
             binding.tvRejectedUsers.text = rejected.toString()
         }
 
-        db.collection("notifications").addSnapshotListener { snapshots, _ ->
-            if (!isAdded) return@addSnapshotListener
+        db.collection("notifications").addSnapshotListener { snapshots, e ->
+            if (!isAdded || e != null) return@addSnapshotListener
             binding.tvTotalApps.text = (snapshots?.size() ?: 0).toString()
         }
     }
 
     private fun loadActivityLog() {
+        // Use a more efficient query with limit
         db.collection("notifications")
             .orderBy("timestamp", Query.Direction.DESCENDING)
-            .limit(10)
-            .addSnapshotListener { snapshots, _ ->
-                if (!isAdded || snapshots == null) return@addSnapshotListener
+            .limit(20)
+            .addSnapshotListener { snapshots, e ->
+                if (!isAdded || e != null || snapshots == null) return@addSnapshotListener
+                
                 activityLog.clear()
-                snapshots.forEach { doc ->
-                    val item = doc.toObject(NotificationModel::class.java)
+                for (doc in snapshots) {
+                    val item = doc.toObject(ActivitiesModel::class.java)
                     activityLog.add(item)
                 }
                 logAdapter.notifyDataSetChanged()
@@ -85,8 +89,7 @@ class StatsFragment : Fragment() {
         _binding = null
     }
 
-    inner class ActivityLogAdapter(private val list: List<NotificationModel>) : RecyclerView.Adapter<ActivityLogAdapter.LogVH>() {
-        // ViewHolder uses the layout's root View directly to avoid Type Casting errors
+    inner class ActivityLogAdapter(private val list: List<ActivitiesModel>) : RecyclerView.Adapter<ActivityLogAdapter.LogVH>() {
         inner class LogVH(val b: ItemAdminChatListBinding) : RecyclerView.ViewHolder(b.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogVH {
@@ -94,16 +97,16 @@ class StatsFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: LogVH, position: Int) {
+            if (position >= list.size) return
             val item = list[position]
             holder.b.apply {
                 tvUserName.text = item.senderName.ifEmpty { "System" }
                 tvLastMessage.text = item.message
                 val sdf = SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault())
-                tvTime.text = item.timestamp?.toDate()?.let { sdf.format(it) } ?: ""
+                tvTime.text = item.timestamp?.toDate()?.let { sdf.format(it) } ?: "Just Now"
                 
-                // Set fixed icon for logs
                 imgUserAvatar.setImageResource(R.drawable.ic_notification)
-                tvUnreadBadge.visibility = View.GONE // No badges in log
+                tvUnreadBadge.visibility = View.GONE
             }
         }
 

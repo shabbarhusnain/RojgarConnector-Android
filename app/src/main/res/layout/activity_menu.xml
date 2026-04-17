@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        tools:context=".ui.settings.MenuActivity">
+        android:padding="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,6 +36,50 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </RelativeLayout>
+
+        <!-- Account Settings Entry Point -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnAccountSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_profile"
+                    app:tint="@color/primary_green" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="Account Settings"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_back"
+                    android:rotation="180"
+                    app:tint="@color/grey" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Language Card -->
         <com.google.android.material.card.MaterialCardView
@@ -72,19 +115,10 @@
                     android:textSize="15sp"
                     app:thumbTint="@color/primary_green"
                     app:trackTint="@color/primary_green_light" />
-
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/model_download_status"
-                    android:textColor="@color/grey"
-                    android:textSize="11sp"
-                    android:visibility="gone" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Services Card -->
+        <!-- Help & Support Section -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,78 +132,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Chat with Admin -->
                 <LinearLayout
                     android:id="@+id/btnChatAdmin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
                     android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_messages"
-                        app:tint="@color/primary_green" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:text="Chat with Admin"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_back"
-                        android:rotation="180"
-                        app:tint="@color/grey" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_messages" app:tint="@color/primary_green" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Chat with Admin" android:textColor="@color/black" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="#EEEEEE" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginHorizontal="16dp" android:background="#EEEEEE" />
 
-                <!-- Help & Support -->
                 <LinearLayout
                     android:id="@+id/btnHelpSupport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
                     android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_notification"
-                        app:tint="@color/primary_green" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:text="Help &amp; Support"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_back"
-                        android:rotation="180"
-                        app:tint="@color/grey" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_notification" app:tint="@color/primary_green" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Help &amp; Support" android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -204,36 +186,13 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SOS Emergency"
-                        android:textColor="@color/red"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Call 15 for immediate help"
-                        android:textColor="#D32F2F"
-                        android:textSize="12sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SOS Emergency" android:textColor="@color/red" android:textSize="16sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Call 15 for immediate help" android:textColor="#D32F2F" android:textSize="12sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_back"
-                    android:rotation="180"
-                    app:tint="@color/red" />
+                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_back" android:rotation="180" app:tint="@color/red" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"

@@ -1,6 +1,8 @@
 package com.shabbar.rozgarconnector.ui.messaging
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -38,10 +40,9 @@ class ChatActivity : AppCompatActivity() {
             return
         }
 
-        setSupportActionBar(binding.chatToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.chatToolbar.setNavigationOnClickListener { finish() }
-        binding.chatToolbar.title = receiverName
+        // Toolbar Setup
+        binding.btnBack.setOnClickListener { finish() }
+        binding.tvReceiverName.text = receiverName
 
         setupRecyclerView()
         fetchReceiverDetails(mReceiverId!!)
@@ -56,7 +57,6 @@ class ChatActivity : AppCompatActivity() {
             }
         }
         
-        // Ensure translator is ready if Urdu is enabled
         if (TranslatorUtil.isUrduEnabled(this)) {
             TranslatorUtil.initTranslator({}, {})
         }
@@ -68,8 +68,22 @@ class ChatActivity : AppCompatActivity() {
                 val name = doc.getString("fullName") ?: "User"
                 val role = doc.getString("role")?.lowercase() ?: ""
                 val workerType = doc.getString("workerType")?.lowercase() ?: ""
+                val dpBase64 = doc.getString("dpBase64") ?: ""
                 
-                binding.chatToolbar.title = name
+                binding.tvReceiverName.text = name
+                
+                // Load DP from Base64
+                if (dpBase64.isNotEmpty()) {
+                    try {
+                        val decodedString = android.util.Base64.decode(dpBase64, android.util.Base64.DEFAULT)
+                        val bitmap = android.graphics.BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                        binding.ivReceiverDp.setImageBitmap(bitmap)
+                    } catch (e: Exception) {
+                        binding.ivReceiverDp.setImageResource(R.drawable.ic_profile)
+                    }
+                } else {
+                    binding.ivReceiverDp.setImageResource(R.drawable.ic_profile)
+                }
                 
                 val subtitle = when {
                     role == "seeker" -> getString(R.string.service_seeker)
@@ -78,7 +92,7 @@ class ChatActivity : AppCompatActivity() {
                     role == "provider" -> getString(R.string.service_provider)
                     else -> getString(R.string.rozgar_user)
                 }
-                binding.chatToolbar.subtitle = subtitle
+                binding.tvReceiverSubtitle.text = subtitle
             }
         }
     }
@@ -86,7 +100,6 @@ class ChatActivity : AppCompatActivity() {
     private fun sendMessage(receiverId: String, msg: String) {
         if (isChatLocked) return
         val senderId = auth.currentUser?.uid ?: return
-        val senderName = auth.currentUser?.displayName ?: "Someone"
         val messageId = db.collection("chats").document().id
         
         val chatData = MessageModel(
@@ -94,7 +107,8 @@ class ChatActivity : AppCompatActivity() {
             senderId = senderId,
             receiverId = receiverId,
             message = msg,
-            timestamp = System.currentTimeMillis()
+            timestamp = System.currentTimeMillis(),
+            isRead = false
         )
 
         db.collection("chats").document(messageId).set(chatData)
@@ -108,8 +122,9 @@ class ChatActivity : AppCompatActivity() {
         db.collection("notifications")
             .addSnapshotListener { snapshots, e ->
                 if (e != null) return@addSnapshotListener
-                var isCurrentlyActive = false
-                var isFinished = false
+                
+                var hasActiveContract = false
+                var hasFinishedContract = false
                 
                 snapshots?.forEach { doc ->
                     val sId = doc.getString("senderId") ?: ""
@@ -119,18 +134,22 @@ class ChatActivity : AppCompatActivity() {
                     val wc = doc.getBoolean("workerConfirmed") ?: false
                     
                     if ((sId == currentUid && rId == receiverId) || (sId == receiverId && rId == currentUid)) {
-                        if ((status == "accepted" || status == "approved") && !sc && !wc) {
-                            isCurrentlyActive = true
+                        val isActive = (status == "accepted" || status == "approved")
+                        val isFullyFinished = (status == "completed" || (sc && wc))
+                        
+                        if (isActive && !isFullyFinished && !sc && !wc) {
+                            hasActiveContract = true
                         }
-                        if (status == "completed" || sc || wc) {
-                            isFinished = true
+                        
+                        if (isFullyFinished || status == "disputed") {
+                            hasFinishedContract = true
                         }
                     }
                 }
                 
-                if (isCurrentlyActive && !isFinished) {
+                if (hasActiveContract) {
                     unlockChat()
-                } else if (isFinished) {
+                } else if (hasFinishedContract) {
                     lockChat(finished = true)
                 } else {
                     lockChat(finished = false)

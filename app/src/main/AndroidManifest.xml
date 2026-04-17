@@ -25,7 +25,7 @@
         </intent-filter>
         </activity>
 
-        <!-- Auth Activities with Keyboard Optimization -->
+        <!-- Auth Activities -->
         <activity android:name=".ui.auth.LoginActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.auth.ForgotPasswordActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.auth.ResetPasswordActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
@@ -52,6 +52,9 @@
 
         <!-- Menu/Settings Screen -->
         <activity android:name=".ui.settings.MenuActivity" android:exported="false" />
+        <activity android:name=".ui.settings.NotificationsActivity" android:exported="false" />
+        <activity android:name=".ui.announcements.AnnouncementsActivity" android:exported="false" />
+        <activity android:name=".ui.settings.AccountSettingsActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
 
         <!-- Help & Admin -->
         <activity android:name=".ui.help.HelpCenterActivity" android:exported="false" />

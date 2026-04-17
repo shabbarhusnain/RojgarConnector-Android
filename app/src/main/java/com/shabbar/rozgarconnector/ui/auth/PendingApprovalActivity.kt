@@ -2,6 +2,7 @@ package com.shabbar.rozgarconnector.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +25,7 @@ class PendingApprovalActivity : AppCompatActivity() {
         binding = ActivityPendingApprovalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        listenForApproval()
+        listenForStatus()
 
         binding.btnSettings.setOnClickListener {
             startActivity(Intent(this, MenuActivity::class.java))
@@ -34,9 +35,17 @@ class PendingApprovalActivity : AppCompatActivity() {
             auth.signOut()
             navigateToLogin()
         }
+
+        binding.btnReApply.setOnClickListener {
+            // Take user back to RegisterActivity in "Update Mode" to fix rejected details
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.putExtra("IS_UPDATE_MODE", true)
+            startActivity(intent)
+            // Note: We don't finish() here because we want them to come back to pending state after update
+        }
     }
 
-    private fun listenForApproval() {
+    private fun listenForStatus() {
         val uid = auth.currentUser?.uid ?: return
         db.collection("users").document(uid)
             .addSnapshotListener { snapshot, e ->
@@ -44,25 +53,35 @@ class PendingApprovalActivity : AppCompatActivity() {
 
                 if (snapshot != null && snapshot.exists()) {
                     val isVerified = snapshot.getBoolean("isVerified") ?: false
-                    val role = (snapshot.getString("role") ?: "").lowercase()
-                    val workerType = (snapshot.getString("workerType") ?: "").lowercase()
-                    val profileCompleted = snapshot.getBoolean("profileCompleted") ?: false
+                    val isRejected = snapshot.getBoolean("isRejected") ?: false
+                    val rejectionReason = snapshot.getString("rejectionReason") ?: "Documents quality was not sufficient."
 
+                    // Handle Rejection UI
+                    if (isRejected) {
+                        binding.llPendingView.visibility = View.GONE
+                        binding.llRejectedView.visibility = View.VISIBLE
+                        binding.tvRejectionReason.text = "Reason: $rejectionReason"
+                        return@addSnapshotListener
+                    } else {
+                        binding.llPendingView.visibility = View.VISIBLE
+                        binding.llRejectedView.visibility = View.GONE
+                    }
+
+                    // Handle Approval Navigation
                     if (isVerified) {
-                        // Routing Logic (Matching Splash Screen)
+                        val role = (snapshot.getString("role") ?: "").lowercase()
+                        val workerType = (snapshot.getString("workerType") ?: "").lowercase()
+                        val profileCompleted = snapshot.getBoolean("profileCompleted") ?: false
+
                         when {
                             role == "seeker" -> navigateTo(SeekerHomeActivity::class.java)
-                            role == "worker" || workerType == "educated" || workerType == "uneducated" -> {
+                            role == "worker" || role == "provider" -> {
                                 if (profileCompleted) {
                                     navigateTo(ProviderHomeActivity::class.java)
                                 } else {
-                                    val intent = if (workerType == "educated") {
-                                        Intent(this, EducatedWorkerProfileActivity::class.java)
-                                    } else {
-                                        Intent(this, UneducatedWorkerProfileActivity::class.java)
-                                    }
-                                    startActivity(intent)
-                                    finish()
+                                    val target = if (workerType == "educated") EducatedWorkerProfileActivity::class.java
+                                    else UneducatedWorkerProfileActivity::class.java
+                                    navigateTo(target)
                                 }
                             }
                             else -> navigateTo(RoleSelectionActivity::class.java)

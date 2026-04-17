@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,9 +25,40 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            checkAuth()
-        }, 2000)
+        // CORRECT PATH: settings -> maintenanceMode -> value
+        checkMaintenanceMode()
+    }
+
+    private fun checkMaintenanceMode() {
+        db.collection("settings").document("maintenanceMode").get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    val isMaintenance = doc.getBoolean("value") ?: false
+                    
+                    if (isMaintenance) {
+                        showMaintenanceDialog()
+                        return@addOnSuccessListener
+                    }
+                }
+                
+                // If not in maintenance, proceed to auth check
+                Handler(Looper.getMainLooper()).postDelayed({
+                    checkAuth()
+                }, 2000)
+            }
+            .addOnFailureListener {
+                // If query fails, proceed normally
+                checkAuth()
+            }
+    }
+
+    private fun showMaintenanceDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("System Maintenance")
+            .setMessage("RozgarConnector is currently undergoing maintenance. Please check back shortly.")
+            .setCancelable(false)
+            .setPositiveButton("Close App") { _, _ -> finish() }
+            .show()
     }
 
     private fun checkAuth() {
@@ -42,9 +75,16 @@ class SplashActivity : AppCompatActivity() {
         db.collection("users").document(uid).get()
             .addOnSuccessListener { doc ->
                 if (doc.exists() && !isFinishing) {
+                    
+                    val isBlocked = doc.getBoolean("isBlocked") ?: false
+                    if (isBlocked) {
+                        val reason = doc.getString("blockReason") ?: "Account blocked due to policy violation."
+                        showBlockedDialog(reason)
+                        return@addOnSuccessListener
+                    }
+
                     val role = (doc.getString("role") ?: "pending").lowercase()
                     
-                    // SECURITY: If an Admin tries to stay logged in, force logout them
                     if (role == "admin") {
                         auth.signOut()
                         navigateTo(LoginActivity::class.java)
@@ -82,6 +122,18 @@ class SplashActivity : AppCompatActivity() {
             .addOnFailureListener {
                 navigateTo(LoginActivity::class.java)
             }
+    }
+
+    private fun showBlockedDialog(reason: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Account Blocked")
+            .setMessage(reason)
+            .setCancelable(false)
+            .setPositiveButton("Logout") { _, _ -> 
+                auth.signOut()
+                navigateTo(LoginActivity::class.java)
+            }
+            .show()
     }
 
     private fun navigateTo(activityClass: Class<*>) {

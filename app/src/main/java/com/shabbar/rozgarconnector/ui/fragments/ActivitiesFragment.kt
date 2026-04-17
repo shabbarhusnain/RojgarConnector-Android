@@ -2,44 +2,47 @@ package com.shabbar.rozgarconnector.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
-import com.shabbar.rozgarconnector.adapters.NotificationAdapter
-import com.shabbar.rozgarconnector.databinding.FragmentNotificationsBinding
-import com.shabbar.rozgarconnector.models.NotificationModel
+import com.shabbar.rozgarconnector.adapters.ActivitiesAdapter
+import com.shabbar.rozgarconnector.databinding.FragmentActivitiesBinding
+import com.shabbar.rozgarconnector.models.ActivitiesModel
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
-import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
-class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
+class ActivitiesFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentActivitiesBinding? = null
     private val binding get() = _binding!!
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     
-    private val allNotifications = mutableListOf<NotificationModel>()
+    private val allActivities = mutableListOf<ActivitiesModel>()
     private val displayList = mutableListOf<Any>()
-    private lateinit var adapter: NotificationAdapter
+    private lateinit var adapter: ActivitiesAdapter
     private var currentFilter = "active"
     private var userRole = ""
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentActivitiesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentNotificationsBinding.bind(view)
 
         setupRecyclerView()
         setupFilters()
         fetchUserRole()
-        loadNotifications()
-
-        binding.btnSettings.setOnClickListener {
-            startActivity(Intent(requireContext(), MenuActivity::class.java))
-        }
+        loadActivities()
+        
+        // Settings button logic removed from here as it was removed from layout
     }
 
     private fun fetchUserRole() {
@@ -75,20 +78,18 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
                 R.id.chipOffers -> applyFilter("hire")
                 R.id.chipApplications -> applyFilter("job")
                 R.id.chipHistory -> applyFilter("history")
-                R.id.chipAll -> applyFilter("all")
             }
         }
     }
 
     private fun applyFilter(filterType: String) {
         currentFilter = filterType
-        val currentUid = auth.currentUser?.uid ?: return
-        
-        val filtered = allNotifications.filter { notif ->
-            val status = notif.status.lowercase()
-            val type = notif.type.lowercase()
+        val filtered = allActivities.filter { activity ->
+            val status = activity.status.lowercase()
+            val type = activity.type.lowercase()
+            val hasUserFinished = if (userRole == "seeker") activity.seekerConfirmed else activity.workerConfirmed
             
-            val hasUserFinished = if (userRole == "seeker") notif.seekerConfirmed else notif.workerConfirmed
+            if (type == "broadcast" || activity.title.lowercase().contains("broadcast")) return@filter false
 
             when (filterType) {
                 "active" -> (status == "accepted" || status == "approved") && !hasUserFinished
@@ -99,10 +100,25 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
             }
         }.distinctBy { it.notificationId }
         
-        groupNotificationsByDate(filtered, filterType)
+        groupActivitiesByDate(filtered, filterType)
+        updateChipBadges()
     }
 
-    private fun groupNotificationsByDate(list: List<NotificationModel>, filterType: String) {
+    private fun updateChipBadges() {
+        if (!isAdded) return
+        
+        val activeUnread = allActivities.any { (it.status == "accepted" || it.status == "approved") && !it.isRead }
+        val hireUnread = allActivities.any { it.type == "hire" && it.status == "pending" && !it.isRead }
+        val jobUnread = allActivities.any { it.type == "job" && it.status == "pending" && !it.isRead }
+        val historyUnread = allActivities.any { (it.status == "completed" || it.status == "rejected" || it.status == "cancelled") && !it.isRead }
+
+        binding.chipActive.text = (if (activeUnread) "● " else "") + getString(if (userRole == "seeker") R.string.active_contracts else R.string.work_in_progress_chip)
+        binding.chipOffers.text = (if (hireUnread) "● " else "") + getString(if (userRole == "seeker") R.string.sent_offers else R.string.job_offers)
+        binding.chipApplications.text = (if (jobUnread) "● " else "") + getString(if (userRole == "seeker") R.string.apps_received else R.string.my_apps)
+        binding.chipHistory.text = (if (historyUnread) "● " else "") + getString(R.string.history)
+    }
+
+    private fun groupActivitiesByDate(list: List<ActivitiesModel>, filterType: String) {
         displayList.clear()
         if (!isAdded) return
         
@@ -113,11 +129,11 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         }
 
         val header = when (filterType) {
-            "active" -> getString(R.string.active_work_header)
+            "active" -> "Active Work ⚒️"
             "history" -> getString(R.string.job_history_header)
             "hire" -> getString(R.string.hiring_offers_header)
             "job" -> getString(R.string.job_apps_header)
-            else -> getString(R.string.notif_header)
+            else -> "Work Activities 📋"
         }
         displayList.add(header)
         
@@ -127,15 +143,15 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     }
 
     private fun setupRecyclerView() {
-        adapter = NotificationAdapter(displayList) { notification ->
-            db.collection("notifications").document(notification.notificationId).update("isRead", true)
-            openWorkerProfile(notification)
+        adapter = ActivitiesAdapter(displayList) { activity ->
+            db.collection("notifications").document(activity.notificationId).update("isRead", true)
+            openWorkerProfile(activity)
         }
-        binding.rvNotifications.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvNotifications.adapter = adapter
+        binding.rvActivities.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvActivities.adapter = adapter
     }
 
-    private fun loadNotifications() {
+    private fun loadActivities() {
         val uid = auth.currentUser?.uid ?: return
         binding.progressBar.visibility = View.VISIBLE
         
@@ -144,14 +160,17 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
             binding.progressBar.visibility = View.GONE
             if (e != null) return@addSnapshotListener
             
-            allNotifications.clear()
+            allActivities.clear()
             snapshots?.forEach { doc ->
                 val rId = doc.getString("receiverId") ?: ""
                 val sId = doc.getString("senderId") ?: ""
+                val type = doc.getString("type")?.lowercase() ?: ""
                 
-                if (rId == uid || sId == uid) {
-                    val notif = doc.toObject(NotificationModel::class.java).apply { notificationId = doc.id }
-                    allNotifications.add(notif)
+                if (type != "broadcast" && !doc.getString("title")?.lowercase()?.contains("broadcast").let { it == true }) {
+                    if (rId == uid || sId == uid) {
+                        val activity = doc.toObject(ActivitiesModel::class.java).apply { notificationId = doc.id }
+                        allActivities.add(activity)
+                    }
                 }
             }
             applyFilter(currentFilter)
@@ -162,20 +181,20 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         if (_binding == null) return
         if (displayList.isEmpty()) {
             binding.llEmptyState.visibility = View.VISIBLE
-            binding.rvNotifications.visibility = View.GONE
+            binding.rvActivities.visibility = View.GONE
         } else {
             binding.llEmptyState.visibility = View.GONE
-            binding.rvNotifications.visibility = View.VISIBLE
+            binding.rvActivities.visibility = View.VISIBLE
         }
     }
 
-    private fun openWorkerProfile(notification: NotificationModel) {
+    private fun openWorkerProfile(activity: ActivitiesModel) {
         val currentUid = auth.currentUser?.uid ?: return
-        val targetId = if (notification.senderId == currentUid) notification.receiverId else notification.senderId
+        val targetId = if (activity.senderId == currentUid) activity.receiverId else activity.senderId
         if (targetId.isEmpty()) return
         startActivity(Intent(requireContext(), WorkerDetailActivity::class.java).apply {
             putExtra("WORKER_ID", targetId)
-            putExtra("NOTIFICATION_ID", notification.notificationId)
+            putExtra("NOTIFICATION_ID", activity.notificationId)
         })
     }
 

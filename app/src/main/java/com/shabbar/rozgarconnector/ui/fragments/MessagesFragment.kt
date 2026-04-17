@@ -2,41 +2,38 @@ package com.shabbar.rozgarconnector.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.adapters.ChatListAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentMessagesBinding
 import com.shabbar.rozgarconnector.models.ChatListModel
 import com.shabbar.rozgarconnector.models.MessageModel
 import com.shabbar.rozgarconnector.ui.messaging.ChatActivity
-import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
-class MessagesFragment : Fragment(R.layout.fragment_messages) {
+class MessagesFragment : Fragment() {
 
     private var _binding: FragmentMessagesBinding? = null
     private val binding get() = _binding!!
-
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    
     private val chatList = mutableListOf<ChatListModel>()
     private lateinit var adapter: ChatListAdapter
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentMessagesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentMessagesBinding.bind(view)
-
         setupRecyclerView()
-        loadChatList()
-
-        binding.btnSettings.setOnClickListener {
-            startActivity(Intent(requireContext(), MenuActivity::class.java))
-        }
+        loadInbox()
     }
 
     private fun setupRecyclerView() {
@@ -51,76 +48,53 @@ class MessagesFragment : Fragment(R.layout.fragment_messages) {
         binding.messagesRecyclerView.adapter = adapter
     }
 
-    private fun loadChatList() {
+    private fun loadInbox() {
         val currentUid = auth.currentUser?.uid ?: return
         
         db.collection("chats")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshots, e ->
-                if (e != null || snapshots == null) return@addSnapshotListener
+                if (!isAdded || snapshots == null) return@addSnapshotListener
                 
-                val conversationMap = mutableMapOf<String, ChatListModel>()
-                val unreadStatusMap = mutableMapOf<String, Boolean>()
+                val inboxMap = mutableMapOf<String, ChatListModel>()
                 
-                // First pass: Find latest message and unread status for each conversation
                 snapshots.forEach { doc ->
-                    val m = doc.toObject(MessageModel::class.java)
-                    val otherUserId = if (m.senderId == currentUid) m.receiverId else m.senderId
+                    val msg = doc.toObject(MessageModel::class.java)
+                    val otherUserId = if (msg.senderId == currentUid) msg.receiverId else msg.senderId
                     
-                    if (m.senderId == currentUid || m.receiverId == currentUid) {
-                        // Check for unread messages sent to ME
-                        if (m.receiverId == currentUid && !m.isRead) {
-                            unreadStatusMap[otherUserId] = true
-                        }
-
-                        if (!conversationMap.containsKey(otherUserId)) {
-                            conversationMap[otherUserId] = ChatListModel(
+                    if ((msg.senderId == currentUid || msg.receiverId == currentUid) && otherUserId.isNotEmpty()) {
+                        if (!inboxMap.containsKey(otherUserId)) {
+                            inboxMap[otherUserId] = ChatListModel(
                                 userId = otherUserId,
-                                lastMessage = m.message,
-                                timestamp = m.timestamp,
-                                hasUnread = false // Temp
+                                lastMessage = msg.message,
+                                timestamp = msg.timestamp,
+                                hasUnread = !msg.isRead && msg.receiverId == currentUid
                             )
+                            fetchUserInfo(otherUserId)
                         }
                     }
                 }
-
-                if (conversationMap.isEmpty()) {
-                    updateUI(emptyList())
-                    return@addSnapshotListener
-                }
-
-                // Second pass: Fetch names and update UI
-                val finalItems = mutableListOf<ChatListModel>()
-                var fetchedCount = 0
-                val totalToFetch = conversationMap.size
-
-                conversationMap.forEach { (otherId, item) ->
-                    db.collection("users").document(otherId).get().addOnSuccessListener { userDoc ->
-                        val name = userDoc.getString("fullName") ?: "Unknown User"
-                        val dp = userDoc.getString("dpBase64")
-                        
-                        val updatedItem = item.copy(
-                            userName = name,
-                            profileImage = dp,
-                            hasUnread = unreadStatusMap[otherId] ?: false
-                        )
-                        finalItems.add(updatedItem)
-                        fetchedCount++
-                        
-                        if (fetchedCount == totalToFetch) {
-                            updateUI(finalItems)
-                        }
-                    }
-                }
+                
+                chatList.clear()
+                chatList.addAll(inboxMap.values.sortedByDescending { it.timestamp })
+                adapter.notifyDataSetChanged()
+                binding.tvEmptyMessage.visibility = if (chatList.isEmpty()) View.VISIBLE else View.GONE
             }
     }
 
-    private fun updateUI(list: List<ChatListModel>) {
-        if (_binding == null) return
-        chatList.clear()
-        chatList.addAll(list.sortedByDescending { it.timestamp })
-        adapter.notifyDataSetChanged()
-        binding.tvEmptyMessage.visibility = if (chatList.isEmpty()) View.VISIBLE else View.GONE
+    private fun fetchUserInfo(uid: String) {
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            if (!isAdded || !doc.exists()) return@addOnSuccessListener
+            val name = doc.getString("fullName") ?: "User"
+            // Get DP from Base64 field
+            val image = doc.getString("dpBase64")
+            
+            chatList.find { it.userId == uid }?.let {
+                val index = chatList.indexOf(it)
+                chatList[index] = it.copy(userName = name, profileImage = image)
+                adapter.notifyItemChanged(index)
+            }
+        }
     }
 
     override fun onDestroyView() {

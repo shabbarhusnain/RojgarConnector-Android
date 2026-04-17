@@ -107,6 +107,19 @@
     <string name="pending">PENDING</string>
     <string name="just_now">Just Now</string>
 
+    <!-- Account Settings -->
+    <string name="account_settings">Account Settings</string>
+    <string name="change_number">Change Mobile Number</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="delete_account">Delete My Account</string>
+    <string name="security_check">Security Check</string>
+    <string name="enter_pass_to_continue">Enter your password to continue</string>
+    <string name="verify">Verify</string>
+    <string name="otp_hint">6-Digit OTP</string>
+    <string name="new_number_hint">New Mobile Number (+92...)</string>
+    <string name="reason_delete_hint">Tell us why you are leaving (Reason)</string>
+    <string name="delete_permanently">DELETE PERMANENTLY</string>
+
     <!-- Menu / Settings -->
     <string name="menu_title">Menu</string>
     <string name="lang_settings">Language Settings</string>

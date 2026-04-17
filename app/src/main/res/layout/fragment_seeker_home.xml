@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- Green Header Section -->
     <View
         android:id="@+id/headerBg"
         android:layout_width="0dp"
-        android:layout_height="205dp"
+        android:layout_height="167dp"
         android:background="@drawable/header_gradient_curved"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="@string/service_seeker"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -29,17 +28,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/btnSettings"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="24dp"
-        android:padding="4dp"
-        android:src="@drawable/ic_menu"
+    <FrameLayout
+        android:id="@+id/btnAnnouncements"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@drawable/ic_bell"
+            app:tint="@color/white" />
+
+        <View
+            android:id="@+id/unreadBellDot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            android:background="@drawable/circle_shape"
+            android:backgroundTint="@color/red"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tvSubtitle"
@@ -51,17 +65,41 @@
         app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
         app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
 
-    <!-- Professional Toggle Switch -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchCard"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        app:strokeWidth="0dp">
+
+        <EditText
+            android:id="@+id/etSearchWorker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:hint="@string/search_worker_hint"
+            android:paddingStart="16dp"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/workerToggleGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:checkedButton="@id/btnEducated"
+        app:checkedButton="@+id/btnEducated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
-        app:selectionRequired="true"
+        app:layout_constraintTop_toBottomOf="@id/searchCard"
         app:singleSelection="true">
 
         <com.google.android.material.button.MaterialButton
@@ -69,67 +107,30 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/educated_worker"
-            android:textAllCaps="false"
-            android:textColor="@color/color_toggle_text"
-            app:backgroundTint="@color/toggle_bg_selector"
-            app:cornerRadius="8dp"
-            app:strokeColor="@color/toggle_stroke_selector"
-            app:strokeWidth="1dp" />
+            android:text="@string/educated_worker" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUneducated"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/un_educated_worker"
-            android:textAllCaps="false"
-            android:textColor="@color/color_toggle_text"
-            app:backgroundTint="@color/toggle_bg_selector"
-            app:cornerRadius="8dp"
-            app:strokeColor="@color/toggle_stroke_selector"
-            app:strokeWidth="1dp" />
+            android:text="@string/un_educated_worker" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
-
-    <!-- Search Card -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/searchCard"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="12dp"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/workerToggleGroup">
-
-        <EditText
-            android:id="@+id/etSearchWorker"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="12dp"
-            android:hint="@string/search_worker_hint"
-            android:paddingStart="16dp"
-            android:textSize="14sp" />
-    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardDistrict"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="6dp"
-        app:layout_constraintEnd_toStartOf="@+id/cardCategory"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardSkill"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchCard"
+        app:layout_constraintTop_toBottomOf="@+id/workerToggleGroup"
         app:strokeWidth="0dp">
 
         <Spinner
@@ -142,18 +143,18 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardCategory"
+        android:id="@+id/cardSkill"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="6dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cardDistrict"
-        app:layout_constraintTop_toBottomOf="@+id/searchCard"
+        app:layout_constraintTop_toBottomOf="@+id/workerToggleGroup"
         app:strokeWidth="0dp">
 
         <Spinner
@@ -169,7 +170,7 @@
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardDistrict">
 
@@ -195,7 +196,7 @@
         android:id="@+id/tvNoResults"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No providers found."
+        android:text="No workers found matching your filters."
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

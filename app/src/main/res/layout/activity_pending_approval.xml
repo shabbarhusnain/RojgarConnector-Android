@@ -8,46 +8,7 @@
     android:padding="32dp"
     tools:context=".ui.auth.PendingApprovalActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_pending"
-            android:layout_marginBottom="24dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Approval Pending"
-            android:textColor="@color/primary_green"
-            android:textSize="28sp"
-            android:textStyle="bold" 
-            android:layout_marginBottom="16dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your documents are under review. You will be notified once your account is approved. This usually takes 24-48 hours."
-            android:textAlignment="center"
-            android:textColor="@color/dark_grey"
-            android:textSize="16sp" />
-
-         <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:background="@drawable/glass_bg"
-            android:layout_marginTop="32dp"
-            android:text="Logout"/>
-
-    </LinearLayout>
-
+    <!-- TOP MENU -->
     <ImageView
         android:id="@+id/btnSettings"
         android:layout_alignParentEnd="true"
@@ -59,4 +20,100 @@
         android:layout_marginEnd="24dp"
         android:padding="4dp"
         android:src="@drawable/ic_menu" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- PENDING VIEW -->
+        <LinearLayout
+            android:id="@+id/llPendingView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_pending"
+                android:layout_marginBottom="24dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Approval Pending"
+                android:textColor="@color/primary_green"
+                android:textSize="28sp"
+                android:textStyle="bold" 
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your documents are under review. You will be notified once your account is approved. This usually takes 24-48 hours."
+                android:textAlignment="center"
+                android:textColor="@color/dark_grey"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- REJECTED VIEW (Hidden by default) -->
+        <LinearLayout
+            android:id="@+id/llRejectedView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_failed"
+                app:tint="@android:color/holo_red_dark"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Rejected"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" 
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvRejectionReason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reason: Documents were blurred."
+                android:textAlignment="center"
+                android:textColor="@color/dark_grey"
+                android:textStyle="italic"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnReApply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_green"
+                android:text="Update Documents / Re-Apply"
+                android:textColor="@color/white"
+                android:layout_marginHorizontal="20dp"/>
+        </LinearLayout>
+
+         <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/glass_bg"
+            android:layout_marginTop="32dp"
+            android:text="Logout"/>
+
+    </LinearLayout>
 </RelativeLayout>

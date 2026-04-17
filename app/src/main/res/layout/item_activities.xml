@@ -57,16 +57,32 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/ivNotificationIcon"
+            <FrameLayout
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/circle_shape"
-                android:backgroundTint="#FAFAFB"
-                android:padding="10dp"
-                android:src="@drawable/ic_notification"
-                app:tint="@color/primary_green" />
+                android:layout_marginEnd="12dp">
+
+                <ImageView
+                    android:id="@+id/ivNotificationIcon"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/circle_shape"
+                    android:backgroundTint="#FAFAFB"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_notification"
+                    app:tint="@color/primary_green" />
+
+                <!-- Red badge dot for unread notifications -->
+                <View
+                    android:id="@+id/redDot"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/circle_shape"
+                    android:backgroundTint="#FF0000"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="0dp"

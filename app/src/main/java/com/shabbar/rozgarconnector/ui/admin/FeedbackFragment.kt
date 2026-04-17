@@ -11,14 +11,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.shabbar.rozgarconnector.databinding.FragmentAdminFeedbackBinding
 import com.shabbar.rozgarconnector.databinding.ItemFeedbackAdminBinding
-import com.shabbar.rozgarconnector.models.NotificationModel
+import com.shabbar.rozgarconnector.models.ActivitiesModel
 
 class FeedbackFragment : Fragment() {
 
     private var _binding: FragmentAdminFeedbackBinding? = null
     private val binding get() = _binding!!
     private val db = FirebaseFirestore.getInstance()
-    private val feedbackList = mutableListOf<NotificationModel>()
+    private val feedbackList = mutableListOf<ActivitiesModel>()
     private lateinit var adapter: FeedbackAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -51,7 +51,7 @@ class FeedbackFragment : Fragment() {
 
                 feedbackList.clear()
                 snapshots?.forEach { doc ->
-                    val notif = doc.toObject(NotificationModel::class.java)
+                    val notif = doc.toObject(ActivitiesModel::class.java)
                     // Check if there is actual feedback content
                     if (notif.reviewToWorker.isNotEmpty() || notif.reviewToSeeker.isNotEmpty()) {
                         feedbackList.add(notif)
@@ -67,7 +67,7 @@ class FeedbackFragment : Fragment() {
         _binding = null
     }
 
-    inner class FeedbackAdapter(private val list: List<NotificationModel>) : RecyclerView.Adapter<FeedbackAdapter.FeedbackVH>() {
+    inner class FeedbackAdapter(private val list: List<ActivitiesModel>) : RecyclerView.Adapter<FeedbackAdapter.FeedbackVH>() {
         inner class FeedbackVH(val b: ItemFeedbackAdminBinding) : RecyclerView.ViewHolder(b.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedbackVH {

@@ -23,7 +23,7 @@ class ApplicationAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApplicationViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notification, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_activities, parent, false)
         return ApplicationViewHolder(view)
     }
 

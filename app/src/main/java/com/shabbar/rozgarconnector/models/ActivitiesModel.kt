@@ -2,7 +2,7 @@ package com.shabbar.rozgarconnector.models
 
 import com.google.firebase.Timestamp
 
-data class NotificationModel(
+data class ActivitiesModel(
     var notificationId: String = "",
     var receiverId: String = "",
     var senderId: String = "",

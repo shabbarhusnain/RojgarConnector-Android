@@ -14,16 +14,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.shabbar.rozgarconnector.R
-import com.shabbar.rozgarconnector.models.NotificationModel
+import com.shabbar.rozgarconnector.models.ActivitiesModel
 import com.shabbar.rozgarconnector.ui.messaging.ChatActivity
 import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class NotificationAdapter(
+class ActivitiesAdapter(
     private var itemList: List<Any>,
-    private val onNotificationClick: (NotificationModel) -> Unit
+    private val onNotificationClick: (ActivitiesModel) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val auth = FirebaseAuth.getInstance()
@@ -53,6 +53,7 @@ class NotificationAdapter(
         val llActiveInfo: View = view.findViewById(R.id.llActiveInfo)
         val tvDaysLeft: TextView = view.findViewById(R.id.tvDaysLeft)
         val tvWorkInProgress: TextView = view.findViewById(R.id.tvWorkInProgress)
+        val redDot: View = view.findViewById(R.id.redDot)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -60,7 +61,7 @@ class NotificationAdapter(
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notification_header, parent, false)
             HeaderViewHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_notification, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_activities, parent, false)
             ItemViewHolder(view)
         }
     }
@@ -69,19 +70,24 @@ class NotificationAdapter(
         if (holder is HeaderViewHolder) {
             holder.tvHeader.text = itemList[position] as String
         } else if (holder is ItemViewHolder) {
-            val notification = itemList[position] as NotificationModel
-            bindNotificationItem(holder, notification)
+            val notification = itemList[position] as ActivitiesModel
+            bindActivityItem(holder, notification)
         }
     }
 
-    private fun bindNotificationItem(holder: ItemViewHolder, notification: NotificationModel) {
+    private fun bindActivityItem(holder: ItemViewHolder, notification: ActivitiesModel) {
         val currentUserId = auth.currentUser?.uid
         val context = holder.itemView.context
         val status = notification.status.lowercase()
         val type = notification.type.lowercase()
+        val titleText = notification.title.lowercase()
         val isSender = notification.senderId == currentUserId
 
-        setupTheme(holder, type, isSender, notification)
+        val isBroadcast = type == "broadcast" || titleText.contains("broadcast") || notification.senderId.isEmpty() || notification.senderId == "admin"
+
+        holder.redDot.visibility = if (!notification.isRead) View.VISIBLE else View.GONE
+
+        setupTheme(holder, type, isSender, notification, isBroadcast)
 
         if (TranslatorUtil.isUrduEnabled(context)) {
             TranslatorUtil.translateText(notification.message) { translated ->
@@ -119,25 +125,35 @@ class NotificationAdapter(
             holder.btnCancel.visibility = View.GONE
             holder.itemView.alpha = 0.8f
         } else {
-            val statusText = when(status) {
-                "pending" -> context.getString(R.string.pending)
-                "accepted", "approved" -> "ACTIVE"
-                "rejected", "cancelled" -> context.getString(R.string.cancel)
-                else -> status.uppercase()
-            }
-            holder.statusLabel.text = statusText
-            holder.statusLabel.backgroundTintList = ColorStateList.valueOf(getStatusColor(status))
-            
-            val isActive = status == "accepted" || status == "approved"
-            val isPending = status == "pending"
+            if (isBroadcast) {
+                holder.statusLabel.text = "BROADCAST"
+                holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FF9800"))
+                holder.btnEmergency.visibility = View.GONE
+                holder.llActiveInfo.visibility = View.GONE
+                holder.btnChat.visibility = View.GONE
+                holder.btnComplete.visibility = View.GONE
+                holder.btnCancel.visibility = View.GONE
+            } else {
+                val statusText = when(status) {
+                    "pending" -> context.getString(R.string.pending)
+                    "accepted", "approved" -> "ACTIVE"
+                    "rejected", "cancelled" -> context.getString(R.string.cancel)
+                    else -> status.uppercase()
+                }
+                holder.statusLabel.text = statusText
+                holder.statusLabel.backgroundTintList = ColorStateList.valueOf(getStatusColor(status))
+                
+                val isActive = status == "accepted" || status == "approved"
+                val isPending = status == "pending"
 
-            holder.btnEmergency.visibility = if (isActive) View.VISIBLE else View.GONE
-            holder.llActiveInfo.visibility = if (isActive) View.VISIBLE else View.GONE
-            holder.tvDaysLeft.visibility = if (isActive) View.VISIBLE else View.GONE
-            holder.btnCancel.visibility = if (isPending && isSender) View.VISIBLE else View.GONE
-            holder.btnChat.visibility = if (isActive) View.VISIBLE else View.GONE
-            holder.btnComplete.visibility = if (isActive) View.VISIBLE else View.GONE
-            holder.tvWorkInProgress.text = "⚒️ " + context.getString(R.string.work_in_progress)
+                holder.btnEmergency.visibility = if (isActive) View.VISIBLE else View.GONE
+                holder.llActiveInfo.visibility = if (isActive) View.VISIBLE else View.GONE
+                holder.tvDaysLeft.visibility = if (isActive) View.VISIBLE else View.GONE
+                holder.btnCancel.visibility = if (isPending && isSender) View.VISIBLE else View.GONE
+                holder.btnChat.visibility = if (isActive) View.VISIBLE else View.GONE
+                holder.btnComplete.visibility = if (isActive) View.VISIBLE else View.GONE
+                holder.tvWorkInProgress.text = "⚒️ " + context.getString(R.string.work_in_progress)
+            }
             holder.itemView.alpha = 1.0f
         }
 
@@ -172,7 +188,7 @@ class NotificationAdapter(
         holder.itemView.setOnClickListener { onNotificationClick(notification) }
     }
 
-    private fun showCompletionDialog(context: android.content.Context, notification: NotificationModel) {
+    private fun showCompletionDialog(context: android.content.Context, notification: ActivitiesModel) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_job_completion, null)
         val dialog = AlertDialog.Builder(context).setView(dialogView).create()
         
@@ -289,8 +305,15 @@ class NotificationAdapter(
         }
     }
 
-    private fun setupTheme(holder: ItemViewHolder, type: String, isSender: Boolean, notification: NotificationModel) {
+    private fun setupTheme(holder: ItemViewHolder, type: String, isSender: Boolean, notification: ActivitiesModel, isBroadcast: Boolean) {
         val context = holder.itemView.context
+        if (isBroadcast) {
+            holder.ivIcon.setImageResource(R.drawable.ic_notification)
+            holder.ivIcon.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FFF3E0"))
+            holder.title.text = notification.title.ifEmpty { "Broadcast" }
+            return
+        }
+
         when (type) {
             "hire" -> {
                 holder.ivIcon.setImageResource(R.drawable.ic_profile)

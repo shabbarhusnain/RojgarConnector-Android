@@ -2,18 +2,16 @@ package com.shabbar.rozgarconnector.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.animation.AnticipateOvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.badge.BadgeDrawable
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivitySeekerHomeBinding
 import com.shabbar.rozgarconnector.ui.fragments.SeekerHomeFragment
 import com.shabbar.rozgarconnector.ui.fragments.MessagesFragment
-import com.shabbar.rozgarconnector.ui.fragments.NotificationsFragment
+import com.shabbar.rozgarconnector.ui.fragments.ActivitiesFragment
 import com.shabbar.rozgarconnector.ui.fragments.ProfileFragment
 import com.shabbar.rozgarconnector.ui.job.JobPostActivity
 
@@ -23,44 +21,73 @@ class SeekerHomeActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    private val seekerHomeFragment = SeekerHomeFragment()
-    private val notificationsFragment = NotificationsFragment()
-    private val messagesFragment = MessagesFragment()
-    private val profileFragment = ProfileFragment()
-    private var activeFragment: Fragment = seekerHomeFragment
+    private lateinit var seekerHomeFragment: SeekerHomeFragment
+    private lateinit var activitiesFragment: ActivitiesFragment
+    private lateinit var messagesFragment: MessagesFragment
+    private lateinit var profileFragment: ProfileFragment
+    private var activeFragment: Fragment? = null
+    
+    private var messageListener: ListenerRegistration? = null
+    private var notificationListener: ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySeekerHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportFragmentManager.beginTransaction().apply {
-            add(R.id.fragment_container, profileFragment, "4").hide(profileFragment)
-            add(R.id.fragment_container, messagesFragment, "3").hide(messagesFragment)
-            add(R.id.fragment_container, notificationsFragment, "2").hide(notificationsFragment)
-            add(R.id.fragment_container, seekerHomeFragment, "1")
-        }.commit()
+        if (savedInstanceState == null) {
+            seekerHomeFragment = SeekerHomeFragment()
+            activitiesFragment = ActivitiesFragment()
+            messagesFragment = MessagesFragment()
+            profileFragment = ProfileFragment()
 
-        binding.bottomNav.setOnItemSelectedListener {
-            animateBottomNavIcon(it.itemId)
-            when (it.itemId) {
+            supportFragmentManager.beginTransaction().apply {
+                add(R.id.fragment_container, profileFragment, "profile").hide(profileFragment)
+                add(R.id.fragment_container, messagesFragment, "messages").hide(messagesFragment)
+                add(R.id.fragment_container, activitiesFragment, "activities").hide(activitiesFragment)
+                add(R.id.fragment_container, seekerHomeFragment, "home")
+            }.commit()
+            activeFragment = seekerHomeFragment
+        } else {
+            seekerHomeFragment = supportFragmentManager.findFragmentByTag("home") as SeekerHomeFragment
+            activitiesFragment = supportFragmentManager.findFragmentByTag("activities") as ActivitiesFragment
+            messagesFragment = supportFragmentManager.findFragmentByTag("messages") as MessagesFragment
+            profileFragment = supportFragmentManager.findFragmentByTag("profile") as ProfileFragment
+            
+            // Hide all and show only the selected one to avoid overlapping
+            supportFragmentManager.beginTransaction().hide(seekerHomeFragment).hide(activitiesFragment).hide(messagesFragment).hide(profileFragment).commit()
+            
+            activeFragment = when (binding.bottomNav.selectedItemId) {
+                R.id.nav_home -> seekerHomeFragment
+                R.id.nav_notifications -> activitiesFragment
+                R.id.nav_messages -> messagesFragment
+                R.id.nav_profile -> profileFragment
+                else -> seekerHomeFragment
+            }
+            supportFragmentManager.beginTransaction().show(activeFragment!!).commit()
+        }
+
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.nav_home -> showFragment(seekerHomeFragment)
                 R.id.nav_post_job -> {
                     startActivity(Intent(this, JobPostActivity::class.java))
                     return@setOnItemSelectedListener false
                 }
-                R.id.nav_notifications -> {
-                    showFragment(notificationsFragment)
-                }
-                R.id.nav_messages -> {
-                    showFragment(messagesFragment)
-                }
+                R.id.nav_notifications -> showFragment(activitiesFragment)
+                R.id.nav_messages -> showFragment(messagesFragment)
                 R.id.nav_profile -> showFragment(profileFragment)
             }
             true
         }
 
         listenForBadges()
+    }
+
+    private fun showFragment(fragment: Fragment) {
+        if (activeFragment == fragment) return
+        supportFragmentManager.beginTransaction().hide(activeFragment!!).show(fragment).commit()
+        activeFragment = fragment
     }
 
     override fun onStart() {
@@ -71,6 +98,8 @@ class SeekerHomeActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         updateOnlineStatus(false)
+        messageListener?.remove()
+        notificationListener?.remove()
     }
 
     private fun updateOnlineStatus(isOnline: Boolean) {
@@ -78,61 +107,32 @@ class SeekerHomeActivity : AppCompatActivity() {
         db.collection("users").document(uid).update("isOnline", isOnline)
     }
 
-    private fun animateBottomNavIcon(itemId: Int) {
-        val itemView = binding.bottomNav.findViewById<View>(itemId)
-        itemView?.let {
-            it.animate()
-                .translationY(-15f)
-                .setDuration(200)
-                .setInterpolator(AnticipateOvershootInterpolator())
-                .withEndAction {
-                    it.animate()
-                        .translationY(0f)
-                        .setDuration(200)
-                        .start()
-                }
-                .start()
-        }
-    }
-
     private fun listenForBadges() {
         val uid = auth.currentUser?.uid ?: return
 
-        // 1. Listen for Unread Messages
-        db.collection("chats")
+        messageListener = db.collection("chats")
             .whereEqualTo("receiverId", uid)
             .whereEqualTo("isRead", false)
             .addSnapshotListener { snapshots, _ ->
-                val count = snapshots?.size() ?: 0
-                updateBadge(R.id.nav_messages, count)
+                updateBadge(R.id.nav_messages, snapshots?.size() ?: 0)
             }
 
-        // 2. Listen for Unread Notifications
-        db.collection("notifications").whereEqualTo("receiverId", uid)
+        notificationListener = db.collection("notifications")
+            .whereEqualTo("receiverId", uid)
             .whereEqualTo("isRead", false)
             .addSnapshotListener { snapshots, _ ->
-                val count = snapshots?.size() ?: 0
-                updateBadge(R.id.nav_notifications, count)
+                updateBadge(R.id.nav_notifications, snapshots?.size() ?: 0)
             }
     }
 
     private fun updateBadge(menuItemId: Int, count: Int) {
+        if (isFinishing || isDestroyed) return
         val badge = binding.bottomNav.getOrCreateBadge(menuItemId)
         if (count > 0) {
             badge.isVisible = true
             badge.number = count
-            badge.backgroundColor = getColor(R.color.error_red)
-            badge.badgeTextColor = getColor(R.color.white)
         } else {
             badge.isVisible = false
         }
-    }
-
-    private fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .hide(activeFragment)
-            .show(fragment)
-            .commit()
-        activeFragment = fragment
     }
 }

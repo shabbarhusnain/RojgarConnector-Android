@@ -38,7 +38,6 @@ class ChatListAdapter(
         
         holder.tvName.text = chat.userName
         
-        // Logical Translation for Last Message in Inbox
         if (TranslatorUtil.isUrduEnabled(context)) {
             TranslatorUtil.translateText(chat.lastMessage) { translated ->
                 holder.tvLastMsg.text = translated
@@ -52,6 +51,7 @@ class ChatListAdapter(
 
         holder.viewUnreadDot.visibility = if (chat.hasUnread) View.VISIBLE else View.GONE
 
+        // Handle Base64 Image
         if (!chat.profileImage.isNullOrEmpty()) {
             try {
                 val decodedString = Base64.decode(chat.profileImage, Base64.DEFAULT)

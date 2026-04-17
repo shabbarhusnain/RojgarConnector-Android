@@ -5,14 +5,11 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.FragmentProfileBinding
-import com.shabbar.rozgarconnector.ui.auth.LoginActivity
-import com.shabbar.rozgarconnector.ui.auth.ForgotPasswordActivity
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.settings.MenuActivity
@@ -36,13 +33,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             startActivity(Intent(requireContext(), MenuActivity::class.java))
         }
 
-        binding.btnSignOut.setOnClickListener {
-            signOutUser()
-        }
-
-        binding.btnForgotPassword.setOnClickListener {
-            startActivity(Intent(requireContext(), ForgotPasswordActivity::class.java))
-        }
+        // Forgot Password and SignOut buttons logic removed (Moved to Menu)
 
         binding.btnEditPortfolio.setOnClickListener {
             if (currentWorkerType == "educated") {
@@ -51,13 +42,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 startActivity(Intent(requireContext(), UneducatedWorkerProfileActivity::class.java))
             }
         }
+        
+        // Hide moved buttons if they exist in layout
+        binding.btnForgotPassword.visibility = View.GONE
+        binding.btnSignOut.visibility = View.GONE
     }
 
     private fun loadUserData() {
         val uid = auth.currentUser?.uid ?: return
         db.collection("users").document(uid).addSnapshotListener { doc, _ ->
             if (isAdded && doc != null && doc.exists()) {
-                // 1. Basic Info
                 val name = doc.getString("fullName") ?: "No Name"
                 val fatherName = doc.getString("fatherName") ?: "Not Provided"
                 val cnic = doc.getString("cnic") ?: "Not Provided"
@@ -67,20 +61,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 val city = doc.getString("city") ?: ""
                 val address = doc.getString("permanentAddress") ?: ""
                 
-                // Logical Fix: Use lowercase for role check
                 val rawRole = doc.getString("role") ?: "seeker"
                 val role = rawRole.lowercase()
                 
                 currentWorkerType = (doc.getString("workerType") ?: "").lowercase()
 
-                // Step 5: Trust & Verification Logic
                 val isVerified = doc.getBoolean("isVerified") ?: false
                 val averageRating = (doc.getDouble("averageRating") ?: 0.0).toFloat()
                 
                 binding.imgVerifiedBadge.visibility = if (isVerified) View.VISIBLE else View.GONE
                 binding.profileRatingBar.rating = averageRating
 
-                // 2. Set UI Fields
                 binding.tvProfileName.text = name
                 binding.tvFatherName.text = fatherName
                 binding.tvCnic.text = cnic
@@ -88,7 +79,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 binding.tvPhone.text = phone
                 binding.tvLocationFull.text = "$address, $city, $district"
                 
-                // Fixed Role Display (using strings for translation)
                 val roleDisplay = when {
                     currentWorkerType == "educated" -> getString(R.string.provider_educated)
                     currentWorkerType == "uneducated" -> getString(R.string.provider_uneducated)
@@ -97,7 +87,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 }
                 binding.tvProfileRole.text = roleDisplay
 
-                // 3. Profile Image Setup
                 val dpBase64 = doc.getString("dpBase64")
                 if (!dpBase64.isNullOrEmpty()) {
                     try {
@@ -109,7 +98,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     }
                 }
 
-                // 4. Portfolio Visibility Logic (Crucial Fix)
                 if (role == "worker" || role == "provider" || currentWorkerType.isNotEmpty()) {
                     binding.portfolioCard.visibility = View.VISIBLE
                     
@@ -123,7 +111,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     binding.tvDescription.text = description
 
                     if (currentWorkerType == "educated") {
-                        binding.tvPortfolioTitle.text = "Professional Portfolio"
+                        binding.tvPortfolioTitle.text = getString(R.string.portfolio)
                         binding.educationSection.visibility = View.VISIBLE
                         binding.degreePhotoSection.visibility = View.VISIBLE
                         
@@ -154,14 +142,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 }
             }
         }
-    }
-
-    private fun signOutUser() {
-        auth.signOut()
-        val intent = Intent(requireContext(), LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        requireActivity().finish()
     }
 
     override fun onDestroyView() {
