@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             app:title="Help Center"
-            android:layout_height="90dp"
+            android:layout_height="@dimen/icon_2xlarge"
             android:background="@drawable/header_gradient_curved"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp"

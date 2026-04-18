@@ -5,21 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:padding="32dp"
+    android:padding="@dimen/spacing_2xl"
     tools:context=".ui.auth.PendingApprovalActivity">
 
     <!-- TOP MENU -->
-    <ImageView
-        android:id="@+id/btnSettings"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        app:tint="@color/black"
-        android:layout_width="43dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:padding="4dp"
-        android:src="@drawable/ic_menu" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,19 +27,19 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="@dimen/icon_2xlarge"
+                android:layout_height="@dimen/icon_2xlarge"
                 android:src="@drawable/ic_pending"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="@dimen/icon_medium"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Approval Pending"
                 android:textColor="@color/primary_green"
-                android:textSize="28sp"
+                android:textSize="@dimen/text_size_2xl"
                 android:textStyle="bold" 
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="@dimen/spacing_default"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,7 +47,7 @@
                 android:text="Your documents are under review. You will be notified once your account is approved. This usually takes 24-48 hours."
                 android:textAlignment="center"
                 android:textColor="@color/dark_grey"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
         <!-- REJECTED VIEW (Hidden by default) -->
@@ -71,20 +60,20 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/icon_2xlarge"
+                android:layout_height="@dimen/icon_2xlarge"
                 android:src="@drawable/ic_failed"
                 app:tint="@android:color/holo_red_dark"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="@dimen/spacing_default"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Account Rejected"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp"
+                android:textSize="@dimen/text_size_xl"
                 android:textStyle="bold" 
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="@dimen/spacing_sm"/>
 
             <TextView
                 android:id="@+id/tvRejectionReason"
@@ -94,8 +83,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/dark_grey"
                 android:textStyle="italic"
-                android:textSize="16sp"
-                android:layout_marginBottom="24dp"/>
+                android:textSize="@dimen/text_size_medium"
+                android:layout_marginBottom="@dimen/icon_medium"/>
 
             <Button
                 android:id="@+id/btnReApply"
@@ -104,7 +93,7 @@
                 android:backgroundTint="@color/primary_green"
                 android:text="Update Documents / Re-Apply"
                 android:textColor="@color/white"
-                android:layout_marginHorizontal="20dp"/>
+                android:layout_marginHorizontal="@dimen/spacing_lg"/>
         </LinearLayout>
 
          <Button
@@ -112,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/glass_bg"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/spacing_2xl"
             android:text="Logout"/>
 
     </LinearLayout>

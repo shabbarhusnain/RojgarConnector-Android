@@ -23,8 +23,8 @@
 
                 <ImageButton
                     android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/icon_large"
+                    android:layout_height="@dimen/icon_large"
                     android:layout_centerVertical="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_back"
@@ -36,7 +36,7 @@
                     android:layout_centerInParent="true"
                     android:text="Help &amp; Support Center"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_size_lg"
                     android:textStyle="bold" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -51,16 +51,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/spacing_lg">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User Guide &amp; FAQs"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/text_size_lg"
                 android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="@dimen/spacing_lg"/>
 
             <!-- Category: Account & Registration -->
             <TextView
@@ -69,8 +69,8 @@
                 android:text="@string/faq_account"
                 android:textColor="@color/primary_green"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="12dp"/>
+                android:textSize="@dimen/text_size_medium"
+                android:layout_marginBottom="@dimen/spacing_md"/>
 
             <include layout="@layout/item_faq" android:id="@+id/faq1" />
             <include layout="@layout/item_faq" android:id="@+id/faq2" />
@@ -84,9 +84,9 @@
                 android:text="@string/faq_seeker"
                 android:textColor="@color/primary_green"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="12dp"/>
+                android:textSize="@dimen/text_size_medium"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layout_marginBottom="@dimen/spacing_md"/>
 
             <include layout="@layout/item_faq" android:id="@+id/faq5" />
             <include layout="@layout/item_faq" android:id="@+id/faq6" />
@@ -100,9 +100,9 @@
                 android:text="@string/faq_provider"
                 android:textColor="@color/primary_green"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="12dp"/>
+                android:textSize="@dimen/text_size_medium"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layout_marginBottom="@dimen/spacing_md"/>
 
             <include layout="@layout/item_faq" android:id="@+id/faq9" />
             <include layout="@layout/item_faq" android:id="@+id/faq10" />
@@ -116,9 +116,9 @@
                 android:text="@string/faq_safety"
                 android:textColor="@color/red"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="12dp"/>
+                android:textSize="@dimen/text_size_medium"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layout_marginBottom="@dimen/spacing_md"/>
 
             <include layout="@layout/item_faq" android:id="@+id/faq13" />
             <include layout="@layout/item_faq" android:id="@+id/faq14" />
@@ -132,9 +132,9 @@
                 android:text="@string/faq_completion"
                 android:textColor="@color/primary_green"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="12dp"/>
+                android:textSize="@dimen/text_size_medium"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layout_marginBottom="@dimen/spacing_md"/>
 
             <include layout="@layout/item_faq" android:id="@+id/faq17" />
             <include layout="@layout/item_faq" android:id="@+id/faq18" />
@@ -143,22 +143,22 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="32dp" />
+                android:layout_height="@dimen/spacing_2xl" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Still have questions?"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnContactSupport"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="12dp"
+                android:layout_height="@dimen/icon_xlarge"
+                android:layout_marginTop="@dimen/spacing_md"
                 android:text="Email Support Agent"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -169,11 +169,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginTop="@dimen/spacing_2xl"
+                android:layout_marginBottom="@dimen/icon_medium"
                 android:text="Rozgar Connector Help v1.0"
                 android:textColor="@color/grey"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_sm" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

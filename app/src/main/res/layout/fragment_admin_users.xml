@@ -9,7 +9,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
+        android:layout_margin="@dimen/spacing_md"
         app:cardCornerRadius="12dp"
         app:cardElevation="2dp"
         app:strokeWidth="0dp">
@@ -19,27 +19,27 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp">
+            android:paddingHorizontal="@dimen/spacing_md"
+            android:paddingVertical="@dimen/spacing_xs">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/icon_medium"
+                android:layout_height="@dimen/icon_medium"
                 android:src="@drawable/ic_search"
                 app:tint="@color/grey" />
 
             <EditText
                 android:id="@+id/etSearchUser"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/icon_xlarge"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/search_user_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:paddingHorizontal="12dp"
+                android:paddingHorizontal="@dimen/spacing_md"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="@dimen/text_size_normal" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:padding="8dp" />
+                android:padding="@dimen/spacing_sm" />
 
             <LinearLayout
                 android:id="@+id/lytNoUsers"
@@ -69,18 +69,18 @@
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/icon_2xlarge"
+                    android:layout_height="@dimen/icon_2xlarge"
                     android:src="@drawable/ic_profile"
                     app:tint="@color/grey" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/spacing_md"
                     android:text="No users found"
                     android:textColor="@color/grey"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
         </RelativeLayout>

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="@dimen/spacing_default"
+    android:layout_marginVertical="@dimen/spacing_sm"
     app:cardCornerRadius="16dp"
     app:cardElevation="8dp"
     app:strokeColor="#F9FAF9"
@@ -15,49 +15,60 @@
         android:layout_height="wrap_content"
         android:background="#F1FBE3"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_default">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tvJobTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="Senior Accountant"
                 android:textColor="#1A1C1E"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvSalaryTag"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvSalaryTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:background="@drawable/bg_salary_badge"
                 android:backgroundTint="#84D12A"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/spacing_md"
+                android:paddingVertical="@dimen/spacing_xs"
                 android:text="Rs. 45,000"
                 android:textColor="#FDFDFD"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:textSize="@dimen/text_size_md"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvWorkplace"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Alpha Solutions • Office"
             android:textColor="#5F6368"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_normal" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="12dp"
+            android:layout_marginVertical="@dimen/spacing_md"
             android:background="#52760A" />
 
         <LinearLayout
@@ -67,8 +78,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
+                android:layout_width="@dimen/spacing_default"
+                android:layout_height="@dimen/spacing_default"
                 android:src="@drawable/ic_location"
                 app:tint="#84D12A" />
 
@@ -76,19 +87,23 @@
                 android:id="@+id/tvLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="@dimen/spacing_xs"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="Faisalabad, Punjab"
                 android:textColor="#5F6368"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_sm" />
 
             <TextView
                 android:id="@+id/tvTimeAgo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="2 hours ago"
                 android:textColor="#9AA0A6"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_sm" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

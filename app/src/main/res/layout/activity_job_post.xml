@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/spacing_lg">
 
             <!-- Job Info -->
             <com.google.android.material.card.MaterialCardView
@@ -36,13 +36,13 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="@dimen/spacing_default">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_default">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -50,22 +50,22 @@
                         android:text="@string/job_info"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
-                        android:layout_marginBottom="12dp"/>
+                        android:layout_marginBottom="@dimen/spacing_md"/>
 
                     <EditText
                         android:id="@+id/etJobTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/input_field_height"
                         android:hint="@string/job_title_hint"
                         android:background="@drawable/edittext_border"
-                        android:paddingStart="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:textSize="15sp"/>
+                        android:paddingStart="@dimen/spacing_md"
+                        android:layout_marginBottom="@dimen/spacing_md"
+                        android:textSize="@dimen/text_size_normal"/>
 
                     <Spinner
                         android:id="@+id/spinnerWorkplaceType"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/input_field_height"
                         android:background="@drawable/edittext_border"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -76,13 +76,13 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="@dimen/spacing_default">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_default">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -90,22 +90,22 @@
                         android:text="@string/worker_category_header"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginBottom="@dimen/spacing_sm"/>
 
                     <RadioGroup
                         android:id="@+id/rgWorkerType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
-                        <RadioButton android:id="@+id/rbEducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/educated" android:checked="true" android:layout_marginEnd="16dp" android:buttonTint="@color/primary_green"/>
+                        android:layout_marginBottom="@dimen/spacing_md">
+                        <RadioButton android:id="@+id/rbEducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/educated" android:checked="true" android:layout_marginEnd="@dimen/spacing_default" android:buttonTint="@color/primary_green"/>
                         <RadioButton android:id="@+id/rbUneducated" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/uneducated" android:buttonTint="@color/primary_green"/>
                     </RadioGroup>
 
                     <Spinner
                         android:id="@+id/spinnerJobCategory"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/input_field_height"
                         android:background="@drawable/edittext_border"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -116,13 +116,13 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="@dimen/spacing_default">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_default">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                         android:text="Work Terms &amp; Logistics"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
-                        android:layout_marginBottom="12dp"/>
+                        android:layout_marginBottom="@dimen/spacing_md"/>
 
                     <CheckBox
                         android:id="@+id/cbIsNegotiable"
@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:text="Price is Negotiable"
                         android:buttonTint="@color/primary_green"
-                        android:minHeight="48dp"/>
+                        android:minHeight="@dimen/icon_xlarge"/>
 
                     <CheckBox
                         android:id="@+id/cbVisitRequired"
@@ -146,31 +146,31 @@
                         android:layout_height="wrap_content"
                         android:text="Site Visit Required for Quote"
                         android:buttonTint="@color/primary_green"
-                        android:minHeight="48dp"/>
+                        android:minHeight="@dimen/icon_xlarge"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Who will provide the tools/equipment?"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_sm"
                         android:textColor="@color/grey"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="4dp"/>
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:layout_marginBottom="@dimen/spacing_xs"/>
                     
                     <Spinner
                         android:id="@+id/spinnerToolsProvided"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/input_field_height"
                         android:background="@drawable/edittext_border"/>
 
                     <CheckBox
                         android:id="@+id/cbSafetyHazards"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/spacing_sm"
                         android:text="Potential Safety Hazards"
                         android:buttonTint="#F44336"
-                        android:minHeight="48dp"/>
+                        android:minHeight="@dimen/icon_xlarge"/>
 
                     <EditText
                         android:id="@+id/etHazardsDescription"
@@ -178,10 +178,10 @@
                         android:layout_height="wrap_content"
                         android:hint="Describe hazards..."
                         android:visibility="gone"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_normal"
                         android:background="@drawable/edittext_border"
-                        android:padding="10dp"
-                        android:layout_marginTop="4dp"/>
+                        android:padding="@dimen/spacing_md"
+                        android:layout_marginTop="@dimen/spacing_xs"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -191,13 +191,13 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="@dimen/spacing_default">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_default">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,15 +205,15 @@
                         android:text="@string/budget_time"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
-                        android:layout_marginBottom="12dp"/>
+                        android:layout_marginBottom="@dimen/spacing_md"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Payment Amount (PKR)"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_sm"
                         android:textColor="@color/grey"
-                        android:layout_marginBottom="4dp"/>
+                        android:layout_marginBottom="@dimen/spacing_xs"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -224,18 +224,18 @@
                         <EditText
                             android:id="@+id/etPayAmount"
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
+                            android:layout_height="@dimen/input_field_height"
                             android:layout_weight="1.2"
                             android:hint="e.g. 500"
                             android:inputType="number"
                             android:background="@drawable/edittext_border"
-                            android:paddingStart="12dp"
-                            android:layout_marginEnd="6dp"/>
+                            android:paddingStart="@dimen/spacing_md"
+                            android:layout_marginEnd="@dimen/spacing_sm"/>
 
                         <Spinner
                             android:id="@+id/spinnerPayUnit"
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
+                            android:layout_height="@dimen/input_field_height"
                             android:layout_weight="0.8"
                             android:background="@drawable/edittext_border"/>
                     </LinearLayout>
@@ -244,10 +244,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Expected Completion Time"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_sm"
                         android:textColor="@color/grey"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="4dp"/>
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:layout_marginBottom="@dimen/spacing_xs"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -258,18 +258,18 @@
                         <EditText
                             android:id="@+id/etDurationValue"
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
+                            android:layout_height="@dimen/input_field_height"
                             android:layout_weight="0.8"
                             android:hint="e.g. 2"
                             android:inputType="number"
                             android:background="@drawable/edittext_border"
-                            android:paddingStart="12dp"
-                            android:layout_marginEnd="6dp"/>
+                            android:paddingStart="@dimen/spacing_md"
+                            android:layout_marginEnd="@dimen/spacing_sm"/>
 
                         <Spinner
                             android:id="@+id/spinnerDurationUnit"
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
+                            android:layout_height="@dimen/input_field_height"
                             android:layout_weight="1.2"
                             android:background="@drawable/edittext_border"/>
                     </LinearLayout>
@@ -282,13 +282,13 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="@dimen/spacing_default">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_default">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -296,30 +296,30 @@
                         android:text="@string/workplace_location"
                         android:textStyle="bold"
                         android:textColor="@color/primary_green"
-                        android:layout_marginBottom="12dp"/>
+                        android:layout_marginBottom="@dimen/spacing_md"/>
 
                     <EditText
                         android:id="@+id/etWorkplaceName"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/input_field_height"
                         android:hint="@string/workplace_name_hint"
                         android:background="@drawable/edittext_border"
-                        android:paddingStart="12dp"
-                        android:layout_marginBottom="12dp"/>
+                        android:paddingStart="@dimen/spacing_md"
+                        android:layout_marginBottom="@dimen/spacing_md"/>
 
                     <EditText
                         android:id="@+id/etWorkplaceAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/input_field_height"
                         android:hint="@string/full_address_hint"
                         android:background="@drawable/edittext_border"
-                        android:paddingStart="12dp"
-                        android:layout_marginBottom="12dp"/>
+                        android:paddingStart="@dimen/spacing_md"
+                        android:layout_marginBottom="@dimen/spacing_md"/>
 
                     <Spinner
                         android:id="@+id/spinnerDistrict"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="@dimen/input_field_height"
                         android:background="@drawable/edittext_border"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -330,23 +330,23 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="@dimen/icon_medium">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_default">
 
                     <EditText
                         android:id="@+id/etJobDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="100dp"
+                        android:minHeight="@dimen/icon_2xlarge"
                         android:gravity="top"
                         android:hint="@string/job_desc_hint"
-                        android:padding="12dp"
-                        android:textSize="14sp"
+                        android:padding="@dimen/spacing_md"
+                        android:textSize="@dimen/text_size_normal"
                         android:background="@drawable/edittext_border"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -357,26 +357,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="@dimen/spacing_default">
                 <CheckBox
                     android:id="@+id/cbEthicalTerms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/primary_green"
-                    android:minHeight="48dp"/>
+                    android:minHeight="@dimen/icon_xlarge"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="I commit to safety and timely payment."
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_size_sm"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btnPostJob"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="@dimen/icon_xlarge"
                 android:text="@string/publish_job"
                 android:textStyle="bold"
                 android:background="@drawable/glass_bg"

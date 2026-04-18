@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.databinding.ActivityVerificationDetailBinding
 import com.shabbar.rozgarconnector.models.UserModel
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 
 class VerificationDetailActivity : AppCompatActivity() {
 
@@ -112,13 +113,11 @@ class VerificationDetailActivity : AppCompatActivity() {
 
     private fun loadBase64Image(base64Str: String?, imageView: android.widget.ImageView) {
         if (!base64Str.isNullOrEmpty()) {
-            try {
-                val imageBytes = Base64.decode(base64Str, Base64.DEFAULT)
-                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                imageView.setImageBitmap(bitmap)
-            } catch (e: Exception) {
+            decodeBase64BitmapAsync(base64Str, {
+                imageView.setImageBitmap(it)
+            }, {
                 // Keep default placeholder
-            }
+            })
         }
     }
 

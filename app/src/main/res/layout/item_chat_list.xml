@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="12dp"
+    android:padding="@dimen/spacing_md"
     android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgProfile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/input_field_height"
+        android:layout_height="@dimen/input_field_height"
         android:src="@drawable/ic_profile" />
 
     <LinearLayout
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginStart="12dp">
+        android:layout_marginStart="@dimen/spacing_md">
 
         <TextView
             android:id="@+id/tvUserName"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="User Name"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="Last message content..."
             android:textColor="@color/grey"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_md"
             android:maxLines="1"
             android:ellipsize="end" />
     </LinearLayout>
@@ -53,14 +53,14 @@
             android:layout_height="wrap_content"
             android:text="10:00 AM"
             android:textColor="@color/grey"
-            android:textSize="11sp" />
+            android:textSize="@dimen/text_size_xs" />
 
         <!-- RED DOT FOR UNREAD MESSAGE -->
         <View
             android:id="@+id/viewUnreadDot"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="@dimen/spacing_md"
+            android:layout_height="@dimen/spacing_md"
+            android:layout_marginTop="@dimen/spacing_xs"
             android:background="@drawable/circle_shape"
             android:backgroundTint="@color/red"
             android:visibility="gone" />

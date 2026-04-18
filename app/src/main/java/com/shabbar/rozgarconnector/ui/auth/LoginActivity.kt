@@ -28,7 +28,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnSettings?.setOnClickListener {
-            startActivity(Intent(this, MenuActivity::class.java))
+            startActivity(Intent(this, MenuActivity::class.java).apply {
+                putExtra(MenuActivity.EXTRA_AUTH_MENU, true)
+            })
         }
 
         if (auth.currentUser != null) {

@@ -15,6 +15,7 @@ import com.shabbar.rozgarconnector.adapters.ChatAdapter
 import com.shabbar.rozgarconnector.databinding.ActivityChatBinding
 import com.shabbar.rozgarconnector.models.MessageModel
 import com.shabbar.rozgarconnector.utils.TranslatorUtil
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 
 class ChatActivity : AppCompatActivity() {
 
@@ -74,13 +75,11 @@ class ChatActivity : AppCompatActivity() {
                 
                 // Load DP from Base64
                 if (dpBase64.isNotEmpty()) {
-                    try {
-                        val decodedString = android.util.Base64.decode(dpBase64, android.util.Base64.DEFAULT)
-                        val bitmap = android.graphics.BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                        binding.ivReceiverDp.setImageBitmap(bitmap)
-                    } catch (e: Exception) {
+                    decodeBase64BitmapAsync(dpBase64, {
+                        binding.ivReceiverDp.setImageBitmap(it)
+                    }, {
                         binding.ivReceiverDp.setImageResource(R.drawable.ic_profile)
-                    }
+                    })
                 } else {
                     binding.ivReceiverDp.setImageResource(R.drawable.ic_profile)
                 }

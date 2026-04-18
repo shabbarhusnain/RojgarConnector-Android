@@ -1,7 +1,6 @@
 package com.shabbar.rozgarconnector.adapters
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import com.shabbar.rozgarconnector.databinding.ItemWorkerBinding
 import com.shabbar.rozgarconnector.models.UserModel
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
 import com.shabbar.rozgarconnector.utils.TranslatorUtil
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 import java.util.Locale
 
 class WorkerAdapter(
@@ -64,15 +64,14 @@ class WorkerAdapter(
         // Verification Badge
         holder.binding.imgVerified.visibility = if (worker.isVerified) View.VISIBLE else View.GONE
 
-        // Load Profile Image
-        if (!worker.dpBase64.isNullOrEmpty()) {
-            try {
-                val decodedString = Base64.decode(worker.dpBase64, Base64.DEFAULT)
-                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                holder.binding.imgProfile.setImageBitmap(decodedByte)
-            } catch (e: Exception) {
+        // Load Profile Image asynchronously
+        val profileBase64 = worker.dpBase64
+        if (!profileBase64.isNullOrEmpty()) {
+            decodeBase64BitmapAsync(profileBase64, {
+                holder.binding.imgProfile.setImageBitmap(it)
+            }, {
                 holder.binding.imgProfile.setImageResource(R.drawable.ic_profile)
-            }
+            })
         } else {
             holder.binding.imgProfile.setImageResource(R.drawable.ic_profile)
         }

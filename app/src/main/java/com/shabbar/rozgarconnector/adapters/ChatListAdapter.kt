@@ -1,6 +1,5 @@
 package com.shabbar.rozgarconnector.adapters
 
-import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.models.ChatListModel
 import com.shabbar.rozgarconnector.utils.TranslatorUtil
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -51,15 +51,13 @@ class ChatListAdapter(
 
         holder.viewUnreadDot.visibility = if (chat.hasUnread) View.VISIBLE else View.GONE
 
-        // Handle Base64 Image
+        // Handle Base64 Image asynchronously
         if (!chat.profileImage.isNullOrEmpty()) {
-            try {
-                val decodedString = Base64.decode(chat.profileImage, Base64.DEFAULT)
-                val bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                holder.ivUser.setImageBitmap(bitmap)
-            } catch (e: Exception) {
+            decodeBase64BitmapAsync(chat.profileImage, {
+                holder.ivUser.setImageBitmap(it)
+            }, {
                 holder.ivUser.setImageResource(R.drawable.ic_profile)
-            }
+            })
         } else {
             holder.ivUser.setImageResource(R.drawable.ic_profile)
         }

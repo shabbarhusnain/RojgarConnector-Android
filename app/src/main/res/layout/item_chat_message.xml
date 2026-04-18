@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/spacing_sm">
 
     <TextView
         android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/chat_bubble_sent"
-        android:padding="12dp"
+        android:padding="@dimen/spacing_md"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="@dimen/text_size_medium" />
 
 </LinearLayout>

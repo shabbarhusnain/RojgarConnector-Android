@@ -14,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivityAccountSettingsBinding
@@ -31,7 +32,6 @@ class AccountSettingsActivity : AppCompatActivity() {
     private var oldPhoneNumber: String? = null
     private var newPhoneNumber: String? = null
     private var flowType = "" 
-    private var isDebugMode = false
     private var resendToken: PhoneAuthProvider.ForceResendingToken? = null
     private var currentPhoneForOtp: String? = null
     private var isOldNumberForOtp: Boolean = false
@@ -89,7 +89,9 @@ class AccountSettingsActivity : AppCompatActivity() {
                 }
                 
                 // Verification status
-                val isVerified = doc.getBoolean("verified") ?: false
+                val isVerified = doc.getBoolean("isVerified")
+                    ?: doc.getBoolean("verified")
+                    ?: false
                 if (isVerified) {
                     binding.tvVerificationStatus.text = "Verified"
                     binding.tvVerificationStatus.setTextColor(Color.parseColor("#4CAF50"))
@@ -115,7 +117,6 @@ class AccountSettingsActivity : AppCompatActivity() {
         binding.mainMenuLayout.visibility = View.VISIBLE
         binding.stepContentContainer.visibility = View.GONE
         binding.tvHeaderTitle.text = "Account information"
-        isDebugMode = false
     }
 
     private fun loadStepLayout(layoutId: Int): View {
@@ -198,6 +199,11 @@ class AccountSettingsActivity : AppCompatActivity() {
 
     private fun sendCode(phone: String, isOldNumber: Boolean) {
         Toast.makeText(this, "Sending verification code...", Toast.LENGTH_SHORT).show()
+        currentPhoneForOtp = phone
+        isOldNumberForOtp = isOldNumber
+        verificationId = null
+        resendToken = null
+        resendAttempts = 0
         
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phone)
@@ -209,14 +215,7 @@ class AccountSettingsActivity : AppCompatActivity() {
                 }
                 
                 override fun onVerificationFailed(e: FirebaseException) {
-                    isDebugMode = false
                     val errorMsg = when {
-                        e.message?.contains("BILLING_NOT_ENABLED") == true || 
-                        e.message?.contains("internal error") == true -> {
-                            isDebugMode = true
-                            verificationId = "DEBUG_MODE_ID"
-                            "Server error. Entering debug mode - use code 123456"
-                        }
                         e.message?.contains("blocked") == true || 
                         e.message?.contains("unusual activity") == true -> 
                             "Too many attempts. Please try again later."
@@ -227,16 +226,11 @@ class AccountSettingsActivity : AppCompatActivity() {
                         else -> "Verification failed: ${e.message}"
                     }
                     Toast.makeText(this@AccountSettingsActivity, errorMsg, Toast.LENGTH_LONG).show()
-                    if (isDebugMode) {
-                        showStepOtp(isOldNumber, phone)
-                    }
                 }
                 
                 override fun onCodeSent(verId: String, token: PhoneAuthProvider.ForceResendingToken) {
                     verificationId = verId
                     resendToken = token
-                    isDebugMode = false
-                    resendAttempts = 0
                     Toast.makeText(this@AccountSettingsActivity, "✅ Code sent successfully!", Toast.LENGTH_SHORT).show()
                     showStepOtp(isOldNumber, phone)
                 }
@@ -282,7 +276,6 @@ class AccountSettingsActivity : AppCompatActivity() {
         
         val desc = view.findViewById<TextView>(R.id.tvOtpDescription)
         desc.text = "Enter the 6-digit code sent to $phone"
-        if (isDebugMode) desc.append("\n(Debug: Use 123456)")
 
         val btnVerifyOtp = view.findViewById<MaterialButton>(R.id.btnVerifyOtp)
         val btnResendCode = view.findViewById<TextView>(R.id.btnResendCode)
@@ -317,23 +310,17 @@ class AccountSettingsActivity : AppCompatActivity() {
             btnVerifyOtp.isEnabled = false
             btnVerifyOtp.text = "Verifying..."
             
-            when {
-                isDebugMode && code == "123456" -> {
-                    isVerifyingOtp = false
-                    Toast.makeText(this, "✅ Verified (Debug Mode)", Toast.LENGTH_SHORT).show()
-                    handleSuccess(isOldNumber)
-                }
-                !isDebugMode && verificationId != null -> {
-                    val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
-                    verifyOtpWithCredential(credential, isOldNumber)
-                }
-                else -> {
-                    isVerifyingOtp = false
-                    btnVerifyOtp.isEnabled = true
-                    btnVerifyOtp.text = "VERIFY & CONTINUE"
-                    Toast.makeText(this, "Invalid code. Please try again.", Toast.LENGTH_SHORT).show()
-                }
+            val currentVerificationId = verificationId
+            if (currentVerificationId.isNullOrEmpty()) {
+                isVerifyingOtp = false
+                btnVerifyOtp.isEnabled = true
+                btnVerifyOtp.text = "VERIFY & CONTINUE"
+                Toast.makeText(this, "OTP session expired. Please request a new code.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            val credential = PhoneAuthProvider.getCredential(currentVerificationId, code)
+            verifyOtpWithCredential(credential, isOldNumber)
         }
 
         btnResendCode.setOnClickListener {
@@ -345,14 +332,8 @@ class AccountSettingsActivity : AppCompatActivity() {
             resendAttempts++
             btnResendCode.text = "Resending... (${3 - resendAttempts} remaining)"
             btnResendCode.isEnabled = false
-            
-            if (isDebugMode) {
-                Toast.makeText(this, "✅ Code resent! (Use 123456) - Attempt $resendAttempts/3", Toast.LENGTH_SHORT).show()
-                btnResendCode.isEnabled = true
-                btnResendCode.text = "Resend code (${3 - resendAttempts} remaining)"
-            } else {
-                resendOtp(currentPhoneForOtp ?: "", isOldNumberForOtp)
-            }
+
+            resendOtp(currentPhoneForOtp ?: "", isOldNumberForOtp)
         }
     }
 
@@ -366,8 +347,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
     private fun verifyOtpWithCredential(credential: PhoneAuthCredential, isOldNumber: Boolean) {
         if (isOldNumber) {
-            isVerifyingOtp = false
-            handleSuccess(true)
+            verifyOldNumberOtp(credential)
         } else {
             auth.currentUser?.updatePhoneNumber(credential)
                 ?.addOnSuccessListener {
@@ -381,11 +361,45 @@ class AccountSettingsActivity : AppCompatActivity() {
                             "This phone number is already in use."
                         e.message?.contains("blocked") == true -> 
                             "Too many attempts. Try again later."
+                        e.message?.contains("requires-recent-login") == true ->
+                            "Please verify your password again and retry."
                         else -> "Error: ${e.message}"
                     }
                     Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
                 }
         }
+    }
+
+    private fun verifyOldNumberOtp(credential: PhoneAuthCredential) {
+        val user = auth.currentUser ?: run {
+            isVerifyingOtp = false
+            Toast.makeText(this, "User session expired. Please login again.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val hasPhoneProvider = user.providerData.any { it.providerId == PhoneAuthProvider.PROVIDER_ID }
+        val verifyTask = if (hasPhoneProvider) {
+            user.reauthenticate(credential)
+        } else {
+            user.linkWithCredential(credential)
+        }
+
+        verifyTask
+            .addOnSuccessListener {
+                isVerifyingOtp = false
+                Toast.makeText(this, "✅ Phone verified successfully!", Toast.LENGTH_SHORT).show()
+                handleSuccess(true)
+            }
+            .addOnFailureListener { e ->
+                isVerifyingOtp = false
+                val errorMsg = when {
+                    e is FirebaseAuthInvalidCredentialsException -> "Invalid OTP. Please try again."
+                    e is FirebaseAuthUserCollisionException -> "This phone number is already linked elsewhere."
+                    e.message?.contains("already been linked") == true -> "Phone already verified."
+                    else -> "Verification failed: ${e.message}"
+                }
+                Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
+            }
     }
 
     private fun showStepPhoneInput() {

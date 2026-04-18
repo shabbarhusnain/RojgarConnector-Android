@@ -10,17 +10,17 @@
     <View
         android:id="@+id/headerBg"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/icon_2xlarge"
         android:background="@drawable/header_gradient_curved"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:padding="8dp"
+        android:layout_width="@dimen/icon_large"
+        android:layout_height="@dimen/icon_large"
+        android:layout_marginStart="@dimen/spacing_default"
+        android:layout_marginTop="@dimen/spacing_2xl"
+        android:padding="@dimen/spacing_sm"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,11 +30,11 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/spacing_md"
         android:fontFamily="sans-serif-black"
         android:text="Notifications"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="@dimen/text_size_lg"
         app:layout_constraintBottom_toBottomOf="@id/btnBack"
         app:layout_constraintStart_toEndOf="@id/btnBack"
         app:layout_constraintTop_toTopOf="@id/btnBack" />
@@ -43,9 +43,9 @@
         android:id="@+id/rvNotifications"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_default"
         android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="@dimen/spacing_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headerBg" />
 
@@ -72,15 +72,15 @@
         app:layout_constraintTop_toBottomOf="@id/headerBg">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/icon_2xlarge"
+            android:layout_height="@dimen/icon_2xlarge"
             android:alpha="0.2"
             android:src="@drawable/ic_notification" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/spacing_sm"
             android:alpha="0.4"
             android:text="No notifications yet"
             android:textStyle="bold" />

@@ -19,19 +19,19 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_default">
 
                 <ImageView
                     android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/icon_large"
+                    android:layout_height="@dimen/icon_large"
                     android:src="@drawable/ic_back"
                     app:tint="@color/black" />
 
                 <ImageView
                     android:id="@+id/btnReport"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/icon_large"
+                    android:layout_height="@dimen/icon_large"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_menu"
                     app:tint="@color/purple_700" />
@@ -45,16 +45,16 @@
                 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imgWorkerProfile"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="@dimen/icon_2xlarge"
+                    android:layout_height="@dimen/icon_2xlarge"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_profile"
                     app:shapeAppearanceOverlay="@style/CircleImage" />
 
                 <ImageView
                     android:id="@+id/imgVerifiedBadge"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="@dimen/spacing_2xl"
+                    android:layout_height="@dimen/spacing_2xl"
                     android:layout_alignBottom="@id/imgWorkerProfile"
                     android:layout_alignEnd="@id/imgWorkerProfile"
                     android:src="@drawable/ic_notification"
@@ -67,10 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/spacing_sm"
                 android:text="Worker Name"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="@dimen/text_size_lg"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -92,7 +92,7 @@
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/spacing_xs"
                     android:numStars="5"
                     android:progressTint="#FFD700"
                     android:rating="0" />
@@ -101,7 +101,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/spacing_default"
                 android:background="#EEEEEE" />
 
             <!-- Portfolio Details -->
@@ -109,15 +109,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_default">
 
                 <TextView
                     android:id="@+id/tvPortfolioTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/portfolio"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/text_size_lg"
                     android:textStyle="bold" />
 
                 <TextView
@@ -130,7 +130,7 @@
                     android:id="@+id/tvExp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="5 Years" />
 
                 <TextView
@@ -143,7 +143,7 @@
                     android:id="@+id/tvDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/spacing_default"
                     android:text="Professional description here..." />
 
                 <!-- Education Section (Conditional) -->
@@ -164,7 +164,7 @@
                         android:id="@+id/tvEdu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="@dimen/spacing_md"
                         android:text="BS Computer Science" />
                 </LinearLayout>
 
@@ -178,7 +178,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/spacing_sm"
                         android:text="@string/degree_doc"
                         android:textStyle="bold" />
 
@@ -200,15 +200,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:elevation="8dp"
+        android:elevation="@dimen/spacing_sm"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_default">
 
         <!-- Standard Hiring Button (Loop Button) -->
         <Button
             android:id="@+id/btnHireNow"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/btn_height_large"
             android:background="@drawable/glass_bg"
             android:text="@string/hire_worker"
             android:textColor="@color/white"
@@ -226,8 +226,8 @@
             <Button
                 android:id="@+id/btnDeclineApp"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="8dp"
+                android:layout_height="@dimen/btn_height_large"
+                android:layout_marginEnd="@dimen/spacing_sm"
                 android:layout_weight="1"
                 android:background="@drawable/redglass"
                 android:text="@string/decline"
@@ -237,7 +237,7 @@
             <Button
                 android:id="@+id/btnAcceptApp"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/btn_height_large"
                 android:layout_weight="1"
                 android:background="@drawable/glass_bg"
                 android:text="@string/accept_hire"

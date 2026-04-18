@@ -20,9 +20,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
+        app:itemHorizontalTranslationEnabled="false"
         app:itemActiveIndicatorStyle="@null"
         app:itemBackground="@drawable/nav_item_glow"
         app:itemIconTint="@color/nav_item_color"
+        app:itemTextAppearanceActive="@style/TextAppearance.Rozgar.BottomNav"
+        app:itemTextAppearanceInactive="@style/TextAppearance.Rozgar.BottomNav"
         app:itemTextColor="@color/nav_item_color"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/provider_bottom_nav" />

@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:elevation="8dp">
+    android:elevation="@dimen/spacing_sm">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingBottom="32dp">
+        android:paddingBottom="@dimen/spacing_2xl">
 
         <View
             android:id="@+id/profileHeader"
             android:layout_width="0dp"
-            android:layout_height="160dp"
+            android:layout_height="@dimen/profile_header_height"
             android:background="@drawable/header_gradient_curved"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -27,12 +27,12 @@
             android:id="@+id/tvappname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="@dimen/spacing_lg"
+            android:layout_marginTop="@dimen/profile_brand_margin_top"
             android:text="@string/app_name"
             android:textAlignment="textStart"
             android:textColor="#FAF9F9"
-            android:textSize="30sp"
+            android:textSize="@dimen/profile_brand_title_size"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,22 +41,22 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="@dimen/icon_medium"
             android:text="@string/user_profile"
             android:textAlignment="textStart"
             android:textColor="#D0F0A8"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_lg"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvappname" />
 
         <ImageView
             android:id="@+id/btnSettings"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
-            android:padding="4dp"
+            android:layout_width="@dimen/spacing_2xl"
+            android:layout_height="@dimen/spacing_2xl"
+            android:layout_marginTop="@dimen/spacing_2xl"
+            android:layout_marginEnd="@dimen/icon_medium"
+            android:padding="@dimen/spacing_xs"
             android:src="@drawable/ic_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -64,9 +64,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgProfile"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="100dp"
+            android:layout_width="@dimen/icon_2xlarge"
+            android:layout_height="@dimen/icon_2xlarge"
+            android:layout_marginTop="@dimen/home_header_height"
             android:src="@drawable/ic_profile"
             app:civ_border_color="@color/white"
             app:civ_border_width="4dp"
@@ -78,7 +78,7 @@
             android:id="@+id/llNameRole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_md"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,14 +97,14 @@
                     android:layout_height="wrap_content"
                     android:text="User Name"
                     android:textColor="@color/black"
-                    android:textSize="22sp"
+                    android:textSize="@dimen/text_size_lg"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/imgVerifiedBadge"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="6dp"
+                    android:layout_width="@dimen/spacing_lg"
+                    android:layout_height="@dimen/spacing_lg"
+                    android:layout_marginStart="@dimen/spacing_sm"
                     android:src="@drawable/ic_notification"
                     android:visibility="gone"
                     app:tint="@color/primary_green" />
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:text="SERVICE SEEKER"
                 android:textColor="@color/primary_green"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_normal"
                 android:textStyle="bold" />
             
             <RatingBar
@@ -124,7 +124,7 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/spacing_xs"
                 android:numStars="5"
                 android:progressTint="#FFD700"
                 android:rating="0" />
@@ -135,8 +135,8 @@
             android:id="@+id/infoCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="@dimen/spacing_lg"
+            android:layout_marginTop="@dimen/icon_medium"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             app:strokeColor="@color/ic_logo_background"
@@ -149,14 +149,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#F1FBE3"
-                android:elevation="8dp"
+                android:elevation="@dimen/spacing_sm"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_default">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/basic_info"
                     android:textColor="@color/primary_green"
                     android:textStyle="bold" />
@@ -166,71 +166,71 @@
                     android:layout_height="wrap_content"
                     android:text="@string/father_name"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvFatherName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cnic_number"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvCnic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dob"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvDob"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/phone_number"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/location"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvLocationFull"
@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/text_size_normal" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -248,8 +248,8 @@
             android:id="@+id/portfolioCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="@dimen/spacing_lg"
+            android:layout_marginTop="@dimen/spacing_default"
             android:visibility="gone"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
@@ -265,12 +265,12 @@
                 android:background="@color/white"
                 android:backgroundTint="#F1FBE3"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_default">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="@dimen/spacing_md">
 
                     <TextView
                         android:id="@+id/tvPortfolioTitle"
@@ -284,8 +284,8 @@
 
                     <ImageView
                         android:id="@+id/btnEditPortfolio"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="@dimen/icon_medium"
+                        android:layout_height="@dimen/icon_medium"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_edit"
@@ -305,16 +305,16 @@
                         android:layout_height="wrap_content"
                         android:text="@string/education"
                         android:textColor="@color/grey"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text_size_sm" />
 
                     <TextView
                         android:id="@+id/tvEducation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="@dimen/spacing_md"
                         android:text="@string/not_provided"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/text_size_medium" />
                 </LinearLayout>
 
                 <TextView
@@ -322,48 +322,48 @@
                     android:layout_height="wrap_content"
                     android:text="@string/skill_expertise"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvExpertise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/experience"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvExperienceInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/prof_desc"
                     android:textColor="@color/grey"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_sm" />
 
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/spacing_default"
                     android:text="@string/not_provided"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/text_size_normal" />
 
                 <!-- Degree Photo Section (Only for Educated) -->
                 <LinearLayout
@@ -378,13 +378,13 @@
                         android:layout_height="wrap_content"
                         android:text="@string/degree_doc"
                         android:textColor="@color/grey"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/text_size_sm" />
 
                     <ImageView
                         android:id="@+id/imgDegreeDoc"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/spacing_sm"
                         android:background="#F5F5F5"
                         android:scaleType="centerInside"
                         android:src="@drawable/ic_profile_placeholder" />
@@ -399,7 +399,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_default"
             android:text="@string/forgot_password"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -411,8 +411,8 @@
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="@dimen/spacing_lg"
+            android:layout_marginTop="@dimen/spacing_sm"
             android:text="@string/sign_out"
             android:textColor="#000000"
             app:backgroundTint="@color/white"

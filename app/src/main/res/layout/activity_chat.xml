@@ -12,13 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/header_gradient_curved"
-        android:paddingHorizontal="12dp"
+        android:paddingHorizontal="@dimen/spacing_md"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back"
@@ -26,10 +26,10 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivReceiverDp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/icon_large"
             android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/spacing_sm"
             android:layout_toEndOf="@id/btnBack"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_profile"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="@dimen/spacing_md"
             android:layout_toEndOf="@id/ivReceiverDp"
             android:orientation="vertical">
 
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="User Name"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="Service Seeker"
                 android:textColor="#E0E0E0"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_sm" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -71,7 +71,7 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:clipToPadding="false"
-        android:padding="12dp"
+        android:padding="@dimen/spacing_md"
         app:layout_constraintBottom_toTopOf="@+id/llInputArea"
         app:layout_constraintTop_toBottomOf="@id/chatToolbarArea" />
 
@@ -81,10 +81,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:elevation="8dp"
+        android:elevation="@dimen/spacing_sm"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="@dimen/spacing_sm"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <EditText
@@ -97,16 +97,16 @@
             android:hint="@string/type_message_hint"
             android:inputType="textMultiLine"
             android:maxLines="4"
-            android:padding="12dp"
+            android:padding="@dimen/spacing_md"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_medium" />
 
         <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/icon_xlarge"
+            android:layout_height="@dimen/icon_xlarge"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="10dp"
+            android:padding="@dimen/spacing_md"
             android:scaleType="centerInside"
             android:src="@drawable/ic_send"
             app:tint="@color/primary_green" />

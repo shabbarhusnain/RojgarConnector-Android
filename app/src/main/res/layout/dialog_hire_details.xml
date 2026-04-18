@@ -9,16 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/spacing_lg">
 
         <TextView
             android:id="@+id/tvHireTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:text="Work Agreement &amp; Offer"
             android:textColor="@color/primary_green"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_lg"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -39,14 +39,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="@dimen/spacing_md">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Budget (Rs.)"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="@dimen/spacing_sm"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etJobBudget"
@@ -72,7 +72,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_md"
             android:hint="Exact Work Address"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -88,8 +88,8 @@
             android:layout_height="wrap_content"
             android:text="Agreement &amp; Logistics"
             android:textStyle="bold"
-            android:textSize="14sp"
-            android:layout_marginTop="16dp"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_marginTop="@dimen/spacing_default"
             android:textColor="@color/grey"/>
 
         <CheckBox

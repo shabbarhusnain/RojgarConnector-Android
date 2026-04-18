@@ -20,6 +20,7 @@ import com.shabbar.rozgarconnector.databinding.ItemAdminChatListBinding
 import com.shabbar.rozgarconnector.models.MessageModel
 import com.shabbar.rozgarconnector.models.UserModel
 import com.shabbar.rozgarconnector.ui.help.ChatWithAdminActivity
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -142,13 +143,13 @@ class SupportFragment : Fragment() {
                     tvLastMessage.setTextColor(Color.GRAY)
                 }
 
-                if (!item.user.dpBase64.isNullOrEmpty()) {
-                    try {
-                        val bytes = Base64.decode(item.user.dpBase64, Base64.DEFAULT)
-                        imgUserAvatar.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
-                    } catch (e: Exception) {
+                val avatarBase64 = item.user.dpBase64
+                if (!avatarBase64.isNullOrEmpty()) {
+                    decodeBase64BitmapAsync(avatarBase64, {
+                        imgUserAvatar.setImageBitmap(it)
+                    }, {
                         imgUserAvatar.setImageResource(R.drawable.ic_profile)
-                    }
+                    })
                 } else {
                     imgUserAvatar.setImageResource(R.drawable.ic_profile)
                 }

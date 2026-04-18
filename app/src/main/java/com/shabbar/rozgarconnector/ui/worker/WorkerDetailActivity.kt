@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivityWorkerDetailBinding
 import com.shabbar.rozgarconnector.models.UserModel
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 
 class WorkerDetailActivity : AppCompatActivity() {
 
@@ -158,13 +159,11 @@ class WorkerDetailActivity : AppCompatActivity() {
 
     private fun loadBase64Image(base64Str: String?, imageView: android.widget.ImageView, placeholder: Int) {
         if (!base64Str.isNullOrEmpty()) {
-            try {
-                val decodedString = Base64.decode(base64Str, Base64.DEFAULT)
-                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                imageView.setImageBitmap(decodedByte)
-            } catch (e: Exception) {
+            decodeBase64BitmapAsync(base64Str, {
+                imageView.setImageBitmap(it)
+            }, {
                 imageView.setImageResource(placeholder)
-            }
+            })
         } else {
             imageView.setImageResource(placeholder)
         }

@@ -19,6 +19,7 @@ import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.FragmentAdminUsersBinding
 import com.shabbar.rozgarconnector.databinding.ItemUserListAdminBinding
 import com.shabbar.rozgarconnector.models.UserModel
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 
 class UsersFragment : Fragment() {
 
@@ -158,11 +159,13 @@ class UsersFragment : Fragment() {
 
                 viewOnlineDot.visibility = if (user.isOnline) View.VISIBLE else View.GONE
 
-                if (!user.dpBase64.isNullOrEmpty()) {
-                    try {
-                        val bytes = Base64.decode(user.dpBase64, Base64.DEFAULT)
-                        imgUserAvatar.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
-                    } catch (e: Exception) { imgUserAvatar.setImageResource(R.drawable.ic_profile) }
+                val avatarBase64 = user.dpBase64
+                if (!avatarBase64.isNullOrEmpty()) {
+                    decodeBase64BitmapAsync(avatarBase64, {
+                        imgUserAvatar.setImageBitmap(it)
+                    }, {
+                        imgUserAvatar.setImageResource(R.drawable.ic_profile)
+                    })
                 } else {
                     imgUserAvatar.setImageResource(R.drawable.ic_profile)
                 }

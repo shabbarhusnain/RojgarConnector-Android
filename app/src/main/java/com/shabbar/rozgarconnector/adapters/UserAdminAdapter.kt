@@ -1,12 +1,12 @@
 package com.shabbar.rozgarconnector.adapters
 
-import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shabbar.rozgarconnector.databinding.ItemUserAdminBinding
 import com.shabbar.rozgarconnector.models.UserModel
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 
 class UserAdminAdapter(
     private val userList: List<UserModel>,
@@ -28,12 +28,11 @@ class UserAdminAdapter(
         holder.binding.tvUserCnic.text = if (user.cnic.isNotEmpty()) user.cnic else "CNIC: N/A"
         holder.binding.tvUserRole.text = user.role.uppercase()
 
-        if (!user.dpBase64.isNullOrEmpty()) {
-            try {
-                val imageBytes = Base64.decode(user.dpBase64, Base64.DEFAULT)
-                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                holder.binding.imgUserThumb.setImageBitmap(bitmap)
-            } catch (e: Exception) {}
+        val profileBase64 = user.dpBase64
+        if (!profileBase64.isNullOrEmpty()) {
+            decodeBase64BitmapAsync(profileBase64, {
+                holder.binding.imgUserThumb.setImageBitmap(it)
+            })
         }
 
         holder.itemView.setOnClickListener { onItemClick(user) }

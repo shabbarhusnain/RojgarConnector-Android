@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="@dimen/spacing_default"
+    android:layout_marginVertical="@dimen/spacing_sm"
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
     app:strokeWidth="0dp">
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_default">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/ivIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/icon_medium"
+                android:layout_height="@dimen/icon_medium"
                 android:src="@drawable/ic_notification"
                 app:tint="@color/primary_green" />
 
@@ -32,11 +32,11 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/spacing_md"
                 android:layout_weight="1"
                 android:text="System Update"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold" />
 
             <TextView
@@ -45,29 +45,29 @@
                 android:layout_height="wrap_content"
                 android:text="2h ago"
                 android:textColor="@color/grey"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_sm" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/spacing_sm"
             android:text="We have added new features to the app. Please update to the latest version."
             android:textColor="#555555"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_normal" />
 
         <TextView
             android:id="@+id/tvType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_md"
             android:background="@drawable/bg_role_badge"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="@dimen/spacing_sm"
             android:paddingVertical="2dp"
             android:text="Update"
             android:textColor="@color/primary_green"
-            android:textSize="10sp"
+            android:textSize="@dimen/text_size_xs"
             android:textStyle="bold" />
 
     </LinearLayout>

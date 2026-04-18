@@ -11,90 +11,106 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
-        <ImageView
-            android:id="@+id/btnSettings"
-            android:layout_width="43dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
-            android:layout_gravity="end"
-            android:padding="4dp"
-            android:src="@drawable/ic_menu"
-            app:tint="@color/black" />
+        android:padding="@dimen/auth_content_padding">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_account"
             android:textColor="@color/primary_green"
-            android:textSize="28sp"
+            android:textSize="@dimen/auth_title_size"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="@dimen/icon_medium"/>
 
         <EditText
             android:id="@+id/etFullName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/name_hint"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="12dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etFatherName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/father_name_hint"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="12dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etCNIC"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/cnic_number"
             android:inputType="number"
             android:maxLength="13"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="12dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <TextView
             android:id="@+id/tvDateOfBirth"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/dob"
             android:gravity="center_vertical"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="12dp"
-            android:textSize="18sp" />
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md"
+            android:textSize="@dimen/text_size_lg" />
 
         <EditText
             android:id="@+id/etPermanentAddress"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/perm_address_hint"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="12dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etCity"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/city_hint"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="12dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <Spinner
             android:id="@+id/spinnerDistrict"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/edittext_border"
-            android:layout_marginBottom="16dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:layout_marginBottom="@dimen/spacing_default"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,13 +118,13 @@
             android:text="@string/doc_uploads"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="@dimen/spacing_sm"/>
 
         <Button
             android:id="@+id/btnUploadDP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
             android:text="@string/upload_dp"
             android:textColor="@color/white"
             android:background="@drawable/docglass_bg"
@@ -118,13 +134,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/spacing_default">
 
             <Button
                 android:id="@+id/btnUploadCnicFront"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="@dimen/spacing_xs"
                 android:layout_weight="1"
                 android:background="@drawable/docglass_bg"
                 app:backgroundTint="@null"
@@ -135,7 +151,7 @@
                 android:id="@+id/btnUploadCnicBack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="@dimen/spacing_xs"
                 android:layout_weight="1"
                 android:background="@drawable/docglass_bg"
                 app:backgroundTint="@null"
@@ -146,39 +162,52 @@
         <EditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/phone_number"
             android:inputType="phone"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="16dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_default"/>
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="12dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
             android:inputType="textPassword"
             android:background="@drawable/edittext_border"
-            android:paddingStart="12dp"
-            android:layout_marginBottom="24dp"/>
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_md"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:layout_marginBottom="@dimen/icon_medium"/>
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/auth_button_height"
             android:text="@string/register"
-            android:textSize="18sp"
+            android:textSize="@dimen/auth_action_text_size"
             android:textStyle="bold"
             android:background="@drawable/glass_bg"/>
 
@@ -190,8 +219,8 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:padding="8dp"/>
+            android:layout_marginTop="@dimen/spacing_default"
+            android:padding="@dimen/spacing_sm"/>
 
     </LinearLayout>
 </ScrollView>

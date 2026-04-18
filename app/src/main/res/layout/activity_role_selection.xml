@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="24dp">
+    android:padding="@dimen/auth_content_padding">
 
     <ImageView
         android:id="@+id/btnSettings"
-        android:layout_width="43dp"
-        android:layout_height="44dp"
+        android:layout_width="@dimen/icon_large"
+        android:layout_height="@dimen/btn_height_small"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:padding="4dp"
+        android:layout_marginTop="@dimen/spacing_2xl"
+        android:layout_marginEnd="@dimen/icon_medium"
+        android:padding="@dimen/spacing_xs"
         android:src="@drawable/ic_menu"
         app:tint="@color/black" />
     <ScrollView
@@ -34,23 +34,23 @@
                 android:layout_height="wrap_content"
                 android:text="Choose Your Role"
                 android:textColor="@color/primary_green"
-                android:textSize="28sp"
+                android:textSize="@dimen/text_size_2xl"
                 android:textStyle="bold"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="@dimen/spacing_md"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Are you looking to hire or to work?"
                 android:textColor="@color/grey"
-                android:textSize="14sp"
-                android:layout_marginBottom="40dp"/>
+                android:textSize="@dimen/text_size_normal"
+                android:layout_marginBottom="@dimen/icon_large"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardSeeker"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="@dimen/auth_button_height"
+                android:layout_marginBottom="@dimen/spacing_default"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/primary_green"
@@ -67,7 +67,7 @@
                     android:background="@color/primary_green"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="25sp"
+                    android:textSize="@dimen/role_card_text_size"
                     android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -75,7 +75,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardProvider"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/auth_button_height"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
 
@@ -92,7 +92,7 @@
                     android:textAlignment="center"
                     android:background="@color/brand_yellow"
                     android:textColor="#FFFFFF"
-                    android:textSize="25sp"
+                    android:textSize="@dimen/role_card_text_size"
                     android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -101,16 +101,16 @@
                 android:id="@+id/llProviderType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/icon_medium"
                 android:background="@drawable/edittext_border"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="@dimen/spacing_default"
                 android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="@dimen/spacing_md"
                     android:text="Select Worker Type:"
                     android:textStyle="bold" />
 
@@ -124,7 +124,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/primary_green"
-                        android:padding="8dp"
+                        android:padding="@dimen/spacing_sm"
                         android:text="Educated (Degree/Diploma Holder)" />
 
                     <RadioButton
@@ -132,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/primary_green"
-                        android:padding="8dp"
+                        android:padding="@dimen/spacing_sm"
                         android:text="Uneducated (Skilled Labor/Manual)" />
                 </RadioGroup>
             </LinearLayout>
@@ -143,11 +143,11 @@
     <Button
         android:id="@+id/btnConfirmRole"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/menu_action_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/docglass_bg"
         android:text="Confirm and Continue"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_lg"
         android:textStyle="bold"
         android:visibility="gone"
         app:backgroundTint="@null"

@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:padding="12dp" />
+                android:padding="@dimen/spacing_md" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -38,18 +38,18 @@
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/icon_2xlarge"
+                    android:layout_height="@dimen/icon_2xlarge"
                     android:src="@drawable/ic_notification"
                     app:tint="@color/grey" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/spacing_md"
                     android:text="No pending requests found"
                     android:textColor="@color/grey"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
         </RelativeLayout>

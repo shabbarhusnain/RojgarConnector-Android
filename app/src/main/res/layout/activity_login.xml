@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFFF3">
+    android:background="#FAFFF3"
+    android:fillViewport="true"
+    android:clipToPadding="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/spacing_default"
+        android:paddingTop="@dimen/spacing_sm"
+        android:paddingEnd="@dimen/spacing_default"
+        android:paddingBottom="@dimen/spacing_lg">
 
     <ImageView
         android:id="@+id/imgLock"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/auth_logo_size"
+        android:layout_height="@dimen/auth_logo_size"
         android:src="@drawable/ic_app_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,11 +27,10 @@
 
     <ImageView
         android:id="@+id/btnSettings"
-        android:layout_width="46dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="16dp"
-        android:padding="8dp"
+        android:layout_width="@dimen/icon_large"
+        android:layout_height="@dimen/icon_xlarge"
+        android:layout_marginTop="@dimen/spacing_sm"
+        android:padding="@dimen/spacing_sm"
         android:src="@drawable/ic_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,50 +38,60 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="@dimen/spacing_sm"
         android:background="#FAFFF3"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLock"
-        app:layout_constraintVertical_bias="0.05"
-        tools:layout_editor_absoluteX="0dp">
+        android:paddingStart="@dimen/auth_content_padding"
+        android:paddingTop="@dimen/spacing_md"
+        android:paddingEnd="@dimen/auth_content_padding"
+        android:paddingBottom="@dimen/spacing_md"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLock">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
             android:text="@string/app_name"
+            android:textAlignment="center"
             android:textColor="@color/primary_green"
-            android:textSize="32sp"
+            android:textSize="@dimen/auth_title_size"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="@dimen/icon_large"
             android:text="@string/tagline"
+            android:textAlignment="center"
             android:textColor="@color/grey"
-            android:textSize="14sp" />
+            android:textSize="@dimen/auth_subtitle_size" />
 
         <EditText
             android:id="@+id/etLoginCNIC"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:background="@drawable/edittext_border"
+            android:gravity="center_vertical"
             android:hint="@string/cnic_hint"
             android:inputType="number"
             android:maxLength="13"
-            android:paddingStart="16dp" />
+            android:minHeight="@dimen/auth_input_height"
+            android:paddingStart="@dimen/spacing_default"
+            android:paddingTop="@dimen/spacing_sm"
+            android:paddingEnd="@dimen/spacing_default"
+            android:paddingBottom="@dimen/spacing_sm"
+            android:textSize="@dimen/text_size_medium" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
             app:hintEnabled="false"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/primary_green">
@@ -80,11 +99,17 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLoginPassword"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/edittext_border"
+                android:gravity="center_vertical"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
-                android:paddingStart="16dp" />
+                android:minHeight="@dimen/auth_input_height"
+                android:paddingStart="@dimen/spacing_default"
+                android:paddingTop="@dimen/spacing_sm"
+                android:paddingEnd="@dimen/spacing_default"
+                android:paddingBottom="@dimen/spacing_sm"
+                android:textSize="@dimen/text_size_medium" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,8 +118,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginBottom="24dp"
-            android:padding="4dp"
+            android:layout_marginBottom="@dimen/icon_medium"
+            android:padding="@dimen/spacing_xs"
             android:text="@string/forgot_password"
             android:textColor="@color/primary_green"
             android:textStyle="bold" />
@@ -102,24 +127,27 @@
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/glass_bg"
-            android:elevation="4dp"
+            android:elevation="@dimen/spacing_xs"
+            android:minHeight="@dimen/auth_button_height"
             android:text="@string/login_title"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/auth_action_text_size"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvRegisterLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:padding="8dp"
+            android:layout_marginTop="@dimen/icon_medium"
+            android:padding="@dimen/spacing_sm"
             android:text="@string/dont_have_account"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

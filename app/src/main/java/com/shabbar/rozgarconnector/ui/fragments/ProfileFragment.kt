@@ -1,7 +1,6 @@
 package com.shabbar.rozgarconnector.ui.fragments
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
@@ -13,6 +12,7 @@ import com.shabbar.rozgarconnector.databinding.FragmentProfileBinding
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.settings.MenuActivity
+import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -89,13 +89,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                 val dpBase64 = doc.getString("dpBase64")
                 if (!dpBase64.isNullOrEmpty()) {
-                    try {
-                        val decodedString = Base64.decode(dpBase64, Base64.DEFAULT)
-                        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                        binding.imgProfile.setImageBitmap(decodedByte)
-                    } catch (e: Exception) {
+                    decodeBase64BitmapAsync(dpBase64, {
+                        binding.imgProfile.setImageBitmap(it)
+                    }, {
                         binding.imgProfile.setImageResource(R.drawable.ic_profile)
-                    }
+                    })
                 }
 
                 if (role == "worker" || role == "provider" || currentWorkerType.isNotEmpty()) {
@@ -124,13 +122,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                         val degreeBase64 = doc.getString("degreePhotoBase64")
                         if (!degreeBase64.isNullOrEmpty()) {
-                            try {
-                                val decodedString = Base64.decode(degreeBase64, Base64.DEFAULT)
-                                val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                                binding.imgDegreeDoc.setImageBitmap(decodedByte)
-                            } catch (e: Exception) {
+                            decodeBase64BitmapAsync(degreeBase64, {
+                                binding.imgDegreeDoc.setImageBitmap(it)
+                            }, {
                                 binding.imgDegreeDoc.setImageResource(R.drawable.ic_profile_placeholder)
-                            }
+                            })
                         }
                     } else {
                         binding.tvPortfolioTitle.text = "Worker Skill Profile"

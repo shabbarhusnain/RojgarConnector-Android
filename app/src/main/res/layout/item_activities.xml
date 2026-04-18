@@ -16,14 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="@dimen/spacing_md">
 
         <!-- Active Header Info (Work in Progress / Days Left) -->
         <LinearLayout
             android:id="@+id/llActiveInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/spacing_md"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -35,7 +35,7 @@
                 android:layout_weight="1"
                 android:text="@string/work_in_progress"
                 android:textColor="@color/primary_green"
-                android:textSize="20sp"
+                android:textSize="@dimen/text_size_lg"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,11 +43,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#F6EAD8"
-                android:paddingHorizontal="8dp"
+                android:paddingHorizontal="@dimen/spacing_sm"
                 android:paddingVertical="2dp"
                 android:text="@string/days_left"
                 android:textColor="#E60000"
-                android:textSize="11sp"
+                android:textSize="@dimen/text_size_xs"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -58,25 +58,25 @@
             android:orientation="horizontal">
 
             <FrameLayout
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="12dp">
+                android:layout_width="@dimen/btn_height_small"
+                android:layout_height="@dimen/btn_height_small"
+                android:layout_marginEnd="@dimen/spacing_md">
 
                 <ImageView
                     android:id="@+id/ivNotificationIcon"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
+                    android:layout_width="@dimen/btn_height_small"
+                    android:layout_height="@dimen/btn_height_small"
                     android:background="@drawable/circle_shape"
                     android:backgroundTint="#FAFAFB"
-                    android:padding="10dp"
+                    android:padding="@dimen/spacing_md"
                     android:src="@drawable/ic_notification"
                     app:tint="@color/primary_green" />
 
                 <!-- Red badge dot for unread notifications -->
                 <View
                     android:id="@+id/redDot"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="@dimen/spacing_md"
+                    android:layout_height="@dimen/spacing_md"
                     android:layout_gravity="top|end"
                     android:layout_margin="2dp"
                     android:background="@drawable/circle_shape"
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:text="Update"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/text_size_normal"
                     android:textStyle="bold" />
 
                 <TextView
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/just_now"
                     android:textColor="@color/grey"
-                    android:textSize="11sp" />
+                    android:textSize="@dimen/text_size_xs" />
             </LinearLayout>
 
             <TextView
@@ -113,11 +113,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/docglass_bg"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
+                android:paddingHorizontal="@dimen/spacing_md"
+                android:paddingVertical="@dimen/spacing_xs"
                 android:text="@string/pending"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_size_xs"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -125,17 +125,17 @@
             android:id="@+id/tvNotificationMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:lineSpacingExtra="3dp"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:lineSpacingExtra="@dimen/spacing_xs"
             android:text="Message details go here..."
             android:textColor="#555555"
-            android:textSize="13sp" />
+            android:textSize="@dimen/text_size_md" />
 
         <!-- Emergency & Action Section -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="@dimen/spacing_md">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEmergency"
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"
                     android:textColor="@color/red"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_size_sm"
                     app:icon="@android:drawable/ic_menu_close_clear_cancel"
                     app:iconSize="16dp"
                     app:iconTint="@color/red" />
@@ -173,12 +173,12 @@
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/spacing_sm"
                     android:background="@drawable/glass_bg"
                     android:backgroundTint="@color/primary_green"
                     android:text="@string/finish_job"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_size_sm"
                     android:visibility="gone"
                     app:cornerRadius="8dp" />
 
@@ -187,12 +187,12 @@
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/spacing_sm"
                     android:background="@drawable/glass_bg"
                     android:backgroundTint="@color/primary_green"
                     android:text="@string/chat_btn"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_size_sm"
                     app:cornerRadius="8dp"
                     app:icon="@drawable/ic_messages"
                     app:iconSize="20dp"

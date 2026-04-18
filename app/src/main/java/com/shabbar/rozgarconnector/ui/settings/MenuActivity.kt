@@ -18,12 +18,16 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
     private val auth = FirebaseAuth.getInstance()
     private var isUpdatingLocale = false
+    private val isAuthMenu by lazy {
+        intent.getBooleanExtra(EXTRA_AUTH_MENU, false)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        applyMenuMode()
         loadSettings()
 
         binding.btnBack.setOnClickListener {
@@ -83,10 +87,25 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
+    private fun applyMenuMode() {
+        if (!isAuthMenu) return
+
+        binding.tvMenuTitle.text = "Quick Menu"
+        binding.btnAccountSettings.visibility = android.view.View.GONE
+        binding.btnChatAdmin.visibility = android.view.View.GONE
+        binding.helpDivider.visibility = android.view.View.GONE
+        binding.btnSOS.visibility = android.view.View.GONE
+        binding.btnLogout.visibility = android.view.View.GONE
+    }
+
     private fun loadSettings() {
         val isUrdu = TranslatorUtil.isUrduEnabled(this)
         isUpdatingLocale = true
         binding.switchUrdu.isChecked = isUrdu
         isUpdatingLocale = false
+    }
+
+    companion object {
+        const val EXTRA_AUTH_MENU = "extra_auth_menu"
     }
 }

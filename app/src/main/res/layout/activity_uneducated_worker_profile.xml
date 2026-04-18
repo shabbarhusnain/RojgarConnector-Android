@@ -11,29 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/icon_medium">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Worker Profile"
             android:textColor="@color/primary_green"
-            android:textSize="28sp"
+            android:textSize="@dimen/text_size_2xl"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="@dimen/spacing_2xl"
             android:text="Tell us about your professional skills"
             android:textColor="@color/dark_grey"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_medium" />
 
         <!-- SKILL SECTION -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
             android:text="What is your primary skill?"
             android:textColor="@color/black"
             android:textStyle="bold" />
@@ -41,25 +41,25 @@
         <Spinner
             android:id="@+id/spinnerSkill"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="12dp"
+            android:layout_height="@dimen/icon_xlarge"
+            android:layout_marginBottom="@dimen/spacing_md"
             android:background="@drawable/edit_text_background" />
 
         <EditText
             android:id="@+id/etCustomSkill"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="@dimen/icon_xlarge"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:background="@drawable/edit_text_background"
             android:hint="Enter your skill (e.g. Plumber)"
-            android:paddingHorizontal="16dp"
+            android:paddingHorizontal="@dimen/spacing_default"
             android:visibility="gone" />
 
         <!-- DAILY RATE SECTION -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
             android:text="Expected Daily Rate (PKR)"
             android:textColor="@color/black"
             android:textStyle="bold" />
@@ -67,29 +67,29 @@
         <EditText
             android:id="@+id/etDailyRate"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/icon_xlarge"
             android:background="@drawable/edit_text_background"
             android:hint="e.g. 1500"
             android:inputType="number"
-            android:paddingHorizontal="16dp" />
+            android:paddingHorizontal="@dimen/spacing_default" />
 
         <!-- DYNAMIC COMMISSION INFO -->
         <TextView
             android:id="@+id/tvCommissionInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:text="Platform fee will be deducted automatically."
             android:textColor="@color/primary_green"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_sm"
             android:textStyle="italic" />
 
         <!-- EXPERIENCE SECTION -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
             android:text="Years of Experience"
             android:textColor="@color/black"
             android:textStyle="bold" />
@@ -97,28 +97,28 @@
         <EditText
             android:id="@+id/etExperienceYears"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="@dimen/icon_xlarge"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:background="@drawable/edit_text_background"
             android:hint="e.g. 5"
             android:inputType="number"
-            android:paddingHorizontal="16dp" />
+            android:paddingHorizontal="@dimen/spacing_default" />
 
         <EditText
             android:id="@+id/etLastWorkPlace"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="@dimen/icon_xlarge"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:background="@drawable/edit_text_background"
             android:hint="Last workplace (Company/Site)"
-            android:paddingHorizontal="16dp"
+            android:paddingHorizontal="@dimen/spacing_default"
             android:visibility="gone" />
 
         <!-- DESCRIPTION SECTION -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/spacing_sm"
             android:text="Professional Bio / Description"
             android:textColor="@color/black"
             android:textStyle="bold" />
@@ -126,19 +126,19 @@
         <EditText
             android:id="@+id/etProfessionalDescription"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginBottom="24dp"
+            android:layout_height="@dimen/icon_2xlarge"
+            android:layout_marginBottom="@dimen/icon_medium"
             android:background="@drawable/edit_text_background"
             android:gravity="top"
             android:hint="Briefly describe your work experience and tools you have..."
             android:inputType="textMultiLine"
-            android:padding="16dp" />
+            android:padding="@dimen/spacing_default" />
 
         <!-- COMMITMENT -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="@dimen/spacing_2xl"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             app:strokeColor="#E0E0E0"
@@ -148,21 +148,21 @@
                 android:id="@+id/cbTerms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/spacing_md"
                 android:text="I guarantee that my skills and rates are professional and I will strictly follow platform rules."
                 android:textColor="#555555"
-                android:textSize="13sp" />
+                android:textSize="@dimen/text_size_md" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveProfile"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/btn_height_large"
             android:backgroundTint="@color/primary_green"
             android:text="SAVE PROFILE"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"
             app:cornerRadius="16dp" />
 

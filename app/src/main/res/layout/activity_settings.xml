@@ -6,25 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:padding="16dp"
+    android:padding="@dimen/spacing_default"
     tools:context=".ui.settings.SettingsActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
-        android:textSize="30sp"
+        android:textSize="@dimen/settings_title_size"
         android:textStyle="bold"
         android:textColor="@color/primary_green"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="@dimen/icon_medium"/>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switchLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Switch to Urdu"
-        android:textSize="18sp"
-        android:padding="16dp"/>
+        android:textSize="@dimen/text_size_lg"
+        android:padding="@dimen/spacing_default"/>
 
     <View
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/spacing_2xl"
         android:backgroundTint="@color/red"
         android:text="Logout"
         android:textColor="@android:color/white"/>

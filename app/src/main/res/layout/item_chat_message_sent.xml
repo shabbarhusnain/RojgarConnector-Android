@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="@dimen/spacing_sm"
     android:gravity="end">
 
     <TextView
@@ -11,9 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/chat_bubble_sent"
-        android:padding="12dp"
+        android:padding="@dimen/spacing_md"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="@dimen/text_size_medium" />
 
     <TextView
         android:id="@+id/tvSentTime"
@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:textColor="@color/grey"
-        android:textSize="10sp" />
+        android:textSize="@dimen/text_size_xs" />
 
 </LinearLayout>

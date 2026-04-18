@@ -9,7 +9,7 @@
     <View
         android:id="@+id/headerBg"
         android:layout_width="0dp"
-        android:layout_height="167dp"
+        android:layout_height="@dimen/home_header_height"
         android:background="@drawable/header_gradient_curved"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,37 +19,37 @@
         android:id="@+id/tvHeaderTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="@dimen/icon_medium"
+        android:layout_marginTop="@dimen/spacing_2xl"
         android:text="@string/service_seeker"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="@dimen/text_size_xl"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/btnAnnouncements"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="@dimen/icon_large"
+        android:layout_height="@dimen/icon_large"
+        android:layout_marginEnd="@dimen/spacing_lg"
+        android:layout_marginTop="@dimen/spacing_2xl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
+            android:padding="@dimen/spacing_sm"
             android:src="@drawable/ic_bell"
             app:tint="@color/white" />
 
         <View
             android:id="@+id/unreadBellDot"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
+            android:layout_width="@dimen/spacing_sm"
+            android:layout_height="@dimen/spacing_sm"
             android:layout_gravity="top|end"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/spacing_sm"
             android:background="@drawable/circle_shape"
             android:backgroundTint="@color/red"
             android:visibility="gone" />
@@ -61,16 +61,16 @@
         android:layout_height="wrap_content"
         android:text="@string/find_workers"
         android:textColor="#CCFFFFFF"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_normal"
         app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
         app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/searchCard"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="@dimen/filter_control_height"
+        android:layout_marginHorizontal="@dimen/spacing_lg"
+        android:layout_marginTop="@dimen/spacing_lg"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,18 +84,19 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="10dp"
+            android:drawablePadding="@dimen/spacing_md"
             android:hint="@string/search_worker_hint"
-            android:paddingStart="16dp"
+            android:paddingStart="@dimen/spacing_default"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_normal" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/workerToggleGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="@dimen/spacing_lg"
+        android:layout_marginTop="@dimen/spacing_default"
         app:checkedButton="@+id/btnEducated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,25 +106,29 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEducated"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
             android:text="@string/educated_worker" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnUneducated"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="false"
             android:text="@string/un_educated_worker" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardDistrict"
         android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="@dimen/filter_control_height"
+        android:layout_marginStart="@dimen/spacing_lg"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:layout_marginEnd="@dimen/spacing_sm"
         app:cardCornerRadius="22dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toStartOf="@+id/cardSkill"
@@ -138,17 +143,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:paddingStart="10dp"
+            android:paddingStart="@dimen/spacing_md"
             android:spinnerMode="dropdown" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardSkill"
         android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="@dimen/filter_control_height"
+        android:layout_marginStart="@dimen/spacing_sm"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:layout_marginEnd="@dimen/spacing_lg"
         app:cardCornerRadius="22dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -162,7 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:paddingStart="10dp"
+            android:paddingStart="@dimen/spacing_md"
             android:spinnerMode="dropdown" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -170,7 +175,7 @@
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/spacing_sm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardDistrict">
 
@@ -179,7 +184,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="8dp" />
+            android:padding="@dimen/spacing_sm" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar

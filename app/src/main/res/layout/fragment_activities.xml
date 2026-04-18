@@ -9,7 +9,7 @@
     <View
         android:id="@+id/headerBg"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="@dimen/icon_2xlarge"
         android:background="@drawable/header_gradient_curved"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,12 +19,12 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="@dimen/icon_medium"
+        android:layout_marginTop="@dimen/icon_large"
         android:fontFamily="sans-serif-black"
         android:text="@string/activity_hub"
         android:textColor="@color/white"
-        android:textSize="28sp"
+        android:textSize="@dimen/text_size_2xl"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-27dp"
         android:clipToPadding="false"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:paddingStart="@dimen/spacing_lg"
+        android:paddingEnd="@dimen/spacing_lg"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/headerBg">
 
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:elevation="4dp"
+                android:elevation="@dimen/spacing_xs"
                 android:text="@string/active_work"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
@@ -63,7 +63,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="4dp"
+                android:elevation="@dimen/spacing_xs"
                 android:text="@string/offers"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
@@ -73,7 +73,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="4dp"
+                android:elevation="@dimen/spacing_xs"
                 android:text="@string/applications"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
@@ -83,7 +83,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="4dp"
+                android:elevation="@dimen/spacing_xs"
                 android:text="@string/history"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeWidth="0dp" />
@@ -95,10 +95,10 @@
         android:id="@+id/rvActivities"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/spacing_default"
         android:background="@color/white"
         android:clipToPadding="false"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="@dimen/spacing_md"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterScroll" />
 
@@ -127,8 +127,8 @@
         tools:visibility="visible">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="@dimen/icon_2xlarge"
+            android:layout_height="@dimen/icon_2xlarge"
             android:alpha="0.3"
             android:src="@drawable/ic_notification" />
 
@@ -136,10 +136,10 @@
             android:id="@+id/tvNoActivities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/spacing_md"
             android:alpha="0.5"
             android:text="No work activities yet."
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
     </LinearLayout>
 

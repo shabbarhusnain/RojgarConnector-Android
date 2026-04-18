@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/spacing_lg">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="@dimen/icon_medium">
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/icon_large"
+                android:layout_height="@dimen/icon_large"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_back"
                 app:tint="@color/black" />
@@ -33,7 +33,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/menu_title"
                 android:textColor="@color/primary_green"
-                android:textSize="22sp"
+                android:textSize="@dimen/text_size_lg"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -42,7 +42,7 @@
             android:id="@+id/btnAccountSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
@@ -54,27 +54,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_default">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/icon_medium"
+                    android:layout_height="@dimen/icon_medium"
                     android:src="@drawable/ic_profile"
                     app:tint="@color/primary_green" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/spacing_default"
                     android:layout_weight="1"
                     android:text="Account Settings"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="@dimen/spacing_lg"
+                    android:layout_height="@dimen/spacing_lg"
                     android:src="@drawable/ic_back"
                     android:rotation="180"
                     app:tint="@color/grey" />
@@ -85,7 +85,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_default"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
             app:strokeWidth="0dp">
@@ -94,16 +94,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_default">
 
                 <TextView
                     android:id="@+id/tvLangHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/spacing_sm"
                     android:text="@string/lang_settings"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/switch_urdu_label"
                     android:textColor="#555555"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/text_size_normal"
                     app:thumbTint="@color/primary_green"
                     app:trackTint="@color/primary_green_light" />
             </LinearLayout>
@@ -122,7 +122,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_default"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
             app:strokeWidth="0dp">
@@ -137,21 +137,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:padding="16dp">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_messages" app:tint="@color/primary_green" />
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Chat with Admin" android:textColor="@color/black" />
+                    android:padding="@dimen/spacing_default">
+                    <ImageView android:layout_width="@dimen/icon_medium" android:layout_height="@dimen/icon_medium" android:src="@drawable/ic_messages" app:tint="@color/primary_green" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/spacing_default" android:text="Chat with Admin" android:textColor="@color/black" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginHorizontal="16dp" android:background="#EEEEEE" />
+                <View
+                    android:id="@+id/helpDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/spacing_default"
+                    android:background="#EEEEEE" />
 
                 <LinearLayout
                     android:id="@+id/btnHelpSupport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:padding="16dp">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_notification" app:tint="@color/primary_green" />
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="Help &amp; Support" android:textColor="@color/black" />
+                    android:padding="@dimen/spacing_default">
+                    <ImageView android:layout_width="@dimen/icon_medium" android:layout_height="@dimen/icon_medium" android:src="@drawable/ic_notification" app:tint="@color/primary_green" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/spacing_default" android:text="Help &amp; Support" android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -161,7 +166,7 @@
             android:id="@+id/btnSOS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_default"
             android:backgroundTint="#FFF5F5"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
@@ -172,38 +177,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_default">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="@dimen/spacing_2xl"
+                    android:layout_height="@dimen/spacing_2xl"
                     android:src="@android:drawable/ic_menu_call"
                     app:tint="@color/red" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/spacing_default"
                     android:layout_weight="1"
                     android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SOS Emergency" android:textColor="@color/red" android:textSize="16sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Call 15 for immediate help" android:textColor="#D32F2F" android:textSize="12sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SOS Emergency" android:textColor="@color/red" android:textSize="@dimen/text_size_medium" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Call 15 for immediate help" android:textColor="#D32F2F" android:textSize="@dimen/text_size_sm" />
                 </LinearLayout>
 
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_back" android:rotation="180" app:tint="@color/red" />
+                <ImageView android:layout_width="@dimen/icon_medium" android:layout_height="@dimen/icon_medium" android:src="@drawable/ic_back" android:rotation="180" app:tint="@color/red" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
+            android:layout_height="@dimen/menu_action_height"
+            android:layout_marginTop="@dimen/icon_medium"
             android:backgroundTint="#FFF1F1"
             android:text="@string/logout"
             android:textAllCaps="false"
             android:textColor="@color/red"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"
             app:cornerRadius="16dp"
             app:strokeColor="@color/red"

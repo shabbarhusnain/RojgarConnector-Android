@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:text="Support Chats"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="@dimen/text_size_lg"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -44,7 +44,7 @@
                 android:id="@+id/rvAdminChats"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="8dp"
+                android:paddingTop="@dimen/spacing_sm"
                 android:clipToPadding="false" />
 
             <LinearLayout
@@ -57,19 +57,19 @@
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="@dimen/icon_2xlarge"
+                    android:layout_height="@dimen/icon_2xlarge"
                     android:alpha="0.2"
                     android:src="@drawable/ic_messages" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/spacing_default"
                     android:alpha="0.5"
                     android:text="No messages yet"
                     android:textColor="@color/grey"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
         </RelativeLayout>

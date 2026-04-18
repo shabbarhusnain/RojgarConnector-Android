@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:padding="@dimen/icon_medium"
     android:background="#FFFFFF">
 
     <TextView
@@ -12,22 +12,22 @@
         android:layout_height="wrap_content"
         android:text="Delete Account"
         android:textColor="@color/black"
-        android:textSize="26sp"
+        android:textSize="@dimen/text_size_xl"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/spacing_sm"
         android:text="We're sorry to see you go. Please let us know why you are deleting your account."
         android:textColor="#757575"
-        android:textSize="14sp" />
+        android:textSize="@dimen/text_size_normal" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/icon_large"
         app:boxStrokeColor="@color/red"
         app:hintTextColor="@color/red">
 
@@ -43,8 +43,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFinalDelete"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="@dimen/icon_xlarge"
+        android:layout_marginTop="@dimen/icon_medium"
         android:text="DELETE PERMANENTLY"
         android:backgroundTint="@color/red"
         app:cornerRadius="12dp" />
@@ -53,9 +53,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/spacing_lg"
         android:text="This action cannot be undone."
         android:textColor="#9E9E9E"
-        android:textSize="12sp" />
+        android:textSize="@dimen/text_size_sm" />
 
 </LinearLayout>

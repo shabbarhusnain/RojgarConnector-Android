@@ -29,7 +29,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/admin_title"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_size_lg"
                     android:textStyle="bold" />
 
                 <TextView
@@ -38,11 +38,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:padding="8dp"
+                    android:layout_marginEnd="@dimen/spacing_default"
+                    android:padding="@dimen/spacing_sm"
                     android:text="LOGOUT"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_size_normal"
                     android:textStyle="bold" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

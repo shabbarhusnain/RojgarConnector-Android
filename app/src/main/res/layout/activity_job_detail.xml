@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/spacing_lg">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Job Title"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/text_size_xl"
                     android:textStyle="bold"
                     android:textColor="#212121"/>
             </LinearLayout>
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/spacing_md"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -48,12 +48,12 @@
                     android:text="Category"
                     android:textColor="@color/primary_green"
                     android:background="@drawable/bg_role_badge"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
-                    android:textSize="13sp"
+                    android:paddingHorizontal="@dimen/spacing_md"
+                    android:paddingVertical="@dimen/spacing_sm"
+                    android:textSize="@dimen/text_size_md"
                     android:textStyle="bold"/>
 
-                <View android:layout_width="12dp" android:layout_height="0dp"/>
+                <View android:layout_width="@dimen/spacing_md" android:layout_height="0dp"/>
 
                 <TextView
                     android:id="@+id/tvDetailBudget"
@@ -62,9 +62,9 @@
                     android:text="Budget"
                     android:textColor="#388E3C"
                     android:background="#E8F5E9"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
-                    android:textSize="13sp"
+                    android:paddingHorizontal="@dimen/spacing_md"
+                    android:paddingVertical="@dimen/spacing_sm"
+                    android:textSize="@dimen/text_size_md"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -74,14 +74,14 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/spacing_lg"
                 app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_default">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -89,34 +89,34 @@
                         android:text="Work Terms &amp; Logistics"
                         android:textColor="@color/primary_green"
                         android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="12dp"/>
+                        android:textSize="@dimen/text_size_normal"
+                        android:layout_marginBottom="@dimen/spacing_md"/>
 
                     <!-- Tools -->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
-                        <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_settings" app:tint="@color/grey"/>
-                        <TextView android:id="@+id/tvDetailTools" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tools: Seeker" android:textSize="14sp" android:layout_marginStart="8dp" android:textColor="@color/black"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_sm">
+                        <ImageView android:layout_width="@dimen/icon_small" android:layout_height="@dimen/icon_small" android:src="@drawable/ic_settings" app:tint="@color/grey"/>
+                        <TextView android:id="@+id/tvDetailTools" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tools: Seeker" android:textSize="@dimen/text_size_normal" android:layout_marginStart="@dimen/spacing_sm" android:textColor="@color/black"/>
                     </LinearLayout>
 
                     <!-- Negotiable -->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp">
-                        <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_dot" app:tint="@color/brand_yellow"/>
-                        <TextView android:id="@+id/tvDetailNegotiable" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Negotiable: Yes" android:textSize="14sp" android:layout_marginStart="8dp" android:textColor="@color/black"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_sm">
+                        <ImageView android:layout_width="@dimen/icon_small" android:layout_height="@dimen/icon_small" android:src="@drawable/ic_dot" app:tint="@color/brand_yellow"/>
+                        <TextView android:id="@+id/tvDetailNegotiable" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Negotiable: Yes" android:textSize="@dimen/text_size_normal" android:layout_marginStart="@dimen/spacing_sm" android:textColor="@color/black"/>
                     </LinearLayout>
 
                     <!-- Visit Required -->
-                    <LinearLayout android:id="@+id/llVisitRequired" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="8dp" android:visibility="gone">
-                        <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_location" app:tint="@color/primary_green"/>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pre-work Site Visit Required" android:textSize="14sp" android:layout_marginStart="8dp" android:textColor="@color/black"/>
+                    <LinearLayout android:id="@+id/llVisitRequired" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_sm" android:visibility="gone">
+                        <ImageView android:layout_width="@dimen/icon_small" android:layout_height="@dimen/icon_small" android:src="@drawable/ic_location" app:tint="@color/primary_green"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pre-work Site Visit Required" android:textSize="@dimen/text_size_normal" android:layout_marginStart="@dimen/spacing_sm" android:textColor="@color/black"/>
                     </LinearLayout>
 
                     <!-- Safety Warning -->
-                    <LinearLayout android:id="@+id/llSafetyWarning" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="10dp" android:background="#FFF5F5" android:layout_marginTop="4dp" android:visibility="gone">
+                    <LinearLayout android:id="@+id/llSafetyWarning" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/spacing_md" android:background="#FFF5F5" android:layout_marginTop="@dimen/spacing_xs" android:visibility="gone">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_notification" app:tint="#F44336"/>
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SAFETY WARNING" android:textColor="#F44336" android:textStyle="bold" android:textSize="12sp" android:layout_marginStart="8dp"/>
+                            <ImageView android:layout_width="@dimen/spacing_lg" android:layout_height="@dimen/spacing_lg" android:src="@drawable/ic_notification" app:tint="#F44336"/>
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SAFETY WARNING" android:textColor="#F44336" android:textStyle="bold" android:textSize="@dimen/text_size_sm" android:layout_marginStart="@dimen/spacing_sm"/>
                         </LinearLayout>
-                        <TextView android:id="@+id/tvHazardsDesc" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Hazard Details" android:textSize="13sp" android:textColor="#D32F2F" android:layout_marginTop="4dp"/>
+                        <TextView android:id="@+id/tvHazardsDesc" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Hazard Details" android:textSize="@dimen/text_size_md" android:textColor="#D32F2F" android:layout_marginTop="@dimen/spacing_xs"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -129,16 +129,16 @@
                 android:textColor="#9E9E9E"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textSize="11sp"
-                android:layout_marginTop="24dp"/>
+                android:textSize="@dimen/text_size_xs"
+                android:layout_marginTop="@dimen/icon_medium"/>
             <TextView
                 android:id="@+id/tvDetailDeadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Deadline"
                 android:textColor="#424242"
-                android:layout_marginTop="4dp"
-                android:textSize="16sp"/>
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textSize="@dimen/text_size_medium"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -147,16 +147,16 @@
                 android:textColor="#9E9E9E"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textSize="11sp"
-                android:layout_marginTop="20dp"/>
+                android:textSize="@dimen/text_size_xs"
+                android:layout_marginTop="@dimen/spacing_lg"/>
             <TextView
                 android:id="@+id/tvDetailAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address"
                 android:textColor="#424242"
-                android:layout_marginTop="4dp"
-                android:textSize="16sp"/>
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textSize="@dimen/text_size_medium"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -165,19 +165,19 @@
                 android:textColor="#9E9E9E"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textSize="11sp"
-                android:layout_marginTop="24dp"/>
+                android:textSize="@dimen/text_size_xs"
+                android:layout_marginTop="@dimen/icon_medium"/>
             <TextView
                 android:id="@+id/tvDetailDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Job Description"
-                android:textSize="15sp"
+                android:textSize="@dimen/text_size_normal"
                 android:textColor="#424242"
-                android:layout_marginTop="8dp"
-                android:lineSpacingExtra="6dp"/>
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:lineSpacingExtra="@dimen/spacing_sm"/>
 
-            <View android:layout_width="match_parent" android:layout_height="100dp"/>
+            <View android:layout_width="match_parent" android:layout_height="@dimen/icon_2xlarge"/>
 
         </LinearLayout>
     </ScrollView>
@@ -185,11 +185,11 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConfirmApply"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/icon_xlarge"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/spacing_lg"
         android:text="@string/send_application"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_medium"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:background="@drawable/glass_bg"

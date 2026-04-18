@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="@dimen/icon_medium">
         <ImageView
             android:id="@+id/btnSettings"
-            android:layout_width="43dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
+            android:layout_width="@dimen/icon_large"
+            android:layout_height="@dimen/btn_height_small"
+            android:layout_marginTop="@dimen/spacing_2xl"
+            android:layout_marginEnd="@dimen/icon_medium"
             android:layout_gravity="end"
-            android:padding="4dp"
+            android:padding="@dimen/spacing_xs"
             android:src="@drawable/ic_menu"
             app:tint="@color/black" />
         <TextView
@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:text="Educated Worker Portfolio"
             android:textColor="@color/primary_green"
-            android:textSize="26sp"
+            android:textSize="@dimen/text_size_xl"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="@dimen/spacing_2xl"/>
 
         <!-- Academic Details Section -->
         <TextView
@@ -39,42 +39,42 @@
             android:text="Academic Details"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="@dimen/spacing_sm"/>
 
         <Spinner
             android:id="@+id/spinnerLastDegree"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:background="@drawable/edittext_border"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etDegreeTitle"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:hint="Degree Title / Major (e.g. Software Engineering)"
             android:background="@drawable/edittext_border"
-            android:paddingStart="16dp"
-            android:layout_marginBottom="12dp"/>
+            android:paddingStart="@dimen/spacing_default"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etBoardUniversity"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:hint="University / Board"
             android:background="@drawable/edittext_border"
-            android:paddingStart="16dp"
-            android:layout_marginBottom="12dp"/>
+            android:paddingStart="@dimen/spacing_default"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etPercentage"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:hint="Percentage / CGPA"
             android:inputType="numberDecimal"
             android:background="@drawable/edittext_border"
-            android:paddingStart="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:paddingStart="@dimen/spacing_default"
+            android:layout_marginBottom="@dimen/spacing_default"/>
 
         <!-- Professional Skills Section -->
         <TextView
@@ -83,55 +83,55 @@
             android:text="Professional Skills"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="@dimen/spacing_sm"/>
 
         <Spinner
             android:id="@+id/spinnerSkillCategory"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:background="@drawable/edittext_border"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="@dimen/spacing_sm"/>
 
         <EditText
             android:id="@+id/etCustomSkill"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:hint="Type your skill (if not in list)..."
             android:background="@drawable/edittext_border"
-            android:paddingStart="16dp"
+            android:paddingStart="@dimen/spacing_default"
             android:visibility="gone"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <!-- Experience Section -->
         <EditText
             android:id="@+id/etExperienceYears"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:hint="Years of Experience (if any)"
             android:inputType="number"
             android:background="@drawable/edittext_border"
-            android:paddingStart="16dp"
-            android:layout_marginBottom="12dp"/>
+            android:paddingStart="@dimen/spacing_default"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etLastWorkPlace"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:hint="Last place of work (if experienced)"
             android:background="@drawable/edittext_border"
-            android:paddingStart="16dp"
+            android:paddingStart="@dimen/spacing_default"
             android:visibility="gone"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
         <EditText
             android:id="@+id/etProfessionalDescription"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="@dimen/icon_2xlarge"
             android:hint="Tell us about yourself / Description"
             android:gravity="top"
-            android:padding="16dp"
+            android:padding="@dimen/spacing_default"
             android:background="@drawable/edittext_border"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="@dimen/spacing_default"/>
 
         <!-- Security & Surety Section -->
         <CheckBox
@@ -140,27 +140,27 @@
             android:layout_height="wrap_content"
             android:text="I hereby declare that all information provided is true and accurate. In case of any misinformation, my account can be deleted."
             android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="@dimen/text_size_sm"
+            android:layout_marginBottom="@dimen/spacing_sm"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Note: If you attempt any fraud or break the law, legal action will be taken against you by the police. The app will track your activities for security."
             android:textColor="@color/red"
-            android:textSize="11sp"
+            android:textSize="@dimen/text_size_xs"
             android:textStyle="italic"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="@dimen/spacing_lg"/>
 
         <Button
             android:id="@+id/btnUploadLastDegreeImage"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/input_field_height"
             android:text="UPLOAD LAST DEGREE PHOTO"
             app:strokeColor="@color/primary_green"
             android:textColor="@color/primary_green"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="@dimen/spacing_md" />
 
         <ImageView
             android:id="@+id/imgDegreePreview"
@@ -169,18 +169,18 @@
             android:visibility="gone"
             android:scaleType="centerInside"
             android:background="#F5F5F5"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="@dimen/icon_medium" />
 
         <Button
             android:id="@+id/btnSubmitPortfolio"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/btn_height_large"
             android:text="COMPLETE PORTFOLIO"
             android:background="@drawable/glass_bg"
             android:textStyle="bold"
             android:backgroundTint="@color/primary_green"
             app:cornerRadius="10dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="@dimen/spacing_lg"/>
 
     </LinearLayout>
 </ScrollView>

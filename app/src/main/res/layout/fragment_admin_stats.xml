@@ -9,16 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_default">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Platform Overview"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_size_lg"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="@dimen/spacing_default"/>
 
         <GridLayout
             android:layout_width="match_parent"
@@ -33,18 +33,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/spacing_sm"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="@dimen/spacing_default"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/icon_large"
+                        android:layout_height="@dimen/icon_large"
                         android:src="@drawable/ic_profile"
                         app:tint="@color/primary_green"/>
                     <TextView
@@ -52,15 +52,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="24sp"
+                        android:textSize="@dimen/text_size_xl"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="@dimen/spacing_sm"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Users"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_normal"
                         android:textColor="@color/grey"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -70,18 +70,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/spacing_sm"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="@dimen/spacing_default"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/icon_large"
+                        android:layout_height="@dimen/icon_large"
                         android:src="@drawable/ic_dot"
                         app:tint="#4CAF50"/>
                     <TextView
@@ -89,15 +89,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="24sp"
+                        android:textSize="@dimen/text_size_xl"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="@dimen/spacing_sm"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Active Now"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_normal"
                         android:textColor="@color/grey"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -107,18 +107,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/spacing_sm"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="@dimen/spacing_default"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/icon_large"
+                        android:layout_height="@dimen/icon_large"
                         android:src="@drawable/outline_cancel_schedule_send_24"
                         app:tint="#F44336"/>
                     <TextView
@@ -126,15 +126,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="24sp"
+                        android:textSize="@dimen/text_size_xl"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="@dimen/spacing_sm"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Rejected"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_normal"
                         android:textColor="@color/grey"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -144,18 +144,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/spacing_sm"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="@dimen/spacing_default"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/icon_large"
+                        android:layout_height="@dimen/icon_large"
                         android:src="@drawable/ic_messages"
                         app:tint="#2196F3"/>
                     <TextView
@@ -163,15 +163,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="24sp"
+                        android:textSize="@dimen/text_size_xl"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="@dimen/spacing_sm"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total Activities"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_normal"
                         android:textColor="@color/grey"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -183,10 +183,10 @@
             android:layout_height="wrap_content"
             android:text="Recent Activity Log"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_lg"
             android:textStyle="bold"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginTop="@dimen/icon_medium"
+            android:layout_marginBottom="@dimen/spacing_md"/>
             
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvActivityLog"

@@ -5,7 +5,7 @@
     android:layout_weight="1"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/spacing_sm">
 
     <TextView
         android:id="@+id/tvStatValue"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="4.9"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_lg"
         android:textStyle="bold" />
 
     <TextView
@@ -22,5 +22,5 @@
         android:layout_height="wrap_content"
         android:text="Rating"
         android:textColor="#CCFFFFFF"
-        android:textSize="12sp" />
+        android:textSize="@dimen/text_size_sm" />
 </LinearLayout>
