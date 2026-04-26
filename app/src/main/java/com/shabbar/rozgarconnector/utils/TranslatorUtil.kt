@@ -12,7 +12,7 @@ object TranslatorUtil {
     private const val KEY_LANG_URDU = "is_urdu_enabled"
     private var translator: Translator? = null
     private var isInitializing = false
-    private val pendingCallbacks = mutableListOf<() -> Unit>()
+    private var isModelReady = false
 
     fun isUrduEnabled(context: Context): Boolean {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -22,22 +22,14 @@ object TranslatorUtil {
     fun setUrduEnabled(context: Context, enabled: Boolean) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putBoolean(KEY_LANG_URDU, enabled).apply()
+        if (enabled && !isModelReady) initTranslator({}, {})
     }
 
     fun initTranslator(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        if (translator != null) {
-            onSuccess()
-            return
-        }
+        if (isModelReady) { onSuccess(); return }
+        if (isInitializing) return
 
-        if (isInitializing) {
-            pendingCallbacks.add(onSuccess)
-            return
-        }
-        
         isInitializing = true
-        pendingCallbacks.add(onSuccess)
-
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)
             .setTargetLanguage(TranslateLanguage.URDU)
@@ -50,35 +42,34 @@ object TranslatorUtil {
             .addOnSuccessListener {
                 translator = client
                 isInitializing = false
-                // Execute all pending callbacks
-                pendingCallbacks.forEach { it.invoke() }
-                pendingCallbacks.clear()
+                isModelReady = true
+                onSuccess()
             }
             .addOnFailureListener { exception ->
                 isInitializing = false
-                pendingCallbacks.clear()
                 onFailure(exception)
             }
     }
 
     fun translateText(text: String, onResult: (String) -> Unit) {
+        if (text.isEmpty()) { onResult(text); return }
+        
         val currentTranslator = translator
-        if (currentTranslator == null || text.isEmpty()) {
-            onResult(text)
+        if (currentTranslator == null || !isModelReady) {
+            // Auto-trigger init if needed
+            initTranslator({}, {})
+            onResult(text) // Return original for now
             return
         }
 
         currentTranslator.translate(text)
-            .addOnSuccessListener { translatedText ->
-                onResult(translatedText)
-            }
-            .addOnFailureListener {
-                onResult(text)
-            }
+            .addOnSuccessListener { onResult(it) }
+            .addOnFailureListener { onResult(text) }
     }
 
     fun close() {
         translator?.close()
         translator = null
+        isModelReady = false
     }
 }

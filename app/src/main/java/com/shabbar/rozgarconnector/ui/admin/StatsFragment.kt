@@ -44,13 +44,11 @@ class StatsFragment : Fragment() {
     }
 
     private fun loadStats() {
-        // Optimization: Don't load all user data, just count
         db.collection("users").addSnapshotListener { snapshots, e ->
             if (!isAdded || e != null) return@addSnapshotListener
             val size = snapshots?.size() ?: 0
             binding.tvTotalUsers.text = size.toString()
             
-            // Only loop if size is reasonable
             var online = 0
             var rejected = 0
             snapshots?.documents?.forEach { doc ->
@@ -68,7 +66,6 @@ class StatsFragment : Fragment() {
     }
 
     private fun loadActivityLog() {
-        // Use a more efficient query with limit
         db.collection("notifications")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .limit(20)
@@ -100,7 +97,8 @@ class StatsFragment : Fragment() {
             if (position >= list.size) return
             val item = list[position]
             holder.b.apply {
-                tvUserName.text = item.senderName.ifEmpty { "System" }
+                // Fix: Added safe call and default value for senderName
+                tvUserName.text = if (item.senderName?.isNotEmpty() == true) item.senderName else "System"
                 tvLastMessage.text = item.message
                 val sdf = SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault())
                 tvTime.text = item.timestamp?.toDate()?.let { sdf.format(it) } ?: "Just Now"

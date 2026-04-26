@@ -16,17 +16,21 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
+        android:elevation="8dp"
         app:itemHorizontalTranslationEnabled="false"
         app:itemActiveIndicatorStyle="@null"
         app:itemBackground="@drawable/nav_item_glow"
+        app:itemIconSize="22dp"
         app:itemIconTint="@color/nav_item_color"
+        app:itemPaddingBottom="4dp"
+        app:itemPaddingTop="8dp"
         app:itemTextAppearanceActive="@style/TextAppearance.Rozgar.BottomNav"
         app:itemTextAppearanceInactive="@style/TextAppearance.Rozgar.BottomNav"
         app:itemTextColor="@color/nav_item_color"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="selected"
         app:menu="@menu/seeker_bottom_nav" />
 
 </RelativeLayout>

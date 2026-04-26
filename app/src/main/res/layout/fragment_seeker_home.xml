@@ -4,187 +4,190 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#F8FAF5">
 
     <View
         android:id="@+id/headerBg"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/home_header_height"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
         android:background="@drawable/header_gradient_curved"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvHeaderTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/icon_medium"
-        android:layout_marginTop="@dimen/spacing_2xl"
-        android:text="@string/service_seeker"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Service Seeker"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_xl"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
+    <ImageView
         android:id="@+id/btnAnnouncements"
-        android:layout_width="@dimen/icon_large"
-        android:layout_height="@dimen/icon_large"
-        android:layout_marginEnd="@dimen/spacing_lg"
-        android:layout_marginTop="@dimen/spacing_2xl"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="20dp"
+        android:padding="6dp"
+        android:src="@drawable/ic_bell"
+        app:layout_constraintBottom_toBottomOf="@id/tvHeaderTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/spacing_sm"
-            android:src="@drawable/ic_bell"
-            app:tint="@color/white" />
-
-        <View
-            android:id="@+id/unreadBellDot"
-            android:layout_width="@dimen/spacing_sm"
-            android:layout_height="@dimen/spacing_sm"
-            android:layout_gravity="top|end"
-            android:layout_margin="@dimen/spacing_sm"
-            android:background="@drawable/circle_shape"
-            android:backgroundTint="@color/red"
-            android:visibility="gone" />
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="@id/tvHeaderTitle"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/find_workers"
+        android:text="Find top rated workers near you"
         android:textColor="#CCFFFFFF"
-        android:textSize="@dimen/text_size_normal"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
         app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/searchCard"
         android:layout_width="0dp"
-        android:layout_height="@dimen/filter_control_height"
-        android:layout_marginHorizontal="@dimen/spacing_lg"
-        android:layout_marginTop="@dimen/spacing_lg"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
+        android:layout_height="46dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="23dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/headerBg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
         app:strokeWidth="0dp">
 
-        <EditText
-            android:id="@+id/etSearchWorker"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="@dimen/spacing_md"
-            android:hint="@string/search_worker_hint"
-            android:paddingStart="@dimen/spacing_default"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_normal" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/black" />
+
+            <EditText
+                android:id="@+id/etSearchWorker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="Search worker..."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/workerToggleGroup"
+    <LinearLayout
+        android:id="@+id/toggleLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/spacing_lg"
-        android:layout_marginTop="@dimen/spacing_default"
-        app:checkedButton="@+id/btnEducated"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/toggle_bg_outline"
+        android:orientation="horizontal"
+        android:padding="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchCard"
-        app:singleSelection="true">
+        app:layout_constraintTop_toBottomOf="@id/headerBg">
 
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/btnEducated"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textAllCaps="false"
-            android:text="@string/educated_worker" />
+            android:background="@drawable/toggle_selected_bg"
+            android:gravity="center"
+            android:text="Educated"
+            android:textColor="@color/primary_green"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/btnUneducated"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textAllCaps="false"
-            android:text="@string/un_educated_worker" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            android:gravity="center"
+            android:text="Skilled"
+            android:textColor="@color/grey"
+            android:textSize="13sp" />
+    </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardDistrict"
+    <LinearLayout
+        android:id="@+id/filterLayout"
         android:layout_width="0dp"
-        android:layout_height="@dimen/filter_control_height"
-        android:layout_marginStart="@dimen/spacing_lg"
-        android:layout_marginTop="@dimen/spacing_md"
-        android:layout_marginEnd="@dimen/spacing_sm"
-        app:cardCornerRadius="22dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/cardSkill"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workerToggleGroup"
-        app:strokeWidth="0dp">
-
-        <Spinner
-            android:id="@+id/spinnerDistrict"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:paddingStart="@dimen/spacing_md"
-            android:spinnerMode="dropdown" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardSkill"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/filter_control_height"
-        android:layout_marginStart="@dimen/spacing_sm"
-        android:layout_marginTop="@dimen/spacing_md"
-        android:layout_marginEnd="@dimen/spacing_lg"
-        app:cardCornerRadius="22dp"
-        app:cardElevation="4dp"
+        android:layout_height="42dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cardDistrict"
-        app:layout_constraintTop_toBottomOf="@+id/workerToggleGroup"
-        app:strokeWidth="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toggleLayout">
 
-        <Spinner
-            android:id="@+id/spinnerSkill"
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:paddingStart="@dimen/spacing_md"
-            android:spinnerMode="dropdown" />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#F2F2F2"
+            app:cardCornerRadius="21dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <Spinner
+                android:id="@+id/spinnerDistrict"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:paddingStart="12dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#F2F2F2"
+            app:cardCornerRadius="21dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <Spinner
+                android:id="@+id/spinnerSkill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:paddingStart="12dp" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/spacing_sm"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDistrict">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filterLayout">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvWorkers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="@dimen/spacing_sm" />
+            android:paddingBottom="16dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
@@ -195,17 +198,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDistrict" />
+        app:layout_constraintTop_toBottomOf="@id/filterLayout" />
 
-    <TextView
-        android:id="@+id/tvNoResults"
+    <LinearLayout
+        android:id="@+id/llEmptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No workers found matching your filters."
+        android:orientation="vertical"
+        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDistrict" />
+        app:layout_constraintTop_toBottomOf="@id/filterLayout">
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_profile"
+            android:alpha="0.2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No workers found"
+            android:textColor="@color/grey" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

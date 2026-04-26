@@ -2,7 +2,11 @@ package com.shabbar.rozgarconnector.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,6 +18,7 @@ import com.shabbar.rozgarconnector.ui.fragments.MessagesFragment
 import com.shabbar.rozgarconnector.ui.fragments.ActivitiesFragment
 import com.shabbar.rozgarconnector.ui.fragments.ProfileFragment
 import com.shabbar.rozgarconnector.ui.job.JobPostActivity
+import com.shabbar.rozgarconnector.ui.job.WorkPostActivity
 
 class SeekerHomeActivity : AppCompatActivity() {
 
@@ -48,34 +53,23 @@ class SeekerHomeActivity : AppCompatActivity() {
                 add(R.id.fragment_container, seekerHomeFragment, "home")
             }.commit()
             activeFragment = seekerHomeFragment
-        } else {
-            seekerHomeFragment = supportFragmentManager.findFragmentByTag("home") as SeekerHomeFragment
-            activitiesFragment = supportFragmentManager.findFragmentByTag("activities") as ActivitiesFragment
-            messagesFragment = supportFragmentManager.findFragmentByTag("messages") as MessagesFragment
-            profileFragment = supportFragmentManager.findFragmentByTag("profile") as ProfileFragment
-            
-            // Hide all and show only the selected one to avoid overlapping
-            supportFragmentManager.beginTransaction().hide(seekerHomeFragment).hide(activitiesFragment).hide(messagesFragment).hide(profileFragment).commit()
-            
-            activeFragment = when (binding.bottomNav.selectedItemId) {
-                R.id.nav_home -> seekerHomeFragment
-                R.id.nav_notifications -> activitiesFragment
-                R.id.nav_messages -> messagesFragment
-                R.id.nav_profile -> profileFragment
-                else -> seekerHomeFragment
-            }
-            supportFragmentManager.beginTransaction().show(activeFragment!!).commit()
         }
 
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> showFragment(seekerHomeFragment)
                 R.id.nav_post_job -> {
-                    startActivity(Intent(this, JobPostActivity::class.java))
+                    showPostChoiceDialog()
                     return@setOnItemSelectedListener false
                 }
-                R.id.nav_notifications -> showFragment(activitiesFragment)
-                R.id.nav_messages -> showFragment(messagesFragment)
+                R.id.nav_notifications -> {
+                    showFragment(activitiesFragment)
+                    clearBadge(R.id.nav_notifications)
+                }
+                R.id.nav_messages -> {
+                    showFragment(messagesFragment)
+                    clearBadge(R.id.nav_messages)
+                }
                 R.id.nav_profile -> showFragment(profileFragment)
             }
             true
@@ -84,27 +78,32 @@ class SeekerHomeActivity : AppCompatActivity() {
         listenForBadges()
     }
 
+    private fun showPostChoiceDialog() {
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_post_choice, null)
+        val dialog = AlertDialog.Builder(this, R.style.CustomAlertDialog).setView(view).create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        view.findViewById<View>(R.id.btnChoiceEducated).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, JobPostActivity::class.java))
+        }
+
+        view.findViewById<View>(R.id.btnChoiceManual).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, WorkPostActivity::class.java))
+        }
+
+        view.findViewById<View>(R.id.btnCancelChoice).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
     private fun showFragment(fragment: Fragment) {
         if (activeFragment == fragment) return
         supportFragmentManager.beginTransaction().hide(activeFragment!!).show(fragment).commit()
         activeFragment = fragment
-    }
-
-    override fun onStart() {
-        super.onStart()
-        updateOnlineStatus(true)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        updateOnlineStatus(false)
-        messageListener?.remove()
-        notificationListener?.remove()
-    }
-
-    private fun updateOnlineStatus(isOnline: Boolean) {
-        val uid = auth.currentUser?.uid ?: return
-        db.collection("users").document(uid).update("isOnline", isOnline)
     }
 
     private fun listenForBadges() {
@@ -131,8 +130,19 @@ class SeekerHomeActivity : AppCompatActivity() {
         if (count > 0) {
             badge.isVisible = true
             badge.number = count
+            badge.backgroundColor = ContextCompat.getColor(this, R.color.red)
         } else {
             badge.isVisible = false
         }
+    }
+
+    private fun clearBadge(menuItemId: Int) {
+        binding.bottomNav.getBadge(menuItemId)?.isVisible = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        messageListener?.remove()
+        notificationListener?.remove()
     }
 }

@@ -2,6 +2,7 @@ package com.shabbar.rozgarconnector.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -46,35 +47,19 @@ class ProviderHomeActivity : AppCompatActivity() {
                 add(R.id.fragment_container, providerHomeFragment, "home")
             }.commit()
             activeFragment = providerHomeFragment
-        } else {
-            providerHomeFragment = supportFragmentManager.findFragmentByTag("home") as ProviderHomeFragment
-            activitiesFragment = supportFragmentManager.findFragmentByTag("activities") as ActivitiesFragment
-            messagesFragment = supportFragmentManager.findFragmentByTag("messages") as MessagesFragment
-            profileFragment = supportFragmentManager.findFragmentByTag("profile") as ProfileFragment
-            
-            // Hide all and show only the selected one to avoid overlapping
-            supportFragmentManager.beginTransaction()
-                .hide(providerHomeFragment)
-                .hide(activitiesFragment)
-                .hide(messagesFragment)
-                .hide(profileFragment)
-                .commit()
-            
-            activeFragment = when (binding.bottomNav.selectedItemId) {
-                R.id.nav_home -> providerHomeFragment
-                R.id.nav_notifications -> activitiesFragment
-                R.id.nav_messages -> messagesFragment
-                R.id.nav_profile -> profileFragment
-                else -> providerHomeFragment
-            }
-            supportFragmentManager.beginTransaction().show(activeFragment!!).commit()
         }
 
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> showFragment(providerHomeFragment)
-                R.id.nav_notifications -> showFragment(activitiesFragment)
-                R.id.nav_messages -> showFragment(messagesFragment)
+                R.id.nav_notifications -> {
+                    showFragment(activitiesFragment)
+                    clearBadge(R.id.nav_notifications)
+                }
+                R.id.nav_messages -> {
+                    showFragment(messagesFragment)
+                    clearBadge(R.id.nav_messages)
+                }
                 R.id.nav_profile -> showFragment(profileFragment)
             }
             true
@@ -89,23 +74,6 @@ class ProviderHomeActivity : AppCompatActivity() {
         activeFragment = fragment
     }
 
-    override fun onStart() {
-        super.onStart()
-        updateOnlineStatus(true)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        updateOnlineStatus(false)
-        messageListener?.remove()
-        notificationListener?.remove()
-    }
-
-    private fun updateOnlineStatus(isOnline: Boolean) {
-        val uid = auth.currentUser?.uid ?: return
-        db.collection("users").document(uid).update("isOnline", isOnline)
-    }
-
     private fun listenForBadges() {
         val uid = auth.currentUser?.uid ?: return
 
@@ -113,14 +81,16 @@ class ProviderHomeActivity : AppCompatActivity() {
             .whereEqualTo("receiverId", uid)
             .whereEqualTo("isRead", false)
             .addSnapshotListener { snapshots, _ ->
-                updateBadge(R.id.nav_messages, snapshots?.size() ?: 0)
+                val unreadCount = snapshots?.size() ?: 0
+                updateBadge(R.id.nav_messages, unreadCount)
             }
 
         notificationListener = db.collection("notifications")
             .whereEqualTo("receiverId", uid)
             .whereEqualTo("isRead", false)
             .addSnapshotListener { snapshots, _ ->
-                updateBadge(R.id.nav_notifications, snapshots?.size() ?: 0)
+                val unreadCount = snapshots?.size() ?: 0
+                updateBadge(R.id.nav_notifications, unreadCount)
             }
     }
 
@@ -130,8 +100,19 @@ class ProviderHomeActivity : AppCompatActivity() {
         if (count > 0) {
             badge.isVisible = true
             badge.number = count
+            badge.backgroundColor = ContextCompat.getColor(this, R.color.red)
         } else {
             badge.isVisible = false
         }
+    }
+
+    private fun clearBadge(menuItemId: Int) {
+        binding.bottomNav.getBadge(menuItemId)?.isVisible = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        messageListener?.remove()
+        notificationListener?.remove()
     }
 }

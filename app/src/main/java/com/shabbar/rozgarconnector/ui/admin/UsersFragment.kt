@@ -1,11 +1,9 @@
 package com.shabbar.rozgarconnector.ui.admin
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +40,7 @@ class UsersFragment : Fragment() {
             when (action) {
                 "DETAIL" -> {
                     val intent = Intent(requireContext(), VerificationDetailActivity::class.java)
-                    intent.putExtra("USER_ID", user.uid)
+                    intent.putExtra("USER_ID", user.uid ?: "")
                     startActivity(intent)
                 }
                 "BLOCK" -> toggleBlockStatus(user)
@@ -88,8 +86,11 @@ class UsersFragment : Fragment() {
     }
 
     private fun toggleBlockStatus(user: UserModel) {
+        val uid = user.uid
+        if (uid.isNullOrEmpty()) return
+        
         val newStatus = !user.isBlocked
-        db.collection("users").document(user.uid).update("isBlocked", newStatus)
+        db.collection("users").document(uid).update("isBlocked", newStatus)
             .addOnSuccessListener {
                 val msg = if (newStatus) "User Blocked" else "User Unblocked"
                 Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
@@ -97,11 +98,14 @@ class UsersFragment : Fragment() {
     }
 
     private fun deleteUser(user: UserModel) {
+        val uid = user.uid
+        if (uid.isNullOrEmpty()) return
+
         androidx.appcompat.app.AlertDialog.Builder(requireContext())
             .setTitle("Delete User")
-            .setMessage("Are you sure you want to delete ${user.fullName}?")
+            .setMessage("Are you sure you want to delete ${user.fullName ?: "this user"}?")
             .setPositiveButton("Delete") { _, _ ->
-                db.collection("users").document(user.uid).delete()
+                db.collection("users").document(uid).delete()
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "User Deleted", Toast.LENGTH_SHORT).show()
                     }
@@ -117,7 +121,9 @@ class UsersFragment : Fragment() {
         } else {
             val q = query.lowercase()
             allUsers.forEach { user ->
-                if (user.fullName.lowercase().contains(q) || user.cnic.contains(q)) {
+                val nameMatch = user.fullName?.lowercase()?.contains(q) ?: false
+                val cnicMatch = user.cnic?.contains(q) ?: false
+                if (nameMatch || cnicMatch) {
                     filteredUsers.add(user)
                 }
             }
@@ -145,9 +151,9 @@ class UsersFragment : Fragment() {
         override fun onBindViewHolder(holder: UserVH, position: Int) {
             val user = list[position]
             holder.b.apply {
-                tvUserName.text = user.fullName
-                tvUserRole.text = user.role.uppercase()
-                tvUserCnic.text = "CNIC: ${user.cnic}"
+                tvUserName.text = user.fullName ?: "No Name"
+                tvUserRole.text = user.role?.uppercase() ?: "USER"
+                tvUserCnic.text = "CNIC: ${user.cnic ?: "N/A"}"
                 
                 if (user.isVerified) {
                     tvStatusBadge.text = "VERIFIED"

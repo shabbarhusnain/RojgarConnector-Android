@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.adapters.WorkerAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentSeekerHomeBinding
@@ -25,11 +27,12 @@ class SeekerHomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val db = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+    private var workerListener: ListenerRegistration? = null
     
     private var fullWorkerList = mutableListOf<UserModel>()
     private var filteredList = mutableListOf<UserModel>()
     private lateinit var adapter: WorkerAdapter
+    private var isEducatedSelected = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSeekerHomeBinding.inflate(inflater, container, false)
@@ -42,52 +45,78 @@ class SeekerHomeFragment : Fragment() {
         setupRecyclerView()
         setupFilters()
         setupSearch()
-        listenForAnnouncements()
+        setupToggleLogic()
 
-        val initialEducated = binding.btnEducated.isChecked
-        updateCategorySpinner(initialEducated)
-        loadWorkers(initialEducated)
-
-        binding.workerToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (isChecked) {
-                val isEducated = (checkedId == R.id.btnEducated)
-                updateCategorySpinner(isEducated)
-                loadWorkers(isEducated)
-            }
-        }
+        updateToggleUI()
+        startWorkerListener(isEducatedSelected)
 
         binding.swipeRefresh.setOnRefreshListener {
-            loadWorkers(binding.btnEducated.isChecked)
+            startWorkerListener(isEducatedSelected)
         }
-
-        // Settings click listener removed
 
         binding.btnAnnouncements.setOnClickListener {
             startActivity(Intent(requireContext(), NotificationsActivity::class.java))
         }
-
-        updateLabels()
     }
 
-    private fun listenForAnnouncements() {
-        val uid = auth.currentUser?.uid ?: return
-        db.collection("notifications")
-            .whereEqualTo("type", "broadcast")
-            .whereEqualTo("isRead", false)
-            .addSnapshotListener { snapshots, _ ->
+    private fun startWorkerListener(isEducated: Boolean) {
+        workerListener?.remove()
+        
+        val typeToFilter = if (isEducated) "educated" else "uneducated"
+        binding.swipeRefresh.isRefreshing = true
+
+        // WORKFLOW REPAIR: Simplified role query to only 'provider'
+        workerListener = db.collection("users")
+            .whereEqualTo("role", "provider")
+            .whereEqualTo("workerType", typeToFilter)
+            .whereEqualTo("isVerified", true)
+            .addSnapshotListener { snapshots, e ->
                 if (!isAdded) return@addSnapshotListener
-                val hasUnread = snapshots != null && !snapshots.isEmpty
-                binding.unreadBellDot.visibility = if (hasUnread) View.VISIBLE else View.GONE
+                binding.swipeRefresh.isRefreshing = false
+
+                if (snapshots != null) {
+                    fullWorkerList.clear()
+                    snapshots.forEach { doc ->
+                        val worker = doc.toObject(UserModel::class.java).apply { uid = doc.id }
+                        fullWorkerList.add(worker)
+                    }
+                    filterData()
+                }
             }
     }
 
-    private fun updateLabels() {
-        if (!isAdded) return
-        binding.tvHeaderTitle.text = getString(R.string.service_seeker)
-        binding.tvSubtitle.text = getString(R.string.find_workers)
-        binding.btnEducated.text = getString(R.string.educated_worker)
-        binding.btnUneducated.text = getString(R.string.un_educated_worker)
-        binding.etSearchWorker.hint = getString(R.string.search_worker_hint)
+    private fun setupToggleLogic() {
+        binding.btnEducated.setOnClickListener {
+            if (!isEducatedSelected) {
+                isEducatedSelected = true
+                updateToggleUI()
+                updateCategorySpinner(true)
+                startWorkerListener(true)
+            }
+        }
+
+        binding.btnUneducated.setOnClickListener {
+            if (isEducatedSelected) {
+                isEducatedSelected = false
+                updateToggleUI()
+                updateCategorySpinner(false)
+                startWorkerListener(false)
+            }
+        }
+    }
+
+    private fun updateToggleUI() {
+        if (isEducatedSelected) {
+            binding.btnEducated.setBackgroundResource(R.drawable.toggle_selected_bg)
+            binding.btnEducated.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_green))
+            binding.btnUneducated.setBackgroundResource(0)
+            binding.btnUneducated.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_grey))
+        } else {
+            binding.btnUneducated.setBackgroundResource(R.drawable.toggle_selected_bg)
+            binding.btnUneducated.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_green))
+            binding.btnEducated.setBackgroundResource(0)
+            binding.btnEducated.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_grey))
+        }
     }
 
     private fun setupRecyclerView() {
@@ -107,13 +136,14 @@ class SeekerHomeFragment : Fragment() {
         }
         binding.spinnerDistrict.onItemSelectedListener = filterListener
         binding.spinnerSkill.onItemSelectedListener = filterListener
+        updateCategorySpinner(isEducatedSelected)
     }
 
     private fun updateCategorySpinner(isEducated: Boolean) {
         val categories = if (isEducated) {
-            resources.getStringArray(R.array.educated_categories).toMutableList()
+            resources.getStringArray(R.array.educated_job_categories).toMutableList()
         } else {
-            resources.getStringArray(R.array.skill_categories).toMutableList()
+            resources.getStringArray(R.array.uneducated_skill_categories).toMutableList()
         }
         if (!categories.contains("All Categories")) categories.add(0, "All Categories")
         binding.spinnerSkill.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, categories)
@@ -127,31 +157,6 @@ class SeekerHomeFragment : Fragment() {
         })
     }
 
-    private fun loadWorkers(isEducated: Boolean) {
-        val typeToFilter = if (isEducated) "educated" else "uneducated"
-        binding.swipeRefresh.isRefreshing = true
-
-        db.collection("users")
-            .whereIn("role", listOf("Worker", "worker", "provider", "Provider"))
-            .whereEqualTo("workerType", typeToFilter)
-            .whereEqualTo("isVerified", true)
-            .get()
-            .addOnSuccessListener { snapshots ->
-                if (!isAdded) return@addOnSuccessListener
-                binding.swipeRefresh.isRefreshing = false
-
-                fullWorkerList.clear()
-                snapshots?.forEach { doc ->
-                    val worker = doc.toObject(UserModel::class.java).apply { uid = doc.id }
-                    fullWorkerList.add(worker)
-                }
-                filterData()
-            }
-            .addOnFailureListener {
-                binding.swipeRefresh.isRefreshing = false
-            }
-    }
-
     private fun filterData() {
         val query = binding.etSearchWorker.text.toString().lowercase().trim()
         val district = binding.spinnerDistrict.selectedItem?.toString() ?: "All Districts"
@@ -159,27 +164,23 @@ class SeekerHomeFragment : Fragment() {
 
         filteredList.clear()
         for (worker in fullWorkerList) {
-            val nameMatch = worker.fullName.lowercase().contains(query)
+            val nameMatch = worker.fullName?.lowercase()?.contains(query) ?: false
             val districtMatch = district == "All Districts" || worker.district == district
             
-            val skillField = if (worker.workerType == "educated") {
-                "${worker.professionalSkill} ${worker.degreeName}".lowercase()
-            } else {
-                worker.professionalSkill?.lowercase() ?: ""
-            }
-            
-            val categoryMatch = if (category == "All Categories") true 
-                               else skillField.contains(category.lowercase())
+            // WORKFLOW REPAIR: Check both 'professionalSkill' and 'skills' fields
+            val skillField = "${worker.professionalSkill ?: ""} ${worker.skills ?: ""} ${worker.degreeName ?: ""}".lowercase()
+            val categoryMatch = if (category == "All Categories") true else skillField.contains(category.lowercase())
 
             if (nameMatch && districtMatch && categoryMatch) {
                 filteredList.add(worker)
             }
         }
         adapter.notifyDataSetChanged()
-        binding.tvNoResults.visibility = if (filteredList.isEmpty()) View.VISIBLE else View.GONE
+        binding.llEmptyState.visibility = if (filteredList.isEmpty()) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {
+        workerListener?.remove()
         super.onDestroyView()
         _binding = null
     }

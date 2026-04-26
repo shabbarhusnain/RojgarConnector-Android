@@ -12,7 +12,6 @@ import com.shabbar.rozgarconnector.ui.home.ProviderHomeActivity
 import com.shabbar.rozgarconnector.ui.role.RoleSelectionActivity
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
-import com.shabbar.rozgarconnector.ui.settings.MenuActivity
 
 class PendingApprovalActivity : AppCompatActivity() {
 
@@ -27,21 +26,15 @@ class PendingApprovalActivity : AppCompatActivity() {
 
         listenForStatus()
 
-        binding.btnSettings.setOnClickListener {
-            startActivity(Intent(this, MenuActivity::class.java))
-        }
-
         binding.btnLogout.setOnClickListener {
             auth.signOut()
             navigateToLogin()
         }
 
         binding.btnReApply.setOnClickListener {
-            // Take user back to RegisterActivity in "Update Mode" to fix rejected details
             val intent = Intent(this, RegisterActivity::class.java)
             intent.putExtra("IS_UPDATE_MODE", true)
             startActivity(intent)
-            // Note: We don't finish() here because we want them to come back to pending state after update
         }
     }
 
@@ -56,7 +49,6 @@ class PendingApprovalActivity : AppCompatActivity() {
                     val isRejected = snapshot.getBoolean("isRejected") ?: false
                     val rejectionReason = snapshot.getString("rejectionReason") ?: "Documents quality was not sufficient."
 
-                    // Handle Rejection UI
                     if (isRejected) {
                         binding.llPendingView.visibility = View.GONE
                         binding.llRejectedView.visibility = View.VISIBLE
@@ -67,7 +59,6 @@ class PendingApprovalActivity : AppCompatActivity() {
                         binding.llRejectedView.visibility = View.GONE
                     }
 
-                    // Handle Approval Navigation
                     if (isVerified) {
                         val role = (snapshot.getString("role") ?: "").lowercase()
                         val workerType = (snapshot.getString("workerType") ?: "").lowercase()

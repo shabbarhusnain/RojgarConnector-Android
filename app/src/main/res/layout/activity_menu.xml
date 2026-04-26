@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/icon_medium">
+            android:layout_marginBottom="@dimen/spacing_lg">
 
             <ImageButton
                 android:id="@+id/btnBack"
@@ -203,7 +203,7 @@
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_action_height"
-            android:layout_marginTop="@dimen/icon_medium"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:backgroundTint="#FFF1F1"
             android:text="@string/logout"
             android:textAllCaps="false"

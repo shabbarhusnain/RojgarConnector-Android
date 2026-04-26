@@ -16,7 +16,7 @@
         android:textSize="@dimen/settings_title_size"
         android:textStyle="bold"
         android:textColor="@color/primary_green"
-        android:layout_marginBottom="@dimen/icon_medium"/>
+        android:layout_marginBottom="@dimen/spacing_lg"/>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switchLanguage"

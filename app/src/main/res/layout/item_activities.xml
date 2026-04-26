@@ -4,26 +4,26 @@
     android:id="@+id/cardContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="0dp"
-    android:layout_marginVertical="2dp"
-    android:backgroundTint="#F1FBE3"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="8dp"
-    app:strokeColor="#FFFFFF"
-    app:strokeWidth="1.5dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    android:backgroundTint="#F8FAF5"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="2dp"
+    app:strokeColor="#A5C875"
+    app:strokeWidth="0.5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_md">
+        android:padding="16dp">
 
-        <!-- Active Header Info (Work in Progress / Days Left) -->
+        <!-- Active Info Header -->
         <LinearLayout
             android:id="@+id/llActiveInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_md"
+            android:layout_marginBottom="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -33,172 +33,181 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/work_in_progress"
+                android:text="Work In Progress"
                 android:textColor="@color/primary_green"
-                android:textSize="@dimen/text_size_lg"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvDaysLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#F6EAD8"
-                android:paddingHorizontal="@dimen/spacing_sm"
+                android:background="#FDEEDC"
+                android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
-                android:text="@string/days_left"
-                android:textColor="#E60000"
-                android:textSize="@dimen/text_size_xs"
+                android:text="2 Days Left"
+                android:textColor="#E65100"
+                android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:layout_width="@dimen/btn_height_small"
-                android:layout_height="@dimen/btn_height_small"
-                android:layout_marginEnd="@dimen/spacing_md">
+            <ImageView
+                android:id="@+id/ivNotificationIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/circle_shape"
+                android:backgroundTint="#F1FBE3"
+                android:padding="8dp"
+                android:src="@drawable/ic_notification"
+                app:tint="@color/primary_green" />
 
-                <ImageView
-                    android:id="@+id/ivNotificationIcon"
-                    android:layout_width="@dimen/btn_height_small"
-                    android:layout_height="@dimen/btn_height_small"
-                    android:background="@drawable/circle_shape"
-                    android:backgroundTint="#FAFAFB"
-                    android:padding="@dimen/spacing_md"
-                    android:src="@drawable/ic_notification"
-                    app:tint="@color/primary_green" />
-
-                <!-- Red badge dot for unread notifications -->
-                <View
-                    android:id="@+id/redDot"
-                    android:layout_width="@dimen/spacing_md"
-                    android:layout_height="@dimen/spacing_md"
-                    android:layout_gravity="top|end"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/circle_shape"
-                    android:backgroundTint="#FF0000"
-                    android:visibility="gone" />
-            </FrameLayout>
+            <View
+                android:id="@+id/redDot"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignTop="@id/ivNotificationIcon"
+                android:layout_alignEnd="@id/ivNotificationIcon"
+                android:background="@drawable/circle_shape"
+                android:backgroundTint="#FF0000"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@id/ivNotificationIcon"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvNotificationTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Update"
+                    android:text="Senior Developer"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_normal"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvNotificationTimestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/just_now"
-                    android:textColor="@color/grey"
-                    android:textSize="@dimen/text_size_xs" />
+                    android:text="10:55 PM"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvStatusLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/docglass_bg"
-                android:paddingHorizontal="@dimen/spacing_md"
-                android:paddingVertical="@dimen/spacing_xs"
-                android:text="@string/pending"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/toggle_selected_bg"
+                android:backgroundTint="#FF9800"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="PENDING"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_xs"
+                android:textSize="12sp"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvNotificationMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:lineSpacingExtra="@dimen/spacing_xs"
-            android:text="Message details go here..."
+            android:layout_marginTop="12dp"
+            android:text="Budget: Rs. 80000 - PENDING"
             android:textColor="#555555"
-            android:textSize="@dimen/text_size_md" />
+            android:textSize="15sp" />
 
-        <!-- Emergency & Action Section -->
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/llActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md">
+            android:layout_marginTop="12dp"
+            android:gravity="end"
+            android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEmergency"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/sos"
+                android:text="SOS"
                 android:textColor="@color/red"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:icon="@android:drawable/ic_menu_call"
                 app:iconTint="@color/red" />
 
-            <LinearLayout
-                android:id="@+id/llActionArea"
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:orientation="horizontal">
+                android:text="DELETE"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconTint="@color/red" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCancel"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cancel"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/text_size_sm"
-                    app:icon="@android:drawable/ic_menu_close_clear_cancel"
-                    app:iconSize="16dp"
-                    app:iconTint="@color/red" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/primary_green"
+                android:text="EDIT"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:cornerRadius="20dp"
+                app:icon="@android:drawable/ic_menu_edit"
+                app:iconTint="@color/white" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnComplete"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_sm"
-                    android:background="@drawable/glass_bg"
-                    android:backgroundTint="@color/primary_green"
-                    android:text="@string/finish_job"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_sm"
-                    android:visibility="gone"
-                    app:cornerRadius="8dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CANCEL"
+                android:textColor="@color/red"
+                app:icon="@android:drawable/ic_menu_close_clear_cancel"
+                app:iconTint="@color/red" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnChat"
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_sm"
-                    android:background="@drawable/glass_bg"
-                    android:backgroundTint="@color/primary_green"
-                    android:text="@string/chat_btn"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_sm"
-                    app:cornerRadius="8dp"
-                    app:icon="@drawable/ic_messages"
-                    app:iconSize="20dp"
-                    app:iconTint="@color/white" />
-            </LinearLayout>
-        </RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/primary_green"
+                android:text="FINISH"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:cornerRadius="20dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/primary_green"
+                android:text="CHAT"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp"
+                app:icon="@drawable/ic_messages"
+                app:iconSize="18dp"
+                app:iconTint="@color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

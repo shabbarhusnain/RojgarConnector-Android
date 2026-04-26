@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,14 +24,16 @@ class EducatedWorkerProfileActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
-    private var degreeImageUri: Uri? = null
+    private var projectPhotoUri: Uri? = null
+    private var base64ProjectPhoto: String? = null
 
-    private val pickDegree = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        degreeImageUri = uri
+    private val pickProjectPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) {
-            binding.imgDegreePreview.visibility = View.VISIBLE
-            binding.imgDegreePreview.setImageURI(uri)
-            binding.btnUploadLastDegreeImage.text = "Degree Photo Selected ✅"
+            projectPhotoUri = uri
+            binding.ivProjectPhoto.setImageURI(uri)
+            binding.ivProjectPhoto.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+            binding.btnRemoveProjectPhoto.visibility = View.VISIBLE
+            base64ProjectPhoto = uriToBase64(uri)
         }
     }
 
@@ -42,93 +43,112 @@ class EducatedWorkerProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupSpinners()
+        loadExistingData()
 
-        binding.btnUploadLastDegreeImage.setOnClickListener { pickDegree.launch("image/*") }
-        binding.btnSubmitPortfolio.setOnClickListener { handleSubmit() }
+        binding.btnUploadProjectPhoto.setOnClickListener { pickProjectPhoto.launch("image/*") }
         
-        // Hide/Show "Last place of work" based on experience years
-        binding.etExperienceYears.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val years = binding.etExperienceYears.text.toString().trim()
-                if (years.isNotEmpty() && years.toInt() > 0) {
-                    binding.etLastWorkPlace.visibility = View.VISIBLE
-                } else {
-                    binding.etLastWorkPlace.visibility = View.GONE
+        binding.btnRemoveProjectPhoto.setOnClickListener {
+            projectPhotoUri = null
+            base64ProjectPhoto = null
+            binding.ivProjectPhoto.setImageResource(R.drawable.ic_add_circle)
+            binding.ivProjectPhoto.scaleType = android.widget.ImageView.ScaleType.CENTER
+            binding.btnRemoveProjectPhoto.visibility = View.GONE
+        }
+
+        binding.btnSubmitPortfolio.setOnClickListener { handleSubmit() }
+    }
+
+    private fun loadExistingData() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            if (doc.exists()) {
+                binding.etDegreeTitle.setText(doc.getString("degreeName"))
+                binding.etProfessionalServices.setText(doc.getString("professionalSkill"))
+                binding.etExperienceYears.setText(doc.getString("experienceYears"))
+                binding.etLastWorkPlace.setText(doc.getString("lastWorkPlace"))
+                binding.etJobTitle.setText(doc.getString("jobTitle"))
+                binding.etDuration.setText(doc.getString("employmentDuration"))
+                binding.etProfessionalDescription.setText(doc.getString("professionalDescription"))
+                binding.etCertifications.setText(doc.getString("certifications"))
+                
+                val photo = doc.getString("projectPhotoBase64")
+                if (!photo.isNullOrEmpty()) {
+                    base64ProjectPhoto = photo
+                    com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync(photo, {
+                        binding.ivProjectPhoto.setImageBitmap(it)
+                        binding.ivProjectPhoto.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                        binding.btnRemoveProjectPhoto.visibility = View.VISIBLE
+                    }, {})
+                }
+
+                val lastDegree = doc.getString("lastDegree")
+                if (lastDegree != null) {
+                    val adapter = binding.spinnerLastDegree.adapter as? ArrayAdapter<String>
+                    val pos = adapter?.getPosition(lastDegree) ?: -1
+                    if (pos >= 0) binding.spinnerLastDegree.setSelection(pos)
+                }
+
+                val skillCat = doc.getString("skills")
+                if (skillCat != null) {
+                    val adapter = binding.spinnerSkillCategory.adapter as? ArrayAdapter<String>
+                    val pos = adapter?.getPosition(skillCat) ?: -1
+                    if (pos >= 0) binding.spinnerSkillCategory.setSelection(pos)
                 }
             }
         }
     }
 
     private fun setupSpinners() {
-        // Updated Last Degree Spinner (Simplified as per request)
         val degrees = arrayOf("Metric", "Intermediate", "BS", "Master", "PhD")
         binding.spinnerLastDegree.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, degrees).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
 
-        // Skills Spinner (from resources)
-        val skills = resources.getStringArray(R.array.educated_categories).toMutableList()
+        val skills = resources.getStringArray(R.array.educated_job_categories).toMutableList()
         if (!skills.contains("Other")) skills.add("Other")
         
         binding.spinnerSkillCategory.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, skills).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
-
-        binding.spinnerSkillCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                if (skills[p2] == "Other") {
-                    binding.etCustomSkill.visibility = View.VISIBLE
-                } else {
-                    binding.etCustomSkill.visibility = View.GONE
-                }
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
     }
 
     private fun handleSubmit() {
         val degreeTitle = binding.etDegreeTitle.text.toString().trim()
-        val board = binding.etBoardUniversity.text.toString().trim()
-        val percentage = binding.etPercentage.text.toString().trim()
+        val services = binding.etProfessionalServices.text.toString().trim()
         val description = binding.etProfessionalDescription.text.toString().trim()
         val years = binding.etExperienceYears.text.toString().trim()
-        val lastPlace = binding.etLastWorkPlace.text.toString().trim()
-        val skill = if (binding.spinnerSkillCategory.selectedItem == "Other") {
-            binding.etCustomSkill.text.toString().trim()
-        } else {
-            binding.spinnerSkillCategory.selectedItem.toString()
-        }
 
-        if (degreeTitle.isEmpty() || board.isEmpty() || percentage.isEmpty() || description.isEmpty() || skill.isEmpty() || degreeImageUri == null) {
-            Toast.makeText(this, "Please fill all fields and upload degree image!", Toast.LENGTH_SHORT).show()
+        if (degreeTitle.isEmpty() || services.isEmpty() || description.isEmpty() || years.isEmpty()) {
+            Toast.makeText(this, "Please fill main fields!", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (!binding.cbSurety.isChecked) {
-            Toast.makeText(this, "Please check the surety box!", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val portfolioData = hashMapOf(
+        val portfolioData = mutableMapOf<String, Any>(
             "lastDegree" to binding.spinnerLastDegree.selectedItem.toString(),
-            "degreeName" to degreeTitle, // This is what the user asked for
-            "boardUniversity" to board,
-            "percentageCGPA" to percentage,
-            "professionalSkill" to skill,
+            "degreeName" to degreeTitle,
+            "professionalSkill" to services,
+            "skills" to binding.spinnerSkillCategory.selectedItem.toString(),
             "experienceYears" to years,
-            "lastWorkPlace" to lastPlace,
+            "lastWorkPlace" to binding.etLastWorkPlace.text.toString().trim(),
+            "jobTitle" to binding.etJobTitle.text.toString().trim(),
+            "employmentDuration" to binding.etDuration.text.toString().trim(),
+            "certifications" to binding.etCertifications.text.toString().trim(),
             "professionalDescription" to description,
-            "degreePhotoBase64" to uriToBase64(degreeImageUri!!),
             "profileCompleted" to true,
-            "role" to "Worker",
+            "role" to "provider", // FIXED: Always save as provider (lowercase)
             "workerType" to "educated"
         )
+        
+        portfolioData["projectPhotoBase64"] = base64ProjectPhoto ?: ""
 
         val uid = auth.currentUser?.uid ?: return
-        db.collection("users").document(uid).update(portfolioData as Map<String, Any>)
+        db.collection("users").document(uid).update(portfolioData)
             .addOnSuccessListener {
-                Toast.makeText(this, "Portfolio Completed!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, ProviderHomeActivity::class.java))
+                Toast.makeText(this, "Portfolio Updated Successfully!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ProviderHomeActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
                 finish()
             }
             .addOnFailureListener {
@@ -137,10 +157,12 @@ class EducatedWorkerProfileActivity : AppCompatActivity() {
     }
 
     private fun uriToBase64(uri: Uri): String {
-        val inputStream = contentResolver.openInputStream(uri)
-        val bitmap = BitmapFactory.decodeStream(inputStream)
-        val out = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 15, out)
-        return Base64.encodeToString(out.toByteArray(), Base64.DEFAULT)
+        return try {
+            val stream = contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(stream)
+            val out = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, out)
+            Base64.encodeToString(out.toByteArray(), Base64.DEFAULT)
+        } catch (e: Exception) { "" }
     }
 }

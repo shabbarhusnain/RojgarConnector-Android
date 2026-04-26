@@ -2,139 +2,105 @@ package com.shabbar.rozgarconnector.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Base64
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.FragmentProfileBinding
+import com.shabbar.rozgarconnector.models.UserModel
 import com.shabbar.rozgarconnector.ui.profile.EducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.profile.UneducatedWorkerProfileActivity
 import com.shabbar.rozgarconnector.ui.settings.MenuActivity
-import com.shabbar.rozgarconnector.utils.decodeBase64BitmapAsync
+import com.shabbar.rozgarconnector.utils.loadBase64Image
 
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    private var currentWorkerType = ""
+    private var currentUserWorkerType: String? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentProfileBinding.bind(view)
-
-        loadUserData()
 
         binding.btnSettings.setOnClickListener {
             startActivity(Intent(requireContext(), MenuActivity::class.java))
         }
 
-        // Forgot Password and SignOut buttons logic removed (Moved to Menu)
-
         binding.btnEditPortfolio.setOnClickListener {
-            if (currentWorkerType == "educated") {
+            if (currentUserWorkerType == "educated") {
                 startActivity(Intent(requireContext(), EducatedWorkerProfileActivity::class.java))
             } else {
                 startActivity(Intent(requireContext(), UneducatedWorkerProfileActivity::class.java))
             }
         }
-        
-        // Hide moved buttons if they exist in layout
-        binding.btnForgotPassword.visibility = View.GONE
-        binding.btnSignOut.visibility = View.GONE
+
+        loadUserProfile()
     }
 
-    private fun loadUserData() {
+    private fun loadUserProfile() {
         val uid = auth.currentUser?.uid ?: return
-        db.collection("users").document(uid).addSnapshotListener { doc, _ ->
+
+        // Use a One-time get for profile to avoid unwanted real-time flickering issues
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
             if (isAdded && doc != null && doc.exists()) {
-                val name = doc.getString("fullName") ?: "No Name"
-                val fatherName = doc.getString("fatherName") ?: "Not Provided"
-                val cnic = doc.getString("cnic") ?: "Not Provided"
-                val dob = doc.getString("dob") ?: "Not Provided"
-                val phone = doc.getString("phone") ?: "Not Provided"
-                val district = doc.getString("district") ?: ""
-                val city = doc.getString("city") ?: ""
-                val address = doc.getString("permanentAddress") ?: ""
-                
-                val rawRole = doc.getString("role") ?: "seeker"
-                val role = rawRole.lowercase()
-                
-                currentWorkerType = (doc.getString("workerType") ?: "").lowercase()
+                val user = doc.toObject(UserModel::class.java)
+                if (user != null) {
+                    binding.tvProfileName.text = user.fullName
+                    currentUserWorkerType = user.workerType
 
-                val isVerified = doc.getBoolean("isVerified") ?: false
-                val averageRating = (doc.getDouble("averageRating") ?: 0.0).toFloat()
-                
-                binding.imgVerifiedBadge.visibility = if (isVerified) View.VISIBLE else View.GONE
-                binding.profileRatingBar.rating = averageRating
+                    val isEducated = user.workerType == "educated"
+                    val isProvider = user.role?.lowercase() != "seeker"
 
-                binding.tvProfileName.text = name
-                binding.tvFatherName.text = fatherName
-                binding.tvCnic.text = cnic
-                binding.tvDob.text = dob
-                binding.tvPhone.text = phone
-                binding.tvLocationFull.text = "$address, $city, $district"
-                
-                val roleDisplay = when {
-                    currentWorkerType == "educated" -> getString(R.string.provider_educated)
-                    currentWorkerType == "uneducated" -> getString(R.string.provider_uneducated)
-                    role == "seeker" -> getString(R.string.service_seeker)
-                    else -> role.uppercase()
-                }
-                binding.tvProfileRole.text = roleDisplay
+                    // Logic for Role Tag
+                    binding.tvProfileRole.text = when {
+                        !isProvider -> "Service Seeker"
+                        isEducated -> "Educated Provider"
+                        else -> "Skilled Provider"
+                    }
 
-                val dpBase64 = doc.getString("dpBase64")
-                if (!dpBase64.isNullOrEmpty()) {
-                    decodeBase64BitmapAsync(dpBase64, {
-                        binding.imgProfile.setImageBitmap(it)
-                    }, {
-                        binding.imgProfile.setImageResource(R.drawable.ic_profile)
-                    })
-                }
+                    binding.profileRatingBar.rating = user.averageRating
 
-                if (role == "worker" || role == "provider" || currentWorkerType.isNotEmpty()) {
-                    binding.portfolioCard.visibility = View.VISIBLE
-                    
-                    val skill = doc.getString("professionalSkill") ?: "Not Provided"
-                    val expYears = doc.getString("experienceYears") ?: "0"
-                    val lastPlace = doc.getString("lastWorkPlace") ?: "None"
-                    val description = doc.getString("professionalDescription") ?: "No description provided."
-                    
-                    binding.tvExpertise.text = skill
-                    binding.tvExperienceInfo.text = if (lastPlace.isNotEmpty() && lastPlace != "None") "$expYears Years at $lastPlace" else "$expYears Years Experience"
-                    binding.tvDescription.text = description
+                    // CRITICAL FIX: Explicitly load the DP of the current user
+                    loadBase64Image(requireContext(), user.dpBase64, binding.imgProfile, R.drawable.ic_profile)
 
-                    if (currentWorkerType == "educated") {
-                        binding.tvPortfolioTitle.text = getString(R.string.portfolio)
-                        binding.educationSection.visibility = View.VISIBLE
-                        binding.degreePhotoSection.visibility = View.VISIBLE
-                        
-                        val lastDegree = doc.getString("lastDegree") ?: ""
-                        val degreeName = doc.getString("degreeName") ?: ""
-                        val university = doc.getString("boardUniversity") ?: ""
-                        val percentageVal = doc.getString("percentageCGPA") ?: ""
+                    // Basic Details
+                    binding.tvFatherName.text = "Father: ${user.fatherName ?: "N/A"}"
+                    binding.tvCnic.text = "CNIC: ${user.cnic ?: "N/A"}"
+                    binding.tvDob.text = "DOB: ${user.dob ?: "N/A"}"
+                    binding.tvPhone.text = "Phone: ${user.phone ?: "N/A"}"
+                    binding.tvLocationFull.text = "Address: ${user.city ?: ""}, ${user.district ?: ""}"
 
-                        binding.tvEducation.text = "$lastDegree in $degreeName\n$university ($percentageVal)"
+                    // --- PROVIDER SPECIFIC CARDS ---
+                    if (isProvider) {
+                        binding.portfolioCard.visibility = View.VISIBLE
+                        binding.cardExpSkill.visibility = View.VISIBLE
+                        binding.cardProfileEdu.visibility = if (isEducated) View.VISIBLE else View.GONE
 
-                        val degreeBase64 = doc.getString("degreePhotoBase64")
-                        if (!degreeBase64.isNullOrEmpty()) {
-                            decodeBase64BitmapAsync(degreeBase64, {
-                                binding.imgDegreeDoc.setImageBitmap(it)
-                            }, {
-                                binding.imgDegreeDoc.setImageResource(R.drawable.ic_profile_placeholder)
-                            })
+                        val experienceText = if (!user.experienceYears.isNullOrEmpty()) "Experience: ${user.experienceYears} Years\n\n" else ""
+                        val toolsText = if (user.hasOwnTools == true) "✅ Has own tools/equipment\n\n" else ""
+                        binding.tvDescription.text = "$experienceText$toolsText${user.professionalDescription ?: "No biography provided."}"
+
+                        binding.tvExperienceInfo.text = user.experienceYears ?: "0 Years"
+                        binding.tvExpertise.text = user.professionalSkill ?: "N/A"
+
+                        if (isEducated) {
+                            binding.tvEducation.text = "${user.degreeName ?: ""}\n${user.lastDegree ?: ""}"
                         }
                     } else {
-                        binding.tvPortfolioTitle.text = "Worker Skill Profile"
-                        binding.educationSection.visibility = View.GONE
-                        binding.degreePhotoSection.visibility = View.GONE
+                        binding.portfolioCard.visibility = View.GONE
+                        binding.cardExpSkill.visibility = View.GONE
+                        binding.cardProfileEdu.visibility = View.GONE
                     }
-                } else {
-                    binding.portfolioCard.visibility = View.GONE
                 }
             }
         }

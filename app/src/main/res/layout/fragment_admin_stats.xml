@@ -185,7 +185,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_lg"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/icon_medium"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:layout_marginBottom="@dimen/spacing_md"/>
             
         <androidx.recyclerview.widget.RecyclerView

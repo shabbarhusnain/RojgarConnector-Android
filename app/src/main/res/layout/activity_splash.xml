@@ -32,7 +32,7 @@
         <ProgressBar
             android:layout_width="@dimen/spacing_xl"
             android:layout_height="@dimen/spacing_xl"
-            android:layout_marginTop="@dimen/icon_medium"
+            android:layout_marginTop="@dimen/spacing_lg"
             android:indeterminateTint="@color/primary_green"/>
 
     </LinearLayout>

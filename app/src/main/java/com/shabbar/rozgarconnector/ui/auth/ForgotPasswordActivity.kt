@@ -29,7 +29,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding.btnSendOtp.setOnClickListener {
             val rawPhone = binding.etPhone.text.toString().trim()
             if (rawPhone.length >= 9) {
-                // Normalize for DB search: 0344...
                 val dbPhone = if (rawPhone.startsWith("0")) rawPhone else "0$rawPhone"
                 findUserAndSendOtp(dbPhone)
             } else {
@@ -45,7 +44,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding.btnResetPassword.setOnClickListener {
             val newPass = binding.etNewPassword.text.toString().trim()
             val confirmPass = binding.etConfirmPassword.text.toString().trim()
-            if (newPass.length >= 6 && newPass == confirmPass) finalizeResetAndLink(newPass)
+            if (newPass.length >= 6 && newPass == confirmPass) finalizeReset(newPass)
             else Toast.makeText(this, "Passwords mismatch or too short", Toast.LENGTH_SHORT).show()
         }
     }
@@ -106,29 +105,25 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
     }
 
-    private fun finalizeResetAndLink(newPass: String) {
+    private fun finalizeReset(newPass: String) {
         val user = auth.currentUser ?: return
         val email = "$targetCnic@rozgar.com"
-        val emailCredential = EmailAuthProvider.getCredential(email, newPass)
-
-        // The "Merge" Magic: Try to link the Email account to this Phone session
-        user.linkWithCredential(emailCredential).addOnCompleteListener { task ->
+        
+        // Strategy: First update the password of the CURRENT (phone) session
+        // But the user actually wants to login with CNIC/Email.
+        // We will update the password directly.
+        user.updatePassword(newPass).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                // accounts are now MERGED into one UID
-                Toast.makeText(this, "✅ Password Updated & Linked!", Toast.LENGTH_LONG).show()
+                // Now also update in Firestore for reference (optional but good for tracking)
+                db.collection("users").document(user.uid).update("password_reset_flag", true)
+                
+                Toast.makeText(this, "✅ Password Updated! Try Login with CNIC.", Toast.LENGTH_LONG).show()
                 auth.signOut()
                 finish()
             } else {
-                // If linking fails (collision), we update the password directly
-                user.updatePassword(newPass).addOnCompleteListener { updateTask ->
-                    if (updateTask.isSuccessful) {
-                        Toast.makeText(this, "✅ Password Updated! Please login.", Toast.LENGTH_LONG).show()
-                        auth.signOut()
-                        finish()
-                    } else {
-                        Toast.makeText(this, "Error: ${updateTask.exception?.message}", Toast.LENGTH_LONG).show()
-                    }
-                }
+                // If it fails because of sensitive action (requires recent login)
+                // We are already logged in via OTP so it should work.
+                Toast.makeText(this, "Failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
             }
         }
     }

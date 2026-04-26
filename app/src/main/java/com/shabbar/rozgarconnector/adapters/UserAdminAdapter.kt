@@ -23,10 +23,10 @@ class UserAdminAdapter(
     override fun onBindViewHolder(holder: AdminViewHolder, position: Int) {
         val user = userList[position]
 
-        // Fix: Use 'fullName' instead of 'fullname'
-        holder.binding.tvUserName.text = if (user.fullName.isNotEmpty()) user.fullName else "No Name"
-        holder.binding.tvUserCnic.text = if (user.cnic.isNotEmpty()) user.cnic else "CNIC: N/A"
-        holder.binding.tvUserRole.text = user.role.uppercase()
+        // Fix: Added null safety check for Strings
+        holder.binding.tvUserName.text = if (user.fullName?.isNotEmpty() == true) user.fullName else "No Name"
+        holder.binding.tvUserCnic.text = if (user.cnic?.isNotEmpty() == true) user.cnic else "CNIC: N/A"
+        holder.binding.tvUserRole.text = user.role?.uppercase() ?: "USER"
 
         val profileBase64 = user.dpBase64
         if (!profileBase64.isNullOrEmpty()) {

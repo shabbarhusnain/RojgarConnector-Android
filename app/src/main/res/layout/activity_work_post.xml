@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAF8"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/header_gradient_curved"
+            android:paddingHorizontal="16dp">
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white" />
+            <TextView
+                android:id="@+id/tvTitleHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Post Manual Work / Task"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Card 1: Task Description & Photo -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_work" app:tint="@color/primary_green"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Work Information"
+                            android:textColor="@color/primary_green"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/etWorkTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/toggle_bg_outline"
+                        android:hint="Task Title"
+                        android:paddingHorizontal="16dp"
+                        android:textSize="14sp" />
+                    <EditText
+                        android:id="@+id/etWorkDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/toggle_bg_outline"
+                        android:gravity="top"
+                        android:hint="Explain the work..."
+                        android:minHeight="80dp"
+                        android:padding="12dp"
+                        android:textSize="14sp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp">
+                        
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/btnUploadWorkPhoto"
+                            android:layout_width="match_parent"
+                            android:layout_height="140dp"
+                            app:cardCornerRadius="12dp"
+                            app:strokeColor="#DCE6CC"
+                            app:strokeWidth="1dp"
+                            app:cardElevation="0dp">
+                            <ImageView
+                                android:id="@+id/ivWorkPhoto"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_add_circle"
+                                android:padding="40dp"
+                                app:tint="@color/grey" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <ImageView
+                            android:id="@+id/ivRemovePhoto"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="top|end"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/toggle_selected_bg"
+                            android:padding="6dp"
+                            android:src="@android:drawable/ic_menu_close_clear_cancel"
+                            android:visibility="gone"
+                            app:tint="@color/red" />
+                    </FrameLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 2: District & Location -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <Spinner android:id="@+id/spinnerDistrict" android:layout_width="match_parent" android:layout_height="52dp" android:background="@drawable/toggle_bg_outline" />
+                    <Spinner android:id="@+id/spinnerWorkCategory" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="10dp" android:background="@drawable/toggle_bg_outline" />
+                    <EditText
+                        android:id="@+id/etWorkAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/toggle_bg_outline"
+                        android:hint="Full Address"
+                        android:paddingHorizontal="16dp"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 3: Payment & Tools -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <Spinner android:id="@+id/spinnerPaymentType" android:layout_width="match_parent" android:layout_height="52dp" android:background="@drawable/toggle_bg_outline" />
+                    <EditText
+                        android:id="@+id/etWorkBudget"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/toggle_bg_outline"
+                        android:hint="Budget (PKR)"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:textSize="14sp" />
+                    <CheckBox android:id="@+id/cbIsNegotiable" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Price Negotiable" android:layout_marginTop="8dp" android:buttonTint="@color/primary_green"/>
+                    <RadioGroup android:id="@+id/rgTools" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="12dp">
+                        <RadioButton android:id="@+id/rbToolsSeeker" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="My Tools" android:checked="true" android:buttonTint="@color/primary_green" />
+                        <RadioButton android:id="@+id/rbToolsWorker" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Worker Tools" android:buttonTint="@color/primary_green" />
+                    </RadioGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 4: Date & Urgency -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <EditText android:id="@+id/etWorkDate" android:layout_width="match_parent" android:layout_height="52dp" android:background="@drawable/toggle_bg_outline" android:focusable="false" android:clickable="true" android:hint="Select Date" android:paddingHorizontal="16dp" />
+                    <CheckBox android:id="@+id/cbIsUrgent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="URGENT WORK" android:textColor="@color/red" android:buttonTint="@color/red" android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <Button android:id="@+id/btnPublishWork" android:layout_width="match_parent" android:layout_height="56dp" android:backgroundTint="@color/primary_green" android:text="PUBLISH WORK NOW" android:textColor="@color/white" app:cornerRadius="28dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

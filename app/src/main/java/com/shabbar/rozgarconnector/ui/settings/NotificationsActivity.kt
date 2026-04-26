@@ -58,10 +58,10 @@ class NotificationsActivity : AppCompatActivity() {
                 notificationsList.clear()
                 snapshots.forEach { doc ->
                     val type = doc.getString("type")?.lowercase() ?: ""
-                    val title = doc.getString("title")?.lowercase() ?: ""
+                    val titleText = doc.getString("title")?.lowercase() ?: ""
                     val rId = doc.getString("receiverId") ?: ""
                     
-                    val isBroadcast = type == "broadcast" || title.contains("broadcast") || doc.getString("senderId").isNullOrEmpty()
+                    val isBroadcast = type == "broadcast" || titleText.contains("broadcast") || doc.getString("senderId").isNullOrEmpty()
 
                     if (isBroadcast && (rId == "all" || rId == "" || rId == uid)) {
                         val notif = doc.toObject(ActivitiesModel::class.java).apply { notificationId = doc.id }
@@ -91,16 +91,20 @@ class NotificationsActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = items[position]
-            holder.tvTitle.text = item.title.ifEmpty { "System Notification" }
-            holder.tvMessage.text = item.message
-            holder.tvType.text = item.type.uppercase()
+            // Fix: Added null safety for title, type, and notificationId
+            holder.tvTitle.text = if (item.title.isNullOrEmpty()) "System Notification" else item.title
+            holder.tvMessage.text = item.message ?: ""
+            holder.tvType.text = item.type?.uppercase() ?: "INFO"
             
             val sdf = SimpleDateFormat("dd MMM, hh:mm a", Locale.getDefault())
             holder.tvTime.text = item.timestamp?.toDate()?.let { sdf.format(it) } ?: "Just now"
 
             // Simple click to mark as read
             holder.itemView.setOnClickListener {
-                db.collection("notifications").document(item.notificationId).update("isRead", true)
+                val nid = item.notificationId
+                if (!nid.isNullOrEmpty()) {
+                    db.collection("notifications").document(nid).update("isRead", true)
+                }
             }
         }
 

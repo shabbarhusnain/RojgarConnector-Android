@@ -110,7 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/icon_medium"
+                android:layout_marginTop="@dimen/spacing_lg"
                 android:layout_marginBottom="@dimen/spacing_md"
                 android:text="Personal Information"
                 android:textColor="@color/black"
@@ -168,7 +168,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/icon_medium"
+                    android:layout_marginTop="@dimen/spacing_lg"
                     android:layout_marginBottom="@dimen/spacing_md"
                     android:text="Professional Portfolio"
                     android:textColor="@color/black"
@@ -215,7 +215,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/icon_medium"
+                android:layout_marginTop="@dimen/spacing_lg"
                 android:layout_marginBottom="@dimen/spacing_md"
                 android:text="Identity Documents"
                 android:textColor="@color/black"
@@ -268,7 +268,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
-                        android:layout_marginBottom="@dimen/icon_medium"
+                        android:layout_marginBottom="@dimen/spacing_lg"
                         app:cardCornerRadius="12dp">
                         <ImageView
                             android:id="@+id/imgDegreeDoc"
@@ -286,7 +286,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/icon_large">
+                android:layout_marginBottom="@dimen/spacing_xl">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReject"

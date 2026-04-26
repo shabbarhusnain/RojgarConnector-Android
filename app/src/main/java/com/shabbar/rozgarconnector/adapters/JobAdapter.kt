@@ -39,20 +39,20 @@ class JobAdapter(
         }
         
         val wpName = job.workplaceName ?: "Company"
-        val wpType = job.workplaceType ?: "Remote"
+        val wpType = if(job.workerType == "educated") "Professional" else "Skilled/Manual"
         holder.workplace?.text = "$wpName • $wpType"
-        if (TranslatorUtil.isUrduEnabled(context)) {
-            TranslatorUtil.translateText(wpType) { holder.workplace?.text = "$wpName • $it" }
-        }
         
         val amount = job.payAmount ?: "0"
         val unit = job.payUnit ?: "Job"
         holder.salary?.text = "Rs. $amount / $unit"
+        
+        // Correct Location: Showing workplaceAddress written by Seeker
+        val jobLoc = job.workplaceAddress ?: "Not Specified"
+        holder.location?.text = jobLoc
         if (TranslatorUtil.isUrduEnabled(context)) {
-            TranslatorUtil.translateText(unit) { holder.salary?.text = "Rs. $amount / $it" }
+            TranslatorUtil.translateText(jobLoc) { holder.location?.text = it }
         }
         
-        holder.location?.text = job.district ?: "Not Specified"
         holder.time?.text = "Active Now"
 
         holder.itemView.setOnClickListener {

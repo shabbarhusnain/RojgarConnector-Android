@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/icon_medium">
+        android:padding="@dimen/spacing_lg">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,11 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_2xl"
-            android:text="Tell us about your professional skills"
+            android:text="Set up your professional skill profile"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_size_medium" />
 
-        <!-- SKILL SECTION -->
+        <!-- PRIMARY SKILL -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,47 +45,7 @@
             android:layout_marginBottom="@dimen/spacing_md"
             android:background="@drawable/edit_text_background" />
 
-        <EditText
-            android:id="@+id/etCustomSkill"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_xlarge"
-            android:layout_marginBottom="@dimen/spacing_default"
-            android:background="@drawable/edit_text_background"
-            android:hint="Enter your skill (e.g. Plumber)"
-            android:paddingHorizontal="@dimen/spacing_default"
-            android:visibility="gone" />
-
-        <!-- DAILY RATE SECTION -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_sm"
-            android:text="Expected Daily Rate (PKR)"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/etDailyRate"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_xlarge"
-            android:background="@drawable/edit_text_background"
-            android:hint="e.g. 1500"
-            android:inputType="number"
-            android:paddingHorizontal="@dimen/spacing_default" />
-
-        <!-- DYNAMIC COMMISSION INFO -->
-        <TextView
-            android:id="@+id/tvCommissionInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:layout_marginBottom="@dimen/spacing_default"
-            android:text="Platform fee will be deducted automatically."
-            android:textColor="@color/primary_green"
-            android:textSize="@dimen/text_size_sm"
-            android:textStyle="italic" />
-
-        <!-- EXPERIENCE SECTION -->
+        <!-- EXPERIENCE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,17 +64,37 @@
             android:inputType="number"
             android:paddingHorizontal="@dimen/spacing_default" />
 
-        <EditText
-            android:id="@+id/etLastWorkPlace"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_xlarge"
-            android:layout_marginBottom="@dimen/spacing_default"
-            android:background="@drawable/edit_text_background"
-            android:hint="Last workplace (Company/Site)"
-            android:paddingHorizontal="@dimen/spacing_default"
-            android:visibility="gone" />
+        <!-- TOOLS / EQUIPMENT (Added for better context) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_sm"
+            android:text="Do you have your own tools/equipment?"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
-        <!-- DESCRIPTION SECTION -->
+        <RadioGroup
+            android:id="@+id/rgTools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_default"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rbToolsYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:buttonTint="@color/primary_green"
+                android:paddingEnd="24dp"/>
+            <RadioButton
+                android:id="@+id/rbToolsNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:buttonTint="@color/primary_green"/>
+        </RadioGroup>
+
+        <!-- DESCRIPTION -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,14 +107,13 @@
             android:id="@+id/etProfessionalDescription"
             android:layout_width="match_parent"
             android:layout_height="@dimen/icon_2xlarge"
-            android:layout_marginBottom="@dimen/icon_medium"
+            android:layout_marginBottom="@dimen/spacing_lg"
             android:background="@drawable/edit_text_background"
             android:gravity="top"
-            android:hint="Briefly describe your work experience and tools you have..."
+            android:hint="Tell seekers why they should hire you..."
             android:inputType="textMultiLine"
             android:padding="@dimen/spacing_default" />
 
-        <!-- COMMITMENT -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/spacing_md"
-                android:text="I guarantee that my skills and rates are professional and I will strictly follow platform rules."
+                android:text="I guarantee that my details are accurate and I will follow platform rules."
                 android:textColor="#555555"
                 android:textSize="@dimen/text_size_md" />
         </com.google.android.material.card.MaterialCardView>
@@ -159,7 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height_large"
             android:backgroundTint="@color/primary_green"
-            android:text="SAVE PROFILE"
+            android:text="FINISH &amp; SAVE"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_medium"

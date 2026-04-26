@@ -1,124 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">روزگار کنیکٹر</string>
-
-    <!-- Home & Navigation -->
+    <!-- Login Screen -->
+    <string name="login_title">لاگ ان</string>
+    <string name="tagline">مقامی کام اور ورکرز تک رسائی</string>
+    <string name="cnic_hint">13 ہندسوں کا شناختی کارڈ نمبر (بغیر ڈیش)</string>
+    <string name="password_hint">پاس ورڈ درج کریں</string>
+    <string name="password">پاس ورڈ</string>
+    <string name="login">داخل ہوں</string>
+    <string name="register">رجسٹر کریں</string>
+    <string name="forgot_password">پاس ورڈ بھول گئے؟</string>
+    <string name="dont_have_account">اکاؤنٹ نہیں ہے؟ نیا بنائیں</string>
+    <!-- Register Screen -->
+    <string name="create_account">اکاؤنٹ بنائیں</string>
+    <string name="name_hint">نام</string>
+    <string name="full_name">مکمل نام</string>
+    <string name="father_name_hint">والد کا نام</string>
+    <string name="father_name">والد کا نام</string>
+    <string name="phone_number">فون نمبر</string>
+    <string name="confirm_password">پاس ورڈ کی تصدیق کریں</string>
+    <string name="already_have_account">پہلے سے اکاؤنٹ ہے؟ لاگ ان کریں</string>
+    <string name="perm_address_hint">مستقل پتہ</string>
+    <string name="city_hint">شہر</string>
+    <string name="doc_uploads">دستاویزات (تصدیق کے لیے ضروری):</string>
+    <string name="upload_dp">اپنی تصویر اپ لوڈ کریں</string>
+    <string name="cnic_front">شناختی کارڈ (سامنے والا حصہ)</string>
+    <string name="cnic_back">شناختی کارڈ (پچھلا حصہ)</string>
+    <string name="choose_your_role">اپنی حیثیت منتخب کریں</string>
+    <string name="service_seeker">میں کام کروانا چاہتا ہوں</string>
+    <string name="service_provider">میں کام کرنا چاہتا ہوں</string>
+    <string name="educated_worker">پڑھا لکھا ورکر</string>
+    <string name="un_educated_worker">ہنرمند / غیر تعلیم یافتہ ورکر</string>
+    <string name="confirm_and_continue">تصدیق کریں اور آگے بڑھیں</string>
+    <!-- Navigation Labels -->
     <string name="home">ہوم</string>
     <string name="notifications">سرگرمیاں</string>
     <string name="messages">پیغامات</string>
     <string name="profile">پروفائل</string>
     <string name="logout">لاگ آؤٹ</string>
-    <string name="settings">ترتیبات</string>
-
-    <!-- Activity Hub / Notifications -->
-    <string name="activity_hub">سرگرمی حب</string>
-    <string name="active_work">فعال کام</string>
+    <string name="settings">سیٹنگز</string>
+    <!-- Admin Dashboard Labels -->
+    <string name="admin_title">ایڈمن پینل</string>
+    <string name="tab_verifications">تصدیق</string>
+    <string name="tab_users">صارفین</string>
+    <string name="tab_support">سپورٹ</string>
+    <string name="search_user_hint">نام یا شناختی کارڈ سے تلاش کریں...</string>
+    <string name="approve">منظور کریں</string>
+    <string name="reject">مسترد کریں</string>
+    <string name="block">بلاک کریں</string>
+    <string name="delete">ڈیلیٹ کریں</string>
+    <string name="user_details">تصدیق کی تفصیلات</string>
+    <string name="reject_reason_hint">مسترد کرنے کی وجہ (اختیاری)</string>
+    <!-- Profile Screen -->
+    <string name="user_profile">صارف کی پروفائل</string>
+    <string name="basic_info">بنیادی معلومات</string>
+    <string name="cnic_number">شناختی کارڈ نمبر</string>
+    <string name="dob">تاریخِ پیدائش</string>
+    <string name="location">مقام</string>
+    <string name="not_provided">درج نہیں ہے</string>
+    <string name="portfolio">پیشہ ورانہ ریکارڈ</string>
+    <string name="education">تعلیم</string>
+    <string name="skill_expertise">ہنر / مہارت</string>
+    <string name="experience">تجربہ</string>
+    <string name="prof_desc">کام کی تفصیل</string>
+    <string name="degree_doc">آخری ڈگری کی تصویر</string>
+    <string name="sign_out">باہر نکلیں</string>
+    <!-- Home Screens -->
+    <string name="find_workers">اپنے قریب بہترین ورکرز تلاش کریں</string>
+    <string name="search_worker_hint">نام یا کیٹیگری سے تلاش کریں...</string>
+    <string name="available_jobs">دستیاب کام (Jobs)</string>
+    <string name="find_jobs">اپنے ہنر کے مطابق کام ڈھونڈیں</string>
+    <string name="search_job_hint">ٹائٹل یا ہنر سے سرچ کریں...</string>
+    <string name="no_jobs_found">آپ کی تلاش کے مطابق کوئی کام نہیں ملا۔</string>
+    <!-- Activity Hub -->
+    <string name="activity_hub">سرگرمیوں کا مرکز</string>
+    <string name="active_work">جاری کام</string>
     <string name="offers">آفرز</string>
     <string name="applications">درخواستیں</string>
-    <string name="history">تاریخ</string>
-    <string name="all_notif">تمام اطلاعات</string>
-    <string name="no_updates">ابھی تک کوئی اپ ڈیٹ نہیں ہے</string>
-    
-    <!-- Chip Labels -->
+    <string name="history">پچھلا ریکارڈ</string>
+    <string name="all_notif">اطلاعات</string>
+    <string name="no_updates">کوئی نئی اپ ڈیٹ نہیں ہے</string>
     <string name="sent_offers">بھیجی گئی آفرز</string>
-    <string name="apps_received">موصولہ درخواستیں</string>
+    <string name="apps_received">موصول شدہ درخواستیں</string>
     <string name="active_contracts">فعال معاہدے</string>
-    <string name="job_offers">ملازمت کی آفرز</string>
+    <string name="job_offers">کام کی آفرز</string>
     <string name="my_apps">میری درخواستیں</string>
-    <string name="work_in_progress_chip">کام جاری ہے</string>
-    
+    <string name="work_in_progress_chip">کام ہو رہا ہے</string>
     <string name="active_work_header">موجودہ فعال کام 🛠️</string>
-    <string name="job_history_header">تاریخی ریکارڈ 📜</string>
-    <string name="hiring_offers_header">ملازمت کی پیشکش 💼</string>
-    <string name="job_apps_header">ملازمت کی درخواستیں 📝</string>
+    <string name="job_history_header">کام کا پرانا ریکارڈ 📜</string>
+    <string name="hiring_offers_header">ملازمت کی آفرز 💼</string>
+    <string name="job_apps_header">کام کے لیے درخواستیں 📝</string>
     <string name="notif_header">اطلاعات 🔔</string>
-
-    <!-- Menu / Settings -->
-    <string name="menu_title">مینو</string>
-    <string name="lang_settings">زبان کی ترتیبات</string>
-    <string name="switch_urdu_label">اردو میں ترجمہ کریں</string>
-    <string name="model_download_status">پہلی بار فعال کرنے پر آف لائن ماڈل ڈاؤن لوڈ کیا جائے گا۔</string>
-    <string name="chat_with_admin">ایڈمن سے بات کریں</string>
-    <string name="help_and_support">مدد اور سپورٹ</string>
-    <string name="sos_emergency">ایمرجنسی مدد</string>
-    <string name="call_15_desc">فوری مدد کے لیے 15 پر کال کریں</string>
-
-    <!-- Notification Items -->
     <string name="work_in_progress">کام جاری ہے</string>
     <string name="days_left">دن باقی ہیں</string>
-    <string name="sos">ایس او ایس (15)</string>
-    <string name="cancel">منسوخ کریں</string>
+    <string name="sos">ہنگامی امداد (15)</string>
+    <string name="cancel">کینسل کریں</string>
     <string name="finish_job">کام مکمل کریں</string>
     <string name="chat_btn">چیٹ</string>
-    <string name="pending">انتظار</string>
-    <string name="just_now">ابھی ابھی</string>
-
+    <string name="pending">التواء میں</string>
+    <string name="just_now">ابھی</string>
+    <!-- Account Settings -->
+    <string name="account_settings">اکاؤنٹ سیٹنگز</string>
+    <string name="change_number">موبائل نمبر تبدیل کریں</string>
+    <string name="reset_password">پاس ورڈ تبدیل کریں</string>
+    <string name="delete_account">اکاؤنٹ ختم کریں</string>
+    <string name="security_check">سیکیورٹی چیک</string>
+    <string name="enter_pass_to_continue">آگے بڑھنے کے لیے پاس ورڈ لکھیں</string>
+    <string name="verify">تصدیق کریں</string>
+    <string name="otp_hint">6 ہندسوں کا OTP کوڈ</string>
+    <string name="new_number_hint">نیا موبائل نمبر (+92...)</string>
+    <string name="reason_delete_hint">ہمیں بتائیں کہ آپ اکاؤنٹ کیوں ختم کر رہے ہیں؟</string>
+    <string name="delete_permanently">ہمیشہ کے لیے ختم کریں</string>
+    <!-- Menu / Settings -->
+    <string name="menu_title">مینو</string>
+    <string name="lang_settings">زبان کی تبدیلی</string>
+    <string name="switch_urdu_label">اردو میں ترجمہ کریں</string>
+    <string name="model_download_status">آف لائن ماڈل پہلی بار ڈاؤن لوڈ کیا جائے گا۔</string>
+    <string name="chat_with_agent">نمائندے سے بات کریں</string>
+    <string name="help_and_support">مدد اور سپورٹ</string>
+    <string name="sos_emergency">ایس او ایس ہنگامی حالت</string>
+    <string name="call_15_desc">فوری مدد کے لیے 15 پر کال کریں</string>
+    <string name="agent_welcome_msg">ہیلو! روزگار سپورٹ میں خوش آمدید۔ اپنا مسئلہ بیان کریں، نمائندہ جلد آپ سے رابطہ کرے گا۔</string>
+    <string name="chat_with_admin">ایڈمن سے بات کریں</string>
     <!-- Post Job Screen -->
-    <string name="post_new_job">نئی نوکری پوسٹ کریں</string>
-    <string name="job_info">نوکری کی معلومات</string>
-    <string name="job_title_hint">نوکری کا عنوان (مثلاً الیکٹریشن)</string>
+    <string name="post_new_job">نیا کام پوسٹ کریں</string>
+    <string name="job_info">کام کی تفصیلات</string>
+    <string name="job_title_hint">کام کا عنوان (مثلاً الیکٹریشن)</string>
     <string name="workplace_location">کام کی جگہ اور مقام</string>
-    <string name="workplace_name_hint">کام کی جگہ کا نام</string>
+    <string name="workplace_name_hint">جگہ کا نام</string>
     <string name="full_address_hint">مکمل پتہ</string>
     <string name="worker_category_header">ورکر کی کیٹیگری</string>
-    <string name="educated">پڑھے لکھے</string>
-    <string name="uneducated">ہنر مند</string>
-    <string name="select_skill_category">مہارت کا انتخاب کریں</string>
+    <string name="educated">تعلیم یافتہ</string>
+    <string name="uneducated">غیر تعلیم یافتہ</string>
+    <string name="select_skill_category">ہنر منتخب کریں</string>
     <string name="budget_time">بجٹ اور وقت</string>
     <string name="amount_pkr_hint">رقم (روپے)</string>
-    <string name="value_hint">وقت کی مقدار</string>
-    <string name="job_desc_hint">کام کی تفصیل بیان کریں...</string>
-    <string name="publish_job">نوکری پوسٹ کریں</string>
-
-    <!-- Home Screens -->
-    <string name="find_workers">آپ کے قریب سب سے اوپر درجہ بندی کارکن تلاش کریں</string>
-    <string name="search_worker_hint">نام یا زمرہ سے تلاش کریں...</string>
-    <string name="available_jobs">دستیاب نوکریاں</string>
-    <string name="find_jobs">اپنی مہارت کے مطابق کام تلاش کریں</string>
-    <string name="search_job_hint">عنوان یا مہارت سے نوکریاں تلاش کریں...</string>
-    <string name="no_jobs_found">آپ کے فلٹرز کے مطابق کوئی نوکری نہیں ملی۔</string>
-    <string name="educated_worker">تعلیم یافتہ کارکن</string>
-    <string name="un_educated_worker">ہنر مند کارکن</string>
-
+    <string name="value_hint">مالیت</string>
+    <string name="job_desc_hint">کام کے بارے میں مختصراً بتائیں...</string>
+    <string name="publish_job">کام شائع کریں</string>
     <!-- Job Detail Screen -->
-    <string name="urgent">ضروری</string>
+    <string name="urgent">فوری ضرورت</string>
     <string name="duration">دورانیہ</string>
     <string name="job_location">مقام</string>
-    <string name="about_job">نوکری کے بارے میں</string>
+    <string name="about_job">کام کے بارے میں</string>
     <string name="send_application">درخواست بھیجیں</string>
-
     <!-- Worker Detail Screen -->
     <string name="experience_label">تجربہ</string>
     <string name="about_work">کام کے بارے میں</string>
     <string name="education_details">تعلیمی تفصیلات</string>
     <string name="hire_worker">اس ورکر کو ہائر کریں</string>
     <string name="decline">مسترد کریں</string>
-    <string name="accept_hire">قبول اور ہائر کریں</string>
-
-    <!-- FIXED TITLES FOR SEEKER HOME -->
-    <string name="service_seeker">سروس کی تلاش</string>
-    <string name="service_provider">ہنر مند ورکر</string>
-    <string name="provider_educated">تعلیم یافتہ ورکر</string>
-    <string name="provider_uneducated">ہنر مند ورکر</string>
-    <string name="rozgar_user">روزگار صارف</string>
-    <string name="job_finished_read_only">کام مکمل (صرف پڑھ سکتے ہیں)</string>
-    <string name="chat_locked_no_job">چیٹ لاک ہے (کوئی فعال کام نہیں)</string>
-    <string name="type_message_hint">پیغام لکھیں...</string>
-    <string name="user_not_found">صارف نہیں ملا</string>
-
-    <!-- Chat Inbox -->
+    <string name="accept_hire">قبول کریں اور کام شروع کریں</string>
+    <!-- Hiring Dialog -->
+    <string name="work_engagement_details">کام کے معاہدے کی تفصیلات</string>
+    <string name="send_hiring_offer">ہائرنگ آفر بھیجیں</string>
+    <string name="job_task_hint">کام کی تفصیل / ٹاسک</string>
+    <string name="select_engagement_type">کام کی قسم منتخب کریں</string>
+    <string name="working_duration_hint">کام کا دورانیہ (مثلاً 2 گھنٹے، 1 دن)</string>
+    <string name="work_location_hint">کام کا مقام / مکمل پتہ</string>
+    <string name="offered_budget_hint">طے شدہ بجٹ (روپے)</string>
+    <string name="completion_deadline_hint">کام مکمل کرنے کا وقت</string>
+    <string name="contact_number_hint">آپ کا رابطہ نمبر</string>
+    <string name="send">بھیجیں</string>
+    <!-- Chat Screen -->
     <string name="chats_title">چیٹس</string>
-    <string name="no_messages">ابھی تک کوئی پیغام نہیں ہے۔</string>
+    <string name="no_messages">ابھی کوئی پیغام نہیں ہے۔</string>
+    <string name="type_message_hint">پیغام لکھیں...</string>
+    <string name="provider_educated">ورکر (تعلیم یافتہ)</string>
+    <string name="provider_uneducated">ورکر (ہنرمند)</string>
+    <string name="rozgar_user">روزگار صارف</string>
+    <string name="job_finished_read_only">کام ختم ہو گیا (صرف پڑھ سکتے ہیں)</string>
+    <string name="chat_locked_no_job">چیٹ بند ہے (کوئی فعال کام نہیں ہے)</string>
+    <string name="user_not_found">خرابی: صارف نہیں ملا</string>
+    <!-- Hiring Engagement Types -->
+    <string-array name="engagement_types">
+        <item>عام کام کے لیے ہائر کریں</item>
+        <item>انٹرویو / ملاقات کے لیے بلائیں</item>
+        <item>آزمائشی بنیاد پر ہائر کریں</item>
+    </string-array>
+    <!-- Punjab Districts -->
+    <string-array name="punjab_districts">
+        <item>ضلع منتخب کریں</item>
+        <item>اٹک</item>
+        <item>بہاولنگر</item>
+        <item>بہاولپور</item>
+        <item>بھکر</item>
+        <item>چکوال</item>
+        <item>چنیوٹ</item>
+        <item>ڈیرہ غازی خان</item>
+        <item>فیصل آباد</item>
+        <item>گوجرانوالہ</item>
+        <item>گجرات</item>
+        <item>حافظ آباد</item>
+        <item>جھنگ</item>
+        <item>جہلم</item>
+        <item>قصور</item>
+        <item>خانیوال</item>
+        <item>خوشاب</item>
+        <item>لاہور</item>
+        <item>لیہ</item>
+        <item>لودھراں</item>
+        <item>منڈی بہاؤالدین</item>
+        <item>میانوالی</item>
+        <item>ملتان</item>
+        <item>مظفر گڑھ</item>
+        <item>ناروال</item>
+        <item>ننکانہ صاحب</item>
+        <item>اوکاڑہ</item>
+        <item>پاکپتن</item>
+        <item>رحیم یار خان</item>
+        <item>راجن پور</item>
+        <item>راولپنڈی</item>
+        <item>ساہیوال</item>
+        <item>سرگودھا</item>
+        <item>شیخوپورہ</item>
+        <item>سیالکوٹ</item>
+        <item>ٹوبہ ٹیک سنگھ</item>
+        <item>وہاڑی</item>
+    </string-array>
 
-    <!-- Rating & Completion Dialog (Urdu) -->
-    <string name="job_feedback_title">کام کی رائے (فیڈ بیک)</string>
-    <string name="task_completed_q">کیا کام وعدے کے مطابق مکمل ہو گیا؟</string>
-    <string name="damage_issue_q">کیا کوئی نقصان یا مسئلہ پیش آیا؟</string>
-    <string name="pay_settled_q">کیا رقم کا معاملہ طے پا گیا؟</string>
-    <string name="pay_received_q">کیا آپ کو مکمل رقم مل گئی؟</string>
-    <string name="behavior_fair_q">کیا صارف کا رویہ ٹھیک تھا؟</string>
-    <string name="rate_experience">اپنے تجربے کی درجہ بندی کریں</string>
-    <string name="tell_us_more_hint">مزید تفصیل لکھیں (اختیاری)</string>
-    <string name="submit_and_finish">جمع کرائیں اور مکمل کریں</string>
+    <string name="faq_account">اکاؤنٹ اور پروفائل</string>
+    <string name="faq_seeker">کام کروانے والوں کے لیے</string>
+    <string name="faq_provider">ورکرز / کام کرنے والوں کے لیے</string>
+    <string name="faq_safety">حفاظت اور سیکیورٹی</string>
+    <string name="faq_completion">کام کی تکمیل اور ادائیگی</string>
+
+    <string name="faq_q1">روزگار کنیکٹر پر رجسٹریشن کیسے کریں؟</string>
+    <string name="faq_a1">لاگ ان اسکرین پر \'رجسٹر\' پر کلک کریں، اپنا نام، شناختی کارڈ، فون نمبر درج کریں اور اپنی حیثیت (کام کروانے والا یا ورکر) منتخب کریں۔</string>
+    <string name="faq_q13">ایس او ایس (SOS) بٹن کیا ہے؟</string>
+    <string name="faq_a13">ایس او ایس بٹن ہنگامی حالت کے لیے ہے۔ اسے دبانے سے فوری طور پر 15 پر کال چلی جائے گی اگر آپ خود کو غیر محفوظ محسوس کریں۔</string>
+    <string name="faq_q18">پیمنٹ کیسے ہوگی؟</string>
+    <string name="faq_a18">فی الحال ادائیگی براہ راست کام کروانے والے اور ورکر کے درمیان ہوگی۔ براہ کرم کام ختم کرنے سے پہلے ادائیگی مکمل کر لیں۔</string>
+
+    <string name="job_feedback_title">کام کے بارے میں رائے</string>
+    <string name="task_completed_q">کیا کام وعدے کے مطابق مکمل ہوا؟</string>
+    <string name="damage_issue_q">کیا کوئی نقصان یا مسئلہ ہوا؟</string>
+    <string name="pay_settled_q">کیا ادائیگی ہو چکی ہے؟</string>
+    <string name="pay_received_q">کیا آپ کو مکمل مزدوری مل گئی؟</string>
+    <string name="behavior_fair_q">کیا دوسرے شخص کا رویہ درست تھا؟</string>
+    <string name="rate_experience">اپنا تجربہ ریٹ کریں</string>
+    <string name="tell_us_more_hint">مزید کچھ بتائیں (اختیاری)</string>
+    <string name="submit_and_finish">جمع کریں اور ختم کریں</string>
     <string name="yes">جی ہاں</string>
     <string name="no">جی نہیں</string>
 

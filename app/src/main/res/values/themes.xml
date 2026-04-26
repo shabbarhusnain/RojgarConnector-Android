@@ -4,8 +4,24 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary_green</item>
     </style>
+    
     <style name="CircleImage">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="RoundedImage12">
+        <item name="cornerSize">12dp</item>
+    </style>
+    
+    <style name="TextAppearance.Rozgar.BottomNav" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    
     <style name="Theme.RozgarConnector" parent="Base.Theme.RozgarConnector" />
 </resources>

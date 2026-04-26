@@ -30,7 +30,7 @@
                 android:layout_width="@dimen/icon_2xlarge"
                 android:layout_height="@dimen/icon_2xlarge"
                 android:src="@drawable/ic_pending"
-                android:layout_marginBottom="@dimen/icon_medium"/>
+                android:layout_marginBottom="@dimen/spacing_lg"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
                 android:textColor="@color/dark_grey"
                 android:textStyle="italic"
                 android:textSize="@dimen/text_size_medium"
-                android:layout_marginBottom="@dimen/icon_medium"/>
+                android:layout_marginBottom="@dimen/spacing_lg"/>
 
             <Button
                 android:id="@+id/btnReApply"

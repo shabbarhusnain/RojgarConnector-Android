@@ -18,113 +18,77 @@ import com.shabbar.rozgarconnector.adapters.JobAdapter
 import com.shabbar.rozgarconnector.databinding.FragmentProviderHomeBinding
 import com.shabbar.rozgarconnector.models.JobModel
 import com.shabbar.rozgarconnector.ui.job.JobDetailActivity
-import com.shabbar.rozgarconnector.ui.settings.NotificationsActivity
-import com.shabbar.rozgarconnector.utils.TranslatorUtil
 
 class ProviderHomeFragment : Fragment() {
 
     private var _binding: FragmentProviderHomeBinding? = null
     private val binding get() = _binding!!
-
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    private var fullJobList = mutableListOf<JobModel>()
-    private var filteredList = mutableListOf<JobModel>()
+    
     private lateinit var adapter: JobAdapter
-    private var currentUserType: String = ""
+    private val allJobs = mutableListOf<JobModel>()
+    private val filteredJobs = mutableListOf<JobModel>()
+    private var currentUserWorkerType: String? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProviderHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecyclerView()
-        fetchUserTypeAndLoadJobs()
+        setupFilters()
         setupSearch()
-        listenForAnnouncements()
+        fetchUserTypeAndLoadJobs()
 
-        // Settings click listener removed from here
-
-        binding.btnAnnouncements.setOnClickListener {
-            startActivity(Intent(requireContext(), NotificationsActivity::class.java))
+        binding.swipeRefresh.setOnRefreshListener {
+            fetchUserTypeAndLoadJobs()
         }
-
-        // --- UI TRANSLATION ---
-        if (TranslatorUtil.isUrduEnabled(requireContext())) {
-            TranslatorUtil.initTranslator(
-                onSuccess = { translateUI() },
-                onFailure = { }
-            )
-        }
-    }
-
-    private fun listenForAnnouncements() {
-        val uid = auth.currentUser?.uid ?: return
-        db.collection("notifications")
-            .whereEqualTo("type", "broadcast")
-            .whereEqualTo("isRead", false)
-            .addSnapshotListener { snapshots, _ ->
-                if (!isAdded) return@addSnapshotListener
-                val hasUnread = snapshots != null && !snapshots.isEmpty
-                binding.unreadBellDot.visibility = if (hasUnread) View.VISIBLE else View.GONE
-            }
-    }
-
-    private fun translateUI() {
-        if (!isAdded) return
-        TranslatorUtil.translateText("Available Jobs") { binding.tvHeaderTitle.text = it }
-        TranslatorUtil.translateText("Find work that matches your skills") { binding.tvSubtitle.text = it }
-        TranslatorUtil.translateText("Search jobs by title or skill...") { binding.etSearchJob.hint = it }
     }
 
     private fun setupRecyclerView() {
-        adapter = JobAdapter(filteredList) { job ->
-            val intent = Intent(requireContext(), JobDetailActivity::class.java)
-            intent.putExtra("JOB_ID", job.jobId)
-            startActivity(intent)
+        adapter = JobAdapter(filteredJobs) { job ->
+            startActivity(Intent(requireContext(), JobDetailActivity::class.java).apply {
+                putExtra("JOB_ID", job.jobId)
+            })
         }
         binding.rvJobs.layoutManager = LinearLayoutManager(requireContext())
         binding.rvJobs.adapter = adapter
     }
 
-    private fun fetchUserTypeAndLoadJobs() {
-        val uid = auth.currentUser?.uid ?: return
-        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
-            if (isAdded && doc.exists()) {
-                currentUserType = doc.getString("workerType") ?: ""
-                setupFilters(currentUserType)
-                loadJobs(currentUserType)
-            }
-        }
-    }
-
-    private fun setupFilters(type: String) {
+    private fun setupFilters() {
+        // District Filter
         val districts = resources.getStringArray(R.array.pakistan_districts).toMutableList()
-        districts.add(0, "All Districts")
-        binding.spinnerDistrict.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, districts)
+        if (!districts.contains("All Districts")) districts.add(0, "All Districts")
+        binding.spinnerDistrictFilter.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, districts)
 
-        val categories = mutableListOf<String>()
-        categories.add("All Categories")
-        if (type == "educated") {
-            categories.addAll(resources.getStringArray(R.array.educated_categories))
-        } else {
-            categories.addAll(resources.getStringArray(R.array.skill_categories))
-        }
-        
-        binding.spinnerCategory.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, categories.distinct())
+        // Skill Filter
+        updateCategorySpinner()
 
-        val listener = object : AdapterView.OnItemSelectedListener {
+        val filterListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) { filterData() }
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
-        binding.spinnerDistrict.onItemSelectedListener = listener
-        binding.spinnerCategory.onItemSelectedListener = listener
+        binding.spinnerDistrictFilter.onItemSelectedListener = filterListener
+        binding.spinnerSkillFilter.onItemSelectedListener = filterListener
+    }
+
+    private fun updateCategorySpinner() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            if (isAdded) {
+                val type = doc.getString("workerType") ?: "educated"
+                val categories = if (type == "educated") {
+                    resources.getStringArray(R.array.educated_job_categories).toMutableList()
+                } else {
+                    resources.getStringArray(R.array.uneducated_skill_categories).toMutableList()
+                }
+                if (!categories.contains("All Categories")) categories.add(0, "All Categories")
+                binding.spinnerSkillFilter.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, categories)
+            }
+        }
     }
 
     private fun setupSearch() {
@@ -135,21 +99,30 @@ class ProviderHomeFragment : Fragment() {
         })
     }
 
-    private fun loadJobs(type: String) {
-        binding.progressBar.visibility = View.VISIBLE
+    private fun fetchUserTypeAndLoadJobs() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            if (isAdded) {
+                currentUserWorkerType = doc.getString("workerType") ?: "educated"
+                loadOpenJobsForMe()
+            }
+        }
+    }
+
+    private fun loadOpenJobsForMe() {
+        if (currentUserWorkerType == null) return
+        binding.swipeRefresh.isRefreshing = true
+        
         db.collection("jobs")
             .whereEqualTo("status", "open")
-            .whereEqualTo("workerType", type)
-            .addSnapshotListener { snapshots, e ->
+            .whereEqualTo("workerType", currentUserWorkerType)
+            .addSnapshotListener { snapshots, _ ->
                 if (!isAdded) return@addSnapshotListener
-                binding.progressBar.visibility = View.GONE
-                if (e != null || snapshots == null) return@addSnapshotListener
-
-                fullJobList.clear()
-                snapshots.forEach { doc ->
-                    val job = doc.toObject(JobModel::class.java)
-                    job.jobId = doc.id
-                    fullJobList.add(job)
+                binding.swipeRefresh.isRefreshing = false
+                allJobs.clear()
+                snapshots?.forEach { doc ->
+                    val job = doc.toObject(JobModel::class.java).apply { jobId = doc.id }
+                    allJobs.add(job)
                 }
                 filterData()
             }
@@ -157,21 +130,21 @@ class ProviderHomeFragment : Fragment() {
 
     private fun filterData() {
         val query = binding.etSearchJob.text.toString().lowercase().trim()
-        val district = binding.spinnerDistrict.selectedItem?.toString() ?: "All Districts"
-        val category = binding.spinnerCategory.selectedItem?.toString() ?: "All Categories"
+        val district = binding.spinnerDistrictFilter.selectedItem?.toString() ?: "All Districts"
+        val category = binding.spinnerSkillFilter.selectedItem?.toString() ?: "All Categories"
 
-        filteredList.clear()
-        for (job in fullJobList) {
-            val matchesSearch = job.jobTitle.lowercase().contains(query) || job.jobDescription.lowercase().contains(query)
-            val matchesDistrict = district == "All Districts" || job.district == district
-            val matchesCategory = category == "All Categories" || job.category == category
+        filteredJobs.clear()
+        for (job in allJobs) {
+            val titleMatch = job.jobTitle?.lowercase()?.contains(query) ?: false
+            val districtMatch = district == "All Districts" || job.district == district
+            val categoryMatch = category == "All Categories" || job.category == category
 
-            if (matchesSearch && matchesDistrict && matchesCategory) {
-                filteredList.add(job)
+            if (titleMatch && districtMatch && categoryMatch) {
+                filteredJobs.add(job)
             }
         }
         adapter.notifyDataSetChanged()
-        binding.tvNoJobs.visibility = if (filteredList.isEmpty()) View.VISIBLE else View.GONE
+        binding.llEmptyState.visibility = if (filteredJobs.isEmpty()) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {

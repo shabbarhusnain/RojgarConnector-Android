@@ -42,11 +42,14 @@ class SupportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = AdminChatListAdapter(chatUsersList) { chatUser ->
-            db.collection("admin_chats").document(chatUser.user.uid).update("isRead", true)
-            val intent = Intent(requireContext(), ChatWithAdminActivity::class.java)
-            intent.putExtra("USER_ID", chatUser.user.uid)
-            intent.putExtra("IS_ADMIN_SIDE", true)
-            startActivity(intent)
+            val userId = chatUser.user.uid
+            if (!userId.isNullOrEmpty()) {
+                db.collection("admin_chats").document(userId).update("isRead", true)
+                val intent = Intent(requireContext(), ChatWithAdminActivity::class.java)
+                intent.putExtra("USER_ID", userId)
+                intent.putExtra("IS_ADMIN_SIDE", true)
+                startActivity(intent)
+            }
         }
 
         binding.rvAdminChats.layoutManager = LinearLayoutManager(requireContext())
@@ -123,9 +126,8 @@ class SupportFragment : Fragment() {
         override fun onBindViewHolder(holder: ChatVH, position: Int) {
             val item = list[position]
             holder.b.apply {
-                // Fix: Use 'fullName' to match updated UserModel
-                tvUserName.text = item.user.fullName
-                tvLastMessage.text = item.lastMessage.message
+                tvUserName.text = item.user.fullName ?: "No Name"
+                tvLastMessage.text = item.lastMessage.message ?: ""
                 
                 val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
                 tvTime.text = sdf.format(Date(item.lastMessage.timestamp))

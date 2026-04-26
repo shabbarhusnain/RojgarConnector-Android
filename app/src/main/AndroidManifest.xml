@@ -43,8 +43,10 @@
         
         <!-- Job & Applications -->
         <activity android:name=".ui.job.JobPostActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.job.WorkPostActivity" android:exported="false" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.job.JobDetailActivity" android:exported="false" />
         <activity android:name=".ui.seeker.ViewApplicationsActivity" android:exported="false" />
+        <activity android:name=".ui.seeker.SeekerDetailActivity" android:exported="false" />
         <activity android:name=".ui.worker.WorkerDetailActivity" android:exported="false" />
         
         <!-- Messaging & Chat -->

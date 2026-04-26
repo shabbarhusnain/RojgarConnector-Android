@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Standard Spacing (Better balance) -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">12dp</dimen>
+    <dimen name="spacing_default">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_2xl">48dp</dimen>
+    
+    <!-- Icon Sizes (Standard Square) -->
+    <dimen name="icon_small">18dp</dimen>
+    <dimen name="icon_medium">24dp</dimen>
+    <dimen name="icon_large">32dp</dimen>
+    <dimen name="icon_xlarge">48dp</dimen>
+    <dimen name="icon_2xlarge">64dp</dimen>
+    
+    <!-- Text Sizes (Professional Scale) -->
+    <dimen name="text_size_xs">11sp</dimen>
+    <dimen name="text_size_sm">13sp</dimen>
+    <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_md">16sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_lg">18sp</dimen>
+    <dimen name="text_size_xl">22sp</dimen>
+    <dimen name="text_size_2xl">28sp</dimen>
+    
+    <!-- UI Element Heights (More compact) -->
+    <dimen name="btn_height_small">36dp</dimen>
+    <dimen name="btn_height_large">52dp</dimen>
+    <dimen name="input_field_height">52dp</dimen>
+    
+    <!-- Auth Specific -->
+    <dimen name="auth_logo_size">100dp</dimen>
+    <dimen name="auth_content_padding">20dp</dimen>
+    <dimen name="auth_title_size">26sp</dimen>
+    <dimen name="auth_subtitle_size">15sp</dimen>
+    <dimen name="auth_input_height">52dp</dimen>
+    <dimen name="auth_button_height">52dp</dimen>
+    <dimen name="auth_action_text_size">14sp</dimen>
+    
+    <!-- Role Selection -->
+    <dimen name="role_card_text_size">16sp</dimen>
+    
+    <!-- Settings -->
+    <dimen name="settings_title_size">20sp</dimen>
+    
+    <!-- Splash -->
+    <dimen name="splash_title_size">28sp</dimen>
+    
+    <!-- Profile & Home -->
+    <dimen name="profile_header_height">220dp</dimen>
+    <dimen name="profile_brand_title_size">22sp</dimen>
+    <dimen name="profile_brand_margin_top">10dp</dimen>
+    <dimen name="home_header_height">180dp</dimen>
+    <dimen name="filter_control_height">44dp</dimen>
+    
+    <!-- Menu Specific -->
+    <dimen name="menu_action_height">52dp</dimen>
+</resources>

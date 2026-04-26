@@ -3,184 +3,348 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FFFFFF"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/icon_medium">
-        <ImageView
-            android:id="@+id/btnSettings"
-            android:layout_width="@dimen/icon_large"
-            android:layout_height="@dimen/btn_height_small"
-            android:layout_marginTop="@dimen/spacing_2xl"
-            android:layout_marginEnd="@dimen/icon_medium"
-            android:layout_gravity="end"
-            android:padding="@dimen/spacing_xs"
-            android:src="@drawable/ic_menu"
-            app:tint="@color/black" />
+        android:padding="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Educated Worker Portfolio"
-            android:textColor="@color/primary_green"
-            android:textSize="@dimen/text_size_xl"
-            android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/spacing_2xl"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="24dp"
+            android:text="Build Professional Portfolio"
+            android:textColor="#8BC34A"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <!-- Academic Details Section -->
-        <TextView
-            android:id="@+id/academicHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Academic Details"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="@dimen/spacing_sm"/>
-
-        <Spinner
-            android:id="@+id/spinnerLastDegree"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:background="@drawable/edittext_border"
-            android:layout_marginBottom="@dimen/spacing_md"/>
-
-        <EditText
-            android:id="@+id/etDegreeTitle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:hint="Degree Title / Major (e.g. Software Engineering)"
-            android:background="@drawable/edittext_border"
-            android:paddingStart="@dimen/spacing_default"
-            android:layout_marginBottom="@dimen/spacing_md"/>
-
-        <EditText
-            android:id="@+id/etBoardUniversity"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:hint="University / Board"
-            android:background="@drawable/edittext_border"
-            android:paddingStart="@dimen/spacing_default"
-            android:layout_marginBottom="@dimen/spacing_md"/>
-
-        <EditText
-            android:id="@+id/etPercentage"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:hint="Percentage / CGPA"
-            android:inputType="numberDecimal"
-            android:background="@drawable/edittext_border"
-            android:paddingStart="@dimen/spacing_default"
-            android:layout_marginBottom="@dimen/spacing_default"/>
-
-        <!-- Professional Skills Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Professional Skills"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="@dimen/spacing_sm"/>
-
-        <Spinner
-            android:id="@+id/spinnerSkillCategory"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:background="@drawable/edittext_border"
-            android:layout_marginBottom="@dimen/spacing_sm"/>
-
-        <EditText
-            android:id="@+id/etCustomSkill"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:hint="Type your skill (if not in list)..."
-            android:background="@drawable/edittext_border"
-            android:paddingStart="@dimen/spacing_default"
-            android:visibility="gone"
-            android:layout_marginBottom="@dimen/spacing_md"/>
-
-        <!-- Experience Section -->
-        <EditText
-            android:id="@+id/etExperienceYears"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:hint="Years of Experience (if any)"
-            android:inputType="number"
-            android:background="@drawable/edittext_border"
-            android:paddingStart="@dimen/spacing_default"
-            android:layout_marginBottom="@dimen/spacing_md"/>
-
-        <EditText
-            android:id="@+id/etLastWorkPlace"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:hint="Last place of work (if experienced)"
-            android:background="@drawable/edittext_border"
-            android:paddingStart="@dimen/spacing_default"
-            android:visibility="gone"
-            android:layout_marginBottom="@dimen/spacing_md"/>
-
-        <EditText
-            android:id="@+id/etProfessionalDescription"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/icon_2xlarge"
-            android:hint="Tell us about yourself / Description"
-            android:gravity="top"
-            android:padding="@dimen/spacing_default"
-            android:background="@drawable/edittext_border"
-            android:layout_marginBottom="@dimen/spacing_default"/>
-
-        <!-- Security & Surety Section -->
-        <CheckBox
-            android:id="@+id/cbSurety"
+        <!-- Education & Credentials Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="I hereby declare that all information provided is true and accurate. In case of any misinformation, my account can be deleted."
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_sm"
-            android:layout_marginBottom="@dimen/spacing_sm"/>
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#F1F8E9"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
 
-        <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Education &amp; Credentials"
+                    android:textColor="#8BC34A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerLastDegree"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:paddingStart="12dp" />
+
+                <EditText
+                    android:id="@+id/etDegreeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:hint="Degree Title / Major (e.g. Computer Science)"
+                    android:paddingHorizontal="16dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Professional Services Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Note: If you attempt any fraud or break the law, legal action will be taken against you by the police. The app will track your activities for security."
-            android:textColor="@color/red"
-            android:textSize="@dimen/text_size_xs"
-            android:textStyle="italic"
-            android:layout_marginBottom="@dimen/spacing_lg"/>
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#F1F8E9"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
 
-        <Button
-            android:id="@+id/btnUploadLastDegreeImage"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:text="UPLOAD LAST DEGREE PHOTO"
-            app:strokeColor="@color/primary_green"
-            android:textColor="@color/primary_green"
-            android:layout_marginBottom="@dimen/spacing_md" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/imgDegreePreview"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Professional Services"
+                    android:textColor="#8BC34A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="List specific services you offer (comma separated)"
+                    android:textColor="#757575"
+                    android:textSize="11sp" />
+
+                <EditText
+                    android:id="@+id/etProfessionalServices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="56dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:gravity="top"
+                    android:hint="e.g. Logo Design, Web Development, Consultation"
+                    android:padding="12dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Project Portfolio Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:visibility="gone"
-            android:scaleType="centerInside"
-            android:background="#F5F5F5"
-            android:layout_marginBottom="@dimen/icon_medium" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#F1F8E9"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Project Portfolio (Success Gallery)"
+                    android:textColor="#8BC34A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnUploadProjectPhoto"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="#DCE6CC"
+                        app:strokeWidth="1dp">
+
+                        <ImageView
+                            android:id="@+id/ivProjectPhoto"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_add_pic"
+                            app:tint="#757575" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <ImageView
+                        android:id="@+id/btnRemoveProjectPhoto"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="top|end"
+                        android:layout_marginTop="-8dp"
+                        android:layout_marginEnd="-8dp"
+                        android:background="@drawable/circle_shape"
+                        android:backgroundTint="#FF5252"
+                        android:elevation="4dp"
+                        android:padding="4dp"
+                        android:src="@android:drawable/ic_menu_close_clear_cancel"
+                        android:visibility="gone"
+                        app:tint="@color/white" />
+                </FrameLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Employment History Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#F1F8E9"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Employment History"
+                    android:textColor="#8BC34A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etLastWorkPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:hint="Recent Company Name"
+                    android:paddingHorizontal="16dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etJobTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:hint="Your Role / Position"
+                    android:paddingHorizontal="16dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:hint="Duration (e.g. 2019 - 2023)"
+                    android:paddingHorizontal="16dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Professional Biography Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#F1F8E9"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Professional Biography"
+                    android:textColor="#8BC34A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerSkillCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:paddingStart="12dp" />
+
+                <EditText
+                    android:id="@+id/etExperienceYears"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:hint="Total Years of Experience"
+                    android:inputType="number"
+                    android:paddingHorizontal="16dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etProfessionalDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="80dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:gravity="top"
+                    android:hint="Detailed Bio (Introduce yourself)..."
+                    android:padding="12dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Certifications & Licenses Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="#F1F8E9"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Certifications &amp; Licenses"
+                    android:textColor="#8BC34A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="e.g. PMDC, Driving License, Weapon License (comma separated)"
+                    android:textColor="#757575"
+                    android:textSize="11sp" />
+
+                <EditText
+                    android:id="@+id/etCertifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/toggle_bg_outline"
+                    android:hint="Enter any licenses or certificates..."
+                    android:paddingHorizontal="16dp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <Button
             android:id="@+id/btnSubmitPortfolio"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_height_large"
-            android:text="COMPLETE PORTFOLIO"
-            android:background="@drawable/glass_bg"
+            android:layout_height="52dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#8BC34A"
+            android:text="COMPLETE PROFESSIONAL PROFILE"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:backgroundTint="@color/primary_green"
-            app:cornerRadius="10dp"
-            android:layout_marginBottom="@dimen/spacing_lg"/>
+            app:cornerRadius="26dp" />
 
     </LinearLayout>
 </ScrollView>

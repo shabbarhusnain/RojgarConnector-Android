@@ -112,6 +112,8 @@ class RegisterActivity : AppCompatActivity() {
                 override fun onCodeSent(verId: String, token: PhoneAuthProvider.ForceResendingToken) {
                     verificationId = verId
                     showOtpDialog(phoneNumber)
+                    binding.btnRegister.isEnabled = true
+                    binding.btnRegister.text = "Register"
                 }
             }).build()
         PhoneAuthProvider.verifyPhoneNumber(options)
@@ -123,19 +125,22 @@ class RegisterActivity : AppCompatActivity() {
         val btnVerify = view.findViewById<MaterialButton>(R.id.btnVerifyOtp)
         view.findViewById<TextView>(R.id.tvOtpDescription).text = "Verify $phone"
 
-        otpDialog = AlertDialog.Builder(this).setView(view).setCancelable(false).create()
+        otpDialog = AlertDialog.Builder(this).setView(view).setCancelable(true).create()
         btnVerify.setOnClickListener {
             val code = etOtp.text.toString().trim()
             if (code.length == 6) {
                 btnVerify.isEnabled = false
+                btnVerify.text = "Verifying..."
                 val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
-                completeRegistration(credential)
+                completeRegistration(credential, btnVerify)
+            } else {
+                Toast.makeText(this, "Enter 6-digit code", Toast.LENGTH_SHORT).show()
             }
         }
         otpDialog?.show()
     }
 
-    private fun completeRegistration(phoneCredential: PhoneAuthCredential) {
+    private fun completeRegistration(phoneCredential: PhoneAuthCredential, btnVerify: MaterialButton? = null) {
         val data = pendingData ?: return
         val email = "${data.cnic}@rozgar.com"
         
@@ -148,13 +153,15 @@ class RegisterActivity : AppCompatActivity() {
                     if (linkTask.isSuccessful) {
                         saveToFirestore(user.uid, data)
                     } else {
-                        otpDialog?.dismiss()
+                        btnVerify?.isEnabled = true
+                        btnVerify?.text = "Verify OTP"
                         Toast.makeText(this, "Link Error: ${linkTask.exception?.message}", Toast.LENGTH_LONG).show()
                     }
                 }
             } else {
-                otpDialog?.dismiss()
-                Toast.makeText(this, "Auth Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                btnVerify?.isEnabled = true
+                btnVerify?.text = "Verify OTP"
+                Toast.makeText(this, "Wrong OTP! Please try again.", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -173,7 +180,7 @@ class RegisterActivity : AppCompatActivity() {
             "dpBase64" to uriToBase64(dpUri!!), 
             "cnicFrontBase64" to uriToBase64(cnicFrontUri!!),
             "cnicBackBase64" to uriToBase64(cnicBackUri!!), 
-            "isVerified" to false, // SYNCED: Using isVerified
+            "isVerified" to false,
             "role" to "pending"
         )
         db.collection("users").document(uid).set(userMap).addOnSuccessListener {

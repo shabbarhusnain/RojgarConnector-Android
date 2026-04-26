@@ -4,38 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#F8FAF5">
 
+    <!-- Compact Curved Header -->
     <View
         android:id="@+id/headerBg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/icon_2xlarge"
+        android:layout_height="120dp"
         android:background="@drawable/header_gradient_curved"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Settings Button Removed -->
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/icon_medium"
-        android:layout_marginTop="@dimen/icon_large"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/activity_hub"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_2xl"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Content List -->
     <HorizontalScrollView
         android:id="@+id/filterScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-27dp"
+        android:layout_marginTop="-25dp"
         android:clipToPadding="false"
-        android:paddingStart="@dimen/spacing_lg"
-        android:paddingEnd="@dimen/spacing_lg"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/headerBg">
 
@@ -51,42 +51,76 @@
                 android:id="@+id/chipActive"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:checked="true"
-                android:elevation="@dimen/spacing_xs"
-                android:text="@string/active_work"
+                android:text="Active Contracts"
+                android:textColor="@color/black"
                 app:chipBackgroundColor="@color/white"
-                app:chipStrokeWidth="0dp" />
+                app:chipCornerRadius="16dp"
+                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMyJobs"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="My Posted Jobs"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                app:chipBackgroundColor="@color/white"
+                app:chipCornerRadius="16dp"
+                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMyWorks"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="My Posted Works"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                app:chipBackgroundColor="@color/white"
+                app:chipCornerRadius="16dp"
+                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipOffers"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="@dimen/spacing_xs"
-                android:text="@string/offers"
+                android:layout_height="50dp"
+                android:text="Sent Offers"
+                android:textColor="@color/black"
                 app:chipBackgroundColor="@color/white"
-                app:chipStrokeWidth="0dp" />
+                app:chipCornerRadius="16dp"
+                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipApplications"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="@dimen/spacing_xs"
-                android:text="@string/applications"
+                android:layout_height="50dp"
+                android:text="Applications"
+                android:textColor="@color/black"
                 app:chipBackgroundColor="@color/white"
-                app:chipStrokeWidth="0dp" />
+                app:chipCornerRadius="16dp"
+                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipHistory"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="@dimen/spacing_xs"
-                android:text="@string/history"
+                android:layout_height="50dp"
+                android:text="History"
+                android:textColor="@color/black"
                 app:chipBackgroundColor="@color/white"
-                app:chipStrokeWidth="0dp" />
+                app:chipCornerRadius="16dp"
+                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeWidth="1dp" />
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
@@ -95,24 +129,12 @@
         android:id="@+id/rvActivities"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/spacing_default"
-        android:background="@color/white"
+        android:layout_marginTop="8dp"
         android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filterScroll" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterScroll" />
-
-    <!-- Empty State Layout -->
     <LinearLayout
         android:id="@+id/llEmptyState"
         android:layout_width="wrap_content"
@@ -123,23 +145,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/filterScroll"
-        tools:visibility="visible">
+        app:layout_constraintTop_toBottomOf="@id/filterScroll">
 
         <ImageView
-            android:layout_width="@dimen/icon_2xlarge"
-            android:layout_height="@dimen/icon_2xlarge"
-            android:alpha="0.3"
-            android:src="@drawable/ic_notification" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:alpha="0.2"
+            android:src="@drawable/ic_notification"
+            app:tint="@color/primary_green" />
 
         <TextView
             android:id="@+id/tvNoActivities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:alpha="0.5"
-            android:text="No work activities yet."
-            android:textSize="@dimen/text_size_medium"
+            android:layout_marginTop="12dp"
+            android:alpha="0.4"
+            android:text="No activities yet."
+            android:textColor="@color/black"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 

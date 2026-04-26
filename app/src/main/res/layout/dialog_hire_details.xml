@@ -9,16 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_lg">
+        android:padding="20dp">
 
         <TextView
-            android:id="@+id/tvHireTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_default"
+            android:layout_marginBottom="16dp"
             android:text="Work Agreement &amp; Offer"
             android:textColor="@color/primary_green"
-            android:textSize="@dimen/text_size_lg"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -34,45 +33,23 @@
                 android:minLines="2"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginTop="@dimen/spacing_md">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+            android:layout_marginTop="12dp"
+            android:hint="Budget (Rs.)"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etJobBudget"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Budget (Rs.)"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etJobBudget"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Deadline / Time"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etJobDeadline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
+            android:layout_marginTop="12dp"
             android:hint="Exact Work Address"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -82,39 +59,16 @@
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- New Logical Options (Step 3) -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Agreement &amp; Logistics"
+        <Button
+            android:id="@+id/btnSendOffer"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/primary_green"
+            android:text="SEND OFFER"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="@dimen/text_size_normal"
-            android:layout_marginTop="@dimen/spacing_default"
-            android:textColor="@color/grey"/>
-
-        <CheckBox
-            android:id="@+id/cbToolsProvided"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I will provide the necessary tools"
-            android:checked="true"
-            android:buttonTint="@color/primary_green"/>
-
-        <CheckBox
-            android:id="@+id/cbSafetyConfirmed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I guarantee a safe working environment"
-            android:checked="true"
-            android:buttonTint="@color/primary_green"/>
-
-        <CheckBox
-            android:id="@+id/cbPaymentPrompt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I will pay immediately after work is done"
-            android:checked="true"
-            android:buttonTint="@color/primary_green"/>
+            app:cornerRadius="26dp" />
 
     </LinearLayout>
 </ScrollView>

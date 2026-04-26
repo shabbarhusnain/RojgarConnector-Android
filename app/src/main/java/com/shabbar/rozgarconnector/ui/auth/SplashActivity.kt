@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -25,115 +24,79 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // CORRECT PATH: settings -> maintenanceMode -> value
         checkMaintenanceMode()
     }
 
     private fun checkMaintenanceMode() {
         db.collection("settings").document("maintenanceMode").get()
             .addOnSuccessListener { doc ->
-                if (doc.exists()) {
-                    val isMaintenance = doc.getBoolean("value") ?: false
-                    
-                    if (isMaintenance) {
-                        showMaintenanceDialog()
-                        return@addOnSuccessListener
-                    }
+                if (doc.exists() && doc.getBoolean("value") == true) {
+                    showMaintenanceDialog()
+                } else {
+                    Handler(Looper.getMainLooper()).postDelayed({ checkAuth() }, 2000)
                 }
-                
-                // If not in maintenance, proceed to auth check
-                Handler(Looper.getMainLooper()).postDelayed({
-                    checkAuth()
-                }, 2000)
             }
-            .addOnFailureListener {
-                // If query fails, proceed normally
-                checkAuth()
-            }
+            .addOnFailureListener { checkAuth() }
     }
 
     private fun showMaintenanceDialog() {
         AlertDialog.Builder(this)
             .setTitle("System Maintenance")
-            .setMessage("RozgarConnector is currently undergoing maintenance. Please check back shortly.")
+            .setMessage("RozgarConnector is currently undergoing maintenance.")
             .setCancelable(false)
-            .setPositiveButton("Close App") { _, _ -> finish() }
-            .show()
+            .setPositiveButton("Close") { _, _ -> finish() }.show()
     }
 
     private fun checkAuth() {
         val user = auth.currentUser
-        if (user != null) {
-            fetchUserRole(user.uid)
-        } else {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
+        if (user != null) fetchUserRole(user.uid)
+        else navigateTo(LoginActivity::class.java)
     }
 
     private fun fetchUserRole(uid: String) {
-        db.collection("users").document(uid).get()
-            .addOnSuccessListener { doc ->
-                if (doc.exists() && !isFinishing) {
-                    
-                    val isBlocked = doc.getBoolean("isBlocked") ?: false
-                    if (isBlocked) {
-                        val reason = doc.getString("blockReason") ?: "Account blocked due to policy violation."
-                        showBlockedDialog(reason)
-                        return@addOnSuccessListener
-                    }
-
-                    val role = (doc.getString("role") ?: "pending").lowercase()
-                    
-                    if (role == "admin") {
-                        auth.signOut()
-                        navigateTo(LoginActivity::class.java)
-                        return@addOnSuccessListener
-                    }
-
-                    val isVerified = doc.getBoolean("isVerified") ?: false
-                    val profileCompleted = doc.getBoolean("profileCompleted") ?: false
-                    val workerType = (doc.getString("workerType") ?: "none").lowercase()
-
-                    when {
-                        role == "seeker" -> {
-                            if (!isVerified) navigateTo(PendingApprovalActivity::class.java)
-                            else navigateTo(SeekerHomeActivity::class.java)
-                        }
-
-                        role == "worker" || role == "provider" -> {
-                            if (!isVerified) {
-                                navigateTo(PendingApprovalActivity::class.java)
-                            } else if (!profileCompleted) {
-                                val target = if (workerType == "educated") EducatedWorkerProfileActivity::class.java
-                                else UneducatedWorkerProfileActivity::class.java
-                                navigateTo(target)
-                            } else {
-                                navigateTo(ProviderHomeActivity::class.java)
-                            }
-                        }
-
-                        else -> navigateTo(RoleSelectionActivity::class.java)
-                    }
-                } else {
-                    navigateTo(LoginActivity::class.java)
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            if (doc.exists() && !isFinishing) {
+                if (doc.getBoolean("isBlocked") == true) {
+                    showBlockedDialog(doc.getString("blockReason") ?: "Account blocked.")
+                    return@addOnSuccessListener
                 }
-            }
-            .addOnFailureListener {
+
+                // WORKFLOW REPAIR: Unified role check (lowercase only)
+                val role = (doc.getString("role") ?: "pending").lowercase()
+                val isVerified = doc.getBoolean("isVerified") ?: false
+                val profileCompleted = doc.getBoolean("profileCompleted") ?: false
+                val workerType = (doc.getString("workerType") ?: "").lowercase()
+
+                if (!isVerified) {
+                    navigateTo(PendingApprovalActivity::class.java)
+                    return@addOnSuccessListener
+                }
+
+                when (role) {
+                    "seeker" -> navigateTo(SeekerHomeActivity::class.java)
+                    "provider", "worker" -> {
+                        if (profileCompleted) {
+                            navigateTo(ProviderHomeActivity::class.java)
+                        } else {
+                            val target = if (workerType == "educated") EducatedWorkerProfileActivity::class.java
+                                        else UneducatedWorkerProfileActivity::class.java
+                            navigateTo(target)
+                        }
+                    }
+                    else -> navigateTo(RoleSelectionActivity::class.java)
+                }
+            } else {
                 navigateTo(LoginActivity::class.java)
             }
+        }.addOnFailureListener { navigateTo(LoginActivity::class.java) }
     }
 
     private fun showBlockedDialog(reason: String) {
-        AlertDialog.Builder(this)
-            .setTitle("Account Blocked")
-            .setMessage(reason)
-            .setCancelable(false)
-            .setPositiveButton("Logout") { _, _ -> 
+        AlertDialog.Builder(this).setTitle("Account Blocked").setMessage(reason)
+            .setCancelable(false).setPositiveButton("Logout") { _, _ ->
                 auth.signOut()
                 navigateTo(LoginActivity::class.java)
-            }
-            .show()
+            }.show()
     }
 
     private fun navigateTo(activityClass: Class<*>) {

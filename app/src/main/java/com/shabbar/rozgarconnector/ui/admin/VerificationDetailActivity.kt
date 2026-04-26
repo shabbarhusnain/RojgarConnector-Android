@@ -54,14 +54,14 @@ class VerificationDetailActivity : AppCompatActivity() {
 
     private fun displayUser(user: UserModel) {
         binding.apply {
-            // Fix: Use 'fullName' to match the updated UserModel
-            tvFullName.text = if (user.fullName.isNotEmpty()) user.fullName else "N/A"
+            // Fix: Added null safety for fullName and role
+            tvFullName.text = if (user.fullName?.isNotEmpty() == true) user.fullName else "N/A"
             tvCnic.text = user.cnic ?: "N/A"
             tvFatherName.text = user.fatherName ?: "N/A"
             tvPhone.text = user.phone ?: "N/A"
             tvDob.text = user.dob ?: "N/A"
             tvAddress.text = user.permanentAddress ?: "N/A"
-            tvRoleBadge.text = user.role.uppercase()
+            tvRoleBadge.text = user.role?.uppercase() ?: "USER"
 
             // Load Basic Images
             loadBase64Image(user.dpBase64, imgProfile)
@@ -69,7 +69,7 @@ class VerificationDetailActivity : AppCompatActivity() {
             loadBase64Image(user.cnicBackBase64, imgCnicBack)
 
             // Handle Professional Data for Workers
-            if (user.role.equals("Worker", ignoreCase = true)) {
+            if (user.role?.equals("Worker", ignoreCase = true) == true) {
                 layoutProfessionalInfo.visibility = View.VISIBLE
                 
                 if (user.workerType == "educated") {

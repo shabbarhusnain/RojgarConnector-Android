@@ -7,167 +7,118 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivityJobDetailBinding
+import com.shabbar.rozgarconnector.models.ActivitiesModel
 import com.shabbar.rozgarconnector.models.JobModel
-import com.shabbar.rozgarconnector.utils.TranslatorUtil
+import com.shabbar.rozgarconnector.utils.loadBase64Image
 
 class JobDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJobDetailBinding
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    private var jobId: String? = null
-    private var seekerId: String? = null
-    private var jobTitle: String? = null
+    private var jobData: JobModel? = null
+    private var currentUserName: String? = null
+    private var currentUserRole: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityJobDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        jobId = intent.getStringExtra("JOB_ID")
-        if (jobId == null) {
-            finish()
-            return
-        }
+        val jobId = intent.getStringExtra("JOB_ID")
+        if (jobId == null) { finish(); return }
 
-        loadJobDetails()
+        fetchCurrentUserDetails()
+        loadJobDetails(jobId)
 
-        binding.btnConfirmApply.setOnClickListener {
-            checkExistingAndActiveJobs()
+        binding.btnConfirmApply.setOnClickListener { applyForJob() }
+        binding.btnBack.setOnClickListener { finish() }
+    }
+
+    private fun fetchCurrentUserDetails() {
+        val uid = auth.currentUser?.uid ?: return
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            currentUserName = doc.getString("fullName")
+            currentUserRole = doc.getString("role")?.lowercase()
         }
     }
 
-    private fun loadJobDetails() {
-        db.collection("jobs").document(jobId!!).get().addOnSuccessListener { doc ->
-            if (doc.exists()) {
-                val job = doc.toObject(JobModel::class.java)
-                if (job != null) {
-                    seekerId = job.seekerId
-                    jobTitle = job.jobTitle
+    private fun loadJobDetails(id: String) {
+        binding.progressBar.visibility = View.VISIBLE
+        db.collection("jobs").document(id).get().addOnSuccessListener { doc ->
+            if (!isFinishing) {
+                binding.progressBar.visibility = View.GONE
+                binding.scrollView.visibility = View.VISIBLE
+                
+                jobData = doc.toObject(JobModel::class.java)
+                jobData?.let { job ->
+                    binding.tvDetailTitle.text = job.jobTitle
+                    binding.tvDetailBudget.text = "Rs. ${job.payAmount}"
+                    binding.tvDetailCategory.text = if(job.workerType == "educated") "Professional" else "Skilled/Manual"
+                    binding.tvCompanyName.text = job.workplaceName ?: "Local Job"
+                    binding.tvDetailDesc.text = job.jobDescription
+                    binding.tvDetailAddress.text = "Location: ${job.district ?: "N/A"}"
+                    binding.tvDetailDeadline.text = "Date: ${job.lastDateToApply ?: "N/A"}"
+                    binding.tvDetailTools.text = "Tools Provided By: ${job.toolsProvidedBy ?: "N/A"}"
+                    binding.tvDetailNegotiable.text = "Negotiable: ${if(job.isNegotiable) "Yes" else "No"}"
+                    binding.tvBenefits.text = job.benefits ?: "Not mentioned"
+                    binding.tvQualifications.text = job.qualifications ?: "General"
                     
-                    if (TranslatorUtil.isUrduEnabled(this)) {
-                        TranslatorUtil.initTranslator(
-                            onSuccess = {
-                                TranslatorUtil.translateText(job.jobTitle) { binding.tvDetailTitle.text = it }
-                                TranslatorUtil.translateText(job.category) { binding.tvDetailCategory.text = it }
-                                TranslatorUtil.translateText(job.jobDescription) { binding.tvDetailDesc.text = it }
-                            },
-                            onFailure = {
-                                displayOriginal(job)
-                            }
-                        )
-                    } else {
-                        displayOriginal(job)
-                    }
-                    
-                    binding.tvDetailAddress.text = "${job.district}, ${job.workplaceAddress ?: ""}"
-                    binding.tvDetailBudget.text = "Rs. ${job.payAmount} / ${job.payUnit}"
-                    binding.tvDetailDeadline.text = "${job.durationValue} ${job.durationUnit}"
-                    
-                    // Step 2: Show Ethical Details
-                    binding.tvDetailTools.text = "Tools: ${job.toolsProvidedBy}"
-                    binding.tvDetailNegotiable.text = "Negotiable: ${if (job.isNegotiable) "Yes" else "No (Fixed)"}"
-                    
-                    binding.llVisitRequired.visibility = if (job.isVisitRequired) View.VISIBLE else View.GONE
-                    
-                    if (job.hasSafetyHazards) {
-                        binding.llSafetyWarning.visibility = View.VISIBLE
-                        binding.tvHazardsDesc.text = job.hazardsDescription
-                    } else {
-                        binding.llSafetyWarning.visibility = View.GONE
-                    }
-                    
-                    if (auth.currentUser?.uid == seekerId) {
+                    // REPAIR: Button visibility logic based on status and role
+                    if (job.status != "open" || currentUserRole == "seeker") {
                         binding.btnConfirmApply.visibility = View.GONE
+                    } else {
+                        binding.btnConfirmApply.visibility = View.VISIBLE
                     }
-                }
-            }
-        }
-    }
 
-    private fun displayOriginal(job: JobModel) {
-        binding.tvDetailTitle.text = job.jobTitle
-        binding.tvDetailCategory.text = job.category
-        binding.tvDetailDesc.text = job.jobDescription
-    }
-
-    private fun checkExistingAndActiveJobs() {
-        val providerId = auth.currentUser?.uid ?: return
-
-        if (providerId == seekerId) {
-            Toast.makeText(this, "You cannot apply for your own job.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        db.collection("applications")
-            .whereEqualTo("jobId", jobId)
-            .whereEqualTo("providerId", providerId)
-            .get()
-            .addOnSuccessListener { snapshots ->
-                if (!snapshots.isEmpty) {
-                    Toast.makeText(this, "You have already applied for this job.", Toast.LENGTH_SHORT).show()
-                } else {
-                    applyForJob()
-                }
-            }
-    }
-
-    private fun applyForJob() {
-        val providerId = auth.currentUser?.uid ?: return
-        binding.btnConfirmApply.isEnabled = false
-        binding.btnConfirmApply.text = "APPLYING..."
-
-        db.collection("users").document(providerId).get().addOnSuccessListener { providerDoc ->
-            val workerName = providerDoc.getString("fullName") ?: "A Worker"
-            val timestamp = Timestamp.now()
-
-            val applicationData = hashMapOf(
-                "jobId" to jobId,
-                "jobTitle" to jobTitle,
-                "providerId" to providerId,
-                "workerName" to workerName,
-                "seekerId" to seekerId,
-                "status" to "pending",
-                "timestamp" to timestamp
-            )
-
-            db.collection("applications").add(applicationData).addOnSuccessListener {
-                val notifySeeker = hashMapOf(
-                    "receiverId" to seekerId,
-                    "senderId" to providerId,
-                    "senderName" to workerName,
-                    "jobId" to jobId,
-                    "jobTitle" to jobTitle,
-                    "title" to "New Job Application",
-                    "message" to "$workerName has applied for your job: $jobTitle",
-                    "type" to "job",
-                    "status" to "pending",
-                    "timestamp" to timestamp,
-                    "isRead" to false
-                )
-                db.collection("notifications").add(notifySeeker)
-
-                val notifyProvider = hashMapOf(
-                    "receiverId" to providerId,
-                    "senderId" to seekerId,
-                    "jobId" to jobId,
-                    "jobTitle" to jobTitle,
-                    "title" to "Application Sent",
-                    "message" to "You successfully applied for: $jobTitle",
-                    "type" to "job_application_sent",
-                    "status" to "pending",
-                    "timestamp" to timestamp,
-                    "isRead" to true
-                )
-                db.collection("notifications").add(notifyProvider).addOnSuccessListener {
-                    Toast.makeText(this, "Application sent successfully!", Toast.LENGTH_SHORT).show()
-                    finish()
+                    // Handle missing image gracefully
+                    if (!job.jobPhotoBase64.isNullOrEmpty()) {
+                        loadBase64Image(this, job.jobPhotoBase64, binding.ivJobPoster, R.drawable.header_gradient_curved)
+                    } else {
+                        binding.ivJobPoster.setImageResource(R.drawable.header_gradient_curved)
+                    }
                 }
             }
         }.addOnFailureListener {
-            binding.btnConfirmApply.isEnabled = true
-            binding.btnConfirmApply.text = "SEND APPLICATION"
+            binding.progressBar.visibility = View.GONE
+            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun applyForJob() {
+        val currentUid = auth.currentUser?.uid ?: return
+        val job = jobData ?: return
+        
+        if (job.seekerId == currentUid) {
+            Toast.makeText(this, "This is your post!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        binding.btnConfirmApply.isEnabled = false
+        db.collection("notifications").whereEqualTo("jobId", job.jobId).whereEqualTo("senderId", currentUid).get()
+            .addOnSuccessListener { docs ->
+                if (!docs.isEmpty) {
+                    Toast.makeText(this, "Already applied", Toast.LENGTH_SHORT).show()
+                    binding.btnConfirmApply.isEnabled = true
+                } else {
+                    submitApplication(currentUid, job)
+                }
+            }
+    }
+
+    private fun submitApplication(currentUid: String, job: JobModel) {
+        val nid = db.collection("notifications").document().id
+        val app = ActivitiesModel().apply {
+            notificationId = nid; jobId = job.jobId; senderId = currentUid; receiverId = job.seekerId
+            senderName = currentUserName ?: "Worker"; title = "Job Application"; taskTitle = job.jobTitle
+            budget = job.payAmount; location = job.district ?: "N/A"; type = "job"; status = "pending"
+            timestamp = Timestamp.now()
+        }
+        db.collection("notifications").document(nid).set(app).addOnSuccessListener {
+            Toast.makeText(this, "Applied Successfully!", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }

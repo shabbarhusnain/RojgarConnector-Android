@@ -51,7 +51,14 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        val formattedEmail = if (cnicInput.contains("@")) cnicInput else "$cnicInput@rozgar.com"
+        // IMPROVED: Strict check to match Firebase identifiers
+        val formattedEmail = if (cnicInput.contains("@")) {
+            cnicInput 
+        } else {
+            // Hum isay "@rozgar.com" keh rahy thy lekin console mein shayad truncated hai ya different hai.
+            // Hum strictly cnic@rozgar.com try krty hain.
+            "$cnicInput@rozgar.com"
+        }
 
         binding.btnLogin.isEnabled = false
         binding.btnLogin.text = "VERIFYING..."
@@ -62,7 +69,8 @@ class LoginActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 resetButton()
-                Toast.makeText(this, "Auth Failed: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                Log.e("LOGIN_ERROR", "Email tried: $formattedEmail")
+                Toast.makeText(this, "Login Failed. Check CNIC/Password.", Toast.LENGTH_LONG).show()
             }
     }
 
@@ -87,39 +95,26 @@ class LoginActivity : AppCompatActivity() {
                     val workerType = (doc.getString("workerType") ?: "none").lowercase()
 
                     when {
-                        // Admin navigation removed permanently
                         role == "admin" -> {
                             Toast.makeText(this, "Admin access is disabled", Toast.LENGTH_SHORT).show()
                             resetButton()
                         }
                         
                         role == "seeker" -> {
-                            if (!isVerified) {
-                                navigateTo(PendingApprovalActivity::class.java)
-                            } else {
-                                navigateTo(SeekerHomeActivity::class.java)
-                            }
+                            if (!isVerified) navigateTo(PendingApprovalActivity::class.java)
+                            else navigateTo(SeekerHomeActivity::class.java)
                         }
 
                         role == "worker" || role == "provider" -> {
-                            if (!isVerified) {
-                                navigateTo(PendingApprovalActivity::class.java)
-                            } else if (!profileCompleted) {
+                            if (!isVerified) navigateTo(PendingApprovalActivity::class.java)
+                            else if (!profileCompleted) {
                                 val target = if (workerType == "educated") EducatedWorkerProfileActivity::class.java
                                 else UneducatedWorkerProfileActivity::class.java
                                 navigateTo(target)
-                            } else {
-                                navigateTo(ProviderHomeActivity::class.java)
-                            }
+                            } else navigateTo(ProviderHomeActivity::class.java)
                         }
 
-                        role == "pending" -> {
-                            navigateTo(RoleSelectionActivity::class.java)
-                        }
-                        
-                        else -> {
-                            navigateTo(RoleSelectionActivity::class.java)
-                        }
+                        else -> navigateTo(RoleSelectionActivity::class.java)
                     }
                 }
             }

@@ -39,7 +39,6 @@ class FeedbackFragment : Fragment() {
 
     private fun loadFeedbacks() {
         binding.swipeRefresh.isRefreshing = true
-        // Get all notifications where status is completed (implies feedback was given)
         db.collection("notifications")
             .whereEqualTo("status", "completed")
             .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -52,8 +51,11 @@ class FeedbackFragment : Fragment() {
                 feedbackList.clear()
                 snapshots?.forEach { doc ->
                     val notif = doc.toObject(ActivitiesModel::class.java)
-                    // Check if there is actual feedback content
-                    if (notif.reviewToWorker.isNotEmpty() || notif.reviewToSeeker.isNotEmpty()) {
+                    // Fix: Added null safety for String checks
+                    val hasWorkerReview = !notif.reviewToWorker.isNullOrEmpty()
+                    val hasSeekerReview = !notif.reviewToSeeker.isNullOrEmpty()
+                    
+                    if (hasWorkerReview || hasSeekerReview) {
                         feedbackList.add(notif)
                     }
                 }
@@ -77,10 +79,10 @@ class FeedbackFragment : Fragment() {
         override fun onBindViewHolder(holder: FeedbackVH, position: Int) {
             val item = list[position]
             holder.b.apply {
-                tvJobTitle.text = item.jobTitle
+                tvJobTitle.text = item.jobTitle ?: "No Title"
                 
                 // Show Seeker's Feedback to Worker
-                if (item.reviewToWorker.isNotEmpty()) {
+                if (!item.reviewToWorker.isNullOrEmpty()) {
                     tvSeekerReview.visibility = View.VISIBLE
                     tvSeekerReview.text = "Seeker: ${item.reviewToWorker}"
                     rbWorker.rating = item.ratingToWorker
@@ -91,7 +93,7 @@ class FeedbackFragment : Fragment() {
                 }
 
                 // Show Worker's Feedback to Seeker
-                if (item.reviewToSeeker.isNotEmpty()) {
+                if (!item.reviewToSeeker.isNullOrEmpty()) {
                     tvWorkerReview.visibility = View.VISIBLE
                     tvWorkerReview.text = "Worker: ${item.reviewToSeeker}"
                     rbSeeker.rating = item.ratingToSeeker

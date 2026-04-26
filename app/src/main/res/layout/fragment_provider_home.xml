@@ -1,185 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <!-- Green Header Section -->
-    <View
-        android:id="@+id/headerBg"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/home_header_height"
-        android:background="@drawable/header_gradient_curved"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F8FAF5">
 
-    <TextView
-        android:id="@+id/tvHeaderTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/icon_medium"
-        android:layout_marginTop="@dimen/spacing_2xl"
-        android:text="@string/available_jobs"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_xl"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- Green Header Section -->
+        <View
+            android:id="@+id/headerBg"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:background="@drawable/header_gradient_curved"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/llHeaderActions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_lg"
-        android:layout_marginTop="@dimen/spacing_2xl"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:text="Discover Work"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Announcement Bell -->
-        <FrameLayout
-            android:id="@+id/btnAnnouncements"
-            android:layout_width="@dimen/icon_large"
-            android:layout_height="@dimen/icon_large">
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find top jobs matching your skills"
+            android:textColor="#CCFFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
 
-            <ImageView
+        <!-- Search Bar -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchCard"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+            app:strokeWidth="0dp">
+            <EditText
+                android:id="@+id/etSearchJob"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/spacing_sm"
-                android:src="@drawable/ic_bell"
-                app:tint="@color/white" />
+                android:background="@color/white"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="12dp"
+                android:hint="Search by job title..."
+                android:paddingStart="16dp"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </com.google.android.material.card.MaterialCardView>
 
-            <View
-                android:id="@+id/unreadBellDot"
-                android:layout_width="@dimen/spacing_sm"
-                android:layout_height="@dimen/spacing_sm"
-                android:layout_gravity="top|end"
-                android:layout_margin="@dimen/spacing_sm"
-                android:background="@drawable/circle_shape"
-                android:backgroundTint="@color/red"
-                android:visibility="gone" />
-        </FrameLayout>
-
-        <!-- Settings Button Removed -->
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/find_jobs"
-        android:textColor="#CCFFFFFF"
-        android:textSize="@dimen/text_size_normal"
-        app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
-        app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/searchCard"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/filter_control_height"
-        android:layout_marginHorizontal="@dimen/spacing_lg"
-        android:layout_marginTop="@dimen/spacing_lg"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
-        app:strokeWidth="0dp">
-
-        <EditText
-            android:id="@+id/etSearchJob"
+        <!-- Filter Bar -->
+        <LinearLayout
+            android:id="@+id/llFilters"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="@dimen/spacing_md"
-            android:hint="@string/search_job_hint"
-            android:paddingStart="@dimen/spacing_default"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_normal" />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintTop_toBottomOf="@id/searchCard">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardDistrict"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/filter_control_height"
-        android:layout_marginStart="@dimen/spacing_lg"
-        android:layout_marginTop="@dimen/icon_medium"
-        android:layout_marginEnd="@dimen/spacing_sm"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="6dp"
-        app:layout_constraintEnd_toStartOf="@+id/cardCategory"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchCard"
-        app:strokeWidth="0dp">
+            <Spinner
+                android:id="@+id/spinnerDistrictFilter"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_bg_outline" />
 
-        <Spinner
-            android:id="@+id/spinnerDistrict"
+            <Spinner
+                android:id="@+id/spinnerSkillFilter"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1.2"
+                android:background="@drawable/toggle_bg_outline" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvJobs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:paddingStart="@dimen/spacing_md"
-            android:spinnerMode="dropdown" />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llFilters" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardCategory"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/filter_control_height"
-        android:layout_marginStart="@dimen/spacing_sm"
-        android:layout_marginTop="@dimen/icon_medium"
-        android:layout_marginEnd="@dimen/spacing_lg"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cardDistrict"
-        app:layout_constraintTop_toBottomOf="@+id/searchCard"
-        app:strokeWidth="0dp">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llFilters" />
 
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:paddingStart="@dimen/spacing_md"
-            android:spinnerMode="dropdown" />
-    </com.google.android.material.card.MaterialCardView>
+        <LinearLayout
+            android:id="@+id/llEmptyState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llFilters">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_messages"
+                android:alpha="0.1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No matching jobs found"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvJobs"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/spacing_md"
-        android:clipToPadding="false"
-        android:padding="@dimen/spacing_sm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDistrict" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDistrict" />
-
-    <TextView
-        android:id="@+id/tvNoJobs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_jobs_found"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDistrict" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

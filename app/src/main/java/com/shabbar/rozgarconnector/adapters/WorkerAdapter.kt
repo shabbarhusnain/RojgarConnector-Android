@@ -29,8 +29,8 @@ class WorkerAdapter(
         val worker = workerList[position]
         val context = holder.itemView.context
 
-        // Fix: Use 'fullName' to match the updated UserModel
-        holder.binding.tvName.text = if (worker.fullName.isNotEmpty()) worker.fullName else "No Name"
+        // Fix: Null safety for fullName
+        holder.binding.tvName.text = if (worker.fullName?.isNotEmpty() == true) worker.fullName else "No Name"
 
         if (TranslatorUtil.isUrduEnabled(context)) {
             worker.district?.let { district ->
@@ -78,7 +78,7 @@ class WorkerAdapter(
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, WorkerDetailActivity::class.java).apply {
-                putExtra("WORKER_ID", worker.uid)
+                putExtra("WORKER_ID", worker.uid ?: "")
             }
             context.startActivity(intent)
         }
