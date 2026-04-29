@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When Chip is selected (Checked), use Primary Green -->
+    <item android:state_checked="true" android:color="@color/primary_green" />
+    <!-- When Chip is unselected, use White -->
+    <item android:color="@color/white" />
+</selector>

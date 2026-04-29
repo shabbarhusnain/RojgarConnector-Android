@@ -63,11 +63,12 @@
                     app:tint="@color/primary_green" />
 
                 <TextView
+                    android:id="@+id/tvAccountSettingsLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_default"
                     android:layout_weight="1"
-                    android:text="Account Settings"
+                    android:text="@string/account_settings"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
@@ -139,7 +140,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/spacing_default">
                     <ImageView android:layout_width="@dimen/icon_medium" android:layout_height="@dimen/icon_medium" android:src="@drawable/ic_messages" app:tint="@color/primary_green" />
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/spacing_default" android:text="Chat with Admin" android:textColor="@color/black" />
+                    <TextView android:id="@+id/tvChatAdminLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/spacing_default" android:text="@string/chat_with_admin" android:textColor="@color/black" />
                 </LinearLayout>
 
                 <View
@@ -156,7 +157,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="@dimen/spacing_default">
                     <ImageView android:layout_width="@dimen/icon_medium" android:layout_height="@dimen/icon_medium" android:src="@drawable/ic_notification" app:tint="@color/primary_green" />
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/spacing_default" android:text="Help &amp; Support" android:textColor="@color/black" />
+                    <TextView android:id="@+id/tvHelpSupportLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="@dimen/spacing_default" android:text="@string/help_and_support" android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -191,8 +192,8 @@
                     android:layout_marginStart="@dimen/spacing_default"
                     android:layout_weight="1"
                     android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SOS Emergency" android:textColor="@color/red" android:textSize="@dimen/text_size_medium" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Call 15 for immediate help" android:textColor="#D32F2F" android:textSize="@dimen/text_size_sm" />
+                    <TextView android:id="@+id/tvSOSLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sos_emergency" android:textColor="@color/red" android:textSize="@dimen/text_size_medium" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvSOSDesc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/call_15_desc" android:textColor="#D32F2F" android:textSize="@dimen/text_size_sm" />
                 </LinearLayout>
 
                 <ImageView android:layout_width="@dimen/icon_medium" android:layout_height="@dimen/icon_medium" android:src="@drawable/ic_back" android:rotation="180" app:tint="@color/red" />

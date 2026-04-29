@@ -27,18 +27,30 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="40dp"
-            android:text="Discover Work"
+            android:text="@string/discover_work"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/btnAnnouncements"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="20dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_bell"
+            app:layout_constraintBottom_toBottomOf="@id/tvHeaderTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvHeaderTitle"
+            app:tint="@color/white" />
+
         <TextView
             android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Find top jobs matching your skills"
+            android:text="@string/find_matching_jobs"
             android:textColor="#CCFFFFFF"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tvHeaderTitle"
@@ -64,7 +76,7 @@
                 android:background="@color/white"
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="12dp"
-                android:hint="Search by job title..."
+                android:hint="@string/search_job_hint"
                 android:paddingStart="16dp"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -135,9 +147,10 @@
                 android:src="@drawable/ic_messages"
                 android:alpha="0.1" />
             <TextView
+                android:id="@+id/tvEmptyMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No matching jobs found"
+                android:text="@string/no_jobs_found"
                 android:textColor="@color/grey"
                 android:textSize="14sp" />
         </LinearLayout>

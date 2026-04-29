@@ -2,7 +2,7 @@
     <string name="app_name">RozgarConnector</string>
     <string name="tagline">Local jobs and workers at your fingertips</string>
 
-    <!-- Login Screen -->
+    <!-- Auth & Profile -->
     <string name="login_title">Login</string>
     <string name="cnic_hint">13 digit CNIC (no dashes)</string>
     <string name="password_hint">Enter Password</string>
@@ -11,8 +11,6 @@
     <string name="register">Register</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="dont_have_account">Don\'t have an account? Sign up</string>
-
-    <!-- Register Screen -->
     <string name="create_account">Create Account</string>
     <string name="name_hint">Full Name</string>
     <string name="full_name">Full Name</string>
@@ -33,16 +31,60 @@
     <string name="educated_worker">Educated Provider</string>
     <string name="un_educated_worker">Skilled / Manual Provider</string>
     <string name="confirm_and_continue">Confirm and Continue</string>
+    <string name="cnic_number">CNIC Number</string>
+    <string name="dob">Date of Birth</string>
 
-    <!-- Navigation Labels -->
+    <!-- Navigation & Menu -->
     <string name="home">Home</string>
     <string name="notifications">Activities</string>
     <string name="messages">Messages</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
+    <string name="menu_title">Menu</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="lang_settings">Language Settings</string>
+    <string name="switch_urdu_label">Translate to Urdu (اردو)</string>
+    <string name="help_and_support">Help &amp; Support</string>
+    <string name="sos_emergency">SOS Emergency</string>
+    <string name="call_15_desc">Call 15 immediately for help</string>
+    <string name="chat_with_admin">Chat with Admin</string>
 
-    <!-- Admin Dashboard Labels -->
+    <!-- Activity Hub -->
+    <string name="activity_hub">Activity Hub</string>
+    <string name="active_contracts">Active Contracts</string>
+    <string name="hire_requests">Hire Requests</string>
+    <string name="applied_jobs">Applied Jobs</string>
+    <string name="worker_apps">Worker Apps</string>
+    <string name="sent_offers">Sent Offers</string>
+    <string name="history">History</string>
+    <string name="no_activities_yet">No activities yet.</string>
+    <string name="not_now">Not Now</string>
+    <string name="header_my_jobs">Active Professional Posts 📋</string>
+    <string name="header_my_works">Active Manual Posts 🛠️</string>
+    <string name="header_active_contracts">Contracts In Progress ⚒️</string>
+    <string name="header_history">Job Records 📜</string>
+    <string name="header_sent_offers">Sent Offers 💼</string>
+    <string name="header_hire_requests">Hire Requests 📩</string>
+    <string name="header_worker_apps">Worker Applications 📄</string>
+    <string name="header_my_apps">My Applications 📄</string>
+    <string name="accept">Accept</string>
+    <string name="accepted">Accepted</string>
+    <string name="completed">Completed</string>
+    <string name="pending">Pending</string>
+    <string name="offers">Offers</string>
+    <string name="applications">Applications</string>
+
+    <!-- Home & Search -->
+    <string name="discover_work">Discover Work</string>
+    <string name="find_matching_jobs">Find top jobs matching your skills</string>
+    <string name="find_workers">Find Best Workers Near You</string>
+    <string name="search_worker_hint">Search by name or category...</string>
+    <string name="search_job_hint">Search by job title...</string>
+    <string name="no_jobs_found">No matching jobs found</string>
+    <string name="educated">Educated</string>
+
+    <!-- Admin & Chat -->
     <string name="admin_title">Admin Panel</string>
     <string name="tab_verifications">Verification</string>
     <string name="tab_users">Users</string>
@@ -50,256 +92,78 @@
     <string name="search_user_hint">Search by name or CNIC...</string>
     <string name="approve">Approve</string>
     <string name="reject">Reject</string>
+    <string name="user_details">Verification Details</string>
     <string name="block">Block</string>
     <string name="delete">Delete</string>
-    <string name="user_details">Verification Details</string>
     <string name="reject_reason_hint">Reason for rejection (Optional)</string>
-
-    <!-- Profile Screen -->
-    <string name="user_profile">User Profile</string>
-    <string name="basic_info">Basic Information</string>
-    <string name="cnic_number">CNIC Number</string>
-    <string name="dob">Date of Birth</string>
-    <string name="location">Location</string>
-    <string name="not_provided">Not provided</string>
-    <string name="portfolio">Professional Portfolio</string>
-    <string name="education">Education</string>
-    <string name="skill_expertise">Skill / Expertise</string>
-    <string name="experience">Experience</string>
-    <string name="prof_desc">Work Description</string>
-    <string name="degree_doc">Degree/Certificate Image</string>
-    <string name="sign_out">Sign Out</string>
-
-    <!-- Home Screens -->
-    <string name="find_workers">Find Best Workers Near You</string>
-    <string name="search_worker_hint">Search by name or category...</string>
-    <string name="available_jobs">Available Jobs</string>
-    <string name="find_jobs">Find work matching your skills</string>
-    <string name="search_job_hint">Search by title or skill...</string>
-    <string name="no_jobs_found">No matching jobs found.</string>
-
-    <!-- Activity Hub -->
-    <string name="activity_hub">Activity Hub</string>
-    <string name="active_work">Active Work</string>
-    <string name="offers">Offers</string>
-    <string name="applications">Applications</string>
-    <string name="history">History</string>
-    <string name="all_notif">Notifications</string>
-    <string name="no_updates">No new updates</string>
-    <string name="sent_offers">Sent Offers</string>
-    <string name="apps_received">Applications Received</string>
-    <string name="active_contracts">Active Contracts</string>
-    <string name="job_offers">Job Offers</string>
-    <string name="my_apps">My Applications</string>
-    <string name="work_in_progress_chip">Working</string>
-    <string name="active_work_header">Active Work In-Progress 🛠️</string>
-    <string name="job_history_header">Completed Job Records 📜</string>
-    <string name="hiring_offers_header">Hiring Offers 💼</string>
-    <string name="job_apps_header">Job Applications 📝</string>
-    <string name="notif_header">Notifications 🔔</string>
-    <string name="work_in_progress">Work in Progress</string>
-    <string name="days_left">Days Left</string>
-    <string name="sos">Emergency Assistance (15)</string>
-    <string name="cancel">Cancel</string>
-    <string name="finish_job">Finish Job</string>
-    <string name="chat_btn">Chat</string>
-    <string name="pending">Pending</string>
-    <string name="just_now">Just now</string>
-
-    <!-- Account Settings -->
-    <string name="account_settings">Account Settings</string>
-    <string name="change_number">Change Mobile Number</string>
-    <string name="reset_password">Change Password</string>
-    <string name="delete_account">Delete Account</string>
-    <string name="security_check">Security Check</string>
-    <string name="enter_pass_to_continue">Enter password to continue</string>
-    <string name="verify">Verify</string>
-    <string name="otp_hint">6 digit OTP code</string>
-    <string name="new_number_hint">New Mobile Number (+92...)</string>
-    <string name="reason_delete_hint">Why are you deleting your account?</string>
-    <string name="delete_permanently">Delete Permanently</string>
-
-    <!-- Menu / Settings -->
-    <string name="menu_title">Menu</string>
-    <string name="lang_settings">Language Settings</string>
-    <string name="switch_urdu_label">Translate to Urdu (اردو)</string>
-    <string name="model_download_status">Offline model will be downloaded for the first time.</string>
-    <string name="chat_with_agent">Chat with Agent</string>
-    <string name="help_and_support">Help &amp; Support</string>
-    <string name="sos_emergency">SOS Emergency</string>
-    <string name="call_15_desc">Call 15 immediately for help</string>
-    <string name="agent_welcome_msg">Hello! Welcome to Support. Describe your issue, an agent will contact you soon.</string>
-    <string name="chat_with_admin">Chat with Admin</string>
-
-    <!-- Post Job Screen -->
-    <string name="post_new_job">Post a New Job</string>
-    <string name="job_info">Job Details</string>
-    <string name="job_title_hint">Job Title (e.g. Electrician)</string>
-    <string name="workplace_location">Workplace Location</string>
-    <string name="workplace_name_hint">Place Name</string>
-    <string name="full_address_hint">Full Address</string>
-    <string name="worker_category_header">Worker Category</string>
-    <string name="educated">Educated</string>
-    <string name="uneducated">Uneducated</string>
-    <string name="select_skill_category">Select Skill</string>
-    <string name="budget_time">Budget &amp; Time</string>
-    <string name="amount_pkr_hint">Amount (PKR)</string>
-    <string name="value_hint">Value</string>
-    <string name="job_desc_hint">Describe the work briefly...</string>
-    <string name="publish_job">Publish Job</string>
-
-    <!-- Job Detail Screen -->
-    <string name="urgent">Urgent</string>
-    <string name="duration">Duration</string>
-    <string name="job_location">Location</string>
-    <string name="about_job">About Job</string>
-    <string name="send_application">Send Application</string>
-
-    <!-- Worker Detail Screen -->
-    <string name="experience_label">Experience</string>
-    <string name="about_work">About Work</string>
-    <string name="education_details">Education Details</string>
-    <string name="hire_worker">Hire This Worker</string>
-    <string name="decline">Decline</string>
-    <string name="accept_hire">Accept and Start Work</string>
-
-    <!-- Hiring Dialog -->
-    <string name="work_engagement_details">Work Agreement Details</string>
-    <string name="send_hiring_offer">Send Hiring Offer</string>
-    <string name="job_task_hint">Job Description / Task</string>
-    <string name="select_engagement_type">Select Engagement Type</string>
-    <string name="working_duration_hint">Duration (e.g. 2 hours, 1 day)</string>
-    <string name="work_location_hint">Work Location / Full Address</string>
-    <string name="offered_budget_hint">Agreed Budget (PKR)</string>
-    <string name="completion_deadline_hint">Deadline</string>
-    <string name="contact_number_hint">Contact Number</string>
-    <string name="send">Send</string>
-
-    <!-- Chat Screen -->
     <string name="chats_title">Chats</string>
     <string name="no_messages">No messages yet.</string>
     <string name="type_message_hint">Type a message...</string>
-    <string name="provider_educated">Provider (Educated)</string>
-    <string name="provider_uneducated">Provider (Skilled)</string>
-    <string name="rozgar_user">Rozgar User</string>
-    <string name="job_finished_read_only">Job Finished (Read Only)</string>
-    <string name="chat_locked_no_job">Chat Locked (No Active Job)</string>
-    <string name="user_not_found">Error: User not found</string>
 
-    <string-array name="engagement_types">
-        <item>Hire for general work</item>
-        <item>Call for Interview/Meeting</item>
-        <item>Hire on trial basis</item>
-    </string-array>
+    <!-- Job Post -->
+    <string name="post_new_job">Post Job</string>
+    <string name="job_info">Job Info</string>
+    <string name="job_title_hint">Position Title</string>
+    <string name="workplace_location">Workplace Location</string>
+    <string name="workplace_name_hint">Company/Place Name</string>
+    <string name="full_address_hint">Street Address</string>
+    <string name="worker_category_header">Worker Category</string>
+    <string name="uneducated">Uneducated</string>
+    <string name="select_skill_category">Select Category</string>
+    <string name="budget_time">Budget &amp; Time</string>
+    <string name="amount_pkr_hint">Amount (PKR)</string>
+    <string name="value_hint">Value</string>
+    <string name="job_desc_hint">Describe the job...</string>
+    <string name="publish_job">Publish Post</string>
 
-    <string-array name="punjab_districts">
-        <item>Select District</item>
-        <item>Attock</item><item>Bahawalnagar</item><item>Bahawalpur</item><item>Bhakkar</item>
-        <item>Chakwal</item><item>Chiniot</item><item>Dera Ghazi Khan</item><item>Faisalabad</item>
-        <item>Gujranwala</item><item>Gujrat</item><item>Hafizabad</item><item>Jhang</item>
-        <item>Jhelum</item><item>Kasur</item><item>Khanewal</item><item>Khushab</item>
-        <item>Lahore</item><item>Layyah</item><item>Lodhran</item><item>Mandi Bahauddin</item>
-        <item>Mianwali</item><item>Multan</item><item>Muzaffargarh</item><item>Narowal</item>
-        <item>Nankana Sahib</item><item>Okara</item><item>Pakpattan</item><item>Rahim Yar Khan</item>
-        <item>Rajanpur</item><item>Rawalpindi</item><item>Sahiwal</item><item>Sargodha</item>
-        <item>Sheikhupura</item><item>Sialkot</item><item>Toba Tek Singh</item><item>Vehari</item>
-    </string-array>
-
-    <string-array name="pakistan_districts">
-        <item>Select District</item>
-        <item>Attock</item><item>Bahawalnagar</item><item>Bahawalpur</item><item>Bhakkar</item>
-        <item>Chakwal</item><item>Chiniot</item><item>Dera Ghazi Khan</item><item>Faisalabad</item>
-        <item>Gujranwala</item><item>Gujrat</item><item>Hafizabad</item><item>Jhang</item>
-        <item>Jhelum</item><item>Kasur</item><item>Khanewal</item><item>Khushab</item>
-        <item>Lahore</item><item>Layyah</item><item>Lodhran</item><item>Mandi Bahauddin</item>
-        <item>Mianwali</item><item>Multan</item><item>Muzaffargarh</item><item>Narowal</item>
-        <item>Nankana Sahib</item><item>Okara</item><item>Pakpattan</item><item>Rahim Yar Khan</item>
-        <item>Rajanpur</item><item>Rawalpindi</item><item>Sahiwal</item><item>Sargodha</item>
-        <item>Sheikhupura</item><item>Sialkot</item><item>Toba Tek Singh</item><item>Vehari</item>
-    </string-array>
-
-    <string-array name="educated_job_categories">
-        <item>Select Job Category</item>
-        <item>Software Engineering</item><item>Graphic Designing</item>
-        <item>Teaching/Education</item><item>Management/Accounting</item>
-        <item>Medical/Health</item><item>Marketing/Sales</item>
-        <item>Content Writing</item><item>Architecture</item>
-        <item>Legal/Law</item><item>Other</item>
-    </string-array>
-
-    <string-array name="uneducated_skill_categories">
-        <item>Select Skill Category</item>
-        <item>Electrician</item><item>Plumber</item>
-        <item>Carpenter</item><item>Painter</item>
-        <item>Mechanic</item><item>Mason (Mistri)</item>
-        <item>Tailor (Darzi)</item><item>Driver</item>
-        <item>Gardener (Mali)</item><item>Cleaner</item>
-        <item>Other</item>
-    </string-array>
-
-    <!-- FAQ Categories -->
+    <!-- FAQ -->
     <string name="faq_account">Account &amp; Profile</string>
     <string name="faq_seeker">For Service Seekers</string>
     <string name="faq_provider">For Workers / Providers</string>
     <string name="faq_safety">Safety &amp; Security</string>
     <string name="faq_completion">Job Completion &amp; Payments</string>
+    <string name="faq_q1">How to register?</string>
+    <string name="faq_a1">Fill the form and wait for verification.</string>
+    <string name="faq_q2">Account status?</string><string name="faq_a2">Verification takes 24h.</string>
+    <string name="faq_q3">Is data safe?</string><string name="faq_a3">Yes, encrypted.</string>
+    <string name="faq_q4">Update portfolio?</string><string name="faq_a4">Go to Profile tab.</string>
+    <string name="faq_q5">Post new job?</string><string name="faq_a5">Click + on Home.</string>
+    <string name="faq_q6">Who applied?</string><string name="faq_a6">See Worker Apps.</string>
+    <string name="faq_q7">Hire worker?</string><string name="faq_a7">Find on Home and Hire.</string>
+    <string name="faq_q8">Edit job?</string><string name="faq_a8">Go to My Posted.</string>
+    <string name="faq_q9">Find jobs?</string><string name="faq_a9">See Provider Home.</string>
+    <string name="faq_q10">Application limit?</string><string name="faq_a10">No limit.</string>
+    <string name="faq_q11">Am I hired?</string><string name="faq_a11">Check notifications.</string>
+    <string name="faq_q12">Difference?</string><string name="faq_a12">Educated vs Manual.</string>
+    <string name="faq_q13">SOS button?</string><string name="faq_a13">Emergency call 15.</string>
+    <string name="faq_q14">Worker verification?</string><string name="faq_a14">CNIC based verification.</string>
+    <string name="faq_q15">Report user?</string><string name="faq_a15">Contact Support.</string>
+    <string name="faq_q16">Location share?</string><string name="faq_a16">District is public.</string>
+    <string name="faq_q17">Finish job?</string><string name="faq_a17">Click Finish Job.</string>
+    <string name="faq_q18">Payments?</string><string name="faq_a18">Direct cash/bank.</string>
+    <string name="faq_q19">Ratings?</string><string name="faq_a19">Helps build trust.</string>
+    <string name="faq_q20">Cancel contract?</string><string name="faq_a20">Possible before start.</string>
 
-    <!-- FAQ Q&A - Updated names to match HelpSupportActivity.kt -->
-    <string name="faq_q1">How to register on Rozgar Connector?</string>
-    <string name="faq_a1">Click \'Register\' on the login screen, enter your name, CNIC, phone number, and upload documents. You must wait for Admin approval to use the app.</string>
-    <string name="faq_q2">Why is my account status still \'Pending\'?</string>
-    <string name="faq_a2">Admin team manually verifies your CNIC and documents for safety. This process usually takes 12–24 hours.</string>
-    <string name="faq_q3">Is my CNIC data safe?</string>
-    <string name="faq_a3">Yes, your CNIC and personal documents are encrypted and only used for identity verification by the Admin team.</string>
-    <string name="faq_q4">How to update my portfolio?</string>
-    <string name="faq_a4">Go to the \'Profile\' tab. Educated workers can update degrees, while skilled workers can update experience and project photos.</string>
+    <!-- Arrays -->
+    <string-array name="pakistan_districts">
+        <item>Select District</item>
+        <item>Chiniot</item><item>Lahore</item><item>Faisalabad</item><item>Multan</item>
+        <item>Rawalpindi</item><item>Sargodha</item><item>Gujranwala</item><item>Sialkot</item>
+    </string-array>
+    <string-array name="educated_job_categories">
+        <item>Select Job Category</item>
+        <item>Software Engineering</item><item>Teaching</item><item>Medical</item><item>Accounting</item>
+    </string-array>
+    <string-array name="uneducated_skill_categories">
+        <item>Select Skill Category</item>
+        <item>Electrician</item><item>Plumber</item><item>Mechanic</item><item>Mason</item>
+    </string-array>
 
-    <string name="faq_q5">How do I post a new job?</string>
-    <string name="faq_a5">As a Seeker, go to Home and click the \'+\' button. Choose between Professional (Educated) or Manual (Skilled) work types.</string>
-    <string name="faq_q6">How can I see who applied for my job?</string>
-    <string name="faq_a6">Go to the \'Activities\' tab and select \'Worker Apps\'. You will see a list of workers who applied for your post.</string>
-    <string name="faq_q7">How do I hire a specific worker?</string>
-    <string name="faq_a7">Find a worker on the Home screen, view their profile, and click \'Hire This Worker\' to send a direct offer.</string>
-    <string name="faq_q8">Can I edit my job post?</string>
-    <string name="faq_a8">Yes, go to \'Activities\' -> \'My Posted\' and click the \'EDIT\' button on any open job card.</string>
-
-    <string name="faq_q9">How do I find available jobs?</string>
-    <string name="faq_a9">As a Provider, your Home screen automatically shows jobs matching your type (Professional or Manual). Use filters to narrow down results.</string>
-    <string name="faq_q10">How many jobs can I apply for?</string>
-    <string name="faq_a10">There is no limit! You can apply for any job that matches your skills and district.</string>
-    <string name="faq_q11">How do I know if I am hired?</string>
-    <string name="faq_a11">You will receive a notification in the \'Activities\' tab. Once accepted, the job moves to your \'Active\' contracts tab.</string>
-    <string name="faq_q12">What is the difference between Educated and Skilled?</string>
-    <string name="faq_a12">Educated workers provide professional services like IT or Teaching. Skilled workers provide manual services like Plumbing or Driving.</string>
-
-    <string name="faq_q13">What is the SOS button?</string>
-    <string name="faq_a13">The SOS button is an emergency feature. Clicking it during an active job will immediately dial 15 (Police) for your safety.</string>
-    <string name="faq_q14">How are workers verified?</string>
-    <string name="faq_a14">Every worker must upload their CNIC and documents. Admin manually verifies these against the national database.</string>
-    <string name="faq_q15">How to report a fake user?</string>
-    <string name="faq_a15">You can report any user by contacting our support team via email from the Help &amp; Support screen.</string>
-    <string name="faq_q16">Is my location shared?</string>
-    <string name="faq_a16">Your general district is visible to all, but your exact work address is only shared with the person you are in a contract with.</string>
-
-    <string name="faq_q17">How do I mark a job as finished?</string>
-    <string name="faq_a17">Once work is done, go to the active job in the \'Activities\' tab and click \'FINISH JOB\'. Both parties must confirm completion.</string>
-    <string name="faq_q18">How do payments work?</string>
-    <string name="faq_a18">Currently, payments are handled directly between the seeker and worker (Cash or Bank). RozgarConnector does not collect payments yet.</string>
-    <string name="faq_q19">Why should I rate the other person?</string>
-    <string name="faq_a19">Ratings help build trust. High-rated workers get more jobs, and good seekers attract the best talent.</string>
-    <string name="faq_q20">Can I cancel a contract?</string>
-    <string name="faq_a20">Yes, but only before work has started. Frequent cancellations can lower your trust rating.</string>
-
-    <string name="job_feedback_title">Job Feedback</string>
-    <string name="task_completed_q">Was the task completed as promised?</string>
-    <string name="damage_issue_q">Was there any damage or issue?</string>
-    <string name="pay_settled_q">Has the payment been settled?</string>
-    <string name="pay_received_q">Did you receive the full payment?</string>
-    <string name="behavior_fair_q">Was the other person\'s behavior fair?</string>
-    <string name="rate_experience">Rate your experience</string>
-    <string name="tell_us_more_hint">Tell us more (Optional)</string>
-    <string name="submit_and_finish">Submit and Finish</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-
+    <!-- Profile -->
+    <string name="basic_info">Basic Information</string>
+    <string name="portfolio">Professional Portfolio</string>
+    <string name="experience">Experience</string>
+    <string name="skill_expertise">Skill / Expertise</string>
+    <string name="education">Education</string>
+    
 </resources>

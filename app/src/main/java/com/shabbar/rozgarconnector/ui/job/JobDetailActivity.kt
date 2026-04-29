@@ -2,15 +2,18 @@ package com.shabbar.rozgarconnector.ui.job
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.databinding.ActivityJobDetailBinding
 import com.shabbar.rozgarconnector.models.ActivitiesModel
 import com.shabbar.rozgarconnector.models.JobModel
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import com.shabbar.rozgarconnector.utils.loadBase64Image
 
 class JobDetailActivity : AppCompatActivity() {
@@ -30,19 +33,21 @@ class JobDetailActivity : AppCompatActivity() {
         val jobId = intent.getStringExtra("JOB_ID")
         if (jobId == null) { finish(); return }
 
-        fetchCurrentUserDetails()
-        loadJobDetails(jobId)
+        fetchCurrentUserDetails {
+            loadJobDetails(jobId)
+        }
 
         binding.btnConfirmApply.setOnClickListener { applyForJob() }
         binding.btnBack.setOnClickListener { finish() }
     }
 
-    private fun fetchCurrentUserDetails() {
+    private fun fetchCurrentUserDetails(onComplete: () -> Unit) {
         val uid = auth.currentUser?.uid ?: return
         db.collection("users").document(uid).get().addOnSuccessListener { doc ->
             currentUserName = doc.getString("fullName")
             currentUserRole = doc.getString("role")?.lowercase()
-        }
+            onComplete()
+        }.addOnFailureListener { onComplete() }
     }
 
     private fun loadJobDetails(id: String) {
@@ -54,36 +59,74 @@ class JobDetailActivity : AppCompatActivity() {
                 
                 jobData = doc.toObject(JobModel::class.java)
                 jobData?.let { job ->
-                    binding.tvDetailTitle.text = job.jobTitle
+                    val isUrdu = TranslatorUtil.isUrduEnabled(this)
+
+                    setTextOrTranslate(binding.tvDetailTitle, job.jobTitle, isUrdu)
                     binding.tvDetailBudget.text = "Rs. ${job.payAmount}"
-                    binding.tvDetailCategory.text = if(job.workerType == "educated") "Professional" else "Skilled/Manual"
-                    binding.tvCompanyName.text = job.workplaceName ?: "Local Job"
-                    binding.tvDetailDesc.text = job.jobDescription
-                    binding.tvDetailAddress.text = "Location: ${job.district ?: "N/A"}"
-                    binding.tvDetailDeadline.text = "Date: ${job.lastDateToApply ?: "N/A"}"
-                    binding.tvDetailTools.text = "Tools Provided By: ${job.toolsProvidedBy ?: "N/A"}"
-                    binding.tvDetailNegotiable.text = "Negotiable: ${if(job.isNegotiable) "Yes" else "No"}"
-                    binding.tvBenefits.text = job.benefits ?: "Not mentioned"
-                    binding.tvQualifications.text = job.qualifications ?: "General"
                     
-                    // REPAIR: Button visibility logic based on status and role
+                    val category = if(job.workerType == "educated") "Professional" else "Skilled/Manual"
+                    setTextOrTranslate(binding.tvDetailCategory, category, isUrdu)
+                    
+                    setTextOrTranslate(binding.tvCompanyName, job.workplaceName ?: "Local Job", isUrdu)
+                    setTextOrTranslate(binding.tvDetailDesc, job.jobDescription, isUrdu)
+                    
+                    val address = "Location: ${job.district ?: "N/A"}"
+                    setTextOrTranslate(binding.tvDetailAddress, address, isUrdu)
+                    
+                    val deadline = "Date: ${job.lastDateToApply ?: "N/A"}"
+                    setTextOrTranslate(binding.tvDetailDeadline, deadline, isUrdu)
+                    
+                    val tools = "Tools Provided By: ${job.toolsProvidedBy ?: "N/A"}"
+                    setTextOrTranslate(binding.tvDetailTools, tools, isUrdu)
+                    
+                    val negotiable = "Negotiable: ${if(job.isNegotiable) "Yes" else "No"}"
+                    setTextOrTranslate(binding.tvDetailNegotiable, negotiable, isUrdu)
+                    
+                    setTextOrTranslate(binding.tvBenefits, job.benefits ?: "Not mentioned", isUrdu)
+                    setTextOrTranslate(binding.tvQualifications, job.qualifications ?: "General", isUrdu)
+                    
                     if (job.status != "open" || currentUserRole == "seeker") {
                         binding.btnConfirmApply.visibility = View.GONE
                     } else {
                         binding.btnConfirmApply.visibility = View.VISIBLE
                     }
 
-                    // Handle missing image gracefully
                     if (!job.jobPhotoBase64.isNullOrEmpty()) {
                         loadBase64Image(this, job.jobPhotoBase64, binding.ivJobPoster, R.drawable.header_gradient_curved)
                     } else {
                         binding.ivJobPoster.setImageResource(R.drawable.header_gradient_curved)
                     }
+
+                    trackJobView(job)
                 }
             }
         }.addOnFailureListener {
             binding.progressBar.visibility = View.GONE
             Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setTextOrTranslate(textView: TextView, text: String?, isUrdu: Boolean) {
+        if (text == null) return
+        if (isUrdu) {
+            TranslatorUtil.translateText(text) { translated ->
+                textView.text = translated
+            }
+        } else {
+            textView.text = text
+        }
+    }
+
+    private fun trackJobView(job: JobModel) {
+        val currentUid = auth.currentUser?.uid ?: return
+        if (job.seekerId == currentUid) return
+        if (currentUserRole != "seeker") {
+            if (!job.viewedBy.contains(currentUid)) {
+                db.collection("jobs").document(job.jobId!!).update(
+                    "viewsCount", FieldValue.increment(1),
+                    "viewedBy", FieldValue.arrayUnion(currentUid)
+                )
+            }
         }
     }
 

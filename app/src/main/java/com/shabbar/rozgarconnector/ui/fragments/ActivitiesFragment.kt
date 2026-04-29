@@ -20,6 +20,7 @@ import com.shabbar.rozgarconnector.models.ActivitiesModel
 import com.shabbar.rozgarconnector.ui.job.JobPostActivity
 import com.shabbar.rozgarconnector.ui.job.WorkPostActivity
 import com.shabbar.rozgarconnector.ui.seeker.SeekerDetailActivity
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
 
 class ActivitiesFragment : Fragment() {
@@ -62,16 +63,21 @@ class ActivitiesFragment : Fragment() {
 
     private fun updateUIForRole() {
         if (!isAdded) return
+        
         if (userRole == "seeker") {
             binding.chipMyJobs.visibility = View.VISIBLE
             binding.chipMyWorks.visibility = View.VISIBLE
-            binding.chipOffers.text = "Sent Offers"
-            binding.chipApplications.text = "Worker Apps"
+            
+            // Translate seeker chip labels
+            binding.chipOffers.text = getString(R.string.sent_offers)
+            binding.chipApplications.text = getString(R.string.worker_apps)
         } else {
             binding.chipMyJobs.visibility = View.GONE
             binding.chipMyWorks.visibility = View.GONE
-            binding.chipOffers.text = "Hire Requests"
-            binding.chipApplications.text = "Applied Jobs"
+            
+            // Translate provider chip labels
+            binding.chipOffers.text = getString(R.string.hire_requests)
+            binding.chipApplications.text = getString(R.string.applied_jobs)
         }
         applyFilter("active")
     }
@@ -117,6 +123,7 @@ class ActivitiesFragment : Fragment() {
                     location = doc.getString("city") ?: "N/A"
                     status = doc.getString("status") ?: "open"
                     timestamp = doc.getTimestamp("timestamp")
+                    viewsCount = doc.getLong("viewsCount")?.toInt() ?: 0 // POPULATE VIEWS COUNT
                     this.type = if (type == "educated") "myjob" else "mywork"
                 }
                 myPostedItems.add(item)
@@ -136,7 +143,6 @@ class ActivitiesFragment : Fragment() {
         displayList.clear()
 
         val filteredResult = when (currentFilter) {
-            // WORKFLOW REPAIR: Only show 'open' status in my posted tabs
             "myjobs" -> myPostedItems.filter { it.type == "myjob" && it.status == "open" }
             "myworks" -> myPostedItems.filter { it.type == "mywork" && it.status == "open" }
             
@@ -168,14 +174,15 @@ class ActivitiesFragment : Fragment() {
         }
         
         binding.llEmptyState.visibility = View.GONE
+        
         val header = when (currentFilter) {
-            "myjobs" -> "Active Professional Posts 📋"
-            "myworks" -> "Active Manual Posts 🛠️"
-            "active" -> "Contracts In Progress ⚒️"
-            "history" -> "Job Records 📜"
-            "hire" -> if(userRole == "seeker") "Sent Offers 💼" else "Hire Requests 📩"
-            "job" -> if(userRole == "seeker") "Worker Applications 📄" else "My Applications 📄"
-            else -> "Activities"
+            "myjobs" -> getString(R.string.header_my_jobs)
+            "myworks" -> getString(R.string.header_my_works)
+            "active" -> getString(R.string.header_active_contracts)
+            "history" -> getString(R.string.header_history)
+            "hire" -> if(userRole == "seeker") getString(R.string.header_sent_offers) else getString(R.string.header_hire_requests)
+            "job" -> if(userRole == "seeker") getString(R.string.header_worker_apps) else getString(R.string.header_my_apps)
+            else -> getString(R.string.notifications)
         }
         
         displayList.add(header)

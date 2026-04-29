@@ -53,11 +53,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:checked="true"
-                android:text="Active Contracts"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/white"
+                android:text="@string/active_contracts"
+                android:textColor="@color/chip_hub_text_toggle"
+                app:chipBackgroundColor="@color/chip_hub_bg_toggle"
                 app:chipCornerRadius="16dp"
-                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeColor="@color/chip_hub_stroke_toggle"
                 app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
@@ -65,12 +65,12 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="My Posted Jobs"
+                android:text="@string/header_my_jobs"
                 android:visibility="gone"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/white"
+                android:textColor="@color/chip_hub_text_toggle"
+                app:chipBackgroundColor="@color/chip_hub_bg_toggle"
                 app:chipCornerRadius="16dp"
-                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeColor="@color/chip_hub_stroke_toggle"
                 app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
@@ -78,12 +78,12 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="My Posted Works"
+                android:text="@string/header_my_works"
                 android:visibility="gone"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/white"
+                android:textColor="@color/chip_hub_text_toggle"
+                app:chipBackgroundColor="@color/chip_hub_bg_toggle"
                 app:chipCornerRadius="16dp"
-                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeColor="@color/chip_hub_stroke_toggle"
                 app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
@@ -91,11 +91,11 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Sent Offers"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/white"
+                android:text="@string/offers"
+                android:textColor="@color/chip_hub_text_toggle"
+                app:chipBackgroundColor="@color/chip_hub_bg_toggle"
                 app:chipCornerRadius="16dp"
-                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeColor="@color/chip_hub_stroke_toggle"
                 app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
@@ -103,11 +103,11 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Applications"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/white"
+                android:text="@string/applications"
+                android:textColor="@color/chip_hub_text_toggle"
+                app:chipBackgroundColor="@color/chip_hub_bg_toggle"
                 app:chipCornerRadius="16dp"
-                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeColor="@color/chip_hub_stroke_toggle"
                 app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
@@ -115,11 +115,11 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="History"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/white"
+                android:text="@string/history"
+                android:textColor="@color/chip_hub_text_toggle"
+                app:chipBackgroundColor="@color/chip_hub_bg_toggle"
                 app:chipCornerRadius="16dp"
-                app:chipStrokeColor="#DCE6CC"
+                app:chipStrokeColor="@color/chip_hub_stroke_toggle"
                 app:chipStrokeWidth="1dp" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:alpha="0.4"
-            android:text="No activities yet."
+            android:text="@string/no_activities_yet"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />

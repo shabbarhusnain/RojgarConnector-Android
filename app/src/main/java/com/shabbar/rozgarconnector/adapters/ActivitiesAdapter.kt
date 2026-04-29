@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
 import com.shabbar.rozgarconnector.models.ActivitiesModel
 import com.shabbar.rozgarconnector.ui.messaging.ChatActivity
+import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,6 +44,7 @@ class ActivitiesAdapter(
         val message: TextView = view.findViewById(R.id.tvNotificationMessage)
         val timestamp: TextView = view.findViewById(R.id.tvNotificationTimestamp)
         val statusLabel: TextView = view.findViewById(R.id.tvStatusLabel)
+        val viewsCount: TextView = view.findViewById(R.id.tvViewsCount)
         val btnChat: Button = view.findViewById(R.id.btnChat)
         val btnCancel: Button = view.findViewById(R.id.btnCancel)
         val btnComplete: Button = view.findViewById(R.id.btnComplete)
@@ -66,7 +68,12 @@ class ActivitiesAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is HeaderViewHolder) {
-            holder.tvHeader.text = itemList[position] as String
+            val headerText = itemList[position] as String
+            if (TranslatorUtil.isUrduEnabled(holder.itemView.context)) {
+                TranslatorUtil.translateText(headerText) { holder.tvHeader.text = it }
+            } else {
+                holder.tvHeader.text = headerText
+            }
         } else if (holder is ItemViewHolder) {
             val activity = itemList[position] as ActivitiesModel
             bindActivityItem(holder, activity)
@@ -79,6 +86,7 @@ class ActivitiesAdapter(
         val status = (activity.status ?: "").lowercase()
         val type = (activity.type ?: "").lowercase()
         val isSender = activity.senderId == currentUserId
+        val isUrdu = TranslatorUtil.isUrduEnabled(context)
 
         holder.btnEdit.visibility = View.GONE
         holder.btnDelete.visibility = View.GONE
@@ -86,24 +94,43 @@ class ActivitiesAdapter(
         holder.btnEmergency.visibility = View.GONE
         holder.btnComplete.visibility = View.GONE
         holder.btnCancel.visibility = View.GONE
+        holder.viewsCount.visibility = View.GONE
         holder.redDot.visibility = if (!activity.isRead) View.VISIBLE else View.GONE
 
+        // --- Translation Logic for Titles and Messages ---
+        val rawTitle = if (type == "myjob" || type == "mywork") (activity.taskTitle ?: activity.title) else (if (type == "hire") "Job Offer" else "Application")
+        if (isUrdu) {
+            TranslatorUtil.translateText(rawTitle ?: "") { holder.title.text = it }
+        } else {
+            holder.title.text = rawTitle
+        }
+
         if (type == "myjob" || type == "mywork") {
-            holder.title.text = activity.taskTitle ?: activity.title
-            holder.message.text = "Status: ${status.uppercase()}\nBudget: Rs. ${activity.budget}\nLocation: ${activity.location}"
+            val rawMsg = "Status: ${status.uppercase()}\nBudget: Rs. ${activity.budget}\nLocation: ${activity.location}"
+            if (isUrdu) {
+                TranslatorUtil.translateText(rawMsg) { holder.message.text = it }
+            } else {
+                holder.message.text = rawMsg
+            }
             holder.btnEdit.visibility = View.VISIBLE
             holder.btnDelete.visibility = View.VISIBLE
             holder.statusLabel.text = status.uppercase()
             holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FF9800"))
-        } else {
-            holder.title.text = if (type == "hire") "Job Offer" else "Application"
             
+            holder.viewsCount.visibility = View.VISIBLE
+            holder.viewsCount.text = "${activity.viewsCount} Views"
+        } else {
             val details = StringBuilder()
             details.append("OFFICIAL WORK DETAILS:\n")
             details.append("• Task: ${activity.taskTitle ?: "N/A"}\n")
             details.append("• Budget: Rs. ${activity.budget ?: "0"}\n")
             details.append("• Location: ${activity.location ?: "N/A"}")
-            holder.message.text = details.toString()
+            
+            if (isUrdu) {
+                TranslatorUtil.translateText(details.toString()) { holder.message.text = it }
+            } else {
+                holder.message.text = details.toString()
+            }
 
             val isISeeker = if (type == "hire") activity.senderId == currentUserId else activity.receiverId == currentUserId
             val userHasFinished = if (isISeeker) activity.seekerConfirmed else activity.workerConfirmed
@@ -112,12 +139,12 @@ class ActivitiesAdapter(
                 "pending" -> {
                     if (isSender) {
                         holder.btnCancel.visibility = View.VISIBLE
-                        holder.btnCancel.text = "CANCEL"
+                        holder.btnCancel.text = if(isUrdu) "منسوخ کریں" else "CANCEL"
                     } else {
                         holder.btnComplete.visibility = View.VISIBLE
-                        holder.btnComplete.text = "ACCEPT"
+                        holder.btnComplete.text = if(isUrdu) "قبول کریں" else "ACCEPT"
                         holder.btnCancel.visibility = View.VISIBLE
-                        holder.btnCancel.text = "REJECT"
+                        holder.btnCancel.text = if(isUrdu) "مسترد کریں" else "REJECT"
                     }
                     holder.statusLabel.text = "PENDING"
                     holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FF9800"))
@@ -127,23 +154,23 @@ class ActivitiesAdapter(
                     holder.btnEmergency.visibility = View.VISIBLE
                     if (!userHasFinished) {
                         holder.btnComplete.visibility = View.VISIBLE
-                        holder.btnComplete.text = "FINISH JOB"
+                        holder.btnComplete.text = if(isUrdu) "کام مکمل" else "FINISH JOB"
                     }
                     
                     if (userHasFinished) {
                         holder.statusLabel.text = "WAITING"
                         holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FF9800"))
-                        holder.tvWorkInProgress.text = "Waiting for other party"
+                        holder.tvWorkInProgress.text = if(isUrdu) "دوسرے فریق کا انتظار ہے" else "Waiting for other party"
                     } else {
                         holder.statusLabel.text = "ACTIVE"
                         holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#4CAF50"))
-                        holder.tvWorkInProgress.text = "Work in Progress"
+                        holder.tvWorkInProgress.text = if(isUrdu) "کام جاری ہے" else "Work in Progress"
                     }
                 }
                 "completed" -> {
                     holder.statusLabel.text = "COMPLETED"
                     holder.statusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#2196F3"))
-                    holder.tvWorkInProgress.text = "✅ Job Finished"
+                    holder.tvWorkInProgress.text = if(isUrdu) "کام مکمل ہو گیا" else "✅ Job Finished"
                 }
             }
         }
@@ -152,8 +179,7 @@ class ActivitiesAdapter(
         holder.timestamp.text = activity.timestamp?.toDate()?.let { sdf.format(it) } ?: "Now"
 
         holder.btnComplete.setOnClickListener {
-            if (holder.btnComplete.text == "ACCEPT") {
-                // WORKFLOW FIX: Update both Notification and Job status
+            if (holder.btnComplete.text.toString().contains("ACCEPT", true) || holder.btnComplete.text.toString().contains("قبول", true)) {
                 val batch = db.batch()
                 val notifRef = db.collection("notifications").document(activity.notificationId!!)
                 batch.update(notifRef, "status", "accepted")
@@ -165,7 +191,7 @@ class ActivitiesAdapter(
                 }
                 
                 batch.commit().addOnSuccessListener {
-                    Toast.makeText(context, "Job Started!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, if(isUrdu) "کام شروع ہو گیا!" else "Job Started!", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 onFinishClick(activity)
@@ -173,7 +199,8 @@ class ActivitiesAdapter(
         }
 
         holder.btnCancel.setOnClickListener {
-            val newStatus = if (holder.btnCancel.text == "REJECT") "rejected" else "cancelled"
+            val btnText = holder.btnCancel.text.toString()
+            val newStatus = if (btnText.contains("REJECT", true) || btnText.contains("مسترد", true)) "rejected" else "cancelled"
             db.collection("notifications").document(activity.notificationId!!).update("status", newStatus)
         }
 

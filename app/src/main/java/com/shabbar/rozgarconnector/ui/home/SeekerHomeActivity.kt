@@ -53,6 +53,21 @@ class SeekerHomeActivity : AppCompatActivity() {
                 add(R.id.fragment_container, seekerHomeFragment, "home")
             }.commit()
             activeFragment = seekerHomeFragment
+        } else {
+            // Restore fragments after recreation (e.g., after language change)
+            seekerHomeFragment = supportFragmentManager.findFragmentByTag("home") as SeekerHomeFragment
+            activitiesFragment = supportFragmentManager.findFragmentByTag("activities") as ActivitiesFragment
+            messagesFragment = supportFragmentManager.findFragmentByTag("messages") as MessagesFragment
+            profileFragment = supportFragmentManager.findFragmentByTag("profile") as ProfileFragment
+            
+            // Find which one was active
+            activeFragment = when {
+                !seekerHomeFragment.isHidden -> seekerHomeFragment
+                !activitiesFragment.isHidden -> activitiesFragment
+                !messagesFragment.isHidden -> messagesFragment
+                !profileFragment.isHidden -> profileFragment
+                else -> seekerHomeFragment
+            }
         }
 
         binding.bottomNav.setOnItemSelectedListener { item ->

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When Chip is selected, text should be White (inverted from Green bg) -->
+    <item android:state_checked="true" android:color="@color/white" />
+    <!-- When Chip is unselected, text should be Black -->
+    <item android:color="@color/black" />
+</selector>

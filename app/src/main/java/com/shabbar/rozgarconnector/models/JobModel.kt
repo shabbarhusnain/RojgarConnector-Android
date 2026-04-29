@@ -23,6 +23,10 @@ data class JobModel(
     var timestamp: Timestamp? = null,
     var applicants: List<String>? = arrayListOf(),
     
+    // View Tracking
+    var viewsCount: Int = 0,
+    var viewedBy: List<String> = arrayListOf(),
+    
     // Step 1: Ethical & Professional Enhancements
     var isNegotiable: Boolean = false,
     var toolsProvidedBy: String? = "Seeker", 

@@ -26,6 +26,7 @@ data class ActivitiesModel(
     var budget: String? = "",
     var taskTitle: String? = "",
     var location: String? = "",
+    var viewsCount: Int = 0, // Added for tracking post engagement
     
     // Mutual Confirmation Checklist Flags
     var seekerConfirmed: Boolean = false,

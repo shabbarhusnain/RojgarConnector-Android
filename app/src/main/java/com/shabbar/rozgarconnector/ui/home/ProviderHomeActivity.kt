@@ -67,7 +67,6 @@ class ProviderHomeActivity : AppCompatActivity() {
 
         listenForBadges()
     }
-
     private fun showFragment(fragment: Fragment) {
         if (activeFragment == fragment) return
         supportFragmentManager.beginTransaction().hide(activeFragment!!).show(fragment).commit()

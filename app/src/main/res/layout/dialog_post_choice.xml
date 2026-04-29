@@ -15,9 +15,10 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/tvChoiceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="What do you want to post?"
+            android:text="@string/choose_your_role"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -30,7 +31,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Professional Job\n(Educated Workers)"
+            android:text="@string/educated_worker"
             android:textAllCaps="false"
             android:textSize="14sp"
             android:textColor="@color/primary_green"
@@ -45,7 +46,7 @@
             android:id="@+id/btnChoiceManual"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Manual Work / Task\n(Skilled Workers)"
+            android:text="@string/un_educated_worker"
             android:textAllCaps="false"
             android:textSize="14sp"
             android:backgroundTint="@color/primary_green"
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="Not Now"
+            android:text="@string/not_now"
             android:textColor="@color/grey" />
 
     </LinearLayout>

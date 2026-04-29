@@ -76,7 +76,7 @@
             android:layout_width="@dimen/icon_2xlarge"
             android:layout_height="@dimen/icon_2xlarge"
             android:alpha="0.2"
-            android:src="@drawable/ic_notification" />
+            android:src="@drawable/ic_bell" />
 
         <TextView
             android:layout_width="wrap_content"
