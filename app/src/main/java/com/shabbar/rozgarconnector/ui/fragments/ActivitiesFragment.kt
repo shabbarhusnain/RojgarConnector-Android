@@ -1,7 +1,6 @@
 package com.shabbar.rozgarconnector.ui.fragments
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shabbar.rozgarconnector.R
@@ -20,7 +18,6 @@ import com.shabbar.rozgarconnector.models.ActivitiesModel
 import com.shabbar.rozgarconnector.ui.job.JobPostActivity
 import com.shabbar.rozgarconnector.ui.job.WorkPostActivity
 import com.shabbar.rozgarconnector.ui.seeker.SeekerDetailActivity
-import com.shabbar.rozgarconnector.utils.TranslatorUtil
 import com.shabbar.rozgarconnector.ui.worker.WorkerDetailActivity
 
 class ActivitiesFragment : Fragment() {
@@ -67,15 +64,11 @@ class ActivitiesFragment : Fragment() {
         if (userRole == "seeker") {
             binding.chipMyJobs.visibility = View.VISIBLE
             binding.chipMyWorks.visibility = View.VISIBLE
-            
-            // Translate seeker chip labels
             binding.chipOffers.text = getString(R.string.sent_offers)
             binding.chipApplications.text = getString(R.string.worker_apps)
         } else {
             binding.chipMyJobs.visibility = View.GONE
             binding.chipMyWorks.visibility = View.GONE
-            
-            // Translate provider chip labels
             binding.chipOffers.text = getString(R.string.hire_requests)
             binding.chipApplications.text = getString(R.string.applied_jobs)
         }
@@ -99,7 +92,6 @@ class ActivitiesFragment : Fragment() {
     private fun startRealtimeSync() {
         val uid = auth.currentUser?.uid ?: return
 
-        // Sync Notifications (Contracts/Apps)
         db.collection("notifications").addSnapshotListener { snapshots, _ ->
             if (!isAdded) return@addSnapshotListener
             allNotifications.clear()
@@ -110,7 +102,6 @@ class ActivitiesFragment : Fragment() {
             refreshData()
         }
 
-        // Sync My Posts (Jobs/Works)
         db.collection("jobs").whereEqualTo("seekerId", uid).addSnapshotListener { snapshots, _ ->
             if (!isAdded) return@addSnapshotListener
             myPostedItems.clear()
@@ -120,10 +111,11 @@ class ActivitiesFragment : Fragment() {
                     notificationId = doc.id
                     taskTitle = doc.getString("jobTitle") ?: "Untitled"
                     budget = doc.getString("payAmount") ?: "0"
-                    location = doc.getString("city") ?: "N/A"
+                    // FIXED: Using "district" instead of "city"
+                    location = doc.getString("district") ?: "N/A"
                     status = doc.getString("status") ?: "open"
                     timestamp = doc.getTimestamp("timestamp")
-                    viewsCount = doc.getLong("viewsCount")?.toInt() ?: 0 // POPULATE VIEWS COUNT
+                    viewsCount = doc.getLong("viewsCount")?.toInt() ?: 0
                     this.type = if (type == "educated") "myjob" else "mywork"
                 }
                 myPostedItems.add(item)
@@ -145,7 +137,6 @@ class ActivitiesFragment : Fragment() {
         val filteredResult = when (currentFilter) {
             "myjobs" -> myPostedItems.filter { it.type == "myjob" && it.status == "open" }
             "myworks" -> myPostedItems.filter { it.type == "mywork" && it.status == "open" }
-            
             "active" -> allNotifications.filter { 
                 val status = it.status?.lowercase() ?: ""
                 val isISeeker = if (it.type == "hire") it.senderId == uid else it.receiverId == uid

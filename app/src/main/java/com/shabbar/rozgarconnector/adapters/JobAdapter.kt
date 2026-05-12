@@ -31,27 +31,33 @@ class JobAdapter(
         val job = jobList[position]
         val context = holder.itemView.context
 
-        // Title Translation
+        // 1. Title Fix: Isay hamesha set karein takay gayab na ho
         val originalTitle = job.jobTitle ?: "No Title"
         holder.title?.text = originalTitle
         if (TranslatorUtil.isUrduEnabled(context)) {
             TranslatorUtil.translateText(originalTitle) { holder.title?.text = it }
         }
         
-        val wpName = job.workplaceName ?: "Company"
+        // 2. Workplace / Category
+        val wpName = if (job.workplaceName.isNullOrEmpty()) "Local" else job.workplaceName
         val wpType = if(job.workerType == "educated") "Professional" else "Skilled/Manual"
         holder.workplace?.text = "$wpName • $wpType"
         
-        val amount = job.payAmount ?: "0"
-        val unit = job.payUnit ?: "Job"
-        holder.salary?.text = "Rs. $amount / $unit"
+        // 3. --- CLEAN SALARY TAG ---
+        val amount = job.payAmount ?: ""
+        val unit = job.payUnit ?: ""
         
-        // Correct Location: Showing workplaceAddress written by Seeker
-        val jobLoc = job.workplaceAddress ?: "Not Specified"
-        holder.location?.text = jobLoc
-        if (TranslatorUtil.isUrduEnabled(context)) {
-            TranslatorUtil.translateText(jobLoc) { holder.location?.text = it }
+        // Agar "Depend" ka lafz kahin bhi hai toh chota text show karein
+        if (amount.contains("Depend", true) || unit.contains("Depend", true)) {
+            holder.salary?.text = if (TranslatorUtil.isUrduEnabled(context)) "قابلِ تبادلہ" else "Negotiable"
+        } else {
+            // Normal salary ke liye
+            holder.salary?.text = "Rs. $amount"
         }
+        
+        // 4. Location Fix
+        val jobLoc = if (!job.workplaceAddress.isNullOrEmpty()) job.workplaceAddress else (job.district ?: "N/A")
+        holder.location?.text = jobLoc
         
         holder.time?.text = "Active Now"
 

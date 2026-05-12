@@ -26,7 +26,7 @@ class JobPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJobPostBinding
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    private var jobImageBase64: String? = null // local variable
+    private var jobImageBase64: String? = null 
     private var editJobId: String? = null
 
     private val pickJobPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -34,7 +34,7 @@ class JobPostActivity : AppCompatActivity() {
             binding.ivJobPoster.setImageURI(uri)
             binding.ivJobPoster.setPadding(0, 0, 0, 0)
             binding.ivJobPoster.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
-            jobImageBase64 = uriToBase64(uri) // WorkPost wala function
+            jobImageBase64 = uriToBase64(uri)
             binding.ivRemovePhoto.visibility = View.VISIBLE
         }
     }
@@ -83,6 +83,15 @@ class JobPostActivity : AppCompatActivity() {
                 binding.etLastDate.setText(it.lastDateToApply)
                 binding.cbIsNegotiable.isChecked = it.isNegotiable
 
+                // FIXED: Typos in adapter references
+                val distAdapter = binding.spinnerDistrict.adapter as? ArrayAdapter<String>
+                val distPos = distAdapter?.getPosition(it.district ?: "") ?: -1
+                if (distPos >= 0) binding.spinnerDistrict.setSelection(distPos)
+
+                val catAdapter = binding.spinnerJobCategory.adapter as? ArrayAdapter<String>
+                val catPos = catAdapter?.getPosition(it.category ?: "") ?: -1
+                if (catPos >= 0) binding.spinnerJobCategory.setSelection(catPos)
+
                 jobImageBase64 = it.jobPhotoBase64
                 if (!jobImageBase64.isNullOrEmpty()) {
                     loadBase64Image(this, jobImageBase64, binding.ivJobPoster, R.drawable.ic_add_pic)
@@ -120,8 +129,6 @@ class JobPostActivity : AppCompatActivity() {
         }
 
         val id = editJobId ?: db.collection("jobs").document().id
-        
-        // Creating object and explicitly assigning variables from Activity
         val jobData = JobModel().apply {
             this.jobId = id
             this.seekerId = auth.currentUser?.uid
@@ -138,34 +145,26 @@ class JobPostActivity : AppCompatActivity() {
             this.benefits = binding.etBenefits.text.toString()
             this.lastDateToApply = binding.etLastDate.text.toString()
             this.isNegotiable = binding.cbIsNegotiable.isChecked
-            
-            // Explicitly using activity's variable to avoid any scope confusion
             this.jobPhotoBase64 = this@JobPostActivity.jobImageBase64
-            
             this.status = "open"
             this.timestamp = Timestamp.now()
         }
 
         db.collection("jobs").document(id).set(jobData).addOnSuccessListener {
-            Toast.makeText(this, "Published Successfully!", Toast.LENGTH_SHORT).show()
+            val msg = if (editJobId != null) "Job Updated!" else "Job Published!"
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             finish()
-        }.addOnFailureListener {
-            Toast.makeText(this, "Failed: ${it.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // Function identical to WorkPostActivity (Verified working)
     private fun uriToBase64(uri: Uri): String {
         return try {
             val inputStream = contentResolver.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             val outputStream = ByteArrayOutputStream()
-            // 25% quality works best for Firestore strings
             bitmap.compress(Bitmap.CompressFormat.JPEG, 25, outputStream)
             val byteArray = outputStream.toByteArray()
             Base64.encodeToString(byteArray, Base64.DEFAULT)
-        } catch (e: Exception) {
-            ""
-        }
+        } catch (e: Exception) { "" }
     }
 }

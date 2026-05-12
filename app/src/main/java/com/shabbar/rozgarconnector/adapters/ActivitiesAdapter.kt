@@ -97,7 +97,6 @@ class ActivitiesAdapter(
         holder.viewsCount.visibility = View.GONE
         holder.redDot.visibility = if (!activity.isRead) View.VISIBLE else View.GONE
 
-        // --- Translation Logic for Titles and Messages ---
         val rawTitle = if (type == "myjob" || type == "mywork") (activity.taskTitle ?: activity.title) else (if (type == "hire") "Job Offer" else "Application")
         if (isUrdu) {
             TranslatorUtil.translateText(rawTitle ?: "") { holder.title.text = it }
@@ -177,6 +176,10 @@ class ActivitiesAdapter(
 
         val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
         holder.timestamp.text = activity.timestamp?.toDate()?.let { sdf.format(it) } ?: "Now"
+
+        // --- All Click Listeners ---
+        holder.btnEdit.setOnClickListener { onEditJob(activity) }
+        holder.btnDelete.setOnClickListener { onDeleteJob(activity) }
 
         holder.btnComplete.setOnClickListener {
             if (holder.btnComplete.text.toString().contains("ACCEPT", true) || holder.btnComplete.text.toString().contains("قبول", true)) {
