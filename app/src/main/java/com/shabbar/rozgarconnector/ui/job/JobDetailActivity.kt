@@ -91,10 +91,15 @@ class JobDetailActivity : AppCompatActivity() {
                         binding.btnConfirmApply.visibility = View.VISIBLE
                     }
 
+                    // --- Image Loading Fix ---
                     if (!job.jobPhotoBase64.isNullOrEmpty()) {
+                        binding.ivJobPoster.setPadding(0, 0, 0, 0)
+                        binding.ivJobPoster.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
                         loadBase64Image(this, job.jobPhotoBase64, binding.ivJobPoster, R.drawable.header_gradient_curved)
                     } else {
                         binding.ivJobPoster.setImageResource(R.drawable.header_gradient_curved)
+                        binding.ivJobPoster.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                        binding.ivJobPoster.setPadding(0,0,0,0)
                     }
 
                     trackJobView(job)
@@ -102,7 +107,7 @@ class JobDetailActivity : AppCompatActivity() {
             }
         }.addOnFailureListener {
             binding.progressBar.visibility = View.GONE
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Failed to load details", Toast.LENGTH_SHORT).show()
         }
     }
 

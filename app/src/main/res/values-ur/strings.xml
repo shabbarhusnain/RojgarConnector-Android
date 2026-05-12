@@ -147,17 +147,88 @@
     <!-- Arrays -->
     <string-array name="pakistan_districts">
         <item>ضلع منتخب کریں</item>
-        <item>چنیوٹ</item><item>لاہور</item><item>فیصل آباد</item><item>ملتان</item>
-        <item>راولپنڈی</item><item>سرگودھا</item><item>گوجرانوالہ</item><item>سیالکوٹ</item>
+        <item>چنیوٹ</item>
+        <item>لاہور</item>
+        <item>فیصل آباد</item>
+        <item>ملتان</item>
+        <item>راولپنڈی</item>
+        <item>سرگودھا</item>
+        <item>گوجرانوالہ</item>
+        <item>سیالکوٹ</item>
+        <item>بہاولپور</item>
+        <item>گجرات</item>
+        <item>شیخوپورہ</item>
+        <item>جھنگ</item>
+        <item>رحیم یار خان</item>
+        <item>ساہیوال</item>
+        <item>اوکاڑہ</item>
+        <item>قصور</item>
+        <item>ڈیرہ غازی خان</item>
+        <item>واہ کینٹ</item>
     </string-array>
     <string-array name="educated_job_categories">
         <item>کیٹیگری منتخب کریں</item>
-        <item>سافٹ ویئر انجینئرنگ</item><item>ٹیچنگ</item><item>میڈیکل</item><item>اکاؤنٹنگ</item>
+        <item>سافٹ ویئر انجینئرنگ</item>
+        <item>ٹیچنگ</item>
+        <item>میڈیکل</item>
+        <item>اکاؤنٹنگ</item>
+        <item>ڈیٹا سائنس</item>
+        <item>آرکیٹیکچر</item>
+        <item>سول انجینئرنگ</item>
+        <item>ڈیجیٹل مارکیٹنگ</item>
+        <item>ہیومن ریسورس (HR)</item>
+        <item>بینکاری</item>
+        <item>قانونی خدمات</item>
+        <item>گرافک ڈیزائننگ</item>
+        <item>پروجیکٹ مینجمنٹ</item>
+        <item>فارمیسی</item>
+        <item>کنٹینٹ رائٹنگ</item>
+        <item>مکینیکل انجینئرنگ</item>
+        <item>الیکٹریکل انجینئرنگ</item>
+        <item>بزنس ایڈمنسٹریشن</item>
+        <item>نرسنگ</item>
+        <item>نفسیات اور کونسلنگ</item>
+        <item>تعلقات عامہ</item>
+        <item>انفارمیشن ٹیکنالوجی (IT)</item>
+        <item>میڈیا اور صحافت</item>
+        <item>ہوٹل مینجمنٹ اور سیاحت</item>
+        <item>رئیل اسٹیٹ مینجمنٹ</item>
+        <item>سپلائی چین مینجمنٹ</item>
+        <item>کسٹمر سپورٹ</item>
+        <item>فیشن ڈیزائننگ</item>
+        <item>انٹیریئر ڈیزائننگ</item>
+        <item>غذائیت اور ڈائیٹیٹکس</item>
+        <item>تحقیق اور تجزیہ</item>
+        <item>ای کامرس مینجمنٹ</item>
     </string-array>
     <string-array name="uneducated_skill_categories">
         <item>ہنر منتخب کریں</item>
-        <item>الیکٹریشن</item><item>پلمبر</item><item>مکینک</item><item>مستری</item>
+        <item>الیکٹریشن</item>
+        <item>پلمبر</item>
+        <item>مکینک</item>
+        <item>مستری</item>
+        <item>ترکھان</item>
+        <item>ویلڈر</item>
+        <item>پینٹر</item>
+        <item>اے سی ٹیکنیشن</item>
+        <item>درزی</item>
+        <item>ڈرائیور</item>
+        <item>مالی</item>
+        <item>باورچی</item>
+        <item>لوہار</item>
+        <item>حجام</item>
+        <item>مزدور</item>
+        <item>سیکورٹی گارڈ</item>
+        <item>ٹائل اور ماربل فکسر</item>
+        <item>شٹرنگ والا</item>
+        <item>بائیک مکینک</item>
+        <item>جنریٹر مکینک</item>
+        <item>ڈیلیوری رائیڈر</item>
+        <item>واشنگ مشین ریپیئرر</item>
+        <item>ڈش انٹینا ٹیکنیشن</item>
+        <item>سولر پینل انسٹالر</item>
     </string-array>
+
 
     <!-- Profile -->
     <string name="basic_info">بنیادی معلومات</string>

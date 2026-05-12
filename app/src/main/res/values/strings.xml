@@ -147,17 +147,88 @@
     <!-- Arrays -->
     <string-array name="pakistan_districts">
         <item>Select District</item>
-        <item>Chiniot</item><item>Lahore</item><item>Faisalabad</item><item>Multan</item>
-        <item>Rawalpindi</item><item>Sargodha</item><item>Gujranwala</item><item>Sialkot</item>
+        <item>Chiniot</item>
+        <item>Lahore</item>
+        <item>Faisalabad</item>
+        <item>Multan</item>
+        <item>Rawalpindi</item>
+        <item>Sargodha</item>
+        <item>Gujranwala</item>
+        <item>Sialkot</item>
+        <item>Bahawalpur</item>
+        <item>Gujrat</item>
+        <item>Sheikhupura</item>
+        <item>Jhang</item>
+        <item>Rahim Yar Khan</item>
+        <item>Sahiwal</item>
+        <item>Okara</item>
+        <item>Kasur</item>
+        <item>Dera Ghazi Khan</item>
+        <item>Wah Cantt</item>
     </string-array>
     <string-array name="educated_job_categories">
         <item>Select Job Category</item>
-        <item>Software Engineering</item><item>Teaching</item><item>Medical</item><item>Accounting</item>
+        <item>Software Engineering</item>
+        <item>Teaching</item>
+        <item>Medical</item>
+        <item>Accounting</item>
+        <item>Data Science</item>
+        <item>Architecture</item>
+        <item>Civil Engineering</item>
+        <item>Digital Marketing</item>
+        <item>Human Resources (HR)</item>
+        <item>Banking</item>
+        <item>Legal Services</item>
+        <item>Graphic Designing</item>
+        <item>Project Management</item>
+        <item>Pharmacy</item>
+        <item>Content Writing</item>
+        <item>Mechanical Engineering</item>
+        <item>Electrical Engineering</item>
+        <item>Business Administration</item>
+        <item>Nursing</item>
+        <item>Psychology </item>
+        <item>Public Relations</item>
+        <item>Information Technology (IT)</item>
+        <item>Media </item>
+        <item>Hospitality</item>
+        <item>Real Estate Management</item>
+        <item>Supply Chain Management</item>
+        <item>Customer Support</item>
+        <item>Fashion Designing</item>
+        <item>Interior Designing</item>
+        <item>Nutritionist </item>
+        <item>Research </item>
+        <item>E-commerce Management</item>
     </string-array>
     <string-array name="uneducated_skill_categories">
         <item>Select Skill Category</item>
-        <item>Electrician</item><item>Plumber</item><item>Mechanic</item><item>Mason</item>
+        <item>Electrician</item>
+        <item>Plumber</item>
+        <item>Mechanic</item>
+        <item>Mason</item>
+        <item>Carpenter</item>
+        <item>Welder</item>
+        <item>Painter</item>
+        <item>AC Technician</item>
+        <item>Tailor</item>
+        <item>Driver</item>
+        <item>Gardener</item>
+        <item>Cook</item>
+        <item>Blacksmith</item>
+        <item>Barber</item>
+        <item>Laborer</item>
+        <item>Security Guard</item>
+        <item>Tiles and Marble Fixer</item>
+        <item>Scaffolder</item>
+        <item>Bike Mechanic</item>
+        <item>Generator Mechanic</item>
+        <item>Delivery Rider</item>
+        <item>Washing Machine Repairer</item>
+        <item>Dish Antenna Technician</item>
+        <item>Solar Panel Installer</item>
     </string-array>
+
 
     <!-- Profile -->
     <string name="basic_info">Basic Information</string>

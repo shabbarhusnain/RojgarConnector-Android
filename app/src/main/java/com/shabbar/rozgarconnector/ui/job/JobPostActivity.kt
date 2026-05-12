@@ -26,14 +26,15 @@ class JobPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJobPostBinding
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    private var jobPhotoBase64: String? = null
+    private var jobImageBase64: String? = null // local variable
     private var editJobId: String? = null
 
     private val pickJobPhoto = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) {
             binding.ivJobPoster.setImageURI(uri)
             binding.ivJobPoster.setPadding(0, 0, 0, 0)
-            jobPhotoBase64 = uriToBase64(uri)
+            binding.ivJobPoster.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+            jobImageBase64 = uriToBase64(uri) // WorkPost wala function
             binding.ivRemovePhoto.visibility = View.VISIBLE
         }
     }
@@ -45,23 +46,24 @@ class JobPostActivity : AppCompatActivity() {
 
         setupDistricts()
         setupCategories()
-        
+
         editJobId = intent.getStringExtra("EDIT_JOB_ID")
         if (editJobId != null) {
             binding.tvTitleHeader.text = "Edit Job Post"
             binding.btnPublishJob.text = "Update Job"
             loadJobDataForEdit(editJobId!!)
         }
-        
+
         binding.btnBack.setOnClickListener { finish() }
         binding.etLastDate.setOnClickListener { showDatePicker() }
         binding.btnUploadJobPhoto.setOnClickListener { pickJobPhoto.launch("image/*") }
         binding.btnPublishJob.setOnClickListener { validateAndPublish() }
 
         binding.ivRemovePhoto.setOnClickListener {
-            jobPhotoBase64 = null
-            binding.ivJobPoster.setImageResource(R.drawable.ic_add_circle)
+            jobImageBase64 = null
+            binding.ivJobPoster.setImageResource(R.drawable.ic_add_pic)
             binding.ivJobPoster.setPadding(24, 24, 24, 24)
+            binding.ivJobPoster.scaleType = android.widget.ImageView.ScaleType.CENTER_INSIDE
             binding.ivRemovePhoto.visibility = View.GONE
         }
     }
@@ -80,22 +82,13 @@ class JobPostActivity : AppCompatActivity() {
                 binding.etBenefits.setText(it.benefits)
                 binding.etLastDate.setText(it.lastDateToApply)
                 binding.cbIsNegotiable.isChecked = it.isNegotiable
-                
-                jobPhotoBase64 = it.jobPhotoBase64
-                if (!jobPhotoBase64.isNullOrEmpty()) {
-                    loadBase64Image(this, jobPhotoBase64, binding.ivJobPoster, R.drawable.ic_add_circle)
-                    binding.ivJobPoster.setPadding(0, 0, 0, 0)
-                    binding.ivRemovePhoto.visibility = View.VISIBLE
-                }
 
-                // Set Spinners
-                (binding.spinnerDistrict.adapter as? ArrayAdapter<String>)?.let { adapter ->
-                    val pos = adapter.getPosition(it.district)
-                    if (pos >= 0) binding.spinnerDistrict.setSelection(pos)
-                }
-                (binding.spinnerJobCategory.adapter as? ArrayAdapter<String>)?.let { adapter ->
-                    val pos = adapter.getPosition(it.category)
-                    if (pos >= 0) binding.spinnerJobCategory.setSelection(pos)
+                jobImageBase64 = it.jobPhotoBase64
+                if (!jobImageBase64.isNullOrEmpty()) {
+                    loadBase64Image(this, jobImageBase64, binding.ivJobPoster, R.drawable.ic_add_pic)
+                    binding.ivJobPoster.setPadding(0, 0, 0, 0)
+                    binding.ivJobPoster.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                    binding.ivRemovePhoto.visibility = View.VISIBLE
                 }
             }
         }
@@ -120,42 +113,59 @@ class JobPostActivity : AppCompatActivity() {
     private fun validateAndPublish() {
         val title = binding.etJobTitle.text.toString().trim()
         val amount = binding.etPayAmount.text.toString().trim()
-        
+
         if (title.isEmpty() || amount.isEmpty()) {
-            Toast.makeText(this, "Please fill main fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Title and Amount are required", Toast.LENGTH_SHORT).show()
             return
         }
 
         val id = editJobId ?: db.collection("jobs").document().id
+        
+        // Creating object and explicitly assigning variables from Activity
         val jobData = JobModel().apply {
-            this.jobId = id; this.seekerId = auth.currentUser?.uid; this.jobTitle = title
+            this.jobId = id
+            this.seekerId = auth.currentUser?.uid
+            this.jobTitle = title
             this.district = binding.spinnerDistrict.selectedItem.toString()
             this.category = binding.spinnerJobCategory.selectedItem.toString()
-            this.workerType = "educated"; this.workplaceAddress = binding.etWorkplaceAddress.text.toString()
+            this.workerType = "educated"
+            this.workplaceAddress = binding.etWorkplaceAddress.text.toString()
             this.workplaceName = binding.etWorkplaceName.text.toString()
             this.companyIntro = binding.etCompanyIntro.text.toString()
             this.jobDescription = binding.etJobDescription.text.toString()
             this.qualifications = binding.etQualifications.text.toString()
-            this.payAmount = amount; this.benefits = binding.etBenefits.text.toString()
+            this.payAmount = amount
+            this.benefits = binding.etBenefits.text.toString()
             this.lastDateToApply = binding.etLastDate.text.toString()
             this.isNegotiable = binding.cbIsNegotiable.isChecked
-            this.jobPhotoBase64 = jobPhotoBase64
-            this.status = "open"; this.timestamp = Timestamp.now()
+            
+            // Explicitly using activity's variable to avoid any scope confusion
+            this.jobPhotoBase64 = this@JobPostActivity.jobImageBase64
+            
+            this.status = "open"
+            this.timestamp = Timestamp.now()
         }
 
         db.collection("jobs").document(id).set(jobData).addOnSuccessListener {
-            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Published Successfully!", Toast.LENGTH_SHORT).show()
             finish()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed: ${it.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
+    // Function identical to WorkPostActivity (Verified working)
     private fun uriToBase64(uri: Uri): String {
         return try {
-            val stream = contentResolver.openInputStream(uri)
-            val bitmap = BitmapFactory.decodeStream(stream)
-            val out = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, out)
-            Base64.encodeToString(out.toByteArray(), Base64.DEFAULT)
-        } catch (e: Exception) { "" }
+            val inputStream = contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            val outputStream = ByteArrayOutputStream()
+            // 25% quality works best for Firestore strings
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, outputStream)
+            val byteArray = outputStream.toByteArray()
+            Base64.encodeToString(byteArray, Base64.DEFAULT)
+        } catch (e: Exception) {
+            ""
+        }
     }
 }

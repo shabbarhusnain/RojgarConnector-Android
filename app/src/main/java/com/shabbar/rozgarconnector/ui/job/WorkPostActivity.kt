@@ -60,7 +60,7 @@ class WorkPostActivity : AppCompatActivity() {
 
         binding.ivRemovePhoto.setOnClickListener {
             workPhotoBase64 = null
-            binding.ivWorkPhoto.setImageResource(R.drawable.ic_add_circle)
+            binding.ivWorkPhoto.setImageResource(R.drawable.ic_add_pic)
             binding.ivWorkPhoto.setPadding(40, 40, 40, 40)
             binding.ivRemovePhoto.visibility = View.GONE
         }
@@ -83,7 +83,7 @@ class WorkPostActivity : AppCompatActivity() {
 
                 workPhotoBase64 = it.jobPhotoBase64
                 if (!workPhotoBase64.isNullOrEmpty()) {
-                    loadBase64Image(this, workPhotoBase64, binding.ivWorkPhoto, R.drawable.ic_add_circle)
+                    loadBase64Image(this, workPhotoBase64, binding.ivWorkPhoto, R.drawable.ic_add_pic)
                     binding.ivWorkPhoto.setPadding(0, 0, 0, 0)
                     binding.ivRemovePhoto.visibility = View.VISIBLE
                 }
@@ -108,7 +108,7 @@ class WorkPostActivity : AppCompatActivity() {
         val categories = resources.getStringArray(R.array.uneducated_skill_categories)
         binding.spinnerWorkCategory.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, categories)
 
-        val strategies = arrayOf("Fixed Price", "Quote Requested", "Per hour Rate", "Daily Wage")
+        val strategies = arrayOf("Fixed Price", "Depend's on work", "Per hour Rate", "Daily Wage")
         binding.spinnerPaymentType.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, strategies)
 
         binding.spinnerPaymentType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -144,7 +144,7 @@ class WorkPostActivity : AppCompatActivity() {
             this.district = binding.spinnerDistrict.selectedItem.toString()
             this.category = binding.spinnerWorkCategory.selectedItem.toString()
             this.workerType = "uneducated"; this.workplaceAddress = binding.etWorkAddress.text.toString()
-            this.payAmount = if (binding.spinnerPaymentType.selectedItemPosition == 1) "Quote Requested" else binding.etWorkBudget.text.toString()
+            this.payAmount = if (binding.spinnerPaymentType.selectedItemPosition == 1) "Depend's on work" else binding.etWorkBudget.text.toString()
             this.payUnit = binding.spinnerPaymentType.selectedItem.toString()
             this.toolsProvidedBy = toolsBy; this.lastDateToApply = binding.etWorkDate.text.toString()
             this.isNegotiable = binding.cbIsNegotiable.isChecked; this.jobPhotoBase64 = workPhotoBase64

@@ -105,7 +105,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/ic_add_circle"
+                                android:src="@drawable/ic_add_pic"
                                 android:padding="40dp"
                                 app:tint="@color/grey" />
                         </com.google.android.material.card.MaterialCardView>
