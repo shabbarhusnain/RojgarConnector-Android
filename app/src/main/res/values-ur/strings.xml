@@ -29,10 +29,13 @@
     <string name="service_seeker">میں کام کروانا چاہتا ہوں</string>
     <string name="service_provider">میں کام کرنا چاہتا ہوں</string>
     <string name="educated_worker">پڑھا لکھا ورکر</string>
+    <string name="educated_job">تعلیم یافتہ کے لیے نوکری</string>
     <string name="un_educated_worker">ہنرمند / غیر تعلیم یافتہ ورکر</string>
+    <string name="un_educated_work">غیر تعلیم یافتہ کے لیے کام</string>
     <string name="confirm_and_continue">تصدیق کریں اور آگے بڑھیں</string>
     <string name="cnic_number">شناختی کارڈ نمبر</string>
     <string name="dob">تاریخِ پیدائش</string>
+    <string name="post_type">آپ کیا پوسٹ کرنا چاہتے ہیں؟</string>>
 
     <!-- Navigation & Menu -->
     <string name="home">ہوم</string>
@@ -60,8 +63,8 @@
     <string name="history">پچھلا ریکارڈ</string>
     <string name="no_activities_yet">ابھی تک کوئی سرگرمی نہیں ہے</string>
     <string name="not_now">ابھی نہیں</string>
-    <string name="header_my_jobs">فعال پیشہ ورانہ پوسٹس 📋</string>
-    <string name="header_my_works">فعال دستی کام کی پوسٹس 🛠️</string>
+    <string name="header_my_jobs">میری پوسٹ کردہ نوکریاں📋</string>
+    <string name="header_my_works">میرے پوسٹ کردہ کام🛠️</string>
     <string name="header_active_contracts">جاری معاہدے ⚒️</string>
     <string name="header_history">کام کا ریکارڈ 📜</string>
     <string name="header_sent_offers">بھیجی گئی آفرز 💼</string>

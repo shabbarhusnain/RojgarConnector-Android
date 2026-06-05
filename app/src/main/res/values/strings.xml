@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RozgarConnector</string>
+    <string name="app_name">Rozgar Connector</string>
     <string name="tagline">Local jobs and workers at your fingertips</string>
 
     <!-- Auth & Profile -->
@@ -10,7 +10,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="dont_have_account">Don\'t have an account? Sign up</string>
+    <string name="dont_have_account">Don\'t have an account? Register</string>
     <string name="create_account">Create Account</string>
     <string name="name_hint">Full Name</string>
     <string name="full_name">Full Name</string>
@@ -29,10 +29,13 @@
     <string name="service_seeker">I want to Hire</string>
     <string name="service_provider">I want to Work</string>
     <string name="educated_worker">Educated Provider</string>
+    <string name="educated_job">Job For Educated Provider</string>
     <string name="un_educated_worker">Skilled / Manual Provider</string>
+    <string name="un_educated_work">Work For Uneducated Provider</string>
     <string name="confirm_and_continue">Confirm and Continue</string>
     <string name="cnic_number">CNIC Number</string>
     <string name="dob">Date of Birth</string>
+    <string name="post_type">what do you want to post?</string>>
 
     <!-- Navigation & Menu -->
     <string name="home">Home</string>
@@ -60,10 +63,10 @@
     <string name="history">History</string>
     <string name="no_activities_yet">No activities yet.</string>
     <string name="not_now">Not Now</string>
-    <string name="header_my_jobs">Active Professional Posts 📋</string>
-    <string name="header_my_works">Active Manual Posts 🛠️</string>
+    <string name="header_my_jobs">My Posted jobs 📋</string>
+    <string name="header_my_works">My Posted Works 🛠️</string>
     <string name="header_active_contracts">Contracts In Progress ⚒️</string>
-    <string name="header_history">Job Records 📜</string>
+    <string name="header_history">Work History 📜</string>
     <string name="header_sent_offers">Sent Offers 💼</string>
     <string name="header_hire_requests">Hire Requests 📩</string>
     <string name="header_worker_apps">Worker Applications 📄</string>
